@@ -10,4 +10,16 @@ export default NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  callbacks: {
+    async session(session, user) {
+      session.user.id = user.id
+      return session
+    },
+  },
+  //TODO: Create a custom sign in page
+  //   pages: {
+  //     signIn: '/signin',
+  //   },
+  //A Database residing in MongoDB is used to persist user accounts
+  database: process.env.MONGODB_URI,
 })
