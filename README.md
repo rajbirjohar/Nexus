@@ -21,29 +21,31 @@
 
 
 ## Usage
-Demo: <Link to youtube video>
 
-<Screenshot of application>
+> Screenshot or GIF of website
 
-## How To Run
+### How To Run
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+1. Clone or fork this project on your local machine.
+2. Ensure you have [Node](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/) installed.
+3. Within the root directory, run `yarn` or `yarn install` to install all required packages needed for this project.
+4. Then run `yarn run dev` to start your local server at `http://localhost:3000` and enter this address in your favorite browswer.
+5. From here, you can edit and poke around and watch your changes hot update.
 
-```bash
-npx create-next-app --example with-mongodb with-mongodb-app
-# or
-yarn create next-app --example with-mongodb with-mongodb-app
-```
+⚠️ **Note: In order to achieve full functionality, you will need to configure your environment variables as explained below.**
 
 ## Configuration
 
 ### Set up a MongoDB database
 
-Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
+1. Set up a MongoDB database either locally or with [MongoDB Atlas for free](https://mongodb.com/atlas).
+2. Once you have created your cluster and database, select **Connect** to begin connecting your frontend to your database.
+3. You will need to create a database user and note down the username and password.
+4. Then select the method /FINISH FROM HERE/
 
 ### Set up environment variables
 
-Copy the `env.local.example` file in this directory to `.env.local` (which will be ignored by Git):
+Rename `.env.example` to `.env.local`
 
 ```bash
 cp .env.local.example .env.local
@@ -52,24 +54,6 @@ cp .env.local.example .env.local
 Set each variable on `.env.local`:
 
 - `MONGODB_URI` - Your MongoDB connection string. If you are using [MongoDB Atlas](https://mongodb.com/atlas) you can find this by clicking the "Connect" button for your cluster.
-
-### Run Next.js in development mode
-
-```bash
-npm install
-npm run dev
-
-# or
-
-yarn install
-yarn dev
-```
-
-Your app should be up and running on [http://localhost:3000](http://localhost:3000)! If it doesn't work, post on [GitHub discussions](https://github.com/vercel/next.js/discussions).
-
-You will either see a message stating "You are connected to MongoDB" or "You are NOT connected to MongoDB". Ensure that you have provided the correct `MONGODB_URI` environment variable.
-
-When you are successfully connected, you can refer to the [MongoDB Node.js Driver docs](https://mongodb.github.io/node-mongodb-native/3.4/tutorials/collections/) for further instructions on how to query your database.
 
 #### Deploy Your Local Project
 
@@ -95,7 +79,39 @@ Once you have access to the environment variables you'll need, deploy the exampl
 
 Sequence Diagram
 
-Frontend Structure
+### Frontend Structure
+
+```bash
+├── master
+│   ├── components
+│   │   ├── Header.js
+│   │   ├── Layout.js
+│   │   ├── ...
+│   ├── pages
+│   │   ├── index.js
+│   │   ├── _app.js
+│   │   ├── _document.js
+│   │   ├── api
+│   │   │   ├── auth
+│   │   │   ├── ...
+│   │   ├── ...
+│   ├── lib
+│   │   ├── mongodb.js
+│   │   ├── ...
+│   ├── styles
+│   │   ├── global.css
+│   │   ├── header.module.css
+│   │   ├── layout.module.css
+│   │   ├── ...
+│   ├── ...
+├── staging
+│   │   ├── pages
+│   │   ├── components
+│   │   ├── lib
+│   │   ├── styles
+│   ├── ...
+└── .gitignore
+```
 
 
 Overall System Diagram
