@@ -1,16 +1,27 @@
 .navigation {
   z-index: 10;
-  margin: auto auto var(--big-gap) auto;
+  margin: 0;
   position: sticky;
   padding: var(--gap-quarter) var(--gap-med);
   top: 0;
   background: var(--background);
   color: var(--foreground);
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.primary {
-  background: var(--purple-500);
-  color: var(--background);
+.primary,
+.secondary {
+  background: var(--purple-100);
+  color: var(--purple-800);
+  transition: background var(--transition);
+}
+
+.primary:hover {
+  background: var(--purple-200);
+}
+
+.secondary:hover {
+  background: var(--purple-300);
 }

@@ -7,11 +7,12 @@ export default function Header() {
 
   return (
     <nav className={styles.navigation}>
-      <ul>
+      <ThemeChanger />
+      <ul className={styles.linkwrapper}>
+        
         {session ? (
           <li>
-            Hello {session.user.name}!
-            <button onClick={() => signOut()}>Sign out</button>
+            <button className={styles.secondary} onClick={() => signOut()}>Sign out</button>
           </li>
         ) : (
           <li>
