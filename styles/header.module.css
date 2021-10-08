@@ -25,3 +25,21 @@
 .secondary:hover {
   background: var(--purple-300);
 }
+
+.themeWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.theme {
+  background: var(--gray-200);
+  color: var(--gray-800);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+}
+
+.theme:hover {
+  background: var(--gray-300);
+}

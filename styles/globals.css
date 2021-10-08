@@ -25,7 +25,14 @@
   /* Default theme */
   --background: #f7fafc;
   --foreground: #171923;
-  --foreground-2: #1a202c;
+  --gray-100: #edf2f7;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e0;
+  --gray-400: #a0aec0;
+  --gray-500: #718096;
+  --gray-600: #4a5568;
+  --gray-700: #2d3748;
+  --gray-800: #1a202c;
   --purple-50: #faf5ff;
   --purple-100: #e9d8fd;
   --purple-200: #d6bcfa;
@@ -44,7 +51,14 @@
 [data-theme='dark'] {
   --background: #171923;
   --foreground: #f7fafc;
-  --forground-2: #e2e8f0;
+  --gray-800: #edf2f7;
+  --gray-700: #e2e8f0;
+  --gray-600: #cbd5e0;
+  --gray-500: #a0aec0;
+  --gray-400: #718096;
+  --gray-300: #4a5568;
+  --gray-200: #2d3748;
+  --gray-100: #1a202c;
   --purple-900: #faf5ff;
   --purple-800: #e9d8fd;
   --purple-700: #d6bcfa;
@@ -96,7 +110,7 @@ body {
 p,
 li {
   font-size: 1.125rem;
-  color: var(--foreground-2);
+  color: var(--gray-800);
 }
 
 li {
