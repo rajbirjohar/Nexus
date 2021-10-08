@@ -41,10 +41,23 @@
   --red-800: #822727;
 }
 
-[data-theme='light'] {
+[data-theme='dark'] {
   --background: #171923;
   --foreground: #f7fafc;
   --forground-2: #e2e8f0;
+  --purple-900: #faf5ff;
+  --purple-800: #e9d8fd;
+  --purple-700: #d6bcfa;
+  --purple-600: #b794f4;
+  --purple-500: #9f7aea;
+  --purple-400: #805ad5;
+  --purple-300: #6b46c1;
+  --purple-200: #553c9a;
+  --purple-100: #44337a;
+  --purple-50: #322659;
+  --red-800: #feb2b2;
+  --red-500: #e53e3e;
+  --red-200: #822727;
 }
 
 * {
