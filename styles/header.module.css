@@ -1,6 +1,6 @@
 .navigation {
   z-index: 10;
-  margin: 0;
+  margin: 0 auto;
   position: sticky;
   padding: var(--gap-quarter) var(--gap-med);
   top: 0;
@@ -13,17 +13,17 @@
 
 .primary,
 .secondary {
-  background: var(--purple-100);
-  color: var(--purple-800);
+  background: var(--purple-300);
+  color: var(--purple-900);
   transition: background var(--transition);
 }
 
 .primary:hover {
-  background: var(--purple-200);
+  background: var(--purple-400);
 }
 
 .secondary:hover {
-  background: var(--purple-300);
+  background: var(--purple-500);
 }
 
 .themeWrapper {
