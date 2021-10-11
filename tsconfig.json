@@ -29,6 +29,6 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/api/entry/create.js"
-  ],
+, "lib/mongodb.js"  ],
   "exclude": ["node_modules"]
 }

@@ -3,6 +3,8 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from 'lib/mongodb'
 import GoogleProvider from 'next-auth/providers/google'
 
+const maxAge = 30 * 24 * 60 * 60 // 30 days
+
 export default async function auth(req, res) {
   return await NextAuth(req, res, {
     adapter: MongoDBAdapter({ db: (await clientPromise).db('NexusDatabase') }),
@@ -14,12 +16,22 @@ export default async function auth(req, res) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       }),
     ],
+    // jwt: {
+    //   signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
 
+    // You can also specify a public key for verification if using public/private key (but private only is fine)
+    // verificationKey: process.env.JWT_SIGNING_PUBLIC_KEY,
+
+    // If you want to use some key format other than HS512 you can specify custom options to use
+    // when verifying (note: verificationOptions should include a value for maxTokenAge as well).
+    // verificationOptions: {
+    //   maxTokenAge: `${maxAge}s`,
+    //   algorithms: ['HS512'],
+    // },
+    //},
     //TODO: Create a custom sign in page
     //   pages: {
     //     signIn: '/signin',
     //   },
-    //A Database residing in MongoDB is used to persist user accounts
-    database: process.env.MONGODB_URI,
   })
 }
