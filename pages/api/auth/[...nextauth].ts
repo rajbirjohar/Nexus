@@ -19,7 +19,5 @@ export default async function auth(req, res) {
     //   pages: {
     //     signIn: '/signin',
     //   },
-    //A Database residing in MongoDB is used to persist user accounts
-    database: process.env.MONGODB_URI,
   })
 }
