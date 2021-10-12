@@ -30,6 +30,16 @@
 
 Hey I'm Rajbir! You can find out more about me on my [Portfolio](https://rajbir.io/) or my [Github](https://github.com/rajbirjohar). Currently, I'm interested in automotives, especially german cars, building bespoke mechanical keyboards, and web development and design.
 
+<br/>
+
+### Isaac Curiel
+
+<img align="left" src="/documentation/images/isaac.png" alt="image of Isaac Curiel" width="75" height="75">
+
+Hey there, I'm Isaac! Some of my interests include stationery, mainly fountain pens, and sports (Go Rams!). Check out my [Github](https://github.com/isaac-18) for more. 
+
+<br/>
+
 ## Usage
 
 > Screenshot or GIF of website
