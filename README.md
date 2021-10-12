@@ -24,6 +24,12 @@
 
 > List of pictures, names, and relevant websites
 
+### Rajbir Johar
+
+<img align="left" src="/documentation/images/rajbir.png" alt="image of Rajbir Johar" width="75" height="75">
+
+Hey I'm Rajbir! You can find out more about me on my [Portfolio](https://rajbir.io/) or my [Github](https://github.com/rajbirjohar). Currently, I'm interested in automotives, especially german cars, building bespoke mechanical keyboards, and web development and design.
+
 ## Usage
 
 > Screenshot or GIF of website
