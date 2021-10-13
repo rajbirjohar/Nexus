@@ -45,6 +45,8 @@ Hey there, I'm Isaac! Some of my interests include stationery, mainly fountain p
 
 Hello, I'm Florian. 4th year CS major at UCR and you can find more from me at my [Github](https://github.com/floriancat). I enjoy playing video games, watching movies/shows designing, and editing in my free time. 
 
+<br/>
+
 ## Usage
 
 > Screenshot or GIF of website
