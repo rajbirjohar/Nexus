@@ -47,6 +47,13 @@ Hello, I'm Florian. 4th year CS major at UCR and you can find more from me at my
 
 <br/>
 
+### Brian Coffey
+<img align="left" src="/documentation/images/brian.png" alt="image of Brian Coffey" width="75" height="75">
+
+Hey, I'm Brian! I am a 4th year Computer Science major at UCR, and I am applying for my Masters in Education. Follow my [Github](https://github.com/brianpcoffey) to keep up to date with my projects! I also have many interests, such as bouldering, surfing, coffee, and really just trying anything new! 
+
+<br/>
+
 ## Usage
 
 > Screenshot or GIF of website
