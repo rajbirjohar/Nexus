@@ -54,6 +54,13 @@ Hey, I'm Brian! I am a 4th year Computer Science major at UCR, and I am applying
 
 <br/>
 
+### Robert Rivera
+<img align="left" src="/documentation/images/robert.png" alt="image of Robert Rivera" width="75" height="75">
+
+Hello, I'm Robert! I'm a 4th year Computer Science major at UCR. If you are interested in learning more about me, check out my [LinkedIn](https://www.linkedin.com/in/robertrivera288/) and [Github](https://github.com/Robert288) pages. 
+
+<br/>
+
 ## Usage
 
 > Screenshot or GIF of website
