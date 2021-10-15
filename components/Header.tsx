@@ -9,14 +9,29 @@ export default function Header() {
     <nav className={styles.navigation}>
       <ThemeChanger />
       <ul className={styles.linkwrapper}>
-        
         {session ? (
           <li>
-            <button className={styles.secondary} onClick={() => signOut()}>Sign out</button>
+            <button
+              className={styles.secondary}
+              onClick={() =>
+                signOut({
+                  callbackUrl: `${window.location.origin}`,
+                })
+              }
+            >
+              Sign out
+            </button>
           </li>
         ) : (
           <li>
-            <button className={styles.primary} onClick={() => signIn('google')}>
+            <button
+              className={styles.primary}
+              onClick={() =>
+                signIn('google', {
+                  callbackUrl: `${window.location.origin}/profile`,
+                })
+              }
+            >
               Sign in
             </button>
           </li>

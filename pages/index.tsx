@@ -18,7 +18,6 @@ export default function Home({ isConnected }) {
         <h1>Welcome to Nexus.</h1>
         {session && (
           <>
-            <h2>Hello {session.user.name}!</h2>
             {isConnected ? (
               <h2>You are successfully connected to MongoDB.</h2>
             ) : (

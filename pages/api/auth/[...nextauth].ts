@@ -16,6 +16,12 @@ export default async function auth(req, res) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       }),
     ],
+    pages: {
+      // signIn: '/auth/signin', // Don't need this page as we redirect them directly to Google Auth
+      signOut: '/pages/index', // Redirect them to home page on sign out
+      error: '/auth/error',
+      newUser: '/auth/new-user',
+    },
     // jwt: {
     //   signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
 
@@ -29,9 +35,5 @@ export default async function auth(req, res) {
     //   algorithms: ['HS512'],
     // },
     //},
-    //TODO: Create a custom sign in page
-    //   pages: {
-    //     signIn: '/signin',
-    //   },
   })
 }
