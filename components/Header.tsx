@@ -1,4 +1,5 @@
 import { useSession, signIn, signOut } from 'next-auth/react'
+import Link from 'next/link'
 import ThemeChanger from '@/components/Theme'
 import styles from '@/styles/header.module.css'
 
@@ -9,6 +10,7 @@ export default function Header() {
     <nav className={styles.navigation}>
       <ThemeChanger />
       <ul className={styles.linkwrapper}>
+        <Link href="/reviews">Reviews</Link>
         {session ? (
           <li>
             <button
