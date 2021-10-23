@@ -1,0 +1,16 @@
+.inputWrapper {
+  display: flex;
+}
+
+.input {
+  border: 2px solid var(--purple-100) !important;
+  flex: 1;
+  padding: var(--gap) var(--gap);
+  font-size: 1.125rem;
+  border-radius: var(--radius);
+  margin: var(--gap-half) 0;
+  background-color: var(--purple-50) !important;
+}
+.input::placeholder {
+  color: var(--accent-7) !important;
+}
