@@ -1,41 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import toast, { resolveValue } from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
+import useSlider from './Slider'
 import styles from '@/styles/posts.module.css'
 
 const maxLength = 500
-
-const useSlider = (min, max, defaultState, label, id) => {
-  const [slide, setSlide] = useState(defaultState)
-  const handleChange = (event) => {
-    console.log('setting level', event.target.value)
-    setSlide(event.target.value)
-  }
-
-  const Slider = () => (
-    <>
-      <label htmlFor="_difficulty">
-        <strong>!! IMPT: Slider sets the previous value</strong>
-        <br />
-        <strong>
-          {label} {slide}
-        </strong>
-      </label>
-      <input
-        type="range"
-        name="_difficulty"
-        id={id}
-        min={min}
-        max={max}
-        step={1}
-        defaultValue={slide} // but instead pass state value as default value
-        onChange={(e) => console.log(e.target.value)} // don't set state on all change as react will re-render
-        onMouseUp={handleChange} // only set state when handle is released
-      />
-    </>
-  )
-  return [slide, Slider, setSlide]
-}
 
 export default function ReviewPostForm(props) {
   const { data: session } = useSession()
@@ -59,7 +28,10 @@ export default function ReviewPostForm(props) {
     _reviewProfessor: '',
     _course: '',
     _difficulty: '',
+    _anonymous: false,
   })
+
+  const [checked, setChecked] = useState(false)
 
   const handleSubmit = async (event) => {
     event.preventDefault() // don't redirect the page
@@ -72,14 +44,25 @@ export default function ReviewPostForm(props) {
       // We have to find a way to update it constantly and place the right
       // value inside the setReviewPost when submitting the data.
       _difficulty: slideValue,
+      _anonymous: false,
       [event.target.name]: '',
     })
   }
 
   const handleChange = (event) => {
+    setSlide(slideValue)
     setReviewPost({
       ...reviewPost,
+      _difficulty: slideValue,
       [event.target.name]: event.target.value,
+    })
+  }
+
+  const handleCheckChange = () => {
+    setChecked(!checked)
+    setReviewPost({
+      ...reviewPost,
+      _anonymous: checked,
     })
   }
 
@@ -140,6 +123,18 @@ export default function ReviewPostForm(props) {
         className={styles.input}
       />
       <Slider />
+      <span className={styles.checkedWrapper}>
+        <label htmlFor="anonymous">
+          <strong>Anonymous?</strong>
+        </label>
+        <input
+          type="checkbox"
+          id="anonymous"
+          name="_anonymous"
+          checked={!checked}
+          onChange={handleCheckChange}
+        />
+      </span>
       <button className={styles.signbutton} type="submit">
         Post
       </button>

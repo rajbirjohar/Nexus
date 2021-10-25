@@ -16,11 +16,16 @@
   color: var(--accent-7) !important;
 }
 
-.datalist {
+.checkedWrapper{
   display: flex;
-  justify-content: space-between;
-  color: red;
-  width: 50%;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: var(--gap-med);
+}
+
+.checkedWrapper label{
+  margin-left: var(--gap-quarter);
 }
 
 .author{

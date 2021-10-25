@@ -17,6 +17,7 @@ export default async function createPost(
         _reviewProfessor,
         _course,
         _difficulty,
+        _anonymous,
       },
     } = req.body
     console.log(req.body)
@@ -27,6 +28,7 @@ export default async function createPost(
       reviewProfessor: _reviewProfessor,
       course: _course,
       difficulty: _difficulty,
+      anonymous: _anonymous,
       createdAt: new Date(),
     })
     return res.status(200).json({ message: 'Successfully posted entry.' })
