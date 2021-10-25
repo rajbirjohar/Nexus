@@ -17,8 +17,7 @@
   gap: var(--gap-med);
 }
 
-.primary,
-.secondary {
+.primary {
   background: var(--purple-300);
   color: var(--purple-900);
   transition: background var(--transition);

@@ -80,8 +80,8 @@
 
 ::selection {
   text-shadow: none;
-  background: var(--fg);
-  color: var(--bg);
+  background: var(--foreground);
+  color: var(--background);
 }
 
 html {
@@ -168,6 +168,8 @@ button {
   font-weight: 600;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  background-color: var(--gray-200);
+  color: var(--gray-800);
 }
 
 a,
@@ -206,6 +208,11 @@ code {
   background-color: var(--purple-100);
   padding: 3px 6px;
   border-radius: var(--radius-sm);
+}
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
 }
 
 input,
