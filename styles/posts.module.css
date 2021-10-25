@@ -16,20 +16,25 @@
   color: var(--accent-7) !important;
 }
 
-.datalist {
+.checkedWrapper {
   display: flex;
-  justify-content: space-between;
-  color: red;
-  width: 50%;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  margin: var(--gap-half) 0;
 }
 
-.author{
-  color: var(--gray-500)
+.checkedWrapper label {
+  margin-left: var(--gap-quarter);
 }
 
-.signbutton{
- margin: var(--gap-half) 0;
- background-color: var(--purple-500);
- color: var(--purple-50);
+.author {
+  color: var(--gray-500);
+}
+
+.signbutton {
+  margin: var(--gap-half) 0;
+  background-color: var(--purple-500);
+  color: var(--purple-50);
   width: max-content;
 }

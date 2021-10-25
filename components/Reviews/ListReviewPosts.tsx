@@ -50,6 +50,7 @@ export default function ListReviewPosts() {
           reviewProfessor={entry.reviewProfessor}
           course={entry.course}
           difficulty={entry.difficulty}
+          anonymous={entry.anonymous}
           timestamp={<TimeAgo date={entry.createdAt} />}
         />
       ))}

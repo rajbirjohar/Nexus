@@ -10,6 +10,7 @@ export default function ReviewPostCard({
   course,
   difficulty,
   timestamp,
+  anonymous,
   reviewPostId,
 }) {
   const { data: session, status } = useSession()
@@ -35,7 +36,9 @@ export default function ReviewPostCard({
         <strong>Difficulty: {difficulty}</strong>
         <br />
         <span className={styles.author}>
-          <strong>Author:</strong> {reviewee} about {timestamp}
+          <strong>Author:</strong>
+          {anonymous === true ? <>Anonymous</> : <>{reviewee}</>} about{' '}
+          {timestamp}
         </span>
       </p>
     </div>
