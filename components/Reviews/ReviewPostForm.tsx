@@ -16,19 +16,14 @@ export default function ReviewPostForm(props) {
     'difficulty'
   )
 
-  useEffect(() => {
-    setSlide(slideValue)
-    console.log('useEffect:', slideValue)
-  }, [setSlide, slideValue])
-
   const [reviewPost, setReviewPost] = useState({
     reviewee: session.user.name,
     email: session.user.email,
     _reviewPost: '',
     _reviewProfessor: '',
     _course: '',
-    _difficulty: '',
-    _anonymous: false,
+    _difficulty: 5,
+    _anonymous: true,
   })
 
   const [checked, setChecked] = useState(false)
@@ -43,14 +38,15 @@ export default function ReviewPostForm(props) {
       // TODO: This sets difficulty value to the previous state value.
       // We have to find a way to update it constantly and place the right
       // value inside the setReviewPost when submitting the data.
+      _reviewPost: '',
+      _reviewProfessor: '',
+      _course: '',
       _difficulty: slideValue,
-      _anonymous: false,
-      [event.target.name]: '',
+      _anonymous: true,
     })
   }
 
   const handleChange = (event) => {
-    setSlide(slideValue)
     setReviewPost({
       ...reviewPost,
       _difficulty: slideValue,
