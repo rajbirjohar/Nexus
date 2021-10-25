@@ -1,8 +1,8 @@
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
-import Post from '@/components/Post'
+import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
-import styles from '@/styles/form.module.css'
+import styles from '@/styles/posts.module.css'
 
 const Skeleton = () => {
   return (
@@ -16,8 +16,8 @@ const Skeleton = () => {
   )
 }
 
-export default function Entries() {
-  const { data, error } = useSWR('/api/posts', fetcher, {
+export default function ListReviewPosts() {
+  const { data, error } = useSWR('/api/reviewposts', fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
@@ -41,12 +41,15 @@ export default function Entries() {
   }
   return (
     <div>
-      {data.entries.map((entry) => (
-        <Post
+      {data.reviewPosts.map((entry) => (
+        <ReviewPostCard
           key={entry._id}
-          entryId={entry._id}
-          name={entry.name}
-          entry={entry.entry}
+          reviewPostId={entry._id}
+          reviewee={entry.reviewee}
+          reviewPost={entry.reviewPost}
+          reviewProfessor={entry.reviewProfessor}
+          course={entry.course}
+          difficulty={entry.difficulty}
           timestamp={<TimeAgo date={entry.createdAt} />}
         />
       ))}

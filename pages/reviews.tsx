@@ -2,8 +2,8 @@ import Head from 'next/head'
 import Layout from '@/components/Layout'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import PostForm from '@/components/PostForm'
-import Posts from '@/components/Posts'
+import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
+import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 
 export default function ReviewsPage() {
   const { data: session, status } = useSession()
@@ -14,10 +14,10 @@ export default function ReviewsPage() {
         <h1>Reviews</h1>
         {session && (
           <>
-            <PostForm name={session.user.name} email={session.user.email} />
+            <ReviewPostForm name={session.user.name} email={session.user.email} />
           </>
         )}
-        <Posts />
+        <ListReviewPosts />
       </section>
     </Layout>
   )
