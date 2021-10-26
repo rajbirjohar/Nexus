@@ -146,9 +146,10 @@ export default function ReviewPostForm(props) {
           checked={!checked}
           onChange={handleCheckChange}
         />
+        <span className={styles.checkmark}></span>
       </span>
       <button className={styles.signbutton} type="submit">
-        Post
+        Post Review!
       </button>
     </form>
   )
