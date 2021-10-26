@@ -4,7 +4,7 @@
 }
 
 .input {
-  border: 2px solid var(--purple-100) !important;
+  border: 2px solid var(--purple-100);
   flex: 1;
   padding: var(--gap) var(--gap);
   font-size: 1.125rem;
@@ -39,12 +39,12 @@
   width: max-content;
 }
 
-.labelWrapper{
+.labelWrapper {
   display: flex;
   align-items: center;
 }
 
-.labelWrapper span{
+.labelWrapper span {
   padding: var(--gap-half);
 }
 
@@ -89,4 +89,22 @@
   border-radius: 50%;
   border: none;
   cursor: pointer; /* Cursor on hover */
+}
+
+.error {
+  border-color: var(--red-800) !important;
+}
+
+.errorMessage {
+  color: var(--red-800);
+}
+
+.delete {
+  color: var(--red-200);
+  background: var(--red-800);
+}
+
+.modify {
+  color: var(--purple-700);
+  margin-left: 0;
 }
