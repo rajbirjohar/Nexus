@@ -15,7 +15,6 @@ export default function ReviewPostForm(props) {
     'Difficulty:',
     'difficulty'
   )
-
   const [reviewPost, setReviewPost] = useState({
     reviewee: session.user.name,
     email: session.user.email,
@@ -25,28 +24,39 @@ export default function ReviewPostForm(props) {
     _difficulty: 5,
     _anonymous: true,
   })
-
+  // State for anonymous checkbox
   const [checked, setChecked] = useState(false)
 
   const handleSubmit = async (event) => {
-    event.preventDefault() // don't redirect the page
-    // calls sendData() to send our state data to our API
-    sendData(reviewPost)
-    // clears our inputs after submitting
-    setReviewPost({
-      ...reviewPost,
-      // TODO: This sets difficulty value to the previous state value.
-      // We have to find a way to update it constantly and place the right
-      // value inside the setReviewPost when submitting the data.
-      _reviewPost: '',
-      _reviewProfessor: '',
-      _course: '',
-      _difficulty: slideValue,
-      _anonymous: true,
-    })
+    // don't redirect the page
+    event.preventDefault()
+    // check if any text fields are empty
+    if (
+      reviewPost._reviewPost === '' ||
+      reviewPost._reviewProfessor === '' ||
+      reviewPost._course === ''
+    ) {
+      toast.error('Please fill out the missing fields.')
+    } else {
+      // calls sendData() to send our state data to our API
+      sendData(reviewPost)
+      // clears our inputs after submitting
+      setReviewPost({
+        ...reviewPost,
+        _reviewPost: '',
+        _reviewProfessor: '',
+        _course: '',
+        _difficulty: 5,
+        _anonymous: true,
+      })
+    }
   }
 
   const handleChange = (event) => {
+    console.log(`handleChange val: ${slideValue}`)
+    if (event.target.id === 'difficulty') {
+      setSlide(event.target.value)
+    }
     setReviewPost({
       ...reviewPost,
       _difficulty: slideValue,
@@ -63,6 +73,7 @@ export default function ReviewPostForm(props) {
   }
 
   const sendData = async (reviewPostData) => {
+    console.log(reviewPostData)
     const response = await fetch('/api/reviewposts/create', {
       method: 'POST',
       headers: {
@@ -73,6 +84,10 @@ export default function ReviewPostForm(props) {
     const data = await response.json()
     if (response.status === 200) {
       toast.success('Your review has been posted!')
+    } else {
+      toast.error(
+        'Uh oh. Something happened. Please contact us if this persists.'
+      )
     }
     return data.reviewPostData
   }
@@ -118,7 +133,8 @@ export default function ReviewPostForm(props) {
         placeholder="Who taught this course?"
         className={styles.input}
       />
-      <Slider />
+      {/* Pass handleChange() into Slider component */}
+      <Slider onHandleChange={handleChange} />
       <span className={styles.checkedWrapper}>
         <label htmlFor="anonymous">
           <strong>Anonymous?</strong>
