@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import toast, { resolveValue } from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import useSlider from './Slider'
-import styles from '@/styles/posts.module.css'
+import styles from '@/styles/reviewposts.module.css'
 
 const maxLength = 500
 

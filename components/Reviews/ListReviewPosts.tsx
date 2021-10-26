@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
-import styles from '@/styles/posts.module.css'
+import styles from '@/styles/reviewposts.module.css'
 
 const Skeleton = () => {
   return (
@@ -41,17 +41,17 @@ export default function ListReviewPosts() {
   }
   return (
     <div>
-      {data.reviewPosts.map((entry) => (
+      {data.reviewPosts.map((post) => (
         <ReviewPostCard
-          key={entry._id}
-          reviewPostId={entry._id}
-          reviewee={entry.reviewee}
-          reviewPost={entry.reviewPost}
-          reviewProfessor={entry.reviewProfessor}
-          course={entry.course}
-          difficulty={entry.difficulty}
-          anonymous={entry.anonymous}
-          timestamp={<TimeAgo date={entry.createdAt} />}
+          key={post._id}
+          reviewPostId={post._id}
+          reviewee={post.reviewee}
+          reviewPost={post.reviewPost}
+          reviewProfessor={post.reviewProfessor}
+          course={post.course}
+          difficulty={post.difficulty}
+          anonymous={post.anonymous}
+          timestamp={<TimeAgo date={post.createdAt} />}
         />
       ))}
     </div>
