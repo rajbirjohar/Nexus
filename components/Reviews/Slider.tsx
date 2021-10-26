@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import styles from '@/styles/posts.module.css'
+import styles from '@/styles/reviewposts.module.css'
 
 const useSlider = (min, max, defaultState, label, id) => {
   const [slide, setSlide] = useState(defaultState)

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import styles from '@/styles/posts.module.css'
+import styles from '@/styles/reviewposts.module.css'
 
 export default function ReviewPostCard({
   reviewee,
@@ -14,15 +14,6 @@ export default function ReviewPostCard({
   reviewPostId,
 }) {
   const { data: session, status } = useSession()
-
-  // Render delete button only if the
-  // session user equals the name of the entry
-  let match = false
-  if (session) {
-    if (session.user.name === reviewee) {
-      match = true
-    }
-  }
 
   return (
     <div>
@@ -40,6 +31,13 @@ export default function ReviewPostCard({
           {anonymous === true ? <>Anonymous</> : <>{reviewee}</>} about{' '}
           {timestamp}
         </span>
+        <br />
+        {session && session.user.name === reviewee && (
+          <>
+            <button className={styles.modify}>Modify</button>
+            <button className={styles.delete}>Delete</button>
+          </>
+        )}
       </p>
     </div>
   )
