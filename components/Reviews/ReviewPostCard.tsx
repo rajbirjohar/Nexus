@@ -36,7 +36,7 @@ export default function ReviewPostCard({
         <strong>Difficulty: {difficulty}</strong>
         <br />
         <span className={styles.author}>
-          <strong>Author:</strong>
+          <strong>Author: </strong>
           {anonymous === true ? <>Anonymous</> : <>{reviewee}</>} about{' '}
           {timestamp}
         </span>
