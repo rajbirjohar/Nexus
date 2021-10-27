@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
-import { connectToDatabase } from '@/lib/connectToDb'
+import { connectToDatabase } from '@/util/connectToDb'
 
 export default async function createPost(
   req: NextApiRequest,
