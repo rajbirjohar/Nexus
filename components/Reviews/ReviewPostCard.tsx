@@ -36,7 +36,7 @@ export default function ReviewPostCard({
   return (
     <div>
       <p>
-        <strong>Course: {course} {reviewPostId}</strong>
+        <strong>Course: {course}</strong>
         <br />
         <strong>Review:</strong> {reviewPost}
         <br />
