@@ -44,7 +44,9 @@
   --purple-800: #44337a;
   --purple-900: #322659;
   --red-200: #feb2b2;
+  --red-300: #fc8181;
   --red-500: #e53e3e;
+  --red-700: #9b2c2c;
   --red-800: #822727;
 }
 
@@ -70,7 +72,9 @@
   --purple-100: #44337a;
   --purple-50: #322659;
   --red-800: #feb2b2;
+  --red-700: #fc8181;
   --red-500: #e53e3e;
+  --red-300: #9b2c2c;
   --red-200: #822727;
 }
 
@@ -170,6 +174,7 @@ button {
   cursor: pointer;
   background-color: var(--gray-200);
   color: var(--gray-800);
+  transition: all var(--transition);
 }
 
 a,

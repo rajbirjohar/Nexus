@@ -1,4 +1,4 @@
-import { connectToDatabase } from '@/lib/connectToDb'
+import { connectToDatabase } from '@/util/connectToDb'
 
 const reviewPostsFetch = async (req, res) => {
   const { db } = await connectToDatabase()
