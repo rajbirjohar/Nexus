@@ -2,6 +2,7 @@ import Head from 'next/head'
 import clientPromise from '@/lib/mongodb'
 import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
+import styles from '@/styles/index.module.css'
 
 export default function Home({ isConnected }) {
   const { data: session } = useSession()
@@ -15,16 +16,17 @@ export default function Home({ isConnected }) {
       </Head>
 
       <section>
-        <h1>Welcome to Nexus.</h1>
+        <h1>Nexus @ UCR</h1>
+        <h3 className={styles.subtitle}>Where Information Gathers</h3>
         {session && (
           <>
             {isConnected ? (
-              <h2>You are successfully connected to MongoDB.</h2>
+              <h3>Hi, {session.user.name}! Let&#39;s learn something new today.</h3>
             ) : (
-              <h2>
-                You are NOT connected to MongoDB. Check the{' '}
+              <h3>
+                You are <strong>not</strong> connected to MongoDB. Check the{' '}
                 <code>README.md</code> for instructions.
-              </h2>
+              </h3>
             )}
           </>
         )}
