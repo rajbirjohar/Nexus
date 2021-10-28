@@ -62,8 +62,14 @@ Hello, I'm Robert! I'm a 4th year Computer Science major at UCR. If you are inte
 <br/>
 
 ## Usage
+> Screenshots or GIFs of website
 
-> Screenshot or GIF of website
+### Landing Page
+<img align="left" src="/documentation/images/Landing.png" alt="image of Nexus' landing page">
+
+### Reviews Page 
+<img align="left" src="/documentation/images/Reviews.png" alt="image of Nexus' reviews page">
+More screenshots to come.
 
 ### How To Run
 
