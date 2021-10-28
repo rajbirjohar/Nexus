@@ -21,7 +21,7 @@ export default function Home({ isConnected }) {
         {session && (
           <>
             {isConnected ? (
-              <h3>Hi, {session.user.name}! Let's learn something new today.</h3>
+              <h3>Hi, {session.user.name}! Let&#39;s learn something new today.</h3>
             ) : (
               <h3>
                 You are <strong>not</strong> connected to MongoDB. Check the{' '}
