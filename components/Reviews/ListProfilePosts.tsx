@@ -1,5 +1,7 @@
 import useSWR from 'swr'
+import Link from 'next/link'
 import fetcher from '@/lib/fetcher'
+import { useSession } from 'next-auth/react'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
 import styles from '@/styles/reviewposts.module.css'
@@ -17,9 +19,10 @@ const Skeleton = () => {
 }
 
 export default function ListReviewPosts() {
-  const { data, error } = useSWR('/api/reviewposts/fetch', fetcher, {
+  const { data, error } = useSWR('/api/reviewposts/userfetch', fetcher, {
     refreshInterval: 1000,
   })
+  const { data: session } = useSession()
   if (error) {
     return (
       <p>
@@ -41,6 +44,7 @@ export default function ListReviewPosts() {
   }
   return (
     <div>
+      {data.reviewPosts.length === '' && <Link href='/reviews'>Write your first review!</Link>}
       {data.reviewPosts.map((post) => (
         <ReviewPostCard
           key={post._id}

@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
+import ListReviewPosts from '@/components/Reviews/ListProfilePosts'
 import { useSession } from 'next-auth/react'
 
 export default function Profile() {
@@ -18,11 +19,15 @@ export default function Profile() {
   return (
     <Layout>
       <Head>Nexus | Profile</Head>
-      {status === 'loading' && <h2>Loading your profile...</h2>}
+      {status === 'loading' && <h1>Loading your profile...</h1>}
       {session && (
         <>
-          <h2>Welcome {session.user.name}!</h2>
-          <p>This is your protected profile page.</p>
+          <h1>Profile</h1>
+          <p>
+            <strong>Welcome {session.user.name}!</strong>
+          </p>
+          <h2>Your Reviews</h2>
+          <ListReviewPosts />
         </>
       )}
     </Layout>

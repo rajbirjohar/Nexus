@@ -10,20 +10,24 @@ export default function Header() {
     <nav className={styles.navigation}>
       <ThemeChanger />
       <ul className={styles.linkwrapper}>
+        <Link href="/">Home</Link>
         <Link href="/reviews">Reviews</Link>
         {session ? (
-          <li>
-            <button
-              className={styles.secondary}
-              onClick={() =>
-                signOut({
-                  callbackUrl: `${window.location.origin}`,
-                })
-              }
-            >
-              Sign out
-            </button>
-          </li>
+          <>
+            <Link href="/profile">Profile</Link>
+            <li>
+              <button
+                className={styles.secondary}
+                onClick={() =>
+                  signOut({
+                    callbackUrl: `${window.location.origin}`,
+                  })
+                }
+              >
+                Sign out
+              </button>
+            </li>
+          </>
         ) : (
           <li>
             <button
