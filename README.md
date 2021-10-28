@@ -30,6 +30,37 @@
 
 Hey I'm Rajbir! You can find out more about me on my [Portfolio](https://rajbir.io/) or my [Github](https://github.com/rajbirjohar). Currently, I'm interested in automotives, especially german cars, building bespoke mechanical keyboards, and web development and design.
 
+<br/>
+
+### Isaac Curiel
+
+<img align="left" src="/documentation/images/isaac.png" alt="image of Isaac Curiel" width="75" height="75">
+
+Hey there, I'm Isaac! Some of my interests include stationery, mainly fountain pens, and sports (Go Rams!). Check out my [Github](https://github.com/isaac-18) for more. 
+
+<br/>
+
+### Florian Catalan
+<img align="left" src="/documentation/images/florian.png" alt="image of Florian Catalan" width="75" height="75">
+
+Hello, I'm Florian. 4th year CS major at UCR and you can find more from me at my [Github](https://github.com/floriancat). I enjoy playing video games, watching movies/shows designing, and editing in my free time. 
+
+<br/>
+
+### Brian Coffey
+<img align="left" src="/documentation/images/brian.png" alt="image of Brian Coffey" width="75" height="75">
+
+Hey, I'm Brian! I am a 4th year Computer Science major at UCR, and I am applying for my Masters in Education. Follow my [Github](https://github.com/brianpcoffey) to keep up to date with my projects! I also have many interests, such as bouldering, surfing, coffee, and really just trying anything new! 
+
+<br/>
+
+### Robert Rivera
+<img align="left" src="/documentation/images/robert.png" alt="image of Robert Rivera" width="75" height="75">
+
+Hello, I'm Robert! I'm a 4th year Computer Science major at UCR. If you are interested in learning more about me, check out my [LinkedIn](https://www.linkedin.com/in/robertrivera288/) and [Github](https://github.com/Robert288) pages. 
+
+<br/>
+
 ## Usage
 
 > Screenshot or GIF of website

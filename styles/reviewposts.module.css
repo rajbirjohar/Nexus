@@ -100,11 +100,21 @@
 }
 
 .delete {
-  color: var(--red-200);
-  background: var(--red-800);
+  color: var(--red-800);
+  background: var(--red-200);
+  margin-left: 0;
+}
+
+.delete:hover{
+  background-color: var(--red-300);
 }
 
 .modify {
-  color: var(--purple-700);
-  margin-left: 0;
+  color: var(--purple-800);
+  background-color: var(--purple-200);
+  
+}
+
+.modify:hover{
+  background-color: var(--purple-300);
 }

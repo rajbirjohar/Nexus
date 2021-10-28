@@ -28,7 +28,7 @@
 }
 
 .secondary:hover {
-  background: var(--purple-500);
+  background: var(--gray-300);
 }
 
 .themeWrapper {
