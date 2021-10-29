@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/organizations.module.css'
+import Link from 'next/link'
 
 export default function OrganizationCard({
   organizer,
@@ -29,21 +30,23 @@ export default function OrganizationCard({
     }
   }
   return (
-    <div className={styles.card}>
-      <p className={styles.organizationName}>{organizationName}</p>
-      <h4 className={styles.organizationDescription}>
-        {organizationDescription}
-      </h4>
-      <span className={styles.organizer}>{organizer}</span>
-      <br />
-      {session && session.user.name === organizer && (
-        <>
-          {/* <button className={styles.modify}>Modify</button> */}
-          <button onClick={deleteOrganization} className={styles.delete}>
-            Delete
-          </button>
-        </>
-      )}
-    </div>
+    <Link href={`/organization/${organizationName}`}>
+      <div className={styles.card}>
+        <p className={styles.organizationName}>{organizationName}</p>
+        <h4 className={styles.organizationDescription}>
+          {organizationDescription}
+        </h4>
+        <span className={styles.organizer}>{organizer}</span>
+        <br />
+        {session && session.user.name === organizer && (
+          <>
+            {/* <button className={styles.modify}>Modify</button> */}
+            <button onClick={deleteOrganization} className={styles.delete}>
+              Delete
+            </button>
+          </>
+        )}
+      </div>
+    </Link>
   )
 }
