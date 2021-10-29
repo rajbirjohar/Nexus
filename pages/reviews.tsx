@@ -9,12 +9,19 @@ export default function ReviewsPage() {
   const { data: session, status } = useSession()
   return (
     <Layout>
-      <Head>Nexus | Reviews</Head>
+      <Head>
+        <title>Nexus | Reviews</title>
+        {/* Change this icon when we have a logo */}
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <section>
         <h1>Reviews</h1>
         {session && (
           <>
-            <ReviewPostForm name={session.user.name} email={session.user.email} />
+            <ReviewPostForm
+              name={session.user.name}
+              email={session.user.email}
+            />
           </>
         )}
         <ListReviewPosts />

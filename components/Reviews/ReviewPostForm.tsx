@@ -21,6 +21,7 @@ export default function ReviewPostForm(props) {
     _reviewPost: '',
     _reviewProfessor: '',
     _course: '',
+    _taken: '',
     _difficulty: 5,
     _anonymous: true,
   })
@@ -46,6 +47,7 @@ export default function ReviewPostForm(props) {
         _reviewPost: '',
         _reviewProfessor: '',
         _course: '',
+        _taken: '',
         _difficulty: 5,
         _anonymous: true,
       })
@@ -103,7 +105,7 @@ export default function ReviewPostForm(props) {
         value={reviewPost._course}
         onChange={handleChange}
         type="text"
-        placeholder="What course is this?"
+        placeholder="NXS100"
         className={styles.input}
       />
       <label htmlFor="_reviewPost">
@@ -114,7 +116,7 @@ export default function ReviewPostForm(props) {
         name="_reviewPost"
         value={reviewPost._reviewPost}
         onChange={handleChange}
-        placeholder="What is your review?"
+        placeholder="&quot;I love this class!&quot;"
         className={styles.input}
         maxLength={maxLength}
       />
@@ -130,7 +132,19 @@ export default function ReviewPostForm(props) {
         value={reviewPost._reviewProfessor}
         onChange={handleChange}
         type="text"
-        placeholder="Who taught this course?"
+        placeholder="Professor Johnny Appleseed"
+        className={styles.input}
+      />
+      <label htmlFor="_taken">
+        <strong>Taken:</strong>
+      </label>
+      <input
+        aria-label="Taken Input"
+        name="_taken"
+        value={reviewPost._taken}
+        onChange={handleChange}
+        type="text"
+        placeholder="Fall 2021"
         className={styles.input}
       />
       {/* Pass handleChange() into Slider component */}
