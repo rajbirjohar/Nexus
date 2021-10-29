@@ -8,8 +8,8 @@ export default function ReviewPostCard({
   reviewPost,
   reviewProfessor,
   course,
-  difficulty,
   taken,
+  difficulty,
   timestamp,
   anonymous,
   reviewPostId,
@@ -41,7 +41,7 @@ export default function ReviewPostCard({
         <p className={styles.difficulty}>{difficulty}</p>
       </div>
       <h4 className={styles.review}>Review:</h4>
-      <i className={styles.reviewPost}>"{reviewPost}"</i>
+      <i className={styles.reviewPost}>&quot;{reviewPost}&quot;</i>
       <h4 className={styles.professor}>Professor: {reviewProfessor}</h4>
       <span className={styles.taken}>
         <strong>Taken: {taken}</strong>
