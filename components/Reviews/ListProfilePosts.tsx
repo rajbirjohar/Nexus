@@ -8,7 +8,7 @@ import styles from '@/styles/reviewposts.module.css'
 
 const Skeleton = () => {
   return (
-    <div className={styles.skeleton}>
+    <div className={styles.card}>
       <p className={styles.dummydescription}></p>
       <p className={styles.dummydescription}></p>
       <p className={styles.dummydescription}></p>

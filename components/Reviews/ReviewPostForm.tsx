@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import useSlider from './Slider'
 import styles from '@/styles/reviewposts.module.css'
 
-const maxLength = 500
+const maxLength = 750
 
 export default function ReviewPostForm(props) {
   const { data: session } = useSession()
