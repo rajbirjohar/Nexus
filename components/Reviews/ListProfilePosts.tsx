@@ -10,7 +10,8 @@ const Skeleton = () => {
   return (
     <div className={styles.skeleton}>
       <p className={styles.dummydescription}></p>
-      <br />
+      <p className={styles.dummydescription}></p>
+      <p className={styles.dummydescription}></p>
       <span className={styles.dummyauthor}>
         <p className={styles.dummytitle}></p>
       </span>
@@ -44,7 +45,9 @@ export default function ListReviewPosts() {
   }
   return (
     <div>
-      {data.reviewPosts.length === '' && <Link href='/reviews'>Write your first review!</Link>}
+      {data.reviewPosts.length === '' && (
+        <Link href="/reviews">Write your first review!</Link>
+      )}
       {data.reviewPosts.map((post) => (
         <ReviewPostCard
           key={post._id}
@@ -53,6 +56,7 @@ export default function ListReviewPosts() {
           reviewPost={post.reviewPost}
           reviewProfessor={post.reviewProfessor}
           course={post.course}
+          taken={post.taken}
           difficulty={post.difficulty}
           anonymous={post.anonymous}
           timestamp={<TimeAgo date={post.createdAt} />}

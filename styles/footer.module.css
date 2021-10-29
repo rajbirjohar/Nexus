@@ -1,7 +1,7 @@
 .footer {
   height: 100px;
   display: flex;
-  border-top: 1px var(--purple-100) solid;
+  background-color: var(--gray-100);
   justify-content: center;
   align-items: center;
   margin-top: var(--big-gap);

@@ -8,6 +8,7 @@ export default function ReviewPostCard({
   reviewPost,
   reviewProfessor,
   course,
+  taken,
   difficulty,
   timestamp,
   anonymous,
@@ -34,31 +35,32 @@ export default function ReviewPostCard({
   }
 
   return (
-    <div>
-      <p>
-        <strong>Course: {course}</strong>
-        <br />
-        <strong>Review:</strong> {reviewPost}
-        <br />
-        <strong>Professor:</strong> {reviewProfessor}
-        <br />
-        <strong>Difficulty: {difficulty}</strong>
-        <br />
-        <span className={styles.author}>
-          <strong>Author: </strong>
-          {anonymous === true ? <>Anonymous</> : <>{reviewee}</>} about{' '}
-          {timestamp}
-        </span>
-        <br />
-        {session && session.user.name === reviewee && (
-          <>
-            {/* <button className={styles.modify}>Modify</button> */}
-            <button onClick={deleteReviewPost} className={styles.delete}>
-              Delete
-            </button>
-          </>
-        )}
-      </p>
+    <div className={styles.card}>
+      <div className={styles.title}>
+        <p className={styles.course}>{course}</p>
+        <p className={styles.difficulty}>{difficulty}</p>
+      </div>
+      <h4 className={styles.review}>Review:</h4>
+      <i className={styles.reviewPost}>&quot;{reviewPost}&quot;</i>
+      <h4 className={styles.professor}>Professor: {reviewProfessor}</h4>
+      <span className={styles.taken}>
+        <strong>Taken: {taken}</strong>
+      </span>
+      <br />
+      <span className={styles.author}>
+        <strong>Author: </strong>
+        {anonymous === true ? <>Anonymous</> : <>{reviewee}</>} about{' '}
+        {timestamp}
+      </span>
+      <br />
+      {session && session.user.name === reviewee && (
+        <>
+          {/* <button className={styles.modify}>Modify</button> */}
+          <button onClick={deleteReviewPost} className={styles.delete}>
+            Delete
+          </button>
+        </>
+      )}
     </div>
   )
 }
