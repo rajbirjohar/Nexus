@@ -1,4 +1,4 @@
-import useSWR from 'swr'
+ import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'

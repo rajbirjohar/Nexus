@@ -55,7 +55,6 @@ export default function ReviewPostForm(props) {
   }
 
   const handleChange = (event) => {
-    console.log(`handleChange val: ${slideValue}`)
     if (event.target.id === 'difficulty') {
       setSlide(event.target.value)
     }

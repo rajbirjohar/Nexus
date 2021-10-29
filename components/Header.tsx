@@ -12,6 +12,7 @@ export default function Header() {
       <ul className={styles.linkwrapper}>
         <Link href="/">Home</Link>
         <Link href="/reviews">Reviews</Link>
+        <Link href="/organizations">Organizations</Link>
         {session ? (
           <>
             <Link href="/profile">Profile</Link>
