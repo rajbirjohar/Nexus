@@ -69,6 +69,12 @@ Hello, I'm Robert! I'm a 4th year Computer Science major at UCR. If you are inte
 
 ### Reviews Page 
 <img align="left" src="/documentation/images/Reviews.png" alt="image of Nexus' reviews page">
+
+### Login Sequence Diagram 
+<img align="left" src="/documentation/images/Login_Sequence_Diagram.jpg" alt="image of login sequence diagram">
+
+### New Post Sequence Diagram 
+<img align="left" src="/documentation/images/New_Post_Sequence_Diagram.jpg" alt="image of new post sequence diagram">
 More screenshots to come.
 
 ### How To Run
