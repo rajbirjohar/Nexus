@@ -1,0 +1,110 @@
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: 2px solid var(--purple-100);
+  flex: 1;
+  padding: var(--gap) var(--gap);
+  font-size: 1.125rem;
+  border-radius: var(--radius);
+  margin: var(--gap-half) 0;
+  background-color: var(--gray-100) !important;
+}
+.input::placeholder {
+  color: var(--accent-7) !important;
+}
+
+.organizer {
+  color: var(--gray-500);
+}
+
+.signbutton {
+  margin: var(--gap-half) 0;
+  background-color: var(--purple-500);
+  color: var(--purple-50);
+  width: max-content;
+}
+
+.labelWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.labelWrapper span {
+  padding: var(--gap-half);
+}
+
+.card {
+  background-color: var(--gray-50);
+  border: 2px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  margin: var(--gap-med) 0;
+  box-shadow: var(--shadows-base);
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.organizationName {
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0;
+  color: var(--purple-800);
+}
+
+.error {
+  border-color: var(--red-800) !important;
+}
+
+.errorMessage {
+  color: var(--red-800);
+}
+
+.delete {
+  color: var(--red-900);
+  background: var(--red-100);
+  margin-left: 0;
+}
+
+.delete:hover {
+  background-color: var(--red-200);
+}
+
+.modify {
+  color: var(--purple-800);
+  background-color: var(--purple-200);
+}
+
+.modify:hover {
+  background-color: var(--purple-300);
+}
+
+.skeleton {
+  display: block;
+}
+
+.dummyauthor {
+  display: flex;
+  align-items: center;
+  margin-top: -1rem;
+}
+
+.dummytitle,
+.dummydescription {
+  height: 25px;
+  animation: pulse 2s infinite;
+  border-radius: var(--radius-sm);
+  background-color: var(--gray-200);
+}
+
+.dummytitle {
+  width: 25%;
+}
+.dummydescription {
+  width: 100%;
+}
