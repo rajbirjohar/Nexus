@@ -43,7 +43,16 @@
   padding: var(--gap-med);
   margin: var(--gap-med) 0;
   box-shadow: var(--shadows-base);
+  transition: all var(--transition);
 }
+
+.card:hover {
+  background-color: var(--gray-100);
+  box-shadow: var(--shadows-lg);
+  transform: translateY(-0.5rem);
+  cursor: pointer;
+}
+
 .title {
   display: flex;
   justify-content: space-between;
