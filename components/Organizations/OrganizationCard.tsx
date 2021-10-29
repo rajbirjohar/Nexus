@@ -30,7 +30,7 @@ export default function OrganizationCard({
     }
   }
   return (
-    <Link href={`/organization/${organizationName}`}>
+    <Link href={`/organization/${organizationName}`} passHref>
       <div className={styles.card}>
         <p className={styles.organizationName}>{organizationName}</p>
         <h4 className={styles.organizationDescription}>

@@ -1,14 +1,14 @@
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
-import TimeAgo from 'react-timeago'
 import styles from '@/styles/reviewposts.module.css'
 
 const Skeleton = () => {
   return (
-    <div className={styles.skeleton}>
+    <div className={styles.card}>
       <p className={styles.dummydescription}></p>
-      <br />
+      <p className={styles.dummydescription}></p>
+      <p className={styles.dummydescription}></p>
       <span className={styles.dummyauthor}>
         <p className={styles.dummytitle}></p>
       </span>
