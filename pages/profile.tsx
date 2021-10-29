@@ -18,7 +18,11 @@ export default function Profile() {
 
   return (
     <Layout>
-      <Head>Nexus | Profile</Head>
+      <Head>
+        <title>Nexus | Profile</title>
+        {/* Change this icon when we have a logo */}
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       {status === 'loading' && <h1>Loading your profile...</h1>}
       {session && (
         <>

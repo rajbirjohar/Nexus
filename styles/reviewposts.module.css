@@ -72,9 +72,6 @@
 
 /* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
 .slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
-  appearance: none;
-  border: none;
   border-radius: 50%;
   width: var(--gap-med); /* Set a specific slider handle width */
   height: var(--big-med); /* Slider handle height */
@@ -90,6 +87,36 @@
   border: none;
   cursor: pointer; /* Cursor on hover */
 }
+.card {
+  background-color: var(--gray-50);
+  border: 2px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  margin: var(--gap-med) 0;
+  box-shadow: var(--shadows-base);
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.course,
+.difficulty {
+  font-weight: 800;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.course {
+  color: var(--purple-800);
+}
+
+.review,
+.professor,
+.taken {
+  margin: 1rem 0;
+}
 
 .error {
   border-color: var(--red-800) !important;
@@ -100,21 +127,45 @@
 }
 
 .delete {
-  color: var(--red-800);
-  background: var(--red-200);
+  color: var(--red-900);
+  background: var(--red-100);
   margin-left: 0;
 }
 
-.delete:hover{
-  background-color: var(--red-300);
+.delete:hover {
+  background-color: var(--red-200);
 }
 
 .modify {
   color: var(--purple-800);
   background-color: var(--purple-200);
-  
 }
 
-.modify:hover{
+.modify:hover {
   background-color: var(--purple-300);
+}
+
+.skeleton {
+  display: block;
+}
+
+.dummyauthor {
+  display: flex;
+  align-items: center;
+  margin-top: -1rem;
+}
+
+.dummytitle,
+.dummydescription {
+  height: 25px;
+  animation: pulse 2s infinite;
+  border-radius: var(--radius-sm);
+  background-color: var(--gray-200);
+}
+
+.dummytitle {
+  width: 25%;
+}
+.dummydescription {
+  width: 100%;
 }
