@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import styles from '@/styles/reviewposts.module.css'
+import styles from '@/styles/organizations.module.css'
 
 export default function OrganizationCard({
   organizer,
@@ -30,9 +30,11 @@ export default function OrganizationCard({
   }
   return (
     <div className={styles.card}>
-      <p>Organization Name: {organizationName}</p>
-      <p>Organization Description: {organizationDescription}</p>
-      <p>Organizer: {organizer}</p>
+      <p className={styles.organizationName}>{organizationName}</p>
+      <h4 className={styles.organizationDescription}>
+        {organizationDescription}
+      </h4>
+      <span className={styles.organizer}>{organizer}</span>
       <br />
       {session && session.user.name === organizer && (
         <>
