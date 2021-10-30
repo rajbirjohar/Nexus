@@ -18,7 +18,30 @@
 
 > Summary of Project, purpose, stack, etc.
 
+### Stack
+
 <img alt="Next JS" src="https://img.shields.io/badge/nextjs-%23000000.svg?&style=for-the-badge&logo=next.js&logoColor=white"/> <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"/> <img alt="Typescript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"/> <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/> <img alt="ESLint" src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white" /> <img alt="Prettier" src="https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E"/> <img alt="Stack Overflow" src="https://img.shields.io/badge/Stack_Overflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white"/>
+
+### Features
+
+- [x] Dark Mode
+- [x] Authentication
+- [x] Serverless APIs
+- [x] Org Profiles
+- [x] Posts (CRUD)
+- [x] Instant Routing
+- [x] Protected Routing
+- [ ] Dynamic Routing
+- [ ] Pagination
+- [ ] Roles
+- [ ] Search
+- [ ] Sort
+
+### About
+
+Nexus is the one-stop shop for a student at UCR hosting information on different clubs, organizations, and events as well as reviews on classes provided by other students. We want the students that use this site to be as informed as possible about what is currently going on on campus.
+ 
+Using the most powerful and dynamic stack, we are able to provide a near instant and seamless user experience. Our framework of choice, NextJS allows us to build and scale our application for large populations all while remaining incredibly smooth. MongoDB allows us to structure data in an intuitive way and offers easy ways to access and write data to and from the frontend without any hiccups.
 
 ## Team
 
@@ -62,20 +85,6 @@ Hello, I'm Robert! I'm a 4th year Computer Science major at UCR. If you are inte
 <br/>
 
 ## Usage
-> Screenshots or GIFs of website
-
-### Landing Page
-<img align="left" src="/documentation/images/Landing.png" alt="image of Nexus' landing page">
-
-### Reviews Page 
-<img align="left" src="/documentation/images/Reviews.png" alt="image of Nexus' reviews page">
-
-### Login Sequence Diagram 
-<img align="left" src="/documentation/images/Login_Sequence_Diagram.jpg" alt="image of login sequence diagram">
-
-### New Post Sequence Diagram 
-<img align="left" src="/documentation/images/New_Post_Sequence_Diagram.jpg" alt="image of new post sequence diagram">
-More screenshots to come.
 
 ### How To Run
 
@@ -131,6 +140,45 @@ If you want to learn more about MongoDB, visit the following pages:
 
 > UI/UX Mockups/State Diagrams
 
+### Landing Page
+
+Our design language leans towards a simple yet tasteful color scheme and layout to create an unparalleled user experience. We want to be able to provide as much information as possible while being digestable for the user. Along with our purple brand, we offer a dark mode for those who enjoy browsing at night giving the user options and control over their experience.
+
+<p align="center">
+<img src="/documentation/images/Landing.png" alt="image of Nexus' landing page" width="750">
+</p>
+&nbsp;
+
+### Reviews Page 
+
+Our Reviews page features functionality that allows users to post, read, edit, and delete course reviews. We want to be able to show all the important information that user might want to see at a glance. There are future plans on allowing the user to sort by a specific metric.
+
+<p align="center">
+<img src="/documentation/images/Reviews.png" alt="image of Nexus' reviews page" width="750">
+&nbsp;
+ </p>
+ &nbsp;
+
+### Login Sequence Diagram 
+
+The login sequence is structured to be smooth for the user so as to provide ease of use when first trying our app. They are directly sent to log in via Google OAuth and then once they complete the login sequence, will be redirected to their profile page. There they can view all their posts and navigate to any other page.
+
+<p align="center">
+<img src="/documentation/images/Login_Sequence_Diagram.jpg" alt="image of login sequence diagram" width="750">
+  </p>
+&nbsp;
+
+### New Post Sequence Diagram 
+
+Users are able to create new posts via the `/reviews` page. Once they input all their information, it will be sent via a secured API and stored in our database. Our clever design allows for near instant, live updates to the page so users have a quick confirmation that their post can be seen by everyone. All data sent to the database is locked via Next-Auth api protection and fetched onto the frontend via SWR.
+
+<p align="center">
+<img src="/documentation/images/New_Post_Sequence_Diagram.jpg" alt="image of new post sequence diagram" width="750">
+  </p>
+&nbsp;
+
+> More screenshots to come.
+
 ### Frontend Structure
 
 Overall System Diagram
@@ -166,3 +214,13 @@ Overall System Diagram
 │   ├── ...
 └── .gitignore
 ```
+
+## Stack and Dependencies
+
+### Notable Libraries and Packages
+
+- Next-Auth
+- SWR
+- CSS Modules
+- Framer Motion
+- react-hot-toast
