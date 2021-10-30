@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import { connectToDatabase } from '@/util/connectToDb'
-var mongodb = require('mongodb')
+const mongodb = require('mongodb')
 
 export default async function deleteEntry(
   req: NextApiRequest,
