@@ -39,6 +39,7 @@ const useSlider = (min, max, defaultState, label, id) => {
             defaultValue={slide} // but instead pass state value as default value
             onChange={(e) => console.log(e.target.value)} // don't set state on all change as react will re-render
             onMouseUp={props['onHandleChange']}
+            onTouchEnd={props['onHandleChange']}
           />
           <span>
             <strong>10</strong>
