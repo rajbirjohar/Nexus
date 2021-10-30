@@ -54,7 +54,7 @@ export default function OrganizationsPostForm(props) {
     })
     const data = await response.json()
     if (response.status === 200) {
-      toast.success('Your review has been posted!')
+      toast.success('Your Organization has been posted!')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

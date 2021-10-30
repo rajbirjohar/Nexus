@@ -15,7 +15,7 @@
   z-index: 10;
   margin: 0 auto;
   position: sticky;
-  padding: var(--gap-quarter) var(--gap-med);
+  padding: var(--gap-med) var(--gap-med) var(--gap-med) 0;
   top: 0;
   color: var(--foreground);
   display: flex;
@@ -23,7 +23,6 @@
   align-items: flex-end;
   justify-content: flex-end;
   background-color: var(--background);
-  padding: var(--gap-med) var(--gap-med) var(--gap-med) 0;
 }
 
 .linkwrapper {
@@ -32,13 +31,32 @@
   gap: var(--gap-med);
 }
 
+.open,
 .notopen {
-  height: 0;
-  display: none;
+  width: 100vw;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  background-color: var(--background);
+  overflow-x: hidden !important;
+  overflow-y: hidden !important;
+  transition: 0.5s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: var(--gap-med);
+  font-size: 1.5rem;
 }
 
 .open {
-  display: flex;
+  height: 100vh;
+}
+
+.notopen {
+  height: 0vh;
+  /* display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -47,10 +65,11 @@
   min-height: 100vh;
   z-index: 2;
   margin: 0;
-  overflow-y: hidden;
+  overflow-y: hidden; */
 }
 
-.primary, .secondary{
+.primary,
+.secondary {
   margin-left: 0;
 }
 
@@ -95,8 +114,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  z-index: 10;
 }
-
 
 .inner {
   height: 0.2rem;

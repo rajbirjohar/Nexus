@@ -1,4 +1,4 @@
-import react, { useState } from 'react'
+import React, { useState } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import ThemeChanger from '@/components/Theme'
@@ -59,12 +59,7 @@ export default function Header() {
         </nav>
       ) : (
         <nav className={styles.mobilenavigation}>
-          <div
-            className={styles.hamburger}
-            onClick={() => {
-              setOpen(!open)
-            }}
-          >
+          <div className={styles.hamburger} onClick={() => setOpen(!open)}>
             <span
               className={
                 open ? `${styles.inner} ${styles.onclick}` : `${styles.inner}`
