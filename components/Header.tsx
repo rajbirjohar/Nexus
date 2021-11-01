@@ -4,7 +4,6 @@ import Link from 'next/link'
 import ThemeChanger from '@/components/Theme'
 import { useWindowSize } from 'hooks/useWindowSize'
 import styles from '@/styles/header.module.css'
-import Organization from '../pages/organization/[id]'
 
 interface Size {
   width: number | undefined

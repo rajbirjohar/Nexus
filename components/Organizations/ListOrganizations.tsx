@@ -1,20 +1,7 @@
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
-import styles from '@/styles/reviewposts.module.css'
-
-const Skeleton = () => {
-  return (
-    <div className={styles.card}>
-      <p className={styles.dummydescription}></p>
-      <p className={styles.dummydescription}></p>
-      <p className={styles.dummydescription}></p>
-      <span className={styles.dummyauthor}>
-        <p className={styles.dummytitle}></p>
-      </span>
-    </div>
-  )
-}
+import Loader from '@/components/Skeleton'
 
 export default function ListOrganizations() {
   const { data, error } = useSWR('/api/organizations/orgfetch', fetcher, {
@@ -24,18 +11,11 @@ export default function ListOrganizations() {
     return <p>Database is not working.</p>
   }
   if (!data) {
-    return (
-      <>
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-      </>
-    )
+    return <Loader />
   }
   return (
     <div>
+      {data.organizations.length === 0 && <p>Create the first organization!</p>}
       {data.organizations.map((organization) => (
         <OrganizationCard
           key={organization._id}

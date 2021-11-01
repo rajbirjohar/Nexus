@@ -15,21 +15,25 @@ export default function Home({ isConnected }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <section>
-        <h1>Nexus @ UCR</h1>
-        <h3 className={styles.subtitle}>Where Information Gathers</h3>
-        {session && (
-          <>
-            {isConnected ? (
-              <h3>Hi, {session.user.name}! Let&#39;s learn something new today.</h3>
-            ) : (
-              <h3>
-                You are <strong>not</strong> connected to MongoDB. Check the{' '}
-                <code>README.md</code> for instructions.
-              </h3>
-            )}
-          </>
-        )}
+      <section className={styles.hero}>
+        <div className={styles.content}>
+          <h1>Nexus @ UCR</h1>
+          <h3 className={styles.subtitle}>Where Information Gathers</h3>
+          {session && (
+            <>
+              {isConnected ? (
+                <h3>
+                  Hi, {session.user.name}! Let&#39;s learn something new today.
+                </h3>
+              ) : (
+                <h3>
+                  Oops. Something went wrong when trying to log you in. Please
+                  try again or let us know if this persists.
+                </h3>
+              )}
+            </>
+          )}
+        </div>
       </section>
     </Layout>
   )

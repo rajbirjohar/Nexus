@@ -12,7 +12,6 @@ export default async function deleteEntry(
     try {
       const { db } = await connectToDatabase()
       const { reviewPostData: course, reviewPostId } = req.body
-      console.log(req.body)
       const courseArray = await db
         .collection('courses')
         .updateOne(

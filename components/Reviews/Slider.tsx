@@ -3,16 +3,9 @@ import styles from '@/styles/reviewposts.module.css'
 
 const useSlider = (min, max, defaultState, label, id) => {
   const [slide, setSlide] = useState(defaultState)
-
-  // const handleSliderChange = (event) => {
-  //   console.log('handleSliderChange:', event.target.value)
-  //   currentValue = event.target.value
-  //   setSlide(event.target.value)
-  // }
-
+  
   useEffect(() => {
     setSlide(slide)
-    console.log('useSlider:', slide)
   }, [setSlide, slide])
 
   const Slider = (props) => {

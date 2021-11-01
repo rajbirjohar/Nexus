@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/reviewposts.module.css'
@@ -27,7 +27,7 @@ export default function ReviewPostCard({
       })
       await res.json()
       if (res.status === 200) {
-        toast.success('Deleted entry!')
+        toast.success('Deleted review.')
       } else {
         toast.error('Uh oh. Something went wrong.')
       }
