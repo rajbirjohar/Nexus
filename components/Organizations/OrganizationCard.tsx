@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/organizations.module.css'
@@ -29,8 +29,9 @@ export default function OrganizationCard({
       }
     }
   }
+
   return (
-    <Link href={`/organization/${organizationName}`} passHref>
+    <Link href={`/organizations/${organizationName}`} passHref>
       <div className={styles.card}>
         <p className={styles.organizationName}>{organizationName}</p>
         <h4 className={styles.organizationDescription}>

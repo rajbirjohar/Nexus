@@ -13,6 +13,11 @@ export default function CoursesPage() {
       </Head>
       <section>
         <h1>Courses</h1>
+        <p>
+          Check out any course below. Each course will come with a list of
+          reviews that other people have written from their experiences as a
+          student. Feel free to write your own for future readers.
+        </p>
         <ListCourses />
       </section>
     </Layout>

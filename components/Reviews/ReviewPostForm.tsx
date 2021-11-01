@@ -1,8 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import useSWR from 'swr'
-import Fetcher from '@/lib/fetcher'
-import toast, { resolveValue } from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import useSlider from './Slider'
 import styles from '@/styles/reviewposts.module.css'
 
@@ -70,7 +67,6 @@ export default function ReviewPostForm({ name, email, course }) {
   }
 
   const sendData = async (reviewPostData) => {
-    console.log(reviewPostData)
     const response = await fetch('/api/reviewposts/create', {
       method: 'POST',
       headers: {
@@ -90,27 +86,6 @@ export default function ReviewPostForm({ name, email, course }) {
   }
   return (
     <form onSubmit={handleSubmit} className={styles.inputWrapper}>
-      {/* <label htmlFor="_course">
-        <strong>Course:</strong>
-      </label>
-      <select
-        aria-label="Course Select"
-        name="_course"
-        value={reviewPost._course}
-        onChange={handleChange}
-        placeholder="NXS100"
-        className={styles.select}
-      >
-        {data && (
-          <>
-            {data.courses.map((course) => (
-              <option id={course.id} value={course.name}>
-                {course.name}
-              </option>
-            ))}
-          </>
-        )}
-      </select> */}
       <label htmlFor="_reviewPost">
         <strong>Review:</strong>
       </label>

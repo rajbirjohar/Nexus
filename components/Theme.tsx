@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { useTheme } from 'next-themes'
 import styles from '@/styles/header.module.css'
 

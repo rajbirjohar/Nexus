@@ -30,6 +30,7 @@ export default function Profile() {
           <p>
             <strong>Welcome {session.user.name}!</strong>
           </p>
+          <p>Here you can view all your posts and organizations.</p>
           <h2>Your Reviews</h2>
           <ListReviewPosts />
         </>
