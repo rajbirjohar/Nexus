@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^0.0.2-next.281",
+    "@types/mongodb": "^4.0.7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "mongodb": "^4.1.2",
