@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import useSWR from 'swr'
 import Fetcher from '@/lib/fetcher'
+import { motion, AnimatePresence } from 'framer-motion'
 import styles from '@/styles/courses.module.css'
 import CourseCard from './CourseCard'
 
