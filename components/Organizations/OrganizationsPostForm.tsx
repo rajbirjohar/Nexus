@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react'
-import toast, { resolveValue } from 'react-hot-toast'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import styles from '@/styles/reviewposts.module.css'
 
@@ -44,7 +44,6 @@ export default function OrganizationsPostForm(props) {
   }
 
   const sendData = async (organizationData) => {
-    console.log(organizationData)
     const response = await fetch('/api/organizations/orgcreate', {
       method: 'POST',
       headers: {
@@ -54,7 +53,7 @@ export default function OrganizationsPostForm(props) {
     })
     const data = await response.json()
     if (response.status === 200) {
-      toast.success('Your Organization has been posted!')
+      toast.success('You created your organization!')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -93,7 +92,7 @@ export default function OrganizationsPostForm(props) {
         {maxLength - organization._organizationDescription.length}/{maxLength}
       </div>
       <button className={styles.signbutton} type="submit">
-        Post Organization!
+        Create Organization
       </button>
     </form>
   )

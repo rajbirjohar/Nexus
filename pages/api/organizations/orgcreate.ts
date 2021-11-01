@@ -17,7 +17,6 @@ export default async function createPost(
         _organizationDescription,
       },
     } = req.body
-    console.log(req.body)
     const result = await db.collection('organizations').insertOne({
       organizer: organizer,
       email: email,

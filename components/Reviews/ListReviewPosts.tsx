@@ -1,49 +1,29 @@
 import useSWR from 'swr'
-import useSWRInfinite from 'swr'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
-import styles from '@/styles/reviewposts.module.css'
-
-const Skeleton = () => {
-  return (
-    <div className={styles.card}>
-      <p className={styles.dummydescription}></p>
-      <p className={styles.dummydescription}></p>
-      <p className={styles.dummydescription}></p>
-      <span className={styles.dummyauthor}>
-        <p className={styles.dummytitle}></p>
-      </span>
-    </div>
-  )
-}
+import Loader from '@/components/Skeleton'
 
 export default function ListReviewPosts({ course }) {
   const { data, error } = useSWR(`/api/reviewposts/${course}`, fetcher, {
     refreshInterval: 1000,
   })
-  console.log(course)
   if (error) {
     return (
       <p>
-        Oops. Looks like my database is not being fetched right now. If this
-        persists, please let me know.
+        Oops. Looks like the reviews are not being fetched right now. If this
+        persists, please let us know.
       </p>
     )
   }
   if (!data) {
-    return (
-      <>
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-        <Skeleton />
-      </>
-    )
+    return <Loader />
   }
   return (
     <div>
+      {data.reviewPosts.length === 0  && (
+        <p>Be the first one to write a review!</p>
+      )}
       {data.reviewPosts.map((post) => (
         <ReviewPostCard
           key={post._id}

@@ -15,6 +15,10 @@ export default function OrganizationsPage() {
       </Head>
       <section>
         <h1>Organizations</h1>
+        <p>
+          Looking for a specific club or org event? Here you can sort all the
+          events by their specific club and read more about them. Try creating your own!
+        </p>
         {session && (
           <>
             <OrganizationsPostForm

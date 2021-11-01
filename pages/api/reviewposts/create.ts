@@ -23,7 +23,6 @@ export default async function createPost(
         _anonymous,
       },
     } = req.body
-    console.log(req.body)
     const reviewPost = await db.collection('reviewPosts').insertOne({
       reviewee: reviewee,
       email: email,
@@ -36,7 +35,6 @@ export default async function createPost(
       createdAt: new Date(),
     })
     const reviewPostId = reviewPost.insertedId
-    console.log(reviewPostId)
     const courseArray = await db
       .collection('courses')
       .updateOne({ name: _course }, { $push: { reviews: reviewPostId } })
