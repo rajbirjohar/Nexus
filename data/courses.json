@@ -1,32 +1,72 @@
 [
   {
-    "course": "CS10A"
+    "id": "CS10A",
+    "name": "CS10A",
+    "reviews": []
   },
   {
-    "course": "CS10B"
+    "id": "CS10B",
+    "name": "CS10B",
+    "reviews": []
   },
   {
-    "course": "CS10C"
+    "id": "CS10C",
+    "name": "CS10C",
+    "reviews": []
   },
   {
-    "course": "CS011"
+    "id": "CS011",
+    "name": "CS011",
+    "reviews": []
   },
   {
-    "course": "CS061"
+    "id": "CS061",
+    "name": "CS061",
+    "reviews": []
   },
   {
-    "course": "CS100"
+    "id": "CS100",
+    "name": "CS100",
+    "reviews": []
   },
   {
-    "course": "CS141"
+    "id": "CS141",
+    "name": "CS141",
+    "reviews": []
   },
   {
-    "course": "CS161"
+    "id": "CS161",
+    "name": "CS161",
+    "reviews": []
   },
   {
-    "course": "CS111"
+    "id": "CS111",
+    "name": "CS111",
+    "reviews": []
   },
   {
-    "course": "CS120A"
+    "id": "CS120A",
+    "name": "CS120A",
+    "reviews": []
+  },
+  {
+    "id": "CS10B",
+    "name": "CS120B",
+    "reviews": []
+  },
+  {
+    "id": "CS150",
+    "name": "CS150",
+    "reviews": []
+  },
+  {
+    "id": "CS153",
+    "name": "CS153",
+    "reviews": []
+  },
+  {
+    "id": "CS178A",
+    "name": "CS178A",
+    "reviews": []
   }
 ]
