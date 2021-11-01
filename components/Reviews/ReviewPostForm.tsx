@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
+import useSWR from 'swr'
+import Fetcher from '@/lib/fetcher'
 import toast, { resolveValue } from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import useSlider from './Slider'
@@ -6,8 +8,7 @@ import styles from '@/styles/reviewposts.module.css'
 
 const maxLength = 750
 
-export default function ReviewPostForm(props) {
-  const { data: session } = useSession()
+export default function ReviewPostForm({ name, email, course }) {
   const [slideValue, Slider, setSlide] = useSlider(
     1,
     10,
@@ -16,11 +17,11 @@ export default function ReviewPostForm(props) {
     'difficulty'
   )
   const [reviewPost, setReviewPost] = useState({
-    reviewee: session.user.name,
-    email: session.user.email,
+    reviewee: name,
+    email: email,
     _reviewPost: '',
     _reviewProfessor: '',
-    _course: '',
+    _course: course,
     _taken: '',
     _difficulty: 5,
     _anonymous: true,
@@ -32,11 +33,7 @@ export default function ReviewPostForm(props) {
     // don't redirect the page
     event.preventDefault()
     // check if any text fields are empty
-    if (
-      reviewPost._reviewPost === '' ||
-      reviewPost._reviewProfessor === '' ||
-      reviewPost._course === ''
-    ) {
+    if (reviewPost._reviewPost === '' || reviewPost._reviewProfessor === '') {
       toast.error('Please fill out the missing fields.')
     } else {
       // calls sendData() to send our state data to our API
@@ -46,7 +43,6 @@ export default function ReviewPostForm(props) {
         ...reviewPost,
         _reviewPost: '',
         _reviewProfessor: '',
-        _course: '',
         _taken: '',
         _difficulty: 5,
         _anonymous: true,
@@ -92,21 +88,29 @@ export default function ReviewPostForm(props) {
     }
     return data.reviewPostData
   }
-
   return (
     <form onSubmit={handleSubmit} className={styles.inputWrapper}>
-      <label htmlFor="_course">
+      {/* <label htmlFor="_course">
         <strong>Course:</strong>
       </label>
-      <input
-        aria-label="Course Input"
+      <select
+        aria-label="Course Select"
         name="_course"
         value={reviewPost._course}
         onChange={handleChange}
-        type="text"
         placeholder="NXS100"
-        className={styles.input}
-      />
+        className={styles.select}
+      >
+        {data && (
+          <>
+            {data.courses.map((course) => (
+              <option id={course.id} value={course.name}>
+                {course.name}
+              </option>
+            ))}
+          </>
+        )}
+      </select> */}
       <label htmlFor="_reviewPost">
         <strong>Review:</strong>
       </label>
@@ -115,7 +119,7 @@ export default function ReviewPostForm(props) {
         name="_reviewPost"
         value={reviewPost._reviewPost}
         onChange={handleChange}
-        placeholder="&quot;I love this class!&quot;"
+        placeholder='"I love this class!"'
         className={styles.input}
         maxLength={maxLength}
       />

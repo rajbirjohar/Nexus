@@ -23,7 +23,7 @@ export default function ReviewPostCard({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ reviewPostData: reviewPostId }),
+        body: JSON.stringify({ reviewPostData: course, reviewPostId }),
       })
       await res.json()
       if (res.status === 200) {

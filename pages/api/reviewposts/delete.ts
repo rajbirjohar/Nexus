@@ -11,7 +11,14 @@ export default async function deleteEntry(
   if (session) {
     try {
       const { db } = await connectToDatabase()
-      const { reviewPostData: reviewPostId } = req.body
+      const { reviewPostData: course, reviewPostId } = req.body
+      console.log(req.body)
+      const courseArray = await db
+        .collection('courses')
+        .updateOne(
+          { name: course },
+          { $pull: { reviews: new mongodb.ObjectID(reviewPostId) } }
+        )
       const result = await db
         .collection('reviewPosts')
         .deleteOne({ _id: new mongodb.ObjectID(reviewPostId) })
