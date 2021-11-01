@@ -23,7 +23,7 @@ export default function Header() {
           <ThemeChanger />
           <ul className={styles.linkwrapper}>
             <Link href="/">Home</Link>
-            <Link href="/reviews">Reviews</Link>
+            <Link href="/courses">Courses</Link>
             <Link href="/organizations">Organizations</Link>
             {session ? (
               <>
@@ -75,8 +75,8 @@ export default function Header() {
             <Link href="/" passHref>
               <a onClick={() => setOpen(!open)}>Home</a>
             </Link>
-            <Link href="/reviews" passHref>
-              <a onClick={() => setOpen(!open)}>Reviews</a>
+            <Link href="/courses" passHref>
+              <a onClick={() => setOpen(!open)}>Courses</a>
             </Link>
             <Link href="/organizations" passHref>
               <a onClick={() => setOpen(!open)}>Organization</a>

@@ -46,7 +46,7 @@ export default function ListReviewPosts() {
   return (
     <div>
       {data.reviewPosts.length === 0 && (
-        <Link href="/reviews">Write your first review!</Link>
+        <Link href="/courses">Write your first review!</Link>
       )}
       {data.reviewPosts.map((post) => (
         <ReviewPostCard

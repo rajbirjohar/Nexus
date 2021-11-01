@@ -2,6 +2,8 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import { connectToDatabase } from '@/util/connectToDb'
 
+const mongodb = require('mongodb')
+
 export default async function createPost(
   req: NextApiRequest,
   res: NextApiResponse
@@ -22,7 +24,7 @@ export default async function createPost(
       },
     } = req.body
     console.log(req.body)
-    const result = await db.collection('reviewPosts').insertOne({
+    const reviewPost = await db.collection('reviewPosts').insertOne({
       reviewee: reviewee,
       email: email,
       reviewPost: _reviewPost,
@@ -33,6 +35,11 @@ export default async function createPost(
       anonymous: _anonymous,
       createdAt: new Date(),
     })
+    const reviewPostId = reviewPost.insertedId
+    console.log(reviewPostId)
+    const courseArray = await db
+      .collection('courses')
+      .updateOne({ name: _course }, { $push: { reviews: reviewPostId } })
     return res.status(200).json({ message: 'Successfully posted entry.' })
   } else {
     // Not Signed in

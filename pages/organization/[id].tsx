@@ -1,9 +1,11 @@
 import Head from 'next/head'
+import useSWR from 'swr'
+import Fetcher from '@/lib/fetcher'
 import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 import { connectToDatabase } from '@/util/connectToDb'
 
-const mongodb = require('mongodb')
+// const mongodb = require('mongodb')
 
 const Organization = ({ organization }) => {
   const router = useRouter()
@@ -30,7 +32,7 @@ export async function getServerSideProps(context) {
   const { db } = await connectToDatabase()
   const organization = await db
     .collection('organizations')
-    .find({ _id: new mongodb.ObjectID(id) })
+    .find({ organizationName: id })
     .toArray()
   return {
     props: {

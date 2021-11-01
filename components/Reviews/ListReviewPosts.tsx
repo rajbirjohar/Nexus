@@ -18,11 +18,11 @@ const Skeleton = () => {
   )
 }
 
-export default function ListReviewPosts() {
-  const { data, error } = useSWR('/api/reviewposts/fetch', fetcher, {
+export default function ListReviewPosts({ course }) {
+  const { data, error } = useSWR(`/api/reviewposts/${course}`, fetcher, {
     refreshInterval: 1000,
   })
-
+  console.log(course)
   if (error) {
     return (
       <p>
