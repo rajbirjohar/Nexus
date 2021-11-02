@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/styles/reviewposts.module.css'
 
+// Hook: useSlider
+
 const useSlider = (min, max, defaultState, label, id) => {
   const [slide, setSlide] = useState(defaultState)
   

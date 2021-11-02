@@ -5,6 +5,11 @@ import CourseCard from './CourseCard'
 import Loader from '@/components/Skeleton'
 import styles from '@/styles/courses.module.css'
 
+// Component: ListCourses()
+// Params: None 
+// Purpose: Display all CourseCard({courseId, courseName}) 
+// components via mapping from useSWR hook at coursefetch api
+
 export default function ListCourses() {
   const [searchValue, setSearchValue] = useState('')
   const { data, error } = useSWR('/api/courses/coursefetch', Fetcher)
@@ -47,13 +52,6 @@ export default function ListCourses() {
         </p>
       )}
       <div className={styles.courseGrid}>
-        {/* {data.courses.map((course) => (
-          <CourseCard
-            key={course._id}
-            courseId={course._id}
-            courseName={course.name}
-          />
-        ))} */}
         {filteredCourses.map((course) => (
           <CourseCard
             key={course._id}

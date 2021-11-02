@@ -4,6 +4,15 @@ import toast from 'react-hot-toast'
 import styles from '@/styles/organizations.module.css'
 import Link from 'next/link'
 
+// Component: OrganizationCard({
+// organizer,
+// organizationName,
+// organizationDescription,
+// organizationId,})
+// Params: organizer, organizationName, organizationDescription, organizationId
+// Purpose: Display each organization as an individual "card"
+// See ListOrganizations component
+
 export default function OrganizationCard({
   organizer,
   organizationName,
@@ -22,6 +31,7 @@ export default function OrganizationCard({
         body: JSON.stringify({ organizationData: organizationId }),
       })
       await res.json()
+      // wait for status from orgdelete endpoint to post success toast
       if (res.status === 200) {
         toast.success('Deleted entry!')
       } else {
@@ -31,6 +41,8 @@ export default function OrganizationCard({
   }
 
   return (
+    // Link is used to route each card to a dynamic page
+    // listing all details for that specific organization
     <Link href={`/organizations/${organizationName}`} passHref>
       <div className={styles.card}>
         <p className={styles.organizationName}>{organizationName}</p>
@@ -39,6 +51,8 @@ export default function OrganizationCard({
         </h4>
         <span className={styles.organizer}>{organizer}</span>
         <br />
+        {/* Checks if user is logged in and the user name matches organizer
+        Thus, only the logged in user can access the delete function */}
         {session && session.user.name === organizer && (
           <>
             {/* <button className={styles.modify}>Modify</button> */}
