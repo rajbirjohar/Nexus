@@ -145,8 +145,13 @@
   background-color: var(--purple-300);
 }
 
-.skeleton {
-  display: block;
+.dummycard {
+  background-color: var(--gray-50);
+  border: 2px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  margin: var(--gap-half) 0;
+  box-shadow: var(--shadows-base);
 }
 
 .dummyauthor {

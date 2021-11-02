@@ -5,8 +5,6 @@ import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 import { connectToDatabase } from '@/util/connectToDb'
 
-// const mongodb = require('mongodb')
-
 const Organization = ({ organization }) => {
   const router = useRouter()
   const { id } = router.query
@@ -27,6 +25,11 @@ const Organization = ({ organization }) => {
   )
 }
 
+// We are using getServerSideProps instead of an endpoint fetched
+// with SWR. This allows us to prefetch our data with what is returned
+// from the database (a list of all of our courses) mainly because
+// this data does not change often so we don't have to revalidate it
+// But the dynamic pages that are following it are updated frequently
 export async function getServerSideProps(context) {
   const { id } = context.query
   const { db } = await connectToDatabase()

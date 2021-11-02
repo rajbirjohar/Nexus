@@ -2,7 +2,15 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import { connectToDatabase } from '@/util/connectToDb'
 
-export default async function createPost(
+// createOrganization()
+// This endpoint takes data from our OrganizationPostForm()
+// component and writes to the database submitting one 
+// document containing all of the required data
+// Tip: "_" preceding the variable represents user data,
+// while the variable name alone represents what value it
+// is assigned to in the database.
+
+export default async function createOrganization(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

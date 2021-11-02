@@ -1,6 +1,10 @@
 import { useTheme } from 'next-themes'
 import styles from '@/styles/header.module.css'
 
+// Component: ThemeChanger()
+// Params: None
+// Purpose: To change the theme between dark and light mode on a button click
+
 const ThemeChanger = () => {
   const { theme, setTheme } = useTheme()
 
@@ -8,6 +12,7 @@ const ThemeChanger = () => {
     <div className={styles.themeWrapper}>
       <button
         className={styles.theme}
+        // If the theme is dark, set to light, else set to dark
         onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
       >
         {theme === 'light' ? (

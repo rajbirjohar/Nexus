@@ -5,6 +5,12 @@ import ThemeChanger from '@/components/Theme'
 import { useWindowSize } from 'hooks/useWindowSize'
 import styles from '@/styles/header.module.css'
 
+// Component: Header
+// Params: none
+// Purpose: To render the navigation bar, both on desktop and mobile screens
+// When editing, ensure to update both nav bars with the same links
+
+// Determines the size of the window using the useWindowSize hook
 interface Size {
   width: number | undefined
   height: number | undefined
@@ -17,6 +23,8 @@ export default function Header() {
 
   return (
     <>
+      {/* If the window width is greater than 868 pixels,
+      display the desktop navigation bar */}
       {size.width > 868 ? (
         <nav className={styles.navigation}>
           <ThemeChanger />
@@ -40,6 +48,7 @@ export default function Header() {
                   </button>
                 </li>
               </>
+              // Else display the mobile navigation bar
             ) : (
               <li>
                 <button

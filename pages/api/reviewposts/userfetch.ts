@@ -1,7 +1,14 @@
 import { connectToDatabase } from '@/util/connectToDb'
 import { getSession } from 'next-auth/react'
 
-const reviewPostsFetch = async (req, res) => {
+// fetchProfilePosts()
+// This endpoint will fetch all of our reviews
+// that that logged in user has submitted
+// from our database and place them into an array
+// where we can display them using the reviewPostCard(),
+// and listReviewPosts()
+
+const fetchProfilePosts = async (req, res) => {
   const session = await getSession({ req })
   const { user } = session
   if (session) {
@@ -28,4 +35,4 @@ const reviewPostsFetch = async (req, res) => {
   }
 }
 
-export default reviewPostsFetch
+export default fetchProfilePosts

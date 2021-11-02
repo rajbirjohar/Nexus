@@ -3,7 +3,13 @@ import { getSession } from 'next-auth/react'
 import { connectToDatabase } from '@/util/connectToDb'
 const mongodb = require('mongodb')
 
-export default async function deleteEntry(
+// deleteReviewPost()
+// This endpoint takes the unique ID of the review post,
+// and removes that entire document based on that ID
+// Then it removes the referencing ID from the reviews array
+// of that particular course
+
+export default async function deleteReviewPost(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

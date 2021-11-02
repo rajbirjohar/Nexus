@@ -33,7 +33,7 @@ export default function OrganizationCard({
       await res.json()
       // wait for status from orgdelete endpoint to post success toast
       if (res.status === 200) {
-        toast.success('Deleted entry!')
+        toast.success('Deleted organization.')
       } else {
         toast.error('Uh oh. Something went wrong.')
       }
