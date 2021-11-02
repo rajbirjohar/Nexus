@@ -26,6 +26,32 @@
   align-items: center;
 }
 
+.searchWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search {
+  border: 2px solid var(--purple-200) !important;
+  width: 100%;
+  padding: var(--gap);
+  font-size: 18px;
+  border-radius: var(--radius);
+  margin: var(--gap) 0;
+  background-color: var(--gray-100) !important;
+  color: var(--purple-700) !important;
+}
+.search::placeholder {
+  color: var(--purple-700) !important;
+}
+
+.searchIcon {
+  position: absolute;
+  top: 25px;
+  right: 15px;
+  color: var(--purple-500) !important;
+}
+
 .course {
   font-weight: 800;
   font-size: 2rem;
