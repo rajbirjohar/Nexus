@@ -40,7 +40,6 @@ export default function Profile() {
           </p>
           <p>Here you can view all your posts and organizations.</p>
           <h2>Your Reviews</h2>
-          <Loader />
           <ListReviewPosts />
         </>
       )}
