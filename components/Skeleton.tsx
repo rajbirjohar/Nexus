@@ -1,8 +1,13 @@
 import styles from '@/styles/reviewposts.module.css'
 
+// Component: Loader
+// Params: none
+// Purpose: To display a static loading state element
+// while the data is being fetched so the UX is not broken
+
 const Skeleton = () => {
   return (
-    <div className={styles.card}>
+    <div className={styles.dummycard}>
       <p className={styles.dummydescription}></p>
       <p className={styles.dummydescription}></p>
       <p className={styles.dummydescription}></p>

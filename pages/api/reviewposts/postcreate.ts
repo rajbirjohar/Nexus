@@ -4,7 +4,17 @@ import { connectToDatabase } from '@/util/connectToDb'
 
 const mongodb = require('mongodb')
 
-export default async function createPost(
+// createReviewPost()
+// This endpoint will take our user data and submit one document 
+// to our database containing all the required information on a single review
+// Then it will take the ID of that document, and insert it into the
+// reviews array contained in that course so we have reference to all
+// the reviews a course may have 
+// Tip: "_" preceding the variable represents user data,
+// while the variable name alone represents what value it
+// is assigned to in the database.
+
+export default async function createReviewPost(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

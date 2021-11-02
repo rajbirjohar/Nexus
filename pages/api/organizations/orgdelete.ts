@@ -3,7 +3,11 @@ import { getSession } from 'next-auth/react'
 import { connectToDatabase } from '@/util/connectToDb'
 var mongodb = require('mongodb')
 
-export default async function deleteEntry(
+// deleteOrganization
+// This endpoint takes the unique ID of the organization,
+// and removes that entire document based on that ID
+
+export default async function deleteOrganization(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

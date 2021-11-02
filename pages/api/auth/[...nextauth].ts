@@ -9,7 +9,7 @@ export default async function auth(req, res) {
   return await NextAuth(req, res, {
     adapter: MongoDBAdapter({ db: (await clientPromise).db('NexusDatabase') }),
     //Configure one or more authentication providers
-    //We will solely use Google, preferably within a single domain
+    //We will solely use Google, preferably within a single domain (ucr.edu)
     providers: [
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,

@@ -5,6 +5,11 @@ import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
 import Loader from '@/components/Skeleton'
 
+// Component: ListProfilePosts()
+// Params: none
+// Purpose: To list the review posts specific to 
+// the logged in user. This component live updates every second
+
 export default function ListReviewPosts() {
   const { data, error } = useSWR('/api/reviewposts/userfetch', fetcher, {
     refreshInterval: 1000,
