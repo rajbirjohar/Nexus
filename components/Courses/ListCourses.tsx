@@ -1,14 +1,33 @@
 import React, { useState } from 'react'
 import useSWR from 'swr'
+import { AnimatePresence, motion } from 'framer-motion'
 import Fetcher from '@/lib/fetcher'
 import CourseCard from './CourseCard'
 import Loader from '@/components/Skeleton'
 import styles from '@/styles/courses.module.css'
 
 // Component: ListCourses()
-// Params: None 
-// Purpose: Display all CourseCard({courseId, courseName}) 
+// Params: None
+// Purpose: Display all CourseCard({courseId, courseName})
 // components via mapping from useSWR hook at coursefetch api
+
+const cardlist = {
+  visible: {
+    opacity: 1,
+    transition: {
+      when: 'beforeChildren',
+      delay: 0,
+      staggerChildren: 0.02,
+      ease: 'easeInOut',
+    },
+  },
+  hidden: {
+    opacity: 0,
+    transition: {
+      when: 'afterChildren',
+    },
+  },
+}
 
 export default function ListCourses() {
   const [searchValue, setSearchValue] = useState('')
@@ -51,7 +70,12 @@ export default function ListCourses() {
           Contact us if you would like to see this class added.
         </p>
       )}
-      <div className={styles.courseGrid}>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={cardlist}
+        className={styles.courseGrid}
+      >
         {filteredCourses.map((course) => (
           <CourseCard
             key={course._id}
@@ -59,7 +83,7 @@ export default function ListCourses() {
             courseName={course.name}
           />
         ))}
-      </div>
+      </motion.div>
     </>
   )
 }
