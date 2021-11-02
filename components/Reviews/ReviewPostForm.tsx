@@ -3,9 +3,15 @@ import toast from 'react-hot-toast'
 import useSlider from './Slider'
 import styles from '@/styles/reviewposts.module.css'
 
+// Max length for review
 const maxLength = 750
 
+// Component: ReviewPostForm({name, email, course})
+// Params: name, email, course
+// Purpose: To take in user inputted data and submit it to the database
+
 export default function ReviewPostForm({ name, email, course }) {
+  // useSlider hook
   const [slideValue, Slider, setSlide] = useSlider(
     1,
     10,
@@ -13,6 +19,8 @@ export default function ReviewPostForm({ name, email, course }) {
     'Difficulty:',
     'difficulty'
   )
+
+  // default values for reviewPost Object
   const [reviewPost, setReviewPost] = useState({
     reviewee: name,
     email: email,
@@ -67,7 +75,7 @@ export default function ReviewPostForm({ name, email, course }) {
   }
 
   const sendData = async (reviewPostData) => {
-    const response = await fetch('/api/reviewposts/create', {
+    const response = await fetch('/api/reviewposts/postcreate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

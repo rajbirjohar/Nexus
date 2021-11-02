@@ -22,13 +22,16 @@ export default function Home({ isConnected }) {
           {session && (
             <>
               {isConnected ? (
+                // Display this message when the user has successfully logged in
+                // AND connected to our database
                 <h3>
                   Hi, {session.user.name}! Let&#39;s learn something new today.
                 </h3>
               ) : (
                 <h3>
-                  Oops. Something went wrong when trying to log you in. Please
-                  try again or let us know if this persists.
+                  Oops. Something went wrong when trying to log you in
+                  pertaining to our database. Please try again or let us know if
+                  this persists.
                 </h3>
               )}
             </>

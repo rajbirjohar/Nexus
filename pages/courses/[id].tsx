@@ -6,6 +6,11 @@ import { connectToDatabase } from '@/util/connectToDb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 
+// Page: CourseReviews({course})
+// Params: course
+// Purpose: Dynamically display all the reviews pertaining to the
+// specific course that that the user has selected
+
 const CourseReviews = ({ course }) => {
   const router = useRouter()
   const { id } = router.query
@@ -36,6 +41,11 @@ const CourseReviews = ({ course }) => {
   )
 }
 
+// We are using getServerSideProps instead of an endpoint fetched
+// with SWR. This allows us to prefetch our data with what is returned
+// from the database (a list of all of our courses) mainly because
+// this data does not change often so we don't have to revalidate it
+// But the dynamic pages that are following it are updated frequently
 export async function getServerSideProps(context) {
   const { id } = context.query
   const { db } = await connectToDatabase()

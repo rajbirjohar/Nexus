@@ -1,9 +1,13 @@
 import React, { useEffect, useRef, useState } from 'react'
 import styles from '@/styles/reviewposts.module.css'
 
+// Hook: useSlider(min, max, defaultState, label, id)
+// Params: min, max, defaultState, label, id
+// Credit: To Jason
+
 const useSlider = (min, max, defaultState, label, id) => {
   const [slide, setSlide] = useState(defaultState)
-  
+
   useEffect(() => {
     setSlide(slide)
   }, [setSlide, slide])
@@ -29,8 +33,10 @@ const useSlider = (min, max, defaultState, label, id) => {
             min={min}
             max={max}
             step={1}
-            defaultValue={slide} // but instead pass state value as default value
-            onChange={(e) => console.log(e.target.value)} // don't set state on all change as react will re-render
+            // but instead pass state value as default value
+            defaultValue={slide}
+            // don't set state on all change as react will re-render
+            onChange={(e) => console.log(e.target.value)}
             onMouseUp={props['onHandleChange']}
             onTouchEnd={props['onHandleChange']}
           />

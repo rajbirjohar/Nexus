@@ -3,12 +3,18 @@ import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
 import Loader from '@/components/Skeleton'
 
+// Component: ListOrganizations()
+// Params: None 
+// Purpose: To list all OrganizationCard({key, organizationId, organizationName, organizationDescription, organizer}) 
+// components via mapping from useSWR hook at orgfetch api
+
 export default function ListOrganizations() {
   const { data, error } = useSWR('/api/organizations/orgfetch', fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
-    return <p>Database is not working.</p>
+    return <p>Oops. Looks like the organizations are not being fetched right now. If this
+    persists, please let us know.</p>
   }
   if (!data) {
     return <Loader />

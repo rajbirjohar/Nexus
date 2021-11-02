@@ -3,6 +3,19 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/reviewposts.module.css'
 
+// Component: ReviewPostCard({
+// reviewee,
+// reviewPost,
+// reviewProfessor,
+// course,
+// taken,
+// difficulty,
+// timestamp,
+// anonymous,
+// reviewPostId,
+// })
+// Purpose: To display all data within a single review as a card
+
 export default function ReviewPostCard({
   reviewee,
   reviewPost,
@@ -18,7 +31,7 @@ export default function ReviewPostCard({
 
   const deleteReviewPost = async (event) => {
     if (session) {
-      const res = await fetch('/api/reviewposts/delete', {
+      const res = await fetch('/api/reviewposts/postdelete', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

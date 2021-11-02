@@ -4,6 +4,11 @@ import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
 import Loader from '@/components/Skeleton'
 
+// Component: ListReviewPosts({course})
+// Params: course
+// Purpose: To list the review posts specific to 
+// the course on that route. This component live updates every second
+
 export default function ListReviewPosts({ course }) {
   const { data, error } = useSWR(`/api/reviewposts/${course}`, fetcher, {
     refreshInterval: 1000,
