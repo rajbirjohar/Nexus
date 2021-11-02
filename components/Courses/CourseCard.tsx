@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import styles from '@/styles/courses.module.css'
 
 // Component: CourseCard({courseId, courseName})
@@ -6,9 +7,14 @@ import styles from '@/styles/courses.module.css'
 // Purpose: Display each course as an individual "card"
 // courseId: the ID unique to the course used to
 //  parse the courses collection for each course
-// courseName: the name of the course displayed 
+// courseName: the name of the course displayed
 // on each card
 // See ListCourses component
+
+const card = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
 
 export default function CourseCard({ courseId, courseName }) {
   return (
@@ -16,9 +22,9 @@ export default function CourseCard({ courseId, courseName }) {
     // listing all course review posts for that specific
     // course
     <Link href={`/courses/${courseName}`} passHref>
-      <div id={courseId} className={styles.card}>
+      <motion.div variants={card} id={courseId} className={styles.card}>
         <p className={styles.course}>{courseName}</p>
-      </div>
+      </motion.div>
     </Link>
   )
 }
