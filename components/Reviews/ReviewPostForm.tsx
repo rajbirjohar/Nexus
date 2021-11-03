@@ -38,7 +38,7 @@ export default function ReviewPostForm({ name, email, course }) {
     // don't redirect the page
     event.preventDefault()
     // check if any text fields are empty
-    if (reviewPost._reviewPost === '' || reviewPost._reviewProfessor === '') {
+    if (reviewPost._reviewPost === '' || reviewPost._reviewProfessor === '' || reviewPost._taken === '') {
       toast.error('Please fill out the missing fields.')
     } else {
       // calls sendData() to send our state data to our API
