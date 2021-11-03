@@ -32,6 +32,7 @@ export default function Header() {
             <Link href="/">Home</Link>
             <Link href="/courses">Courses</Link>
             <Link href="/organizations">Organizations</Link>
+            <Link href="/about">About Us</Link>
             {session ? (
               <>
                 <Link href="/profile">Profile</Link>
@@ -89,6 +90,9 @@ export default function Header() {
             <Link href="/organizations" passHref>
               <a onClick={() => setOpen(!open)}>Organization</a>
             </Link>
+            <Link href="/about" passHref>
+                  <a onClick={() => setOpen(!open)}>About Us</a>
+                </Link>
             {session ? (
               <>
                 <Link href="/profile" passHref>
