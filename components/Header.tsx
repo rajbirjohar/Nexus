@@ -88,7 +88,7 @@ export default function Header() {
               <a onClick={() => setOpen(!open)}>Courses</a>
             </Link>
             <Link href="/organizations" passHref>
-              <a onClick={() => setOpen(!open)}>Organization</a>
+              <a onClick={() => setOpen(!open)}>Organizations</a>
             </Link>
             <Link href="/events" passHref>
               <a onClick={() => setOpen(!open)}>Events</a>
