@@ -1,8 +1,6 @@
 import Head from 'next/head'
 import Layout from '@/components/Layout'
-import { useSession } from 'next-auth/react'
-import OrganizationsPostForm from '@/components/Organizations/OrganizationsPostForm'
-import ListOrganizations from '@/components/Organizations/ListOrganizations'
+import styles from '@/styles/about.module.css'
 
 export default function aboutPage() {
   return (
@@ -14,20 +12,25 @@ export default function aboutPage() {
       </Head>
       <section>
         <h1>About Us</h1>
+        <p>Founded October 2021. </p>
+        <p>Developed at University of California, Riverside. </p>
+        <p>Nexus was made with the intent to centralize the decentralized.</p>
         <p>
-          Founded in October 2021. <br/>
-          Developed at University of California, Riverside. <br/>
-          Nexus was made with the intent to centralize the decentralized. Information on classes, clubs, and organizations span many different
-          sites and media that students may not always be following. Nexus aims to provide a single place where students are able to find the
-          information they need. From class reviews and info to club posts and events, Nexus is where information gathers. <br/>
+          Information on classes, clubs, and organizations span many different
+          sites and media that students may not always be following. Nexus aims
+          to provide a single place where students are able to find the
+          information they need. From class reviews and info to club posts and
+          events, Nexus is <i>where information gathers</i>.
+        </p>
+        <p>
           The team behind Nexus is comprised of five computer science students:
-          <ul>
-          <li>Rajbir Johar</li>
-          <li>Isaac Curiel</li>
-          <li>Brian Coffey</li>
-          <li>Robert Rivera</li>
-          <li>Florian Catalan</li>
-          </ul>
+          <p>
+            Rajbir Johar
+            <br /> Isaac Curiel
+            <br /> Brian Coffey
+            <br /> Robert Rivera
+            <br /> Florian Catalan
+          </p>
         </p>
       </section>
     </Layout>

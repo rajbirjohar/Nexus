@@ -135,6 +135,3 @@
   transform: rotate(-45deg) translateY(-0.5rem);
   transform-origin: center;
 }
-
-@media only screen and (max-width: 868px) {
-}
