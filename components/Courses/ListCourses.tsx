@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import Image from 'next/image'
 import useSWR from 'swr'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Fetcher from '@/lib/fetcher'
 import CourseCard from './CourseCard'
 import Loader from '@/components/Skeleton'
@@ -65,10 +66,13 @@ export default function ListCourses() {
         </svg> */}
       </div>
       {!filteredCourses.length && (
-        <p>
-          What!? That&#39;s crazy. It seems this class does not yet exist.
-          Contact us if you would like to see this class added.
-        </p>
+        <div className={styles.notFound}>
+          <p>
+            What!? That&#39;s crazy. It seems this class does not yet exist.
+            Contact us if you would like to see this class added.
+          </p>
+          <Image src={'/assets/void.svg'} width={300} height={300} />
+        </div>
       )}
       <motion.div
         initial="hidden"
