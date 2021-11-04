@@ -20,7 +20,7 @@ export default function CoursesPage() {
               student. Feel free to write your own for future readers.
             </p>
           </div>
-          <Image src={'/assets/teaching.svg'} width={300} height={300} />
+          <Image src={'/assets/teaching.svg'} width={300} height={300} alt='Professor teaching' />
         </div>
         <ListCourses />
       </section>

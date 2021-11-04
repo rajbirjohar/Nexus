@@ -71,7 +71,7 @@ export default function ListCourses() {
             What!? That&#39;s crazy. It seems this class does not yet exist.
             Contact us if you would like to see this class added.
           </p>
-          <Image src={'/assets/void.svg'} width={300} height={300} />
+          <Image src={'/assets/void.svg'} width={300} height={300} alt='Nothing found void' />
         </div>
       )}
       <motion.div
