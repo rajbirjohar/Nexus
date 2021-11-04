@@ -16,6 +16,18 @@
   color: var(--accent-7) !important;
 }
 
+.serverdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.noreviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .checkedWrapper {
   display: flex;
   flex-direction: row-reverse;

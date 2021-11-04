@@ -1,10 +1,28 @@
 .hero {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   height: 75vh;
+}
+
+.heroImage {
+  flex: 1;
+}
+
+.content {
+  flex: 1;
+  margin-left: var(--gap-med);
 }
 
 .subtitle {
   color: var(--gray-400);
+}
+
+@media (max-width: 868px) {
+  .hero {
+    flex-direction: column-reverse;
+  }
+  .content {
+    margin-left: 0;
+  }
 }

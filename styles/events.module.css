@@ -1,0 +1,18 @@
+.hero {
+  display: flex;
+  align-items: center;
+  margin-bottom: var(--gap-med);
+}
+.content {
+  flex: 1;
+  margin-right: var(--gap-med);
+}
+
+@media (max-width: 868px) {
+  .hero {
+    flex-direction: column;
+  }
+  .content {
+    margin-right: 0;
+  }
+}
