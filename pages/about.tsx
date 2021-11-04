@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Layout from '@/components/Layout'
+import Image from 'next/image'
 import styles from '@/styles/about.module.css'
 
 export default function aboutPage() {
@@ -12,6 +13,12 @@ export default function aboutPage() {
       </Head>
       <section>
         <h1>About Us</h1>
+        <Image
+          src={'/assets/dev.svg'}
+          height={300}
+          width={300}
+          alt="Developer Image"
+        />
         <p>Founded October 2021. </p>
         <p>Developed at University of California, Riverside. </p>
         <p>Nexus was made with the intent to centralize the decentralized.</p>

@@ -1,12 +1,14 @@
+import Image from 'next/image'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
 import Loader from '@/components/Skeleton'
+import styles from '@/styles/reviewposts.module.css'
 
 // Component: ListReviewPosts({course})
 // Params: course
-// Purpose: To list the review posts specific to 
+// Purpose: To list the review posts specific to
 // the course on that route. This component live updates every second
 
 export default function ListReviewPosts({ course }) {
@@ -15,10 +17,18 @@ export default function ListReviewPosts({ course }) {
   })
   if (error) {
     return (
-      <p>
-        Oops. Looks like the reviews are not being fetched right now. If this
-        persists, please let us know.
-      </p>
+      <div className={styles.serverdown}>
+        <p>
+          Oops. Looks like the reviews are not being fetched right now. If this
+          persists, please let us know.
+        </p>
+        <Image
+          src={'/assets/server.svg'}
+          height={500}
+          width={500}
+          alt="Server Down Image"
+        />
+      </div>
     )
   }
   if (!data) {
@@ -26,8 +36,17 @@ export default function ListReviewPosts({ course }) {
   }
   return (
     <div>
-      {data.reviewPosts.length === 0  && (
-        <p>Be the first one to write a review!</p>
+      {data.reviewPosts.length === 0 && (
+        <div className={styles.noreviews}>
+          <p>Be the first one to write a review!</p>
+
+          <Image
+            src={'/assets/post2.svg'}
+            height={300}
+            width={300}
+            alt="Post Image"
+          />
+        </div>
       )}
       {data.reviewPosts.map((post) => (
         <ReviewPostCard
