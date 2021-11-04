@@ -7,7 +7,7 @@
   --gap-med: 1.5rem;
   --small-gap: 4rem;
   --big-gap: 4rem;
-  --main-content: 48rem;
+  --main-content: 50rem;
   --radius-sm: 5px;
   --radius: 8px;
   --inline-radius: 5px;
@@ -332,7 +332,7 @@ input[type='text']:disabled::placeholder {
   }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 868px) {
   html,
   body {
     font-size: 15px;
