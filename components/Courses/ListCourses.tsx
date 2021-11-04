@@ -35,10 +35,18 @@ export default function ListCourses() {
   const { data, error } = useSWR('/api/courses/coursefetch', Fetcher)
   if (error) {
     return (
-      <p>
-        Oops. Looks like the courses are not being fetched right now. If this
-        persists, please let us know.
-      </p>
+      <div className={styles.serverdown}>
+        <p>
+          Oops. Looks like the courses are not being fetched right now. If this
+          persists, please let us know.
+        </p>
+        <Image
+          src={'/assets/server.svg'}
+          height={500}
+          width={500}
+          alt="Server Down Image"
+        />
+      </div>
     )
   }
   if (!data) {
@@ -71,7 +79,12 @@ export default function ListCourses() {
             What!? That&#39;s crazy. It seems this class does not yet exist.
             Contact us if you would like to see this class added.
           </p>
-          <Image src={'/assets/void.svg'} width={300} height={300} alt='Nothing found void' />
+          <Image
+            src={'/assets/void.svg'}
+            width={300}
+            height={300}
+            alt="Nothing Found Image"
+          />
         </div>
       )}
       <motion.div

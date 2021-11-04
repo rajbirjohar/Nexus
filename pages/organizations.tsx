@@ -17,13 +17,18 @@ export default function OrganizationsPage() {
       </Head>
       <section>
         <div className={styles.hero}>
-          <Image src={'/assets/club.svg'} width={300} height={300} alt='Club page' />
+          <Image
+            src={'/assets/club.svg'}
+            width={300}
+            height={300}
+            alt="Team Image"
+          />
           <div className={styles.content}>
             <h1>Organizations</h1>
             <p>
-              Looking for a specific club or org event? Here you can sort all
-              the events by their specific club and read more about them. Try
-              creating your own!
+              Looking for a specific club or organization? Here you can view
+              them all at a glance. Each organization contains all of their
+              events so be sure to check those out.
             </p>
           </div>
         </div>

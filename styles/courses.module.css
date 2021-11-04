@@ -8,6 +8,11 @@
   margin-right: var(--gap-med);
 }
 
+.serverdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .courseGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

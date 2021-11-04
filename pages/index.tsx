@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Image from 'next/image'
 import clientPromise from '@/lib/mongodb'
 import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
@@ -16,6 +17,14 @@ export default function Home({ isConnected }) {
       </Head>
 
       <section className={styles.hero}>
+        <div className={styles.heroImage}>
+          <Image
+            src={'/assets/information.svg'}
+            height={500}
+            width={500}
+            alt="Hero Image"
+          />
+        </div>
         <div className={styles.content}>
           <h1>Nexus @ UCR</h1>
           <h3 className={styles.subtitle}>Where Information Gathers</h3>
