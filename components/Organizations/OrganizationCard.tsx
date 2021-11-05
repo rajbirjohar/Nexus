@@ -43,25 +43,41 @@ export default function OrganizationCard({
   return (
     // Link is used to route each card to a dynamic page
     // listing all details for that specific organization
-    <Link href={`/organizations/${organizationName}`} passHref>
-      <div className={styles.card}>
-        <p className={styles.organizationName}>{organizationName}</p>
-        <h4 className={styles.organizationDescription}>
-          {organizationDescription}
-        </h4>
-        <span className={styles.organizer}>{organizer}</span>
-        <br />
-        {/* Checks if user is logged in and the user name matches organizer
+    <div className={styles.card}>
+      <Link href={`/organizations/${organizationName}`} passHref>
+        <div className={styles.link}>
+          <p className={styles.organizationName}>{organizationName}</p>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className={styles.linkIcon}
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="5"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
+          </svg>
+        </div>
+      </Link>
+      <h4 className={styles.organizationDescription}>
+        {organizationDescription}
+      </h4>
+      <span className={styles.organizer}>{organizer}</span>
+      <br />
+      {/* Checks if user is logged in and the user name matches organizer
         Thus, only the logged in user can access the delete function */}
-        {session && session.user.name === organizer && (
-          <>
-            {/* <button className={styles.modify}>Modify</button> */}
-            <button onClick={deleteOrganization} className={styles.delete}>
-              Delete
-            </button>
-          </>
-        )}
-      </div>
-    </Link>
+      {session && session.user.name === organizer && (
+        <>
+          {/* <button className={styles.modify}>Modify</button> */}
+          <button onClick={deleteOrganization} className={styles.delete}>
+            Delete
+          </button>
+        </>
+      )}
+    </div>
   )
 }

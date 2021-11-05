@@ -65,8 +65,6 @@
 .card:hover {
   background-color: var(--gray-100);
   box-shadow: var(--shadows-lg);
-  transform: translateY(-0.5rem);
-  cursor: pointer;
 }
 
 .title {
@@ -82,6 +80,11 @@
   color: var(--purple-800);
 }
 
+.organizationName:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 .error {
   border-color: var(--red-800) !important;
 }
@@ -90,10 +93,21 @@
   color: var(--red-800);
 }
 
+.link {
+  display: flex;
+  align-items: center;
+}
+
+.linkIcon {
+  margin-left: var(--gap-quarter);
+  stroke: var(--purple-800);
+}
+
 .delete {
   color: var(--red-900);
   background: var(--red-100);
   margin-left: 0;
+  z-index: 5;
 }
 
 .delete:hover {
