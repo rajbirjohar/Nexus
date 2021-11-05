@@ -67,12 +67,12 @@ export default function ReviewPostCard({
       </span>
       <br />
       {session && session.user.name === reviewee && (
-        <>
+        <div className={styles.actions}>
           {/* <button className={styles.modify}>Modify</button> */}
           <button onClick={deleteReviewPost} className={styles.delete}>
             Delete
           </button>
-        </>
+        </div>
       )}
     </div>
   )

@@ -19,9 +19,16 @@ export default function aboutPage() {
           width={300}
           alt="Developer Image"
         />
-        <p>Founded October 2021. </p>
-        <p>Developed at University of California, Riverside. </p>
-        <p>Nexus was made with the intent to centralize the decentralized.</p>
+        <p>
+          Founded <strong>October 2021.</strong>
+        </p>
+        <p>
+          Developed at the <strong>University of California, Riverside.</strong>
+        </p>
+        <p>
+          Nexus was made with the intent to{' '}
+          <strong>centralize the decentralized.</strong>
+        </p>
         <p>
           Information on classes, clubs, and organizations span many different
           sites and media that students may not always be following. Nexus aims

@@ -27,6 +27,8 @@ export default function EventsPage() {
             alt="Calendar Image"
           />
         </div>
+        <h2>Recent Events</h2>
+        <p>Check back soon!</p>
       </section>
     </Layout>
   )
