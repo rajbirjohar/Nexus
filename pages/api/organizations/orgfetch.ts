@@ -12,7 +12,7 @@ const fetchOrganizations = async (req, res) => {
   const organizations = await db
     .collection('organizations')
     .find({})
-    .sort({})
+    .sort({ organizationName: 1 })
     .toArray()
 
   return res.status(200).json({ organizations })
