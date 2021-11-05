@@ -5,7 +5,7 @@
 }
 .content {
   flex: 1;
-  margin-left: var(--gap-med);
+  margin-right: var(--gap-med);
 }
 
 .serverdown {
@@ -29,7 +29,7 @@
   background-color: var(--gray-100) !important;
 }
 .input::placeholder {
-  color: var(--accent-7) !important;
+  color: var(--purple-700) !important;
 }
 
 .organizer {
@@ -111,9 +111,9 @@
 
 @media (max-width: 868px) {
   .hero {
-    flex-direction: column-reverse;
+    flex-direction: column;
   }
   .content {
-    margin-left: 0;
+    margin-right: 0;
   }
 }

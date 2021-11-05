@@ -17,12 +17,6 @@ export default function OrganizationsPage() {
       </Head>
       <section>
         <div className={styles.hero}>
-          <Image
-            src={'/assets/club.svg'}
-            width={300}
-            height={300}
-            alt="Team Image"
-          />
           <div className={styles.content}>
             <h1>Organizations</h1>
             <p>
@@ -31,6 +25,7 @@ export default function OrganizationsPage() {
               events so be sure to check those out.
             </p>
           </div>
+          <Image src={'/assets/club.svg'} width={300} height={300} alt="Team Image"/>
         </div>
         {session && (
           <>
