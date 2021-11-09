@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import ListReviewPosts from '@/components/Reviews/ListProfilePosts'
-import Loader from '@/components/Skeleton'
 import styles from '@/styles/profile.module.css'
 
 export default function Profile() {
@@ -21,6 +20,7 @@ export default function Profile() {
   })
   const [userRole, setUserRole] = useState({
     _role: '',
+    displayWarning: true,
   })
 
   const handleSubmit = async (event) => {
@@ -29,6 +29,10 @@ export default function Profile() {
       toast.error('Please fill out your role.')
     } else if (userRole._role === 'student' || userRole._role === 'professor') {
       sendData(userRole)
+      setUserRole({
+        _role: '',
+        displayWarning: false,
+      })
     } else {
       toast.error('Your input is incorrect. Please try again.')
     }
@@ -36,6 +40,7 @@ export default function Profile() {
 
   const handleChange = (event) => {
     setUserRole({
+      ...userRole,
       _role: event.target.value,
     })
   }
@@ -49,8 +54,10 @@ export default function Profile() {
       body: JSON.stringify({ userRoleData: userRoleData }),
     })
     const data = await response.json()
+
     if (response.status === 200) {
-      toast.success("You've set your role")
+      Router.reload()
+      toast.success("You've set your role.")
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -65,37 +72,41 @@ export default function Profile() {
         {/* Change this icon when we have a logo */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {session && session.user.role.includes('none') && (
-        <div className={styles.warningWrapper}>
-          <p>
-            <strong>
-              Attention:
+      {session &&
+        session.user.role.includes('none') &&
+        userRole.displayWarning && (
+          <div className={styles.warningWrapper}>
+            <p>
+              <strong>
+                Attention:
+                <br />
+                Please tell us what your position is at University.
+                <br />
+                You won&#39;t be able to change this after you submit.
+              </strong>
               <br />
-              Please tell us what your position is at University.
+              Please enter <strong>&#34;student&#34;</strong> if you are a
+              student.
               <br />
-              You won&#39;t be able to change this after you submit.
-            </strong>
-            <br />
-            Please enter <strong>&#34;student&#34;</strong> if you are a student.
-            <br />
-            Please enter <strong>&#34;professor&#34;</strong> if you are a professor.
-          </p>
-          <form onSubmit={handleSubmit} className={styles.inputWrapper}>
-            <label htmlFor="_role">
-              <strong>Position:</strong>
-            </label>
-            <input
-              aria-label="User Role Input"
-              name="_role"
-              value={userRole._role}
-              onChange={handleChange}
-              type="text"
-              placeholder="Role"
-              className={styles.input}
-            />
-          </form>
-        </div>
-      )}
+              Please enter <strong>&#34;professor&#34;</strong> if you are a
+              professor.
+            </p>
+            <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+              <label htmlFor="_role">
+                <strong>Position:</strong>
+              </label>
+              <input
+                aria-label="User Role Input"
+                name="_role"
+                value={userRole._role}
+                onChange={handleChange}
+                type="text"
+                placeholder="Role"
+                className={styles.input}
+              />
+            </form>
+          </div>
+        )}
       <div className={styles.hero}>
         <div className={styles.content}>
           <h1>Profile</h1>
