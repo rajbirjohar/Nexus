@@ -31,7 +31,7 @@ export default async function createOrganization(
       organizationName: _organizationName,
       organizationDescription: _organizationDescription,
     })
-    return res.status(200).json({ message: 'Successfully posted entry.' })
+    return res.status(200).json({ message: 'Successfully posted organization.' })
   } else {
     // Not Signed in
     res.status(401).json({

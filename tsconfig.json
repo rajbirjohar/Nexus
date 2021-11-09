@@ -29,6 +29,6 @@
     "**/*.ts",
     "**/*.tsx",
     "pages/api/entry/create.js"
-, "lib/mongodb.js"  ],
+, "lib/mongodb.js", "pages/api/auth/[...nextauth].js"  ],
   "exclude": ["node_modules"]
 }
