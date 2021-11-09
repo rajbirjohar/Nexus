@@ -33,6 +33,11 @@ const CourseReviews = ({ course }) => {
           )}
           {session &&
             session.user.role &&
+            session.user.role.includes('professor') && (
+              <p>Professors cannot post reviews.</p>
+            )}
+          {session &&
+            session.user.role &&
             session.user.role.includes('student') && (
               <>
                 <ReviewPostForm
