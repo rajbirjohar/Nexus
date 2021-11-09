@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
@@ -26,15 +26,22 @@ const CourseReviews = ({ course }) => {
       {course.map((course) => (
         <>
           <h1>{course.name}</h1>
-          {session && (
-            <>
-              <ReviewPostForm
-                name={session.user.name}
-                email={session.user.email}
-                course={course.name}
-              />
-            </>
+          {session && session.user.role && session.user.role.includes('none') && (
+            <Link href="/profile" passHref>
+              <a>Please verify if you are a student.</a>
+            </Link>
           )}
+          {session &&
+            session.user.role &&
+            session.user.role.includes('student') && (
+              <>
+                <ReviewPostForm
+                  name={session.user.name}
+                  email={session.user.email}
+                  course={course.name}
+                />
+              </>
+            )}
         </>
       ))}
       <ListReviewPosts course={id} />

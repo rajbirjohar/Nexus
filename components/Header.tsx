@@ -50,16 +50,12 @@ export default function Header() {
                   </button>
                 </li>
               </>
-              // Else display the mobile navigation bar
             ) : (
+              // Else display the mobile navigation bar
               <li>
                 <button
                   className={styles.primary}
-                  onClick={() =>
-                    signIn('google', {
-                      callbackUrl: `${window.location.origin}/profile`,
-                    })
-                  }
+                  onClick={() => signIn('google')}
                 >
                   Sign in
                 </button>
@@ -95,8 +91,8 @@ export default function Header() {
               <a onClick={() => setOpen(!open)}>Events</a>
             </Link>
             <Link href="/about" passHref>
-                  <a onClick={() => setOpen(!open)}>About</a>
-                </Link>
+              <a onClick={() => setOpen(!open)}>About</a>
+            </Link>
             {session ? (
               <>
                 <Link href="/profile" passHref>

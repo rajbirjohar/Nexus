@@ -7,6 +7,31 @@
   margin-right: var(--gap-med);
 }
 
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: 2px solid var(--purple-100);
+  flex: 1;
+  padding: var(--gap) var(--gap);
+  font-size: 1.125rem;
+  border-radius: var(--radius);
+  margin: var(--gap-half) 0;
+  background-color: var(--gray-100) !important;
+}
+.input::placeholder {
+  color: var(--purple-700) !important;
+}
+
+.warningWrapper {
+  padding: var(--gap-med);
+  border: 2px solid var(--red-200);
+  background-color: var(--red-50);
+  border-radius: var(--radius);
+}
+
 @media (max-width: 868px) {
   .hero {
     flex-direction: column;

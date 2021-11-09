@@ -1,7 +1,8 @@
-import NextAuth from 'next-auth'
+import NextAuth, { Account, Profile, Session, User } from 'next-auth'
 import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import clientPromise from 'lib/mongodb'
 import GoogleProvider from 'next-auth/providers/google'
+import { JWT } from 'next-auth/jwt'
 
 const maxAge = 30 * 24 * 60 * 60 // 30 days
 
@@ -14,6 +15,16 @@ export default async function auth(req, res) {
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        profile(profile: { sub; name; email; picture; role }) {
+          return {
+            id: profile.sub,
+            name: profile.name,
+            email: profile.email,
+            image: profile.picture,
+            role: 'none',
+            orgRole: 'none',
+          }
+        },
       }),
     ],
     pages: {
@@ -21,6 +32,13 @@ export default async function auth(req, res) {
       signOut: '/pages/index', // Redirect them to home page on sign out
       error: '/auth/error',
       newUser: '/auth/new-user',
+    },
+    callbacks: {
+      async session({ session, user }) {
+        // Send properties to the client, like an access_token from a provider.
+        session.user.role = user.role
+        return session
+      },
     },
     // jwt: {
     //   signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
