@@ -40,11 +40,7 @@ export default function Header() {
                 <li>
                   <button
                     className={styles.secondary}
-                    onClick={() =>
-                      signOut({
-                        callbackUrl: `${window.location.origin}`,
-                      })
-                    }
+                    onClick={() => signOut()}
                   >
                     Sign out
                   </button>

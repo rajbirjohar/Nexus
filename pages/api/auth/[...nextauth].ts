@@ -28,10 +28,11 @@ export default async function auth(req, res) {
       }),
     ],
     pages: {
-      // signIn: '/auth/signin', // Don't need this page as we redirect them directly to Google Auth
-      signOut: '/pages/index', // Redirect them to home page on sign out
-      error: '/auth/error',
-      newUser: '/auth/new-user',
+      signIn: '/auth/signin',
+      signOut: '/auth/signout',
+      error: '/404', // Error code passed in query string as ?error=
+      // verifyRequest: '/auth/verify-request', // (used for check email message)
+      newUser: '/profile', // New users will be directed here on first sign in (leave the property out if not of interest)
     },
     callbacks: {
       async session({ session, user }) {

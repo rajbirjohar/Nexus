@@ -26,10 +26,34 @@
 }
 
 .warningWrapper {
+  display: flex;
+  flex-direction: column;
   padding: var(--gap-med);
   border: 2px solid var(--red-200);
   background-color: var(--red-50);
   border-radius: var(--radius);
+}
+
+.warningTitle {
+  display: flex;
+  align-items: center;
+}
+
+.setrolebutton {
+  width: max-content;
+  margin-right: 0;
+  background-color: var(--purple-100);
+  color: var(--purple-800);
+  transition: all var(--transition);
+}
+
+.setrolebutton:hover {
+  background-color: var(--purple-200);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
 }
 
 @media (max-width: 868px) {
