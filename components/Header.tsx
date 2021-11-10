@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import ThemeChanger from '@/components/Theme'
@@ -20,13 +20,25 @@ export default function Header() {
   const { data: session } = useSession()
   const [open, setOpen] = useState(false)
   const size: Size = useWindowSize()
+  const [scroll, setScroll] = useState(false)
+  useEffect(() => {
+    window.addEventListener('scroll', () => {
+      setScroll(window.scrollY > 10)
+    })
+  }, [])
 
   return (
     <>
       {/* If the window width is greater than 868 pixels,
       display the desktop navigation bar */}
       {size.width > 868 ? (
-        <nav className={styles.navigation}>
+        <nav
+          className={
+            scroll
+              ? `${styles.navigation} ${styles.shadow}`
+              : `${styles.navigation}`
+          }
+        >
           <ThemeChanger />
           <ul className={styles.linkwrapper}>
             <Link href="/">Home</Link>
@@ -60,7 +72,13 @@ export default function Header() {
           </ul>
         </nav>
       ) : (
-        <nav className={styles.mobilenavigation}>
+        <nav
+          className={
+            scroll
+              ? `${styles.mobilenavigation} ${styles.mobileshadow}`
+              : `${styles.mobilenavigation}`
+          }
+        >
           <div className={styles.hamburger} onClick={() => setOpen(!open)}>
             <span
               className={
