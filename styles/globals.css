@@ -34,6 +34,7 @@
   /* Default theme */
   --background: #f7fafc;
   --foreground: #171923;
+  --nav-shadow: rgba(178, 183, 190, 0.15) 0px 5px 10px 0px;
   --gray-100: #edf2f7;
   --gray-200: #e2e8f0;
   --gray-300: #cbd5e0;
@@ -67,6 +68,7 @@
 [data-theme='dark'] {
   --background: #171923;
   --foreground: #f7fafc;
+  --nav-shadow: rgba(3, 3, 3, 0.171) 0px 5px 10px 0px;
   --gray-800: #edf2f7;
   --gray-700: #e2e8f0;
   --gray-600: #cbd5e0;

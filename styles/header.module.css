@@ -1,28 +1,39 @@
-.navigation {
+.navigation,
+.mobilenavigation {
   z-index: 10;
   margin: 0 auto;
   position: sticky;
-  padding: var(--gap-quarter) var(--gap-med);
   top: 0;
   background: var(--background);
   color: var(--foreground);
   display: flex;
+  box-shadow: none;
+  transition: all var(--transition);
+}
+
+.navigation {
+  height: 100px;
+  padding: var(--gap-quarter) var(--gap-med);
   align-items: center;
   justify-content: space-between;
 }
 
 .mobilenavigation {
-  z-index: 10;
-  margin: 0 auto;
-  position: sticky;
-  padding: var(--gap-med) var(--gap-med) var(--gap-med) 0;
-  top: 0;
-  color: var(--foreground);
-  display: flex;
+  height: 75px;
+  padding: var(--gap-med);
   flex-direction: column;
   align-items: flex-end;
-  justify-content: flex-end;
-  background-color: var(--background);
+  justify-content: center;
+}
+
+.shadow {
+  height: 75px;
+  box-shadow: var(--nav-shadow);
+}
+
+.mobileshadow {
+  height: 60px;
+  box-shadow: var(--nav-shadow);
 }
 
 .linkwrapper {
@@ -34,13 +45,14 @@
 .open,
 .notopen {
   width: 100vw;
+  margin-top: 60px;
   position: fixed;
   z-index: 2;
   top: 0;
   left: 0;
   background-color: var(--background);
   overflow-x: hidden !important;
-  overflow-y: hidden !important;
+  overflow-y: auto !important;
   transition: 0.5s;
   display: flex;
   flex-direction: column;
@@ -56,16 +68,6 @@
 
 .notopen {
   height: 0vh;
-  /* display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  gap: var(--gap-med);
-  min-width: 100vw;
-  min-height: 100vh;
-  z-index: 2;
-  margin: 0;
-  overflow-y: hidden; */
 }
 
 .primary,
