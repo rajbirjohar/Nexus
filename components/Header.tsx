@@ -23,16 +23,16 @@ const list = {
     opacity: 1,
     height: '0vh',
     transition: {
-      duration: 0.0015,
+      duration: 0.0005,
     },
   },
   open: {
     opacity: 1,
     height: '100vh',
     transition: {
-      duration: 0.0025,
-      delayChildren: 0.2,
-      staggerChildren: 0.1,
+      duration: 0.0005,
+      delayChildren: 0.05,
+      staggerChildren: 0.05,
     },
   },
 }
