@@ -24,13 +24,12 @@
   border: 2px solid var(--gray-100);
   border-radius: var(--radius);
   padding: var(--gap-med);
-  box-shadow: var(--shadows-base);
-  transition: all var(--transition);
+  box-shadow: var(--shadows-lg);
+  transition: all 150ms ease-in-out;
 }
 
 .card:hover {
   background-color: var(--gray-100);
-  box-shadow: var(--shadows-lg);
   transform: translateY(-0.5rem);
   cursor: pointer;
 }

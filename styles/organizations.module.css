@@ -58,13 +58,12 @@
   border-radius: var(--radius);
   padding: var(--gap-med);
   margin: var(--gap-med) 0;
-  box-shadow: var(--shadows-base);
+  box-shadow: var(--shadows-lg);
   transition: all var(--transition);
 }
 
 .card:hover {
   background-color: var(--gray-100);
-  box-shadow: var(--shadows-lg);
 }
 
 .title {

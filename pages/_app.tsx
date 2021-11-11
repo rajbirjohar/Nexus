@@ -12,7 +12,7 @@ import '../styles/globals.css'
 function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
     <SessionProvider session={session} refetchInterval={5 * 60}>
-      <ThemeProvider defaultTheme="system">
+      <ThemeProvider defaultTheme="system" disableTransitionOnChange={true}>
         <Toaster />
         <Header />
         <Component {...pageProps} />
