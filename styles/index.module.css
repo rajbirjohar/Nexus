@@ -21,8 +21,8 @@
 @media (max-width: 868px) {
   .hero {
     flex-direction: column-reverse;
-    justify-content: flex-end;
-    align-items: center;
+    justify-content: center;
+    align-items: flex-start;
   }
   .content {
     margin-left: 0;
