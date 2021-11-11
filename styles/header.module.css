@@ -1,25 +1,33 @@
 .navigation,
 .mobilenavigation {
+  width: 100%;
   z-index: 10;
   margin: 0 auto;
-  position: sticky;
+  position: fixed;
   top: 0;
   background: var(--background);
   color: var(--foreground);
   display: flex;
   box-shadow: none;
-  transition: all var(--transition);
+  transition: height 250ms ease-in-out 0s, box-shadow 250ms ease-in-out 0s;
 }
 
 .navigation {
-  height: 100px;
+  height: 5.5rem;
   padding: var(--gap-quarter) var(--gap-med);
+  align-items: center;
+}
+
+.innernav {
+  display: flex;
+  margin: 0 auto;
+  width: 75rem;
   align-items: center;
   justify-content: space-between;
 }
 
 .mobilenavigation {
-  height: 75px;
+  height: 5.5rem;
   padding: var(--gap-med);
   flex-direction: column;
   align-items: flex-end;
@@ -27,12 +35,12 @@
 }
 
 .shadow {
-  height: 75px;
+  height: 4.5rem;
   box-shadow: var(--nav-shadow);
 }
 
 .mobileshadow {
-  height: 60px;
+  height: 4.5rem;
   box-shadow: var(--nav-shadow);
 }
 
@@ -45,25 +53,25 @@
 .open,
 .notopen {
   width: 100vw;
-  margin-top: 60px;
   position: fixed;
   z-index: 2;
   top: 0;
   left: 0;
+  margin-top: 4.5rem;
   background-color: var(--background);
   overflow-x: hidden !important;
   overflow-y: auto !important;
-  transition: 0.5s;
+  transition: 500ms ease-in-out;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: var(--gap-med);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .open {
-  height: 100vh;
+  height: 100%;
 }
 
 .notopen {
