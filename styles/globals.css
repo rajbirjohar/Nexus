@@ -203,7 +203,7 @@ button {
   cursor: pointer;
   background-color: var(--gray-200);
   color: var(--gray-800);
-  transition: all var(--transition);
+  transition: background-color var(--transition);
 }
 
 a,

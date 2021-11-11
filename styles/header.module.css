@@ -9,7 +9,8 @@
   color: var(--foreground);
   display: flex;
   box-shadow: none;
-  transition: height 250ms ease-in-out 0s, box-shadow 250ms ease-in-out 0s;
+  transition: height 250ms ease-in-out 0s, box-shadow 250ms ease-in-out 0s,
+    background-color 250ms ease-in-out;
 }
 
 .navigation {
@@ -133,7 +134,7 @@
   background-color: var(--gray-600);
   margin: 0.25rem 0;
   border-radius: var(--radius);
-  transition: transform var(--transition);
+  transition: transform 200ms ease-in-out;
 }
 
 .onclick {

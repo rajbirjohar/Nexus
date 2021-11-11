@@ -4,6 +4,7 @@ import Link from 'next/link'
 import ThemeChanger from '@/components/Theme'
 import { useWindowSize } from 'hooks/useWindowSize'
 import styles from '@/styles/header.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
 
 // Component: Header
 // Params: none
@@ -11,14 +12,53 @@ import styles from '@/styles/header.module.css'
 // When editing, ensure to update both nav bars with the same links
 
 // Determines the size of the window using the useWindowSize hook
+
 interface Size {
   width: number | undefined
   height: number | undefined
 }
 
+const list = {
+  closed: {
+    opacity: 1,
+    height: '0vh',
+    transition: {
+      duration: 0.25,
+    },
+  },
+  open: {
+    opacity: 1,
+    height: '100vh',
+    transition: {
+      duration: 0.4,
+      delayChildren: 0.5,
+      staggerChildren: 0.15,
+    },
+  },
+}
+
+const listItems = {
+  closed: {
+    opacity: 0,
+  },
+  open: {
+    opacity: 1,
+  },
+}
+
+const MobileLink = ({ path, title, onClick }) => {
+  return (
+    <Link href={path} passHref>
+      <motion.a variants={listItems} onClick={onClick}>
+        {title}
+      </motion.a>
+    </Link>
+  )
+}
+
 export default function Header() {
-  const { data: session } = useSession()
   const [open, setOpen] = useState(false)
+  const { data: session } = useSession()
   const size: Size = useWindowSize()
   const [scroll, setScroll] = useState(false)
   useEffect(() => {
@@ -44,9 +84,8 @@ export default function Header() {
             <ul className={styles.linkwrapper}>
               <Link href="/">Home</Link>
               <Link href="/courses">Courses</Link>
-              <Link href="/organizations">Organizations</Link>
               <Link href="/events">Events</Link>
-              <Link href="/about">About</Link>
+              <Link href="/organizations">Organizations</Link>
               {session ? (
                 <>
                   <Link href="/profile">Profile</Link>
@@ -93,56 +132,64 @@ export default function Header() {
               }
             ></span>
           </div>
-          <ul className={open ? `${styles.open}` : `${styles.notopen}`}>
-            <Link href="/" passHref>
-              <a onClick={() => setOpen(!open)}>Home</a>
-            </Link>
-            <Link href="/courses" passHref>
-              <a onClick={() => setOpen(!open)}>Courses</a>
-            </Link>
-            <Link href="/organizations" passHref>
-              <a onClick={() => setOpen(!open)}>Organizations</a>
-            </Link>
-            <Link href="/events" passHref>
-              <a onClick={() => setOpen(!open)}>Events</a>
-            </Link>
-            <Link href="/about" passHref>
-              <a onClick={() => setOpen(!open)}>About</a>
-            </Link>
+          <motion.ul
+            animate={open ? 'open' : 'closed'}
+            variants={list}
+            className={styles.notopen}
+          >
+            <MobileLink path="/" title="Home" onClick={() => setOpen(!open)} />
+            <MobileLink
+              path="/courses"
+              title="Courses"
+              onClick={() => setOpen(!open)}
+            />
+            <MobileLink
+              path="/events"
+              title="Events"
+              onClick={() => setOpen(!open)}
+            />
+            <MobileLink
+              path="/organizations"
+              title="Organizations"
+              onClick={() => setOpen(!open)}
+            />
+
             {session ? (
               <>
-                <Link href="/profile" passHref>
-                  <a onClick={() => setOpen(!open)}>Profile</a>
-                </Link>
-                <li>
-                  <button
-                    className={styles.secondary}
-                    onClick={() =>
-                      signOut({
-                        callbackUrl: `${window.location.origin}`,
-                      })
-                    }
-                  >
-                    Sign out
-                  </button>
-                </li>
-              </>
-            ) : (
-              <li>
-                <button
-                  className={styles.primary}
+                <MobileLink
+                  path="/profile"
+                  title="Profile"
+                  onClick={() => setOpen(!open)}
+                />
+                <motion.button
+                  variants={listItems}
+                  className={styles.secondary}
                   onClick={() =>
-                    signIn('google', {
-                      callbackUrl: `${window.location.origin}/profile`,
+                    signOut({
+                      callbackUrl: `${window.location.origin}`,
                     })
                   }
                 >
-                  Sign in
-                </button>
-              </li>
+                  Sign out
+                </motion.button>
+              </>
+            ) : (
+              <motion.button
+                variants={listItems}
+                className={styles.primary}
+                onClick={() =>
+                  signIn('google', {
+                    callbackUrl: `${window.location.origin}/profile`,
+                  })
+                }
+              >
+                Sign in
+              </motion.button>
             )}
-            <ThemeChanger />
-          </ul>
+            <motion.li variants={listItems}>
+              <ThemeChanger />
+            </motion.li>
+          </motion.ul>
         </nav>
       )}
     </>
