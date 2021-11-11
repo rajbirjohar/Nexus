@@ -39,37 +39,39 @@ export default function Header() {
               : `${styles.navigation}`
           }
         >
-          <ThemeChanger />
-          <ul className={styles.linkwrapper}>
-            <Link href="/">Home</Link>
-            <Link href="/courses">Courses</Link>
-            <Link href="/organizations">Organizations</Link>
-            <Link href="/events">Events</Link>
-            <Link href="/about">About</Link>
-            {session ? (
-              <>
-                <Link href="/profile">Profile</Link>
+          <div className={styles.innernav}>
+            <ThemeChanger />
+            <ul className={styles.linkwrapper}>
+              <Link href="/">Home</Link>
+              <Link href="/courses">Courses</Link>
+              <Link href="/organizations">Organizations</Link>
+              <Link href="/events">Events</Link>
+              <Link href="/about">About</Link>
+              {session ? (
+                <>
+                  <Link href="/profile">Profile</Link>
+                  <li>
+                    <button
+                      className={styles.secondary}
+                      onClick={() => signOut()}
+                    >
+                      Sign out
+                    </button>
+                  </li>
+                </>
+              ) : (
+                // Else display the mobile navigation bar
                 <li>
                   <button
-                    className={styles.secondary}
-                    onClick={() => signOut()}
+                    className={styles.primary}
+                    onClick={() => signIn('google')}
                   >
-                    Sign out
+                    Sign in
                   </button>
                 </li>
-              </>
-            ) : (
-              // Else display the mobile navigation bar
-              <li>
-                <button
-                  className={styles.primary}
-                  onClick={() => signIn('google')}
-                >
-                  Sign in
-                </button>
-              </li>
-            )}
-          </ul>
+              )}
+            </ul>
+          </div>
         </nav>
       ) : (
         <nav

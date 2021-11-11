@@ -1,5 +1,5 @@
 .layout {
-  margin: 0 auto;
+  margin: 6rem auto;
   display: flex;
   flex-direction: column;
   max-width: var(--main-content);
