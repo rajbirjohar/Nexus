@@ -23,16 +23,16 @@ const list = {
     opacity: 1,
     height: '0vh',
     transition: {
-      duration: 0.25,
+      duration: 0.0015,
     },
   },
   open: {
     opacity: 1,
     height: '100vh',
     transition: {
-      duration: 0.4,
-      delayChildren: 0.5,
-      staggerChildren: 0.15,
+      duration: 0.0025,
+      delayChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 }
@@ -40,9 +40,11 @@ const list = {
 const listItems = {
   closed: {
     opacity: 0,
+    x: -15,
   },
   open: {
     opacity: 1,
+    x: 0,
   },
 }
 
