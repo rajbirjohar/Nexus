@@ -9,7 +9,7 @@
 }
 
 .animationWrapper {
-  flex: 1;
+  max-width: 400px;
 }
 
 .heroImage {
@@ -37,7 +37,7 @@
   color: var(--gray-400);
 }
 
-@media (max-width: 868px) {
+@media (max-width: 668px) {
   .hero {
     flex-direction: column-reverse;
     justify-content: space-evenly;
@@ -49,10 +49,17 @@
     align-items: center;
     padding-right: 0;
   }
+  .animationWrapper {
+    flex: 0;
+    max-width: 320px;
+  }
   .content {
     margin-left: 0;
   }
   .heroImage {
     margin: 0;
   }
+}
+
+@media (max-width: 668px) {
 }
