@@ -1,4 +1,5 @@
-import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
+// import { connectToDatabase } from '@/util/connectToDb'
 
 // fetchCourseReviews()
 // This endpoint takes in the unique ID of the route that
@@ -8,7 +9,7 @@ import { connectToDatabase } from '@/util/connectToDb'
 // since we know that no two courses can have the same name
 
 const fetchCourseReviews = async (req, res) => {
-  const { db } = await connectToDatabase()
+  const db = (await clientPromise).db(process.env.MONGODB_DB)
   const {
     query: { id },
     method,

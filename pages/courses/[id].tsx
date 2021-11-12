@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
-import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 
@@ -61,7 +61,7 @@ const CourseReviews = ({ course }) => {
 // But the dynamic pages that are following it are updated frequently
 export async function getServerSideProps(context) {
   const { id } = context.query
-  const { db } = await connectToDatabase()
+  const db = (await clientPromise).db(process.env.MONGODB_DB)
   const course = await db.collection('courses').find({ name: id }).toArray()
   return {
     props: {

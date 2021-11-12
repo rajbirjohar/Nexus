@@ -1,10 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
-import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
+// import { connectToDatabase } from '@/util/connectToDb'
 
 // createOrganization()
 // This endpoint takes data from our OrganizationPostForm()
-// component and writes to the database submitting one 
+// component and writes to the database submitting one
 // document containing all of the required data
 // Tip: "_" preceding the variable represents user data,
 // while the variable name alone represents what value it
@@ -16,7 +17,7 @@ export default async function createOrganization(
 ) {
   const session = await getSession({ req })
   if (session) {
-    const { db } = await connectToDatabase()
+    const db = (await clientPromise).db(process.env.MONGODB_DB)
     const {
       organizationData: {
         organizer,
@@ -31,7 +32,9 @@ export default async function createOrganization(
       organizationName: _organizationName,
       organizationDescription: _organizationDescription,
     })
-    return res.status(200).json({ message: 'Successfully posted organization.' })
+    return res
+      .status(200)
+      .json({ message: 'Successfully posted organization.' })
   } else {
     // Not Signed in
     res.status(401).json({
