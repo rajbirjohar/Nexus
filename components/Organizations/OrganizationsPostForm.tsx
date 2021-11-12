@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
-import styles from '@/styles/reviewposts.module.css'
+import styles from '@/styles/form.module.css'
 
 // length of description
-const maxLength = 1000
+const maxLength = 250
 
 // Component: OrganizationPostForm(props)
 // Params: props - session.user.name, session.user.email (might be outdated)
@@ -45,8 +45,8 @@ export default function OrganizationsPostForm(props) {
 
   // handleChange function takes in the user input
   // and sets each value of the organization Object
-  // uses the "name" attribute to map it to the event 
-  // since it is unique which is why we can use the 
+  // uses the "name" attribute to map it to the event
+  // since it is unique which is why we can use the
   // ... spreader and the target.name: target.value
   const handleChange = (event) => {
     setOrganization({
@@ -97,14 +97,14 @@ export default function OrganizationsPostForm(props) {
         name="_organizationDescription"
         value={organization._organizationDescription}
         onChange={handleChange}
-        placeholder="Write a description about your Organizations!"
+        placeholder="Write a short description about your Organization"
         className={styles.input}
         maxLength={maxLength}
       />
       <div>
         {maxLength - organization._organizationDescription.length}/{maxLength}
       </div>
-      <button className={styles.signbutton} type="submit">
+      <button className={styles.postbutton} type="submit">
         Create Organization
       </button>
     </form>

@@ -4,7 +4,7 @@ import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
 import Loader from '@/components/Skeleton'
-import styles from '@/styles/reviewposts.module.css'
+import styles from '@/styles/form.module.css'
 
 // Component: ListReviewPosts({course})
 // Params: course

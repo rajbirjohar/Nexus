@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import styles from '@/styles/courses.module.css'
+import styles from '@/styles/card.module.css'
 
 // Component: CourseCard({courseId, courseName})
 // Params: courseId, courseName
@@ -22,8 +22,8 @@ export default function CourseCard({ courseId, courseName }) {
     // listing all course review posts for that specific
     // course
     <Link href={`/courses/${courseName}`} passHref>
-      <motion.div variants={card} id={courseId} className={styles.card}>
-        <p className={styles.course}>{courseName}</p>
+      <motion.div variants={card} id={courseId} className={styles.coursecard}>
+        <h3 className={styles.course}>{courseName}</h3>
       </motion.div>
     </Link>
   )

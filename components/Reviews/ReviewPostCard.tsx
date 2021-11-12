@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import styles from '@/styles/reviewposts.module.css'
+import styles from '@/styles/card.module.css'
 
 // Component: ReviewPostCard({
 // reviewee,
@@ -49,27 +49,29 @@ export default function ReviewPostCard({
 
   return (
     <div className={styles.card}>
-      <div className={styles.title}>
-        <p className={styles.course}>{course}</p>
-        <p className={styles.difficulty}>{difficulty}</p>
+      <div className={styles.reviewheader}>
+        <h3 className={styles.coursetitle}>{course}</h3>
+        <h3 className={styles.difficulty}>{difficulty}</h3>
       </div>
-      <h4 className={styles.review}>Review:</h4>
-      <i className={styles.reviewPost}>&quot;{reviewPost}&quot;</i>
-      <h4 className={styles.professor}>Professor: {reviewProfessor}</h4>
-      <span className={styles.taken}>
-        <strong>Taken: {taken}</strong>
-      </span>
-      <br />
-      <span className={styles.author}>
+      <p>
+        <strong>Review:</strong> <br />
+        <i>&quot;{reviewPost}&quot;</i>
+      </p>
+      <p>
+        <strong>Professor:</strong> {reviewProfessor}
+      </p>
+      <p>
+        <strong>Taken:</strong> {taken}
+      </p>
+      <p className={styles.authorlabel}>
         <strong>Author: </strong>
         {anonymous === true ? <>Anonymous</> : <>{reviewee}</>} about{' '}
         {timestamp}
-      </span>
-      <br />
+      </p>
       {session && session.user.name === reviewee && (
         <div className={styles.actions}>
           {/* <button className={styles.modify}>Modify</button> */}
-          <button onClick={deleteReviewPost} className={styles.delete}>
+          <button onClick={deleteReviewPost} className={styles.deleteaction}>
             Delete
           </button>
         </div>

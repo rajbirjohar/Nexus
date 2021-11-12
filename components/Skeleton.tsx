@@ -1,4 +1,4 @@
-import styles from '@/styles/reviewposts.module.css'
+import styles from '@/styles/card.module.css'
 
 // Component: Loader
 // Params: none

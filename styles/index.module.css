@@ -22,7 +22,8 @@
   .hero {
     flex-direction: column-reverse;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
+    margin-top: 2rem;
   }
   .content {
     margin-left: 0;

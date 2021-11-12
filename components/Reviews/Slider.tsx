@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import styles from '@/styles/reviewposts.module.css'
+import styles from '@/styles/form.module.css'
 
 // Hook: useSlider(min, max, defaultState, label, id)
 // Params: min, max, defaultState, label, id

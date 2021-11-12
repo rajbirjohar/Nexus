@@ -1,3 +1,4 @@
+/* Global form styles */
 .inputWrapper {
   display: flex;
   flex-direction: column;
@@ -16,12 +17,24 @@
   color: var(--purple-800) !important;
 }
 
+.postbutton {
+  margin: var(--gap-half) 0;
+  background-color: var(--purple-500);
+  color: var(--purple-50);
+  width: max-content;
+}
+
+.postbutton:hover {
+  background-color: var(--purple-600);
+}
+
 .serverdown {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Review form styles */
 .noreviews {
   display: flex;
   flex-direction: column;
@@ -38,17 +51,6 @@
 
 .checkedWrapper label {
   margin-left: var(--gap-quarter);
-}
-
-.author {
-  color: var(--gray-500);
-}
-
-.signbutton {
-  margin: var(--gap-half) 0;
-  background-color: var(--purple-500);
-  color: var(--purple-50);
-  width: max-content;
 }
 
 .labelWrapper {
@@ -98,108 +100,4 @@
   border-radius: 50%;
   border: none;
   cursor: pointer; /* Cursor on hover */
-}
-.card {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
-  border-radius: var(--radius);
-  padding: var(--gap-med);
-  margin: var(--gap-med) 0;
-  box-shadow: var(--shadows-lg);
-}
-.title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.course,
-.difficulty {
-  font-weight: 800;
-  font-size: 2rem;
-  margin: 0;
-}
-
-.course {
-  color: var(--purple-800);
-}
-
-.review,
-.professor,
-.taken {
-  margin: 1rem 0;
-}
-
-.error {
-  border-color: var(--red-800) !important;
-}
-
-.errorMessage {
-  color: var(--red-800);
-}
-
-.actions {
-  display: flex;
-  justify-content: flex-end;
-}
-
-.delete {
-  color: var(--red-900);
-  background: var(--red-100);
-  margin-left: 0;
-}
-
-.delete:hover {
-  background-color: var(--red-200);
-}
-
-.modify {
-  color: var(--purple-800);
-  background-color: var(--purple-200);
-}
-
-.modify:hover {
-  background-color: var(--purple-300);
-}
-
-.dummycard {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
-  border-radius: var(--radius);
-  padding: var(--gap-med);
-  margin: var(--gap-half) 0;
-  box-shadow: var(--shadows-base);
-}
-
-.dummyauthor {
-  display: flex;
-  align-items: center;
-  margin-top: -1rem;
-}
-
-.dummytitle,
-.dummydescription {
-  height: 25px;
-  animation: pulse 2s infinite;
-  border-radius: var(--radius-sm);
-  background-color: var(--gray-200);
-}
-
-.dummytitle {
-  width: 25%;
-}
-.dummydescription {
-  width: 100%;
-}
-
-@keyframes pulse {
-  0% {
-    background-color: var(--gray-200);
-  }
-  50% {
-    background-color: var(--gray-300);
-  }
-  100% {
-    background-color: var(--gray-200);
-  }
 }
