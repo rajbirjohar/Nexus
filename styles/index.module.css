@@ -8,6 +8,10 @@
   min-height: 75vh;
 }
 
+.heroreverse{
+  margin-right: var(--gap-half);
+}
+
 .heroImage {
   display: flex;
   flex: 1;
@@ -19,7 +23,12 @@
   margin-left: var(--gap-med);
 }
 
-.title,
+.title{
+  font-size: 2.75rem;
+  line-height: 1.2;
+}
+
+.title span,
 .sectiontitle {
   color: var(--purple-500);
 }
