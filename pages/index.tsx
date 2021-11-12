@@ -4,38 +4,19 @@ import clientPromise from '@/lib/mongodb'
 import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
 import styles from '@/styles/index.module.css'
-import Lottie from 'react-lottie'
+import Lottie, { useLottie } from 'lottie-react'
 import heroAnimationData from '../lotties/social.json'
 import teamAnimationData from '../lotties/team.json'
 import partyAnimationData from '../lotties/party.json'
 import booksAnimationData from '../lotties/books.json'
 
+const style = {
+  height: 330,
+  width: 330,
+}
+
 export default function Home({ isConnected }) {
   const { data: session } = useSession()
-  const hero = {
-    loop: true,
-    animationData: heroAnimationData,
-    autoplay: true,
-    renderer: 'canvas',
-  }
-  const team = {
-    loop: true,
-    animationData: teamAnimationData,
-    autoplay: true,
-    renderer: 'canvas',
-  }
-  const party = {
-    loop: true,
-    animationData: partyAnimationData,
-    autoplay: true,
-    renderer: 'canvas',
-  }
-  const books = {
-    loop: true,
-    animationData: booksAnimationData,
-    autoplay: true,
-    renderer: 'canvas',
-  }
   return (
     <Layout>
       <Head>
@@ -45,13 +26,17 @@ export default function Home({ isConnected }) {
       </Head>
 
       <section className={styles.hero}>
-        <Lottie options={hero} height={400} width={400} />
+        <Lottie
+          animationData={heroAnimationData}
+          style={style}
+          renderer="canvas"
+        />
         <div className={styles.content}>
+          <h3 className={styles.subtitle}>Nexus @ UCR</h3>
           <h1 className={styles.title}>
             We&#39;re here to centralize the decentralized.
-            <br /> Here is <span>where information gathers</span>.
+            <br /> <span>Where information gathers</span>.
           </h1>
-          <h3 className={styles.subtitle}>Nexus @ UCR</h3>
           {session && (
             <>
               {isConnected ? (
@@ -90,11 +75,19 @@ export default function Home({ isConnected }) {
             for future quarters.
           </p>
         </div>
-        <Lottie options={books} height={400} width={400} />
+        <Lottie
+          animationData={booksAnimationData}
+          style={style}
+          renderer="canvas"
+        />
       </section>
 
       <section className={styles.hero}>
-        <Lottie options={party} height={400} width={400} />
+        <Lottie
+          animationData={partyAnimationData}
+          style={style}
+          renderer="canvas"
+        />
         <div className={styles.content}>
           <h3 className={styles.sectiontitle}>Events</h3>
           <h4>Support the Orgs</h4>
@@ -129,7 +122,11 @@ export default function Home({ isConnected }) {
             touch.
           </p>
         </div>
-        <Lottie options={team} height={400} width={400} />
+        <Lottie
+          animationData={teamAnimationData}
+          style={style}
+          renderer="canvas"
+        />
       </section>
     </Layout>
   )
