@@ -1,17 +1,27 @@
-.hero {
+.hero,
+.heroreverse {
+  margin: 0 auto;
+  max-width: var(--main-content);
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  height: 75vh;
+  min-height: 75vh;
 }
 
 .heroImage {
+  display: flex;
   flex: 1;
+  margin: 0 var(--gap-med);
 }
 
 .content {
   flex: 1;
   margin-left: var(--gap-med);
+}
+
+.title,
+.sectiontitle {
+  color: var(--purple-500);
 }
 
 .subtitle {
@@ -21,12 +31,18 @@
 @media (max-width: 868px) {
   .hero {
     flex-direction: column-reverse;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  .heroreverse {
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 2rem;
   }
   .content {
     margin-left: 0;
-    flex: 0;
+  }
+  .heroImage {
+    margin: 0;
   }
 }
