@@ -9,7 +9,7 @@
 }
 
 .animationWrapper {
-  flex: 1;
+  max-width: 400px;
 }
 
 .heroImage {
@@ -54,5 +54,11 @@
   }
   .heroImage {
     margin: 0;
+  }
+}
+
+@media (max-width: 668px){
+  .animationWrapper {
+    max-width: 320px;
   }
 }
