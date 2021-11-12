@@ -11,8 +11,8 @@ import partyAnimationData from '../lotties/party.json'
 import booksAnimationData from '../lotties/books.json'
 
 const style = {
-  height: 330,
-  width: 330,
+  height: 400,
+  width: '100%',
 }
 
 export default function Home({ isConnected }) {
@@ -26,11 +26,13 @@ export default function Home({ isConnected }) {
       </Head>
 
       <section className={styles.hero}>
-        <Lottie
-          animationData={heroAnimationData}
-          style={style}
-          renderer="canvas"
-        />
+        <div className={styles.animationWrapper}>
+          <Lottie
+            animationData={heroAnimationData}
+            style={style}
+            renderer="canvas"
+          />
+        </div>
         <div className={styles.content}>
           <h3 className={styles.subtitle}>Nexus @ UCR</h3>
           <h1 className={styles.title}>
@@ -75,19 +77,23 @@ export default function Home({ isConnected }) {
             for future quarters.
           </p>
         </div>
-        <Lottie
-          animationData={booksAnimationData}
-          style={style}
-          renderer="canvas"
-        />
+        <div className={styles.animationWrapper}>
+          <Lottie
+            animationData={booksAnimationData}
+            style={style}
+            renderer="canvas"
+          />
+        </div>
       </section>
 
       <section className={styles.hero}>
-        <Lottie
-          animationData={partyAnimationData}
-          style={style}
-          renderer="canvas"
-        />
+        <div className={styles.animationWrapper}>
+          <Lottie
+            animationData={partyAnimationData}
+            style={style}
+            renderer="canvas"
+          />
+        </div>
         <div className={styles.content}>
           <h3 className={styles.sectiontitle}>Events</h3>
           <h4>Support the Orgs</h4>
@@ -122,11 +128,13 @@ export default function Home({ isConnected }) {
             touch.
           </p>
         </div>
-        <Lottie
-          animationData={teamAnimationData}
-          style={style}
-          renderer="canvas"
-        />
+        <div className={styles.animationWrapper}>
+          <Lottie
+            animationData={teamAnimationData}
+            style={style}
+            renderer="canvas"
+          />
+        </div>
       </section>
     </Layout>
   )
