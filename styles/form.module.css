@@ -24,6 +24,10 @@
   width: max-content;
 }
 
+.postbutton:hover {
+  background-color: var(--purple-600);
+}
+
 .serverdown {
   display: flex;
   flex-direction: column;

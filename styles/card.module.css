@@ -75,10 +75,73 @@
 
 .coursetitle,
 .difficulty {
-  font-size: 2.5em;
+  font-size: 2em;
   margin: 0;
 }
 
 .authorlabel {
   color: var(--gray-500);
+}
+
+/* Organization card styles */
+.orgheader {
+  display: flex;
+  align-items: center;
+}
+
+.orgheader:hover {
+  cursor: pointer;
+}
+
+.orgheader:hover > .organizationName {
+  color: var(--purple-800);
+  margin-right: var(--gap-quarter);
+}
+
+.orgheader:hover > .linkIcon {
+  color: var(--purple-800);
+}
+
+.organizationName {
+  font-size: 2em;
+  margin: 0;
+}
+
+.organizationName,
+.linkIcon {
+  color: var(--purple-500);
+  transition: all 150ms ease-in-out;
+}
+
+.linkIcon {
+  margin-left: var(--gap-quarter);
+}
+
+.organizer {
+  color: var(--gray-500);
+}
+
+/* Courses card styles */
+.coursecard {
+  background-color: var(--gray-50);
+  border: 2px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows-lg);
+  transition: all 150ms ease-in-out;
+}
+
+.coursecard:hover {
+  background-color: var(--gray-100);
+  transform: translateY(-0.25rem);
+  cursor: pointer;
+}
+
+.course {
+  margin: 0;
+  color: var(--purple-500);
+  transition: color 150ms ease-in-out;
+}
+.coursecard:hover > .course {
+  color: var(--purple-800);
 }

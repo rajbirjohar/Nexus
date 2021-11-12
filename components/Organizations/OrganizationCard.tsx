@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import styles from '@/styles/organizations.module.css'
+import styles from '@/styles/card.module.css'
 import Link from 'next/link'
 
 // Component: OrganizationCard({
@@ -45,8 +45,8 @@ export default function OrganizationCard({
     // listing all details for that specific organization
     <div className={styles.card}>
       <Link href={`/organizations/${organizationName}`} passHref>
-        <div className={styles.link}>
-          <p className={styles.organizationName}>{organizationName}</p>
+        <div className={styles.orgheader}>
+          <h3 className={styles.organizationName}>{organizationName}</h3>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className={styles.linkIcon}
@@ -66,17 +66,16 @@ export default function OrganizationCard({
       <h4 className={styles.organizationDescription}>
         {organizationDescription}
       </h4>
-      <span className={styles.organizer}>{organizer}</span>
-      <br />
+      <p className={styles.organizer}>{organizer}</p>
       {/* Checks if user is logged in and the user name matches organizer
         Thus, only the logged in user can access the delete function */}
       {session && session.user.name === organizer && (
-        <>
+        <div className={styles.actions}>
           {/* <button className={styles.modify}>Modify</button> */}
-          <button onClick={deleteOrganization} className={styles.delete}>
+          <button onClick={deleteOrganization} className={styles.deleteaction}>
             Delete
           </button>
-        </>
+        </div>
       )}
     </div>
   )

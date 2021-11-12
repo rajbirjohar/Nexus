@@ -13,31 +13,11 @@
   flex-direction: column;
   align-items: center;
 }
+
 .courseGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-gap: var(--gap-med);
-}
-
-.card {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
-  border-radius: var(--radius);
-  padding: var(--gap-med);
-  box-shadow: var(--shadows-lg);
-  transition: all 150ms ease-in-out;
-}
-
-.card:hover {
-  background-color: var(--gray-100);
-  transform: translateY(-0.5rem);
-  cursor: pointer;
-}
-
-.title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .searchWrapper {
@@ -70,40 +50,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.course {
-  font-weight: 800;
-  font-size: 2rem;
-  margin: 0;
-  color: var(--purple-800);
-}
-
-.error {
-  border-color: var(--red-800) !important;
-}
-
-.errorMessage {
-  color: var(--red-800);
-}
-
-.delete {
-  color: var(--red-900);
-  background: var(--red-100);
-  margin-left: 0;
-}
-
-.delete:hover {
-  background-color: var(--red-200);
-}
-
-.modify {
-  color: var(--purple-800);
-  background-color: var(--purple-200);
-}
-
-.modify:hover {
-  background-color: var(--purple-300);
 }
 
 @media (max-width: 868px) {
