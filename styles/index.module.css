@@ -4,12 +4,8 @@
   max-width: var(--main-content);
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   min-height: 75vh;
-}
-
-.heroreverse{
-  margin-right: var(--gap-half);
 }
 
 .heroImage {
@@ -23,7 +19,7 @@
   margin-left: var(--gap-med);
 }
 
-.title{
+.title {
   font-size: 2.75rem;
   line-height: 1.2;
 }
@@ -47,6 +43,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-right: 0;
   }
   .content {
     margin-left: 0;
