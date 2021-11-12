@@ -55,15 +55,15 @@ export default function Home({ isConnected }) {
           <p>
             Knowing the difficulty of a class can help you manage your
             courseload. Nexus provides you with a preview of a class that you
-            are interested in. Learn from past students' experiences to
+            are interested in. Learn from past students&#39; experiences to
             determine which professor you are more compatible with.
           </p>
           <h4>Lay the Path</h4>
           <p>
             Post your experience and rate the difficulty for any course at UCR.
             Provide feedback on the course structure and the professor. With
-            students' reviews, Nexus can help students be better prepared for
-            future quarters.
+            students&#39; reviews, Nexus can help students be better prepared
+            for future quarters.
           </p>
         </div>
         <div className={styles.heroImage}>
