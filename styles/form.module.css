@@ -1,0 +1,99 @@
+/* Global form styles */
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border: 2px solid var(--purple-100);
+  flex: 1;
+  padding: var(--gap) var(--gap);
+  font-size: 1.125rem;
+  border-radius: var(--radius);
+  margin: var(--gap-half) 0;
+  background-color: var(--gray-100) !important;
+}
+.input::placeholder {
+  color: var(--purple-800) !important;
+}
+
+.postbutton {
+  margin: var(--gap-half) 0;
+  background-color: var(--purple-500);
+  color: var(--purple-50);
+  width: max-content;
+}
+
+.serverdown {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Review form styles */
+.noreviews {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.checkedWrapper {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  align-items: center;
+  margin: var(--gap-half) 0;
+}
+
+.checkedWrapper label {
+  margin-left: var(--gap-quarter);
+}
+
+.labelWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.labelWrapper span {
+  padding: var(--gap-half);
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: var(--gap-half); /* Specified height */
+  background-color: var(--purple-100); /* Grey background */
+  border: none;
+  border-radius: var(--radius);
+  outline: none; /* Remove outline */
+  transition: background-color 0.2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  background-color: var(-purple-300); /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  border-radius: 50%;
+  width: var(--gap-med); /* Set a specific slider handle width */
+  height: var(--big-med); /* Slider handle height */
+  background: var(--purple-500); /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: var(--gap-med); /* Set a specific slider handle width */
+  height: var(--gap-med); /* Slider handle height */
+  background: var(--purple-500); /* Green background */
+  border-radius: 50%;
+  border: none;
+  cursor: pointer; /* Cursor on hover */
+}
