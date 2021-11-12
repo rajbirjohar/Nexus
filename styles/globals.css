@@ -199,7 +199,6 @@ blockquote {
 
 button {
   border: none;
-  margin: var(--gap-half);
   line-height: inherit;
   font-size: 16px;
   padding: var(--gap-half);
