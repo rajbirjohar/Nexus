@@ -39,7 +39,7 @@ export default function Home({ isConnected }) {
             We&#39;re here to centralize the decentralized.
             <br /> <span>Where information gathers</span>.
           </h1>
-          {session && (
+          {/* {session && (
             <>
               {isConnected ? (
                 // Display this message when the user has successfully logged in
@@ -55,7 +55,7 @@ export default function Home({ isConnected }) {
                 </h4>
               )}
             </>
-          )}
+          )} */}
         </div>
       </section>
 
@@ -140,17 +140,33 @@ export default function Home({ isConnected }) {
   )
 }
 
-export async function getServerSideProps(context) {
-  let isConnected
-  try {
-    const client = await clientPromise
-    isConnected = true
-  } catch (e) {
-    console.log(e)
-    isConnected = false
-  }
+// export async function getServerSideProps(context) {
+//   let isConnected
+//   try {
+//     const client = await clientPromise
+//     isConnected = true
+//   } catch (e) {
+//     console.log(e)
+//     isConnected = false
+//   }
 
-  return {
-    props: { isConnected },
-  }
-}
+//   return {
+//     props: { isConnected },
+//   }
+// }
+
+// export async function getServerSideProps(context) {
+//   const client = await clientPromise
+
+//   // client.db() will be the default database passed in the MONGODB_URI
+//   // You can change the database by calling the client.db() function and specifying a database like:
+//   // const db = client.db("myDatabase");
+//   // Then you can execute queries against your database like so:
+//   // db.find({}) or any of the MongoDB Node Driver commands
+
+//   const isConnected = await client.isConnected()
+
+//   return {
+//     props: { isConnected },
+//   }
+// }
