@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
-import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
+// import { connectToDatabase } from '@/util/connectToDb'
 
 export default async function setRole(
   req: NextApiRequest,
@@ -8,7 +9,7 @@ export default async function setRole(
 ) {
   const session = await getSession({ req })
   if (session) {
-    const { db } = await connectToDatabase()
+    const db = (await clientPromise).db(process.env.MONGODB_DB)
     const {
       userRoleData: { _role },
     } = req.body

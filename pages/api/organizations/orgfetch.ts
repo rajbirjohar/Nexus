@@ -1,4 +1,5 @@
-import { connectToDatabase } from '@/util/connectToDb'
+// import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
 
 // fetchOrganizations()
 // This endpoint will fetch all of our organizations
@@ -7,7 +8,7 @@ import { connectToDatabase } from '@/util/connectToDb'
 // and listOrganizations()
 
 const fetchOrganizations = async (req, res) => {
-  const { db } = await connectToDatabase()
+  const db = (await clientPromise).db(process.env.MONGODB_DB)
 
   const organizations = await db
     .collection('organizations')

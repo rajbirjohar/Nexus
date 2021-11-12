@@ -1,4 +1,5 @@
-import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
+// import { connectToDatabase } from '@/util/connectToDb'
 import { getSession } from 'next-auth/react'
 
 // fetchProfilePosts()
@@ -13,7 +14,7 @@ const fetchProfilePosts = async (req, res) => {
   const { user } = session
   if (session) {
     try {
-      const { db } = await connectToDatabase()
+      const db = (await clientPromise).db(process.env.MONGODB_DB)
       const reviewPosts = await db
         .collection('reviewPosts')
         .find({ email: user.email })
