@@ -15,7 +15,7 @@ export default async function setRole(
     } = req.body
     const result = await db
       .collection('users')
-      .updateOne({ name: session.user.name }, { $set: { role: _role } })
+      .updateOne({ email: session.user.email }, { $set: { role: _role } })
     return res.status(200).json({ message: 'Successfully updated role.' })
   } else {
     // Not Signed in
