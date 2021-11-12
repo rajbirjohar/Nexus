@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
-import { connectToDatabase } from '@/util/connectToDb'
+// import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
 var mongodb = require('mongodb')
 
 // deleteOrganization
@@ -14,7 +15,7 @@ export default async function deleteOrganization(
   const session = await getSession({ req })
   if (session) {
     try {
-      const { db } = await connectToDatabase()
+      const db = (await clientPromise).db(process.env.MONGODB_DB)
       const { organizationData: organizationId } = req.body
       const result = await db
         .collection('organizations')

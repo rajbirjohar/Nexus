@@ -1,15 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
-import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
+// import { connectToDatabase } from '@/util/connectToDb'
 
-const mongodb = require('mongodb')
+// const mongodb = require('mongodb')
 
 // createReviewPost()
-// This endpoint will take our user data and submit one document 
+// This endpoint will take our user data and submit one document
 // to our database containing all the required information on a single review
 // Then it will take the ID of that document, and insert it into the
 // reviews array contained in that course so we have reference to all
-// the reviews a course may have 
+// the reviews a course may have
 // Tip: "_" preceding the variable represents user data,
 // while the variable name alone represents what value it
 // is assigned to in the database.
@@ -20,7 +21,7 @@ export default async function createReviewPost(
 ) {
   const session = await getSession({ req })
   if (session) {
-    const { db } = await connectToDatabase()
+    const db = (await clientPromise).db(process.env.MONGODB_DB)
     const {
       reviewPostData: {
         reviewee,

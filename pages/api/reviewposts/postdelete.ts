@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
-import { connectToDatabase } from '@/util/connectToDb'
+import clientPromise from '@/lib/mongodb'
+// import { connectToDatabase } from '@/util/connectToDb'
 const mongodb = require('mongodb')
 
 // deleteReviewPost()
@@ -16,7 +17,7 @@ export default async function deleteReviewPost(
   const session = await getSession({ req })
   if (session) {
     try {
-      const { db } = await connectToDatabase()
+      const db = (await clientPromise).db(process.env.MONGODB_DB)
       const { reviewPostData: course, reviewPostId } = req.body
       const courseArray = await db
         .collection('courses')
