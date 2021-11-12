@@ -8,6 +8,10 @@
   min-height: 75vh;
 }
 
+.animationWrapper {
+  flex: 1;
+}
+
 .heroImage {
   display: flex;
   flex: 1;
