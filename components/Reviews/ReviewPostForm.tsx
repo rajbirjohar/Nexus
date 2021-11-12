@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import useSlider from './Slider'
-import styles from '@/styles/reviewposts.module.css'
+import styles from '@/styles/form.module.css'
 
 // Max length for review
 const maxLength = 750
@@ -148,7 +148,7 @@ export default function ReviewPostForm({ name, email, course }) {
         />
         <span className={styles.checkmark}></span>
       </span>
-      <button className={styles.signbutton} type="submit">
+      <button className={styles.postbutton} type="submit">
         Post Review!
       </button>
     </form>
