@@ -8,7 +8,9 @@ const maxAge = 30 * 24 * 60 * 60 // 30 days
 
 export default async function auth(req, res) {
   return await NextAuth(req, res, {
-    adapter: MongoDBAdapter({ db: (await clientPromise).db('NexusDatabase') }),
+    adapter: MongoDBAdapter({
+      db: (await clientPromise).db(process.env.MONGODB_DB),
+    }),
     //Configure one or more authentication providers
     //We will solely use Google, preferably within a single domain (ucr.edu)
     providers: [
