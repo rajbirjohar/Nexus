@@ -39,23 +39,14 @@ export default function Home({ isConnected }) {
             We&#39;re here to centralize the decentralized.
             <br /> <span>Where information gathers</span>.
           </h1>
-          {/* {session && (
-            <>
-              {isConnected ? (
-                // Display this message when the user has successfully logged in
-                // AND connected to our database
-                <h4>
-                  Hi, {session.user.name}! Let&#39;s learn something new today.
-                </h4>
-              ) : (
-                <h4>
-                  Oops. Something went wrong when trying to log you in
-                  pertaining to our database. Please try again or let us know if
-                  this persists.
-                </h4>
-              )}
-            </>
-          )} */}
+
+          {session && isConnected && (
+            // Display this message when the user has successfully logged in
+            // AND connected to our database
+            <h4>
+              Hi, {session.user.name}! Let&#39;s learn something new today.
+            </h4>
+          )}
         </div>
       </section>
 
@@ -140,6 +131,26 @@ export default function Home({ isConnected }) {
   )
 }
 
+// NOTE: Downgraded mongodb 4.1.2 to 3.5.9 because isConnected()
+// gets depreciated. BUT this getServerSideProps function is the updated
+// one from the nextjs with-mongodb example
+
+export async function getServerSideProps(context) {
+  const client = await clientPromise
+
+  // client.db() will be the default database passed in the MONGODB_URI
+  // You can change the database by calling the client.db() function and specifying a database like:
+  // const db = client.db("myDatabase");
+  // Then you can execute queries against your database like so:
+  // db.find({}) or any of the MongoDB Node Driver commands
+
+  const isConnected = await client.isConnected()
+
+  return {
+    props: { isConnected },
+  }
+}
+
 // export async function getServerSideProps(context) {
 //   let isConnected
 //   try {
@@ -149,22 +160,6 @@ export default function Home({ isConnected }) {
 //     console.log(e)
 //     isConnected = false
 //   }
-
-//   return {
-//     props: { isConnected },
-//   }
-// }
-
-// export async function getServerSideProps(context) {
-//   const client = await clientPromise
-
-//   // client.db() will be the default database passed in the MONGODB_URI
-//   // You can change the database by calling the client.db() function and specifying a database like:
-//   // const db = client.db("myDatabase");
-//   // Then you can execute queries against your database like so:
-//   // db.find({}) or any of the MongoDB Node Driver commands
-
-//   const isConnected = await client.isConnected()
 
 //   return {
 //     props: { isConnected },
