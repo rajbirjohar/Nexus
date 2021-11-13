@@ -10,7 +10,7 @@ const maxLength = 750
 // Params: name, email, course
 // Purpose: To take in user inputted data and submit it to the database
 
-export default function ReviewPostForm({ name, email, course }) {
+export default function ReviewPostForm({ name, email, course, id }) {
   // useSlider hook
   const [slideValue, Slider, setSlide] = useSlider(
     1,
@@ -38,7 +38,11 @@ export default function ReviewPostForm({ name, email, course }) {
     // don't redirect the page
     event.preventDefault()
     // check if any text fields are empty
-    if (reviewPost._reviewPost === '' || reviewPost._reviewProfessor === '' || reviewPost._taken === '') {
+    if (
+      reviewPost._reviewPost === '' ||
+      reviewPost._reviewProfessor === '' ||
+      reviewPost._taken === ''
+    ) {
       toast.error('Please fill out the missing fields.')
     } else {
       // calls sendData() to send our state data to our API
@@ -75,7 +79,7 @@ export default function ReviewPostForm({ name, email, course }) {
   }
 
   const sendData = async (reviewPostData) => {
-    const response = await fetch('/api/reviewposts/postcreate', {
+    const response = await fetch(`/api/reviewposts/${id}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
