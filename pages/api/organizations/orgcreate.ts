@@ -16,8 +16,9 @@ export default async function createOrganization(
   res: NextApiResponse
 ) {
   const session = await getSession({ req })
+  const isConnected = await clientPromise
+  const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
-    const db = (await clientPromise).db(process.env.MONGODB_DB)
     const {
       organizationData: {
         organizer,
@@ -26,15 +27,13 @@ export default async function createOrganization(
         _organizationDescription,
       },
     } = req.body
-    const result = await db.collection('organizations').insertOne({
+    await db.collection('organizations').insertOne({
       organizer: organizer,
       email: email,
       organizationName: _organizationName,
       organizationDescription: _organizationDescription,
     })
-    return res
-      .status(200)
-      .json({ message: 'Successfully posted organization.' })
+    res.status(200).json({ message: 'Successfully posted organization.' })
   } else {
     // Not Signed in
     res.status(401).json({

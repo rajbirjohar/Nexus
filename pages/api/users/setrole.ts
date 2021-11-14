@@ -8,15 +8,16 @@ export default async function setRole(
   res: NextApiResponse
 ) {
   const session = await getSession({ req })
+  const isConnected = await clientPromise
+  const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
-    const db = (await clientPromise).db(process.env.MONGODB_DB)
     const {
       userRoleData: { _role },
     } = req.body
-    const result = await db
+    await db
       .collection('users')
       .updateOne({ email: session.user.email }, { $set: { role: _role } })
-    return res.status(200).json({ message: 'Successfully updated role.' })
+    res.status(200).json({ message: 'Successfully updated role.' })
   } else {
     // Not Signed in
     res.status(401).json({

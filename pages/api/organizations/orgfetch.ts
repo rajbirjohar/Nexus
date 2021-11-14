@@ -8,7 +8,8 @@ import clientPromise from '@/lib/mongodb'
 // and listOrganizations()
 
 const fetchOrganizations = async (req, res) => {
-  const db = (await clientPromise).db(process.env.MONGODB_DB)
+  const isConnected = await clientPromise
+  const db = isConnected.db(process.env.MONGODB_DB)
 
   const organizations = await db
     .collection('organizations')
@@ -16,7 +17,7 @@ const fetchOrganizations = async (req, res) => {
     .sort({ organizationName: 1 })
     .toArray()
 
-  return res.status(200).json({ organizations })
+  res.status(200).json({ organizations })
 }
 
 export default fetchOrganizations
