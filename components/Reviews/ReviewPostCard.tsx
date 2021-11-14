@@ -31,7 +31,7 @@ export default function ReviewPostCard({
 
   const deleteReviewPost = async (event) => {
     if (session) {
-      const res = await fetch(`/api/reviewposts/${course}`, {
+      const res = await fetch(`/api/reviewposts/reviewdelete`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

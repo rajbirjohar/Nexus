@@ -37,14 +37,17 @@ export default function aboutPage() {
           events, Nexus is <i>where information gathers</i>.
         </p>
         <p>
-          The team behind Nexus is comprised of five computer science students:
-          <p>
-            Rajbir Johar
-            <br /> Isaac Curiel
-            <br /> Brian Coffey
-            <br /> Robert Rivera
-            <br /> Florian Catalan
-          </p>
+          Written with love by,
+          <br />
+          Rajbir Johar, Isaac Curiel, Brian Coffey, Robert Rivera, and Florian
+          Catalan
+        </p>
+        <p>
+          Special thanks to,
+          <br />
+          Danial Beg for offering his apartment for us to code at, Matthew Lee
+          and Jason Lin for making brownies, Jason Lin for helping us with the
+          slider, and Audrey Kim for being our beta tester.
         </p>
       </section>
     </Layout>

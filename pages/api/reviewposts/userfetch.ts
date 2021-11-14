@@ -10,11 +10,12 @@ import { getSession } from 'next-auth/react'
 // and listReviewPosts()
 
 const fetchProfilePosts = async (req, res) => {
+  const isConnected = await clientPromise
+  const db = isConnected.db(process.env.MONGODB_DB)
   const session = await getSession({ req })
   const { user } = session
   if (session) {
     try {
-      const db = (await clientPromise).db(process.env.MONGODB_DB)
       const reviewPosts = await db
         .collection('reviewPosts')
         .find({ email: user.email })
