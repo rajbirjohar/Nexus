@@ -7,15 +7,15 @@ import clientPromise from '@/lib/mongodb'
 // and listCourses() component
 
 const coursesFetch = async (req, res) => {
-  const db = (await clientPromise).db(process.env.MONGODB_DB)
+  const isConnected = await clientPromise
+  const db = isConnected.db(process.env.MONGODB_DB)
 
   const courses = await db
     .collection('courses')
     .find({})
     .sort({ name: 1 })
     .toArray()
-
-  return res.status(200).json({ courses })
+  res.status(200).json({ courses })
 }
 
 export default coursesFetch

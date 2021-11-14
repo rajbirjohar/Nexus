@@ -13,14 +13,15 @@ export default async function deleteOrganization(
   res: NextApiResponse
 ) {
   const session = await getSession({ req })
+  const isConnected = await clientPromise
+  const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     try {
-      const db = (await clientPromise).db(process.env.MONGODB_DB)
       const { organizationData: organizationId } = req.body
       const result = await db
         .collection('organizations')
         .deleteOne({ _id: new mongodb.ObjectID(organizationId) })
-      return res.status(200).json(result.deletedCount)
+      res.status(200).json(result.deletedCount)
     } catch {
       res.status(500)
       res.json({
