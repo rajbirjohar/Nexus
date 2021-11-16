@@ -1,4 +1,5 @@
 import React from 'react'
+import Router from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/card.module.css'
@@ -16,7 +17,7 @@ import Link from 'next/link'
 export default function OrganizationCard({
   organizer,
   organizationName,
-  organizationDescription,
+  organizationTagline,
   organizationId,
 }) {
   const { data: session } = useSession()
@@ -34,6 +35,7 @@ export default function OrganizationCard({
       // wait for status from orgdelete endpoint to post success toast
       if (res.status === 200) {
         toast.success('Deleted organization.')
+        Router.reload()
       } else {
         toast.error('Uh oh. Something went wrong.')
       }
@@ -44,7 +46,7 @@ export default function OrganizationCard({
     // Link is used to route each card to a dynamic page
     // listing all details for that specific organization
     <div className={styles.card}>
-      <Link href={`/organizations/${organizationName}`} passHref>
+      <Link href={`/organizations/${organizationId}`} passHref>
         <div className={styles.orgheader}>
           <h3 className={styles.organizationName}>{organizationName}</h3>
           <svg
@@ -63,10 +65,7 @@ export default function OrganizationCard({
           </svg>
         </div>
       </Link>
-      <h4 className={styles.organizationDescription}>
-        {organizationDescription}
-      </h4>
-      <p className={styles.organizer}>{organizer}</p>
+      <h4 className={styles.organizationTagline}>{organizationTagline}</h4>
       {/* Checks if user is logged in and the user name matches organizer
         Thus, only the logged in user can access the delete function */}
       {session && session.user.name === organizer && (

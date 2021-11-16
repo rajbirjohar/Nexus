@@ -18,8 +18,8 @@ export default function ListOrganizations() {
     return (
       <div className={styles.serverdown}>
         <p>
-          Oops. Looks like the organizations are not being fetched right now. If this
-          persists, please let us know.
+          Oops. Looks like the organizations are not being fetched right now. If
+          this persists, please let us know.
         </p>
         <Image
           src={'/assets/server.svg'}
@@ -41,7 +41,7 @@ export default function ListOrganizations() {
           key={organization._id}
           organizationId={organization._id}
           organizationName={organization.organizationName}
-          organizationDescription={organization.organizationDescription}
+          organizationTagline={organization.organizationTagline}
           organizer={organization.organizer}
         />
       ))}

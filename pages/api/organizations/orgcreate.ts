@@ -24,6 +24,7 @@ export default async function createOrganization(
         organizer,
         email,
         _organizationName,
+        _organizationTagline,
         _organizationDescription,
       },
     } = req.body
@@ -31,8 +32,22 @@ export default async function createOrganization(
       organizer: organizer,
       email: email,
       organizationName: _organizationName,
+      organizationTagline: _organizationTagline,
       organizationDescription: _organizationDescription,
+      superMembersList: [
+        {
+          name: organizer,
+          email: email,
+        },
+      ],
+      membersList: [],
     })
+    await db.collection('users').updateOne(
+      {
+        email: session.user.email,
+      },
+      { $set: { adminOfOrg: _organizationName } }
+    )
     res.status(200).json({ message: 'Successfully posted organization.' })
   } else {
     // Not Signed in
