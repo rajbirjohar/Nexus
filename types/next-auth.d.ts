@@ -12,10 +12,12 @@ declare module 'next-auth' {
       /** The user's role. */
       role: string
       orgRole: string
+      adminOfOrg: string
     }
   }
   interface User {
     role: string
     orgRole: string
+    adminOfOrg: string
   }
 }

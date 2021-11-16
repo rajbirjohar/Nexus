@@ -73,6 +73,7 @@ export default function Profile() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {session &&
+        session.user.role &&
         session.user.role.includes('none') &&
         userRole.displayWarning && (
           <div className={styles.warningWrapper}>
