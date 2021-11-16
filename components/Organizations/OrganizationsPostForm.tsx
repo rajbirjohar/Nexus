@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import Router from 'next/router'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import styles from '@/styles/form.module.css'
 
 // length of description
-const maxLength = 250
+const maxLength = 1000
+const tagLineLength = 250
 
 // Component: OrganizationPostForm(props)
 // Params: props - session.user.name, session.user.email (might be outdated)
@@ -18,6 +20,7 @@ export default function OrganizationsPostForm(props) {
     organizer: session.user.name,
     email: session.user.email,
     _organizationName: '',
+    _organizationTagline: '',
     _organizationDescription: '',
   })
 
@@ -28,6 +31,7 @@ export default function OrganizationsPostForm(props) {
     // check if any text fields are empty
     if (
       organization._organizationName === '' ||
+      organization._organizationTagline === '' ||
       organization._organizationDescription === ''
     ) {
       toast.error('Please fill out the missing fields.')
@@ -38,6 +42,7 @@ export default function OrganizationsPostForm(props) {
       setOrganization({
         ...organization,
         _organizationName: '',
+        _organizationTagline: '',
         _organizationDescription: '',
       })
     }
@@ -67,6 +72,7 @@ export default function OrganizationsPostForm(props) {
     const data = await response.json()
     if (response.status === 200) {
       toast.success('You created your organization!')
+      Router.reload()
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -78,7 +84,7 @@ export default function OrganizationsPostForm(props) {
   return (
     <form onSubmit={handleSubmit} className={styles.inputWrapper}>
       <label htmlFor="_organizationName">
-        <strong>Organizations:</strong>
+        <strong>Organization:</strong>
       </label>
       <input
         aria-label="Organizations Name Input"
@@ -86,9 +92,25 @@ export default function OrganizationsPostForm(props) {
         value={organization._organizationName}
         onChange={handleChange}
         type="text"
-        placeholder="Men's Water Polo"
+        placeholder="Best Club on Campus"
         className={styles.input}
       />
+      <label htmlFor="_organizationTagline">
+        <strong>Tagline:</strong>
+      </label>
+      <input
+        aria-label="Organizations Tagline Input"
+        name="_organizationTagline"
+        value={organization._organizationTagline}
+        onChange={handleChange}
+        placeholder="A memorable Tagline"
+        className={styles.input}
+        maxLength={tagLineLength}
+      />
+      <div>
+        {tagLineLength - organization._organizationTagline.length}/
+        {tagLineLength}
+      </div>
       <label htmlFor="_organizationDescription">
         <strong>Description:</strong>
       </label>
@@ -97,7 +119,7 @@ export default function OrganizationsPostForm(props) {
         name="_organizationDescription"
         value={organization._organizationDescription}
         onChange={handleChange}
-        placeholder="Write a short description about your Organization"
+        placeholder="A very cool Description"
         className={styles.input}
         maxLength={maxLength}
       />

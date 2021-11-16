@@ -17,7 +17,15 @@ export default async function auth(req, res) {
       GoogleProvider({
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        profile(profile: { sub; name; email; picture; role }) {
+        profile(profile: {
+          sub
+          name
+          email
+          picture
+          role
+          orgRole
+          adminOfOrg
+        }) {
           return {
             id: profile.sub,
             name: profile.name,
@@ -25,6 +33,7 @@ export default async function auth(req, res) {
             image: profile.picture,
             role: 'none',
             orgRole: 'none',
+            adminOfOrg: 'none',
           }
         },
       }),
@@ -40,6 +49,8 @@ export default async function auth(req, res) {
       async session({ session, user }) {
         // Send properties to the client, like an access_token from a provider.
         session.user.role = user.role
+        session.user.orgRole = user.orgRole
+        session.user.adminOfOrg = user.adminOfOrg
         return session
       },
     },

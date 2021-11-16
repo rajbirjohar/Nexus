@@ -21,6 +21,12 @@ export default async function deleteOrganization(
       const result = await db
         .collection('organizations')
         .deleteOne({ _id: new mongodb.ObjectID(organizationId) })
+      await db
+        .collection('users')
+        .updateOne(
+          { email: session.user.email },
+          { $set: { orgRole: 'none', adminOfOrg: 'none' } }
+        )
       res.status(200).json(result.deletedCount)
     } catch {
       res.status(500)
