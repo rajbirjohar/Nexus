@@ -10,7 +10,7 @@ const maxLength = 750
 // Params: name, email, course
 // Purpose: To take in user inputted data and submit it to the database
 
-export default function ReviewPostForm({ name, email, course, id }) {
+export default function ReviewPostForm({ name, email, course }) {
   // useSlider hook
   const [slideValue, Slider, setSlide] = useSlider(
     1,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import Router, { useRouter } from 'next/router'
+import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
@@ -56,8 +56,8 @@ export default function Profile() {
     const data = await response.json()
 
     if (response.status === 200) {
-      Router.reload()
       toast.success("You've set your role.")
+      router.push('/profile')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

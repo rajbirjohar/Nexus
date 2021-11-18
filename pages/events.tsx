@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import { useSession } from 'next-auth/react'
+import ListAllEvents from '@/components/Events/ListAllEvents'
 import Layout from '@/components/Layout'
 import styles from '@/styles/events.module.css'
 
@@ -28,7 +28,7 @@ export default function EventsPage() {
           />
         </div>
         <h2>Recent Events</h2>
-        <p>Check back soon!</p>
+        <ListAllEvents />
       </section>
     </Layout>
   )

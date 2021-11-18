@@ -18,6 +18,12 @@ const fetchProfilePosts = async (req, res) => {
     try {
       const reviewPosts = await db
         .collection('reviewPosts')
+        // .find({
+        //   $and: [
+        //     { email: user.email },
+        //     { createdAt: { $gte: new Date('2021-11-13') } },
+        //   ],
+        // })
         .find({ email: user.email })
         .sort({ createdAt: -1 })
         .toArray()
