@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 // import { connectToDatabase } from '@/util/connectToDb'
 import clientPromise from '@/lib/mongodb'
-var mongodb = require('mongodb')
+const mongodb = require('mongodb')
 
 // deleteOrganization
 // This endpoint takes the unique ID of the organization,
@@ -27,6 +27,9 @@ export default async function deleteOrganization(
           { email: session.user.email },
           { $set: { orgRole: 'none', adminOfOrg: 'none' } }
         )
+      await db
+        .collection('events')
+        .deleteMany({ organizationId: organizationId })
       res.status(200).json(result.deletedCount)
     } catch {
       res.status(500)

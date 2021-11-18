@@ -44,7 +44,6 @@ const CourseReviews = ({ course }) => {
                   name={session.user.name}
                   email={session.user.email}
                   course={course.name}
-                  id={id}
                 />
               </>
             )}
