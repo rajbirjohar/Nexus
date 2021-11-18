@@ -91,7 +91,7 @@ const Organization = ({ organization, superMembers }) => {
               </>
             )}
           <h3>Events</h3>
-          <ListEventsPerOrg />
+          <ListEventsPerOrg organization={organization._id} />
           {/* Checks if user is logged in and the user name matches organizer
         Thus, only the logged in user can access the delete function */}
           <h3>Dangerous Actions</h3>

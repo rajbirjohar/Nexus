@@ -6,10 +6,14 @@ import EventCard from './EventCard'
 import styles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
 
-export default function ListEventsPerOrg() {
-  const { data, error } = useSWR('/api/events/orgeventfetch', Fetcher, {
-    refreshInterval: 1000,
-  })
+export default function ListEventsPerOrg({ organization }) {
+  const { data, error } = useSWR(
+    `/api/events/${organization}`,
+    Fetcher,
+    {
+      refreshInterval: 1000,
+    }
+  )
   if (error) {
     return (
       <div className={styles.serverdown}>
