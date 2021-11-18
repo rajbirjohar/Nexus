@@ -13,13 +13,17 @@ export default async function fetchEvents(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const {
+    query: { id },
+    method,
+  } = req
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)
   const session = await getSession({ req })
   if (session) {
     const events = await db
       .collection('events')
-      .find({})
+      .find({ organizationId: id })
       .sort({ eventStartDate: -1 })
       .toArray()
     return res.status(200).json({ events })
