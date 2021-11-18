@@ -14,6 +14,7 @@ export default function OrganizationsPage() {
   const { data: session } = useSession()
   const [orgRole, setOrgRole] = useState({ _orgRole: '' })
   const [displayWarning, setDisplayWarning] = useState(false)
+
   const handleSubmit = async (event) => {
     event.preventDefault()
     if (orgRole._orgRole === '') {
@@ -31,7 +32,6 @@ export default function OrganizationsPage() {
     setOrgRole({
       _orgRole: event.target.value,
     })
-    console.log(orgRole)
   }
 
   const sendData = async (orgRoleData) => {

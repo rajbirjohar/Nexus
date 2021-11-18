@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Router from 'next/router'
+import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import styles from '@/styles/form.module.css'
@@ -13,6 +13,7 @@ const tagLineLength = 250
 // Purpose: To take in user inputted data and submit it to the database
 
 export default function OrganizationsPostForm(props) {
+  const router = useRouter()
   const { data: session } = useSession()
 
   // Default values of an organization Object
@@ -71,8 +72,7 @@ export default function OrganizationsPostForm(props) {
     })
     const data = await response.json()
     if (response.status === 200) {
-      toast.success('You created your organization!')
-      Router.reload()
+      toast.success("You've created your organization!")
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

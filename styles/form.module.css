@@ -35,6 +35,23 @@
   align-items: center;
 }
 
+.actions {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.deleteaction {
+  color: var(--red-900);
+  background: var(--red-100);
+  width: max-content;
+  margin: var(--gap-half) 0;
+}
+
+.deleteaction:hover {
+  background-color: var(--red-200);
+}
+
 /* Review form styles */
 .noreviews {
   display: flex;
