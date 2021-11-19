@@ -46,6 +46,7 @@ export default function ListAllEvents() {
         <EventCard
           key={newEvent._id}
           eventName={newEvent.eventName}
+          eventDetails={newEvent.eventDetails}
           eventId={newEvent._id}
           startDate={newEvent.eventStartDate}
           endDate={newEvent.eventEndDate}

@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import ListReviewPosts from '@/components/Reviews/ListProfilePosts'
 import styles from '@/styles/profile.module.css'
+import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
 
 export default function Profile() {
   const router = useRouter()
@@ -157,8 +158,11 @@ export default function Profile() {
           alt="Profile Image"
         />
       </div>
+      <h2>Your Organizations</h2>
+      <ListUserOrganizations />
       <h2>Your Reviews</h2>
       <ListReviewPosts />
+      <blockquote>Rage, rage against the dying of the light.</blockquote>
     </Layout>
   )
 }
