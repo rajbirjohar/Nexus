@@ -11,8 +11,8 @@ import cardstyles from '@/styles/card.module.css'
 // Purpose: To list all OrganizationCard({key, organizationId, organizationName, organizationDescription, organizer})
 // components via mapping from useSWR hook at orgfetch api
 
-export default function ListOrganizations() {
-  const { data, error } = useSWR('/api/organizations/orgfetch', fetcher, {
+export default function ListUserOrganizations() {
+  const { data, error } = useSWR('/api/organizations/userorgfetch', fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
@@ -35,7 +35,7 @@ export default function ListOrganizations() {
     return <Loader />
   }
   return (
-    <div className={cardstyles.grid}>
+    <div>
       {data.organizations.length === 0 && <p>Create the first organization!</p>}
       {data.organizations.map((organization) => (
         <OrganizationCard
