@@ -94,16 +94,19 @@ const Organization = ({ organization, superMembers }) => {
           <ListEventsPerOrg organization={organization._id} />
           {/* Checks if user is logged in and the user name matches organizer
         Thus, only the logged in user can access the delete function */}
-          <h3>Dangerous Actions</h3>
+
           {session &&
             session.user.adminOfOrg &&
             session.user.adminOfOrg === organization.organizationName && (
-              <button
-                className={formstyles.deleteaction}
-                onClick={() => setDisplayWarning(!displayWarning)}
-              >
-                Delete Organization
-              </button>
+              <>
+                <h3>Dangerous Actions</h3>
+                <button
+                  className={formstyles.deleteaction}
+                  onClick={() => setDisplayWarning(!displayWarning)}
+                >
+                  Delete Organization
+                </button>
+              </>
             )}
           {displayWarning && (
             <div className={formstyles.warningWrapper}>
