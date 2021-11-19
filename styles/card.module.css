@@ -14,6 +14,15 @@
   grid-gap: var(--gap-med);
 }
 
+.gridcard {
+  background-color: var(--gray-50);
+  border: 2px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  margin: 0;
+  box-shadow: var(--shadows-lg);
+}
+
 .actions {
   width: 100%;
   display: flex;
@@ -150,4 +159,10 @@
 }
 .coursecard:hover > .course {
   color: var(--purple-800);
+}
+
+/* Event card */
+
+.date {
+  color: var(--gray-500);
 }
