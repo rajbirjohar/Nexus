@@ -21,7 +21,7 @@ export default async function fetchEvents(
     .find({
       eventEndDate: { $gte: new Date() },
     })
-    .sort({ createdAt: -1 })
+    .sort({ eventStartDate: -1 })
     .toArray()
   return res.status(200).json({ events })
 }
