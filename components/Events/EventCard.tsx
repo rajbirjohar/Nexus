@@ -23,12 +23,11 @@ export default function EventCard({ eventId, eventName, startDate, endDate }) {
     // course
     <Link href={`/events/${eventId}`} passHref>
       <motion.div variants={card} id={eventId} className={styles.coursecard}>
-        {endDate > new Date() && (
-          <span>Expired</span>
-        )}
+        {endDate > new Date() && <span>Expired</span>}
         <h3 className={styles.course}>{eventName}</h3>
         <span className={styles.author}>
-          {startDate} - {endDate}
+          {new Date(startDate).toLocaleDateString()} -{' '}
+          {new Date(endDate).toLocaleDateString()}
         </span>
       </motion.div>
     </Link>

@@ -15,21 +15,13 @@ export default async function fetchEvents(
 ) {
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)
-  const session = await getSession({ req })
-  if (session) {
-    const events = await db
-      .collection('events')
-      .find({
-        eventEndDate: { $gte: new Date() },
-      })
-      .sort({ createdAt: -1 })
-      .toArray()
-    return res.status(200).json({ events })
-  } else {
-    // Not Signed in
-    res.status(401).json({
-      error:
-        'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
+
+  const events = await db
+    .collection('events')
+    .find({
+      eventEndDate: { $gte: new Date() },
     })
-  }
+    .sort({ createdAt: -1 })
+    .toArray()
+  return res.status(200).json({ events })
 }
