@@ -3,7 +3,8 @@ import useSWR from 'swr'
 import Loader from '../Skeleton'
 import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
-import styles from '@/styles/form.module.css'
+import formstyles from '@/styles/form.module.css'
+import cardstyles from '@/styles/card.module.css'
 
 export default function ListAllEvents() {
   const { data, error } = useSWR('/api/events/eventfetch', Fetcher, {
@@ -11,7 +12,7 @@ export default function ListAllEvents() {
   })
   if (error) {
     return (
-      <div className={styles.serverdown}>
+      <div className={formstyles.serverdown}>
         <p>
           Oops. Looks like the reviews are not being fetched right now. If this
           persists, please let us know.
@@ -29,9 +30,9 @@ export default function ListAllEvents() {
     return <Loader />
   }
   return (
-    <div>
+    <div className={cardstyles.grid}>
       {data.events.length === 0 && (
-        <div className={styles.noreviews}>
+        <div className={formstyles.noreviews}>
           <p>No new events! Check back later.</p>
           <Image
             src={'/assets/post2.svg'}
