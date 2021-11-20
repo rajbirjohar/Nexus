@@ -23,8 +23,8 @@ export default function OrganizationCard({
   return (
     // Link is used to route each card to a dynamic page
     // listing all details for that specific organization
-    <div className={styles.gridcard}>
-      <Link href={`/organizations/${organizationId}`} passHref>
+    <Link href={`/organizations/${organizationId}`} passHref>
+      <div className={styles.gridcard}>
         <div className={styles.orgheader}>
           <h3 className={styles.organizationName}>{organizationName}</h3>
           <svg
@@ -42,8 +42,9 @@ export default function OrganizationCard({
             />
           </svg>
         </div>
-      </Link>
-      <h4 className={styles.organizationTagline}>{organizationTagline}</h4>
-    </div>
+
+        <h4 className={styles.organizationTagline}>{organizationTagline}</h4>
+      </div>
+    </Link>
   )
 }
