@@ -15,7 +15,7 @@ import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 const CourseReviews = ({ course }) => {
   const router = useRouter()
   const { id } = router.query
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   return (
     <Layout>
       <Head>
@@ -25,7 +25,8 @@ const CourseReviews = ({ course }) => {
       </Head>
       {course.map((course) => (
         <>
-          <h1>{course.name}</h1>
+          <h1>{course.subjectCourse}</h1>
+          <h2>{course.courseTitle}</h2>
           {session && session.user.role && session.user.role.includes('none') && (
             <Link href="/profile" passHref>
               <a>Please verify if you are a student.</a>
@@ -43,7 +44,7 @@ const CourseReviews = ({ course }) => {
                 <ReviewPostForm
                   name={session.user.name}
                   email={session.user.email}
-                  course={course.name}
+                  course={course.subjectCourse}
                 />
               </>
             )}
@@ -62,7 +63,10 @@ const CourseReviews = ({ course }) => {
 export async function getServerSideProps(context) {
   const { id } = context.query
   const db = (await clientPromise).db(process.env.MONGODB_DB)
-  const course = await db.collection('courses').find({ name: id }).toArray()
+  const course = await db
+    .collection('allCourses')
+    .find({ subjectCourse: id })
+    .toArray()
   return {
     props: {
       course: JSON.parse(JSON.stringify(course)),

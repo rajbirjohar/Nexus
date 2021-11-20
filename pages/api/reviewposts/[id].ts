@@ -17,7 +17,6 @@ const reviewPostFetch = async (req, res) => {
     query: { id },
     method,
   } = req
-
   const reviewPosts = await db
     .collection('reviewPosts')
     .find({ course: id })
