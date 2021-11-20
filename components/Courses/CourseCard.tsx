@@ -22,7 +22,8 @@ export default function CourseCard({ courseId, courseName }) {
     // listing all course review posts for that specific
     // course
     <Link href={`/courses/${courseName}`} passHref>
-      <motion.div variants={card} id={courseId} className={styles.coursecard}>
+      <motion.div 
+      variants={card} id={courseId} className={styles.coursecard}>
         <h3 className={styles.course}>{courseName}</h3>
       </motion.div>
     </Link>

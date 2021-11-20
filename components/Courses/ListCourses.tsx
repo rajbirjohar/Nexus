@@ -17,9 +17,7 @@ const cardlist = {
   visible: {
     opacity: 1,
     transition: {
-      when: 'beforeChildren',
       delay: 0,
-
       ease: 'easeInOut',
     },
   },
