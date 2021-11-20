@@ -6,6 +6,7 @@ import Fetcher from '@/lib/fetcher'
 import CourseCard from './CourseCard'
 import Loader from '@/components/Skeleton'
 import styles from '@/styles/courses.module.css'
+import cardstyles from '@/styles/card.module.css'
 
 // Component: ListCourses()
 // Params: None
@@ -16,9 +17,7 @@ const cardlist = {
   visible: {
     opacity: 1,
     transition: {
-      when: 'beforeChildren',
       delay: 0,
-      staggerChildren: 0.02,
       ease: 'easeInOut',
     },
   },
@@ -57,7 +56,7 @@ export default function ListCourses() {
   // if the data is loading then finally loading the data
   // into the array filteredCourses where we do a local search/sort
   const filteredCourses = Object(data.courses).filter((course) =>
-    course.name.toLowerCase().includes(searchValue.toLowerCase())
+    course.subjectCourse.toLowerCase().includes(searchValue.toLowerCase())
   )
   return (
     <>
@@ -91,13 +90,13 @@ export default function ListCourses() {
         initial="hidden"
         animate="visible"
         variants={cardlist}
-        className={styles.courseGrid}
+        className={cardstyles.courseGrid}
       >
         {filteredCourses.map((course) => (
           <CourseCard
             key={course._id}
             courseId={course._id}
-            courseName={course.name}
+            courseName={course.subjectCourse}
           />
         ))}
       </motion.div>

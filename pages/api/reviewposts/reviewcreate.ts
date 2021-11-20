@@ -11,13 +11,9 @@ const mongodb = require('mongodb')
 // since we know that no two courses can have the same name
 
 const reviewPostCreate = async (req, res) => {
-  const {
-    query: { id },
-  } = req
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)
   const session = await getSession({ req })
-
   if (session) {
     const {
       reviewPostData: {
@@ -44,8 +40,11 @@ const reviewPostCreate = async (req, res) => {
     })
     const reviewPostId = reviewPost.insertedId
     await db
-      .collection('courses')
-      .updateOne({ name: id }, { $push: { reviews: reviewPostId } })
+      .collection('allCourses')
+      .updateOne(
+        { subjectCourse: _course },
+        { $push: { reviews: reviewPostId } }
+      )
     res.status(200).json({ message: 'Successfully posted entry.' })
   } else {
     // Not Signed in
