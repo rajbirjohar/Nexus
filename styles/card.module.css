@@ -115,12 +115,12 @@
   cursor: pointer;
 }
 
-.orgheader:hover > .organizationName {
+.gridcard:hover > .orgheader > .organizationName {
   color: var(--purple-800);
   margin-right: var(--gap-quarter);
 }
 
-.orgheader:hover > .linkIcon {
+.gridcard:hover > .orgheader > .linkIcon {
   color: var(--purple-800);
 }
 

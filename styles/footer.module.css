@@ -1,9 +1,8 @@
 .footer {
-  height: 8rem;
+  height: 10rem;
   width: 100wv;
   display: flex;
   background-color: var(--gray-100);
-  
   align-items: center;
   margin-top: var(--big-gap);
 }
@@ -15,6 +14,5 @@
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
+  gap: 1.5rem;
 }
-
-
