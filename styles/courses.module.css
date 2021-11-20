@@ -14,12 +14,6 @@
   align-items: center;
 }
 
-.courseGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: var(--gap-med);
-}
-
 .searchWrapper {
   position: relative;
   width: 100%;

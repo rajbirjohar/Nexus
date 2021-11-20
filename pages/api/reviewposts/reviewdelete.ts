@@ -18,9 +18,9 @@ const reviewPostDelete = async (req, res) => {
   if (session) {
     const { reviewPostData: course, reviewPostId } = req.body
     await db
-      .collection('courses')
+      .collection('allCourses')
       .updateOne(
-        { name: course },
+        { subjectCourse: course },
         { $pull: { reviews: new mongodb.ObjectID(reviewPostId) } }
       )
     const result = await db

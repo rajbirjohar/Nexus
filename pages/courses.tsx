@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Layout from '@/components/Layout'
 import ListCourses from '@/components/Courses/ListCourses'
 import styles from '@/styles/courses.module.css'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function CoursesPage() {
   return (
@@ -20,7 +21,12 @@ export default function CoursesPage() {
               student. Feel free to write your own for future readers.
             </p>
           </div>
-          <Image src={'/assets/teaching.svg'} width={300} height={300} alt='Professor teaching' />
+          <Image
+            src={'/assets/teaching.svg'}
+            width={300}
+            height={300}
+            alt="Professor teaching"
+          />
         </div>
         <ListCourses />
       </section>

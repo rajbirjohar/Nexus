@@ -11,9 +11,9 @@ const coursesFetch = async (req, res) => {
   const db = isConnected.db(process.env.MONGODB_DB)
 
   const courses = await db
-    .collection('courses')
+    .collection('allCourses')
     .find({})
-    .sort({ name: 1 })
+    .sort({ subjectCourse: 1 })
     .toArray()
   res.status(200).json({ courses })
 }

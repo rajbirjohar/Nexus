@@ -28,7 +28,11 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "pages/api/entry/create.js"
-, "lib/mongodb.js", "pages/api/auth/[...nextauth].js", "pages/index.js"  ],
+    "pages/api/entry/create.js",
+    "lib/mongodb.js",
+    "pages/api/auth/[...nextauth].js",
+    "pages/index.js",
+    "next.config.js"
+  ],
   "exclude": ["node_modules"]
 }
