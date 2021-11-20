@@ -212,6 +212,43 @@ Users are able to create new posts via the `/reviews` page. Once they input all 
   </p>
 &nbsp;
 
+### New Organization Sequence Diagram 
+
+When creating a new organization users must first apply to be an "Organizer" from the `/organizations` page. After approval their profile on the database is then updated to reflect this change. Once complete they are directed to a form where they can then create their new organization after filling in some information.
+
+<p align="center">
+<img src="/documentation/images/New_Org_Sequence_Diagram.jpg" alt="image of new organization sequence diagram" width="750">
+  </p>
+&nbsp;
+
+### New Event Sequence Diagram 
+
+Once a user has succesfully created an organization, they are able to create events for it by navigating to its respective page. They are greeted by a form where they can enter details about the event. The event is created and written to the database where it is then displayed on both the `/events` and organization's page.
+
+<p align="center">
+<img src="/documentation/images/New_Event_Sequence_Diagram.jpg" alt="image of new event sequence diagram" width="750">
+  </p>
+&nbsp;
+
+
+### Assigning Role Sequence Diagram 
+
+After the initial sign up, the user is prompted to request a role before they are able to leave reviews. At the moment there are only two options: "Professor" and "Student". Only students are able to leave reviews for courses. Once a role is selected the user's profile is updated on the database. Now when navigating to a specific course page their student role is verified and a form displayed allowing them to write a review.
+
+<p align="center">
+<img src="/documentation/images/Assigning_Role_Sequence_Diagram.jpg" alt="image of assigning role sequence diagram" width="750">
+  </p>
+&nbsp;
+
+### Searching for Course Sequence Diagram 
+
+At the top of the `/courses` page there is a search bar allowing users to filter courses based on a provided search string. When first visiting the `/courses` page a request is sent to the database for a list of all courses. These courses are then returned and then displayed as cards on the page. As the user types in the search bar the page is dynamically displays all courses matching the search query.
+
+<p align="center">
+<img src="/documentation/images/Searching_for_Course_Sequence_Diagram.jpg" alt="image of searching for course sequence diagram" width="750">
+  </p>
+&nbsp;
+
 > More screenshots to come.
 
 ### Frontend Structure
