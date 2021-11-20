@@ -39,8 +39,14 @@ export default function aboutPage() {
         <p>
           Written with love by,
           <br />
-          Rajbir Johar, Isaac Curiel, Brian Coffey, Robert Rivera, and Florian
-          Catalan
+          <a
+            rel="noopener noreferrer"
+            href="https://rajbir.io/"
+            target="_blank"
+          >
+            Rajbir Johar
+          </a>
+          , Isaac Curiel, Brian Coffey, Robert Rivera, and Florian Catalan
         </p>
         <p>
           Special thanks to,

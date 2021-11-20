@@ -88,7 +88,6 @@ export default function Header() {
               <Link href="/courses">Courses</Link>
               <Link href="/events">Events</Link>
               <Link href="/organizations">Organizations</Link>
-              <Link href="/disclaimers">Disclaimers</Link>
               {session ? (
                 <>
                   <Link href="/profile">Profile</Link>
@@ -154,11 +153,6 @@ export default function Header() {
             <MobileLink
               path="/organizations"
               title="Organizations"
-              onClick={() => setOpen(!open)}
-            />
-            <MobileLink
-              path="/disclaimers"
-              title="Disclaimers"
               onClick={() => setOpen(!open)}
             />
 
