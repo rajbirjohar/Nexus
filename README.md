@@ -1,7 +1,7 @@
 # Nexus
 
 <p align="center">
-<img src="/documentation/images/NexusCover.png" alt="cover page for Nexus project" width="750">
+<img src="/documentation/images/NexusLanding.png" alt="cover page for Nexus project" width="750">
 </p>
 &nbsp;
 
@@ -150,17 +150,7 @@ If you want to learn more about MongoDB, visit the following pages:
 Our design language leans towards a simple yet tasteful color scheme and layout to create an unparalleled user experience. We want to be able to provide as much information as possible while being digestable for the user. Along with our purple brand, we offer a dark mode for those who enjoy browsing at night giving the user options and control over their experience.
 
 <p align="center">
-<img src="/documentation/images/LandingMockDark.png" alt="image of Nexus' landing page" width="750">
-</p>
-&nbsp;
-
-### Profile Page 
-
-Our Profile page displays the user's name, the organizations they've made as admins, and the course reviews they've submitted. Functionality from this page includes the ability to delete course reviews. Upcoming functionality includes users being able to edit their own course reviews and organizations.
-
-<p align="center">
-<img src="/documentation/images/ProfileMockDark.png" alt="image of Nexus' profile page" width="750">
-&nbsp;
+<img src="/documentation/images/LandingDark.png" alt="image of Nexus' landing page" width="750">
 </p>
 &nbsp;
 
@@ -169,7 +159,7 @@ Our Profile page displays the user's name, the organizations they've made as adm
 Our Courses page features functionality that allows users to post, read, edit, and delete course reviews. We want to be able to show all the important information that user might want to see at a glance. There are future plans on allowing the user to sort by a specific metric.
 
 <p align="center">
-<img src="/documentation/images/CoursesMockDark.png" alt="image of Nexus' courses page" width="750">
+<img src="/documentation/images/CoursesDark.png" alt="image of Nexus' courses page" width="750">
 &nbsp;
  </p>
  &nbsp;
@@ -179,7 +169,7 @@ Our Courses page features functionality that allows users to post, read, edit, a
 Our Events page features upcoming events from organizations registered with Nexus. Here, users can see all events and their info all in one place.
 
 <p align="center">
-<img src="/documentation/images/EventsMockLight.png" alt="image of Nexus' events page" width="750">
+<img src="/documentation/images/EventsLight.png" alt="image of Nexus' events page" width="750">
 &nbsp;
 </p>
 &nbsp;
@@ -189,7 +179,7 @@ Our Events page features upcoming events from organizations registered with Nexu
 Our Organization page features organizations registered with Nexus. Upcoming functionality that will be implemented includes allowing users to become members of organizations and enroll in event notifications.
 
 <p align="center">
-<img src="/documentation/images/OrganizationsMockLight.png" alt="image of Nexus' organization page" width="750">
+<img src="/documentation/images/OrganizationsDark.png" alt="image of Nexus' organization page" width="750">
 &nbsp;
 </p>
 &nbsp;
