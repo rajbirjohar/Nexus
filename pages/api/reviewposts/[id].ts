@@ -19,7 +19,7 @@ const reviewPostFetch = async (req, res) => {
   } = req
   const reviewPosts = await db
     .collection('reviewPosts')
-    .find({ course: id })
+    .find({ courseId: new mongodb.ObjectId(id) })
     // Sorted by newest to oldest
     .sort({ createdAt: -1 })
     .toArray()

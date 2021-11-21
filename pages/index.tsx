@@ -43,9 +43,11 @@ export default function Home() {
           {session && (
             // Display this message when the user has successfully logged in
             // AND connected to our database
-            <h4>
-              Hi, {session.user.name}! Let&#39;s learn something new today.
-            </h4>
+            <>
+              <h4>
+                Hi, {session.user.name}! Let&#39;s learn something new today.
+              </h4>
+            </>
           )}
         </div>
       </section>

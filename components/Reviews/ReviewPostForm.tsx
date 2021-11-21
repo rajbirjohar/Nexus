@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import useSlider from './Slider'
 import styles from '@/styles/form.module.css'
+import { useSession } from 'next-auth/react'
 
 // Max length for review
 const maxLength = 750
@@ -10,7 +11,7 @@ const maxLength = 750
 // Params: name, email, course
 // Purpose: To take in user inputted data and submit it to the database
 
-export default function ReviewPostForm({ name, email, course }) {
+export default function ReviewPostForm({ course, courseId }) {
   // useSlider hook
   const [slideValue, Slider, setSlide] = useSlider(
     1,
@@ -21,12 +22,15 @@ export default function ReviewPostForm({ name, email, course }) {
   )
 
   // default values for reviewPost Object
+  const { data: session } = useSession()
   const [reviewPost, setReviewPost] = useState({
-    reviewee: name,
-    email: email,
+    creatorId: session.user.id,
+    creator: session.user.name,
+    creatorEmail: session.user.email,
     _reviewPost: '',
     _reviewProfessor: '',
     _course: course,
+    _courseId: courseId,
     _taken: '',
     _difficulty: 5,
     _anonymous: true,

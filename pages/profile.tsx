@@ -162,7 +162,9 @@ export default function Profile() {
       <ListUserOrganizations />
       <h2>Your Reviews</h2>
       <ListReviewPosts />
-      <blockquote className={styles.quote}>Rage, rage against the dying of the light.</blockquote>
+      <blockquote className={styles.quote}>
+        Rage, rage against the dying of the light.
+      </blockquote>
     </Layout>
   )
 }

@@ -1,6 +1,6 @@
 import clientPromise from '@/lib/mongodb'
-// import { connectToDatabase } from '@/util/connectToDb'
 import { getSession } from 'next-auth/react'
+const mongodb = require('mongodb')
 
 // fetchProfilePosts()
 // This endpoint will fetch all of our reviews
@@ -18,13 +18,7 @@ const fetchProfilePosts = async (req, res) => {
     try {
       const reviewPosts = await db
         .collection('reviewPosts')
-        // .find({
-        //   $and: [
-        //     { email: user.email },
-        //     { createdAt: { $gte: new Date('2021-11-13') } },
-        //   ],
-        // })
-        .find({ email: user.email })
+        .find({ creatorId: new mongodb.ObjectId(user.id) })
         .sort({ createdAt: -1 })
         .toArray()
       return res.status(200).json({ reviewPosts })

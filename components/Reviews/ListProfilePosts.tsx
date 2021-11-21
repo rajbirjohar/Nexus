@@ -7,7 +7,7 @@ import Loader from '@/components/Skeleton'
 
 // Component: ListProfilePosts()
 // Params: none
-// Purpose: To list the review posts specific to 
+// Purpose: To list the review posts specific to
 // the logged in user. This component live updates every second
 
 export default function ListReviewPosts() {
@@ -34,10 +34,13 @@ export default function ListReviewPosts() {
         <ReviewPostCard
           key={post._id}
           reviewPostId={post._id}
-          reviewee={post.reviewee}
+          creator={post.creator}
+          creatorEmail={post.creatorEmail}
+          creatorId={post.creatorId}
+          courseId={post.courseId}
+          course={post.course}
           reviewPost={post.reviewPost}
           reviewProfessor={post.reviewProfessor}
-          course={post.course}
           taken={post.taken}
           difficulty={post.difficulty}
           anonymous={post.anonymous}

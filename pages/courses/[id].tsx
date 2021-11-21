@@ -6,6 +6,7 @@ import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
+const mongodb = require('mongodb')
 
 // Page: CourseReviews({course})
 // Params: course
@@ -18,13 +19,13 @@ const CourseReviews = ({ course }) => {
   const { data: session } = useSession()
   return (
     <Layout>
-      <Head>
-        <title>Nexus | {id}</title>
-        {/* Change this icon when we have a logo */}
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       {course.map((course) => (
         <>
+          <Head>
+            <title>Nexus | {course.subjectCourse}</title>
+            {/* Change this icon when we have a logo */}
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
           <h1>{course.subjectCourse}</h1>
           <h2>{course.courseTitle}</h2>
           {session && session.user.role && session.user.role.includes('none') && (
@@ -42,15 +43,14 @@ const CourseReviews = ({ course }) => {
             session.user.role.includes('student') && (
               <>
                 <ReviewPostForm
-                  name={session.user.name}
-                  email={session.user.email}
                   course={course.subjectCourse}
+                  courseId={course._id}
                 />
               </>
             )}
         </>
       ))}
-      <ListReviewPosts course={id} />
+      <ListReviewPosts courseId={id} />
     </Layout>
   )
 }
@@ -65,7 +65,7 @@ export async function getServerSideProps(context) {
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const course = await db
     .collection('allCourses')
-    .find({ subjectCourse: id })
+    .find({ _id: new mongodb.ObjectId(id) })
     .toArray()
   return {
     props: {

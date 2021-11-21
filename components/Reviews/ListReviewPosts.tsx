@@ -11,8 +11,8 @@ import styles from '@/styles/form.module.css'
 // Purpose: To list the review posts specific to
 // the course on that route. This component live updates every second
 
-export default function ListReviewPosts({ course }) {
-  const { data, error } = useSWR(`/api/reviewposts/${course}`, fetcher, {
+export default function ListReviewPosts({ courseId }) {
+  const { data, error } = useSWR(`/api/reviewposts/${courseId}`, fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
@@ -52,10 +52,13 @@ export default function ListReviewPosts({ course }) {
         <ReviewPostCard
           key={post._id}
           reviewPostId={post._id}
-          reviewee={post.reviewee}
+          creator={post.creator}
+          creatorEmail={post.creatorEmail}
+          creatorId={post.creatorId}
+          courseId={post.courseId}
+          course={post.course}
           reviewPost={post.reviewPost}
           reviewProfessor={post.reviewProfessor}
-          course={post.course}
           taken={post.taken}
           difficulty={post.difficulty}
           anonymous={post.anonymous}
