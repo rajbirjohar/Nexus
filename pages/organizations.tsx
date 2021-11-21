@@ -20,7 +20,6 @@ export default function OrganizationsPage() {
     if (orgRole._orgRole === '') {
       toast.error('Please fill out your role.')
     } else if (orgRole._orgRole === 'Admin') {
-      console.log(orgRole)
       sendData(orgRole)
       setOrgRole({ _orgRole: '' })
     } else {
@@ -155,10 +154,7 @@ export default function OrganizationsPage() {
           session.user.orgRole.includes('Admin') &&
           session.user.adminOfOrg.includes('none') && (
             <>
-              <OrganizationsPostForm
-                name={session.user.name}
-                email={session.user.email}
-              />
+              <OrganizationsPostForm />
             </>
           )}
         <ListOrganizations />

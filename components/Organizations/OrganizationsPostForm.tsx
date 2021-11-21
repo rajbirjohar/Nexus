@@ -8,16 +8,15 @@ import styles from '@/styles/form.module.css'
 const maxLength = 1000
 const tagLineLength = 250
 
-// Component: OrganizationPostForm(props)
-// Params: props - session.user.name, session.user.email (might be outdated)
+// Component: OrganizationPostForm()
 // Purpose: To take in user inputted data and submit it to the database
 
-export default function OrganizationsPostForm(props) {
-  const router = useRouter()
+export default function OrganizationsPostForm() {
   const { data: session } = useSession()
 
   // Default values of an organization Object
   const [organization, setOrganization] = useState({
+    organizerId: session.user.id,
     organizer: session.user.name,
     email: session.user.email,
     _organizationName: '',

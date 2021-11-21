@@ -13,13 +13,10 @@ import Link from 'next/link'
 // See ListOrganizations component
 
 export default function OrganizationCard({
-  organizer,
   organizationName,
   organizationTagline,
   organizationId,
 }) {
-  const { data: session } = useSession()
-
   return (
     // Link is used to route each card to a dynamic page
     // listing all details for that specific organization
@@ -44,6 +41,7 @@ export default function OrganizationCard({
         </div>
 
         <h4 className={styles.organizationTagline}>{organizationTagline}</h4>
+        <p>{organizationId}</p>
       </div>
     </Link>
   )

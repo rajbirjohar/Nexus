@@ -13,7 +13,8 @@ const mongodb = require('mongodb')
 const Organization = ({ organization, superMembers }) => {
   const router = useRouter()
   const { id } = router.query
-  const { data: session, status } = useSession()
+  console.log(id)
+  const { data: session } = useSession()
   const [deleteOrg, setDeleteOrg] = useState({
     _organization: '',
     _organizationConfirmation: '',
@@ -21,16 +22,18 @@ const Organization = ({ organization, superMembers }) => {
   const [displayWarning, setDisplayWarning] = useState(false)
 
   const handleSubmit = async (event) => {
-    console.log(organization.organizationName)
     event.preventDefault()
+    const orgName = organization
+      .map((organization) => organization.organizationName)
+      .toString()
     if (
       deleteOrg._organization === '' ||
       deleteOrg._organizationConfirmation === ''
     ) {
-      toast.error('Please fill out your organization Name.')
+      toast.error('Please fill out your Organization Name.')
     } else if (
-      deleteOrg._organization === session.user.adminOfOrg &&
-      deleteOrg._organizationConfirmation === session.user.adminOfOrg
+      deleteOrg._organization === orgName &&
+      deleteOrg._organizationConfirmation === orgName
     ) {
       deleteOrganization(deleteOrg)
     } else {
@@ -78,26 +81,26 @@ const Organization = ({ organization, superMembers }) => {
           <p>{organization.organizationDescription}</p>
           <h3>Admins</h3>
           {superMembers.map((superMember) => (
-            <li key={superMember.name}>{superMember.name}</li>
+            <li key={superMember.admin}>{superMember.admin}</li>
           ))}
           {session &&
             session.user.adminOfOrg &&
-            session.user.adminOfOrg === organization.organizationName && (
+            session.user.adminOfOrg === organization._id && (
               <>
                 <EventForm
                   organizationName={organization.organizationName}
-                  organizationId={id}
+                  organizationId={organization._id}
                 />
               </>
             )}
           <h3>Events</h3>
-          <ListEventsPerOrg organization={organization._id} />
+          <ListEventsPerOrg organizationId={organization._id} />
           {/* Checks if user is logged in and the user name matches organizer
         Thus, only the logged in user can access the delete function */}
 
           {session &&
             session.user.adminOfOrg &&
-            session.user.adminOfOrg === organization.organizationName && (
+            session.user.adminOfOrg === organization._id && (
               <>
                 <h3>Dangerous Actions</h3>
                 <button
@@ -187,7 +190,7 @@ export async function getServerSideProps(context) {
       { $unwind: '$superMembersList' },
       {
         $project: {
-          name: '$superMembersList.name',
+          admin: '$superMembersList.admin',
           email: '$superMembersList.email',
         },
       },

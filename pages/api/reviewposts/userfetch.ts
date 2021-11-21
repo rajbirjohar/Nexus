@@ -13,12 +13,11 @@ const fetchProfilePosts = async (req, res) => {
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)
   const session = await getSession({ req })
-  const { user } = session
   if (session) {
     try {
       const reviewPosts = await db
         .collection('reviewPosts')
-        .find({ creatorId: new mongodb.ObjectId(user.id) })
+        .find({ creatorId: new mongodb.ObjectId(session.user.id) })
         .sort({ createdAt: -1 })
         .toArray()
       return res.status(200).json({ reviewPosts })

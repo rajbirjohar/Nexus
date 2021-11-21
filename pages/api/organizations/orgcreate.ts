@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
-// import { connectToDatabase } from '@/util/connectToDb'
+const mongodb = require('mongodb')
 
 // createOrganization()
 // This endpoint takes data from our OrganizationPostForm()
@@ -21,6 +21,7 @@ export default async function createOrganization(
   if (session) {
     const {
       organizationData: {
+        organizerId,
         organizer,
         email,
         _organizationName,
@@ -28,7 +29,8 @@ export default async function createOrganization(
         _organizationDescription,
       },
     } = req.body
-    await db.collection('organizations').insertOne({
+    const organization = await db.collection('organizations').insertOne({
+      organizerId: new mongodb.ObjectId(organizerId),
       organizer: organizer,
       email: email,
       organizationName: _organizationName,
@@ -36,7 +38,8 @@ export default async function createOrganization(
       organizationDescription: _organizationDescription,
       superMembersList: [
         {
-          name: organizer,
+          adminId: new mongodb.ObjectId(organizerId),
+          admin: organizer,
           email: email,
         },
       ],
@@ -44,9 +47,9 @@ export default async function createOrganization(
     })
     await db.collection('users').updateOne(
       {
-        email: session.user.email,
+        _id: new mongodb.ObjectId(session.user.id),
       },
-      { $set: { adminOfOrg: _organizationName } }
+      { $set: { adminOfOrg: organization.insertedId } }
     )
     res.status(200).json({ message: 'Successfully posted organization.' })
   } else {
