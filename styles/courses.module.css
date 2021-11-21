@@ -35,9 +35,9 @@
 
 .searchIcon {
   position: absolute;
-  top: 25px;
+  top: 35px;
   right: 15px;
-  color: var(--purple-500) !important;
+  color: var(--purple-400) !important;
 }
 
 .notFound {
