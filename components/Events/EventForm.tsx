@@ -19,8 +19,12 @@ export default function EventForm({ organizationName, organizationId }) {
   })
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const today = new Date().toDateString()
-    if (newEvent._eventName === '' && newEvent._eventDetails === '') {
+    if (
+      newEvent._eventName === '' ||
+      newEvent._eventDetails === '' ||
+      newEvent._eventStartDate === '' ||
+      newEvent._eventEndDate === ''
+    ) {
       toast.error('Please fill out the missing fields')
     } else if (newEvent._eventEndDate < newEvent._eventStartDate) {
       toast.error('Event end date cannot be before start date.')

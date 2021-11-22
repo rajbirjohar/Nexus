@@ -18,13 +18,13 @@ const CourseReviews = ({ course }) => {
   const { data: session } = useSession()
   return (
     <Layout>
-      <Head>
-        <title>Nexus | {id}</title>
-        {/* Change this icon when we have a logo */}
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
       {course.map((course) => (
         <>
+          <Head>
+            <title>Nexus | {course.subjectCourse}</title>
+            {/* Change this icon when we have a logo */}
+            <link rel="icon" href="/favicon.ico" />
+          </Head>
           <h1>{course.subjectCourse}</h1>
           <h2>{course.courseTitle}</h2>
           {session && session.user.role && session.user.role.includes('none') && (
@@ -42,15 +42,14 @@ const CourseReviews = ({ course }) => {
             session.user.role.includes('student') && (
               <>
                 <ReviewPostForm
-                  name={session.user.name}
-                  email={session.user.email}
                   course={course.subjectCourse}
+                  courseId={course._id}
                 />
               </>
             )}
         </>
       ))}
-      <ListReviewPosts course={id} />
+      <ListReviewPosts courseId={id} />
     </Layout>
   )
 }

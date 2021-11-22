@@ -26,8 +26,8 @@ export default async function createEvent(
     await db.collection('events').insertOne({
       eventCreator: eventCreator,
       email: email,
+      organizationId: new mongodb.ObjectId(organizationId),
       organizationName: organizationName,
-      organizationId: organizationId,
       eventName: _eventName,
       eventDetails: _eventDetails,
       eventStartDate: new Date(_eventStartDate),

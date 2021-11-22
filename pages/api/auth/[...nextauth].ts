@@ -48,6 +48,7 @@ export default async function auth(req, res) {
     callbacks: {
       async session({ session, user }) {
         // Send properties to the client, like an access_token from a provider.
+        session.user.id = user.id
         session.user.role = user.role
         session.user.orgRole = user.orgRole
         session.user.adminOfOrg = user.adminOfOrg

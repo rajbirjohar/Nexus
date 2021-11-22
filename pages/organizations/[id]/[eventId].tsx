@@ -4,11 +4,10 @@ import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
 import EventForm from '@/components/Events/EventForm'
 import clientPromise from '@/lib/mongodb'
-const mongodb = require('mongodb')
 
 const Event = ({ event }) => {
   const router = useRouter()
-  const { id } = router.query
+  const { eventId } = router.query
   const { data: session, status } = useSession()
   return (
     <Layout>
@@ -34,12 +33,21 @@ const Event = ({ event }) => {
 // this data does not change often so we don't have to revalidate it
 // But the dynamic pages that are following it are updated frequently
 export async function getServerSideProps(context) {
-  const { id } = context.query
+  const { eventId } = context.query
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const event = await db
     .collection('events')
-    .find({ _id: new mongodb.ObjectID(id) })
+    .find({ eventName: eventId })
     .toArray()
+  const exists = await db
+    .collection('events')
+    .countDocuments({ eventName: eventId })
+  if (exists < 1) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       event: JSON.parse(JSON.stringify(event)),

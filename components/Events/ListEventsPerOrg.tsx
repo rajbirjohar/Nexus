@@ -6,8 +6,8 @@ import EventCard from './EventCard'
 import styles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
 
-export default function ListEventsPerOrg({ organization }) {
-  const { data, error } = useSWR(`/api/events/${organization}`, Fetcher, {
+export default function ListEventsPerOrg({ organizationId }) {
+  const { data, error } = useSWR(`/api/events/${organizationId}`, Fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
@@ -45,6 +45,7 @@ export default function ListEventsPerOrg({ organization }) {
       {data.events.map((newEvent) => (
         <EventCard
           key={newEvent._id}
+          organizationName={newEvent.organizationName}
           eventName={newEvent.eventName}
           eventDetails={newEvent.eventDetails}
           eventId={newEvent._id}

@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '@/lib/mongodb'
-import { getSession } from 'next-auth/react'
+const mongodb = require('mongodb')
 
 // fetchProfilePosts()
 // This endpoint will fetch all of our reviews
@@ -15,13 +15,12 @@ export default async function fetchEvents(
 ) {
   const {
     query: { id },
-    method,
   } = req
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)
   const events = await db
     .collection('events')
-    .find({ organizationId: id })
+    .find({ organizationId: new mongodb.ObjectId(id) })
     .sort({ eventStartDate: -1 })
     .toArray()
   return res.status(200).json({ events })

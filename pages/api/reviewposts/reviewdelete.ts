@@ -1,4 +1,5 @@
 import clientPromise from '@/lib/mongodb'
+import { ObjectId } from 'mongodb'
 import { getSession } from 'next-auth/react'
 const mongodb = require('mongodb')
 // import { connectToDatabase } from '@/util/connectToDb'
@@ -16,11 +17,11 @@ const reviewPostDelete = async (req, res) => {
   const session = await getSession({ req })
 
   if (session) {
-    const { reviewPostData: course, reviewPostId } = req.body
+    const { reviewPostData: courseId, reviewPostId } = req.body
     await db
       .collection('allCourses')
       .updateOne(
-        { subjectCourse: course },
+        { _id: new mongodb.ObjectId(courseId) },
         { $pull: { reviews: new mongodb.ObjectID(reviewPostId) } }
       )
     const result = await db

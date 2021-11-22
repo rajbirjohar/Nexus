@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import Link from 'next/link'
 import Router from 'next/router'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
@@ -20,7 +21,6 @@ export default function OrganizationsPage() {
     if (orgRole._orgRole === '') {
       toast.error('Please fill out your role.')
     } else if (orgRole._orgRole === 'Admin') {
-      console.log(orgRole)
       sendData(orgRole)
       setOrgRole({ _orgRole: '' })
     } else {
@@ -43,10 +43,9 @@ export default function OrganizationsPage() {
       body: JSON.stringify({ orgRoleData: orgRoleData }),
     })
     const data = await response.json()
-
     if (response.status === 200) {
-      Router.reload()
       toast.success("You've set your role.")
+      Router.reload()
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -71,7 +70,9 @@ export default function OrganizationsPage() {
             </p>
 
             {session &&
+              session.user.role &&
               session.user.orgRole &&
+              session.user.role.includes('student' || 'professor') &&
               session.user.orgRole.includes('none') && (
                 <button
                   className={formstyles.apply}
@@ -79,6 +80,13 @@ export default function OrganizationsPage() {
                 >
                   Apply for Organizer
                 </button>
+              )}
+            {session &&
+              session.user.role &&
+              session.user.role.includes('none') && (
+                <Link href="/profile" passHref>
+                  <a>Please verify if you are a student or professor.</a>
+                </Link>
               )}
           </div>
           <Image
@@ -155,10 +163,7 @@ export default function OrganizationsPage() {
           session.user.orgRole.includes('Admin') &&
           session.user.adminOfOrg.includes('none') && (
             <>
-              <OrganizationsPostForm
-                name={session.user.name}
-                email={session.user.email}
-              />
+              <OrganizationsPostForm />
             </>
           )}
         <ListOrganizations />

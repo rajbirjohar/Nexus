@@ -13,17 +13,14 @@ import Link from 'next/link'
 // See ListOrganizations component
 
 export default function OrganizationCard({
-  organizer,
   organizationName,
   organizationTagline,
   organizationId,
 }) {
-  const { data: session } = useSession()
-
   return (
     // Link is used to route each card to a dynamic page
     // listing all details for that specific organization
-    <Link href={`/organizations/${organizationId}`} passHref>
+    <Link href={`/organizations/${organizationName}`} passHref>
       <div className={styles.gridcard}>
         <div className={styles.orgheader}>
           <h3 className={styles.organizationName}>{organizationName}</h3>

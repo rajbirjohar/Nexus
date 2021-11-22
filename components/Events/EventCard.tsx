@@ -18,6 +18,7 @@ const card = {
 
 export default function EventCard({
   eventId,
+  organizationName,
   eventName,
   eventDetails,
   startDate,
@@ -27,7 +28,7 @@ export default function EventCard({
     // Link is used to route each card to a dynamic page
     // listing all course review posts for that specific
     // course
-    <Link href={`/events/${eventId}`} passHref>
+    <Link href={`/organizations/${organizationName}/${eventName}`} passHref>
       <motion.div variants={card} id={eventId} className={styles.gridcard}>
         {endDate > new Date() && <span>Expired</span>}
         <h3 className={styles.course}>{eventName}</h3>

@@ -17,33 +17,36 @@ const reviewPostCreate = async (req, res) => {
   if (session) {
     const {
       reviewPostData: {
-        reviewee,
-        email,
+        creatorId,
+        creator,
+        creatorEmail,
+        _courseId,
+        _course,
         _reviewPost,
         _reviewProfessor,
-        _course,
         _taken,
         _difficulty,
         _anonymous,
       },
     } = req.body
     const reviewPost = await db.collection('reviewPosts').insertOne({
-      reviewee: reviewee,
-      email: email,
+      creatorId: new mongodb.ObjectId(creatorId),
+      creator: creator,
+      creatorEmail: creatorEmail,
+      courseId: new mongodb.ObjectId(_courseId),
+      course: _course,
       reviewPost: _reviewPost,
       reviewProfessor: _reviewProfessor,
-      course: _course,
       taken: _taken,
       difficulty: _difficulty,
       anonymous: _anonymous,
       createdAt: new Date(),
     })
-    const reviewPostId = reviewPost.insertedId
     await db
       .collection('allCourses')
       .updateOne(
-        { subjectCourse: _course },
-        { $push: { reviews: reviewPostId } }
+        { _id: new mongodb.ObjectId(_courseId) },
+        { $push: { reviews: reviewPost.insertedId } }
       )
     res.status(200).json({ message: 'Successfully posted entry.' })
   } else {
