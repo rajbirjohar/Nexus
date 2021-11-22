@@ -31,8 +31,8 @@ export default async function createOrganization(
     } = req.body
     const nameTaken = await db
       .collection('organizations')
-      .find({ organizationName: _organizationName })
-    if (nameTaken) {
+      .countDocuments({ organizationName: _organizationName })
+    if (nameTaken > 1) {
       res.status(422).json({ error: 'Event already has a name that exists.' })
     } else {
       const organization = await db.collection('organizations').insertOne({
