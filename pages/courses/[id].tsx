@@ -6,7 +6,6 @@ import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
-const mongodb = require('mongodb')
 
 // Page: CourseReviews({course})
 // Params: course
@@ -65,7 +64,7 @@ export async function getServerSideProps(context) {
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const course = await db
     .collection('allCourses')
-    .find({ _id: new mongodb.ObjectId(id) })
+    .find({ subjectCourse: id })
     .toArray()
   return {
     props: {

@@ -45,6 +45,7 @@ export default function ListEventsPerOrg({ organizationId }) {
       {data.events.map((newEvent) => (
         <EventCard
           key={newEvent._id}
+          organizationName={newEvent.organizationName}
           eventName={newEvent.eventName}
           eventDetails={newEvent.eventDetails}
           eventId={newEvent._id}

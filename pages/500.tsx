@@ -4,16 +4,16 @@ import Image from 'next/image'
 import Layout from '../components/Layout'
 import styles from '@/styles/404.module.css'
 
-export default function Custom404() {
+export default function Custom500() {
   return (
     <Layout>
       <Head>
-        <title>Nexus | 404</title>
+        <title>Nexus | 500</title>
       </Head>
       <h1 className={styles.title}>Hmm... how did you get here?</h1>
       <p>
-        It seems you tried to reach a page which does not exist. We recommend
-        using pages that do exist 😄.
+        It seems you tried to reach a page which does not exist{' '}
+        <i>on our backend</i>. We recommend using pages that do exist 😄.
       </p>
       <Link href={'/'} passHref>
         <a>Go back home</a>

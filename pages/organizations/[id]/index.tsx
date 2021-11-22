@@ -8,12 +8,10 @@ import EventForm from '@/components/Events/EventForm'
 import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
 import clientPromise from '@/lib/mongodb'
 import formstyles from '@/styles/form.module.css'
-const mongodb = require('mongodb')
 
 const Organization = ({ organization, superMembers }) => {
   const router = useRouter()
   const { id } = router.query
-  console.log(id)
   const { data: session } = useSession()
   const [deleteOrg, setDeleteOrg] = useState({
     _organization: '',
@@ -181,12 +179,12 @@ export async function getServerSideProps(context) {
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const organization = await db
     .collection('organizations')
-    .find({ _id: new mongodb.ObjectID(id) })
+    .find({ organizationName: id })
     .toArray()
   const superMembers = await db
     .collection('organizations')
     .aggregate([
-      { $match: { _id: new mongodb.ObjectID(id) } },
+      { $match: { organizationName: id } },
       { $unwind: '$superMembersList' },
       {
         $project: {
@@ -196,6 +194,16 @@ export async function getServerSideProps(context) {
       },
     ])
     .toArray()
+
+  const exists = await db
+    .collection('organizations')
+    .countDocuments({ organizationName: id })
+  if (exists < 1) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       organization: JSON.parse(JSON.stringify(organization)),

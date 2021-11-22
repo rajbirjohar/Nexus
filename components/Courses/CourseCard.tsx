@@ -15,7 +15,7 @@ export default function CourseCard({ courseId, courseName }) {
     // Link is used to route each card to a dynamic page
     // listing all course review posts for that specific
     // course
-    <Link href={`/courses/${courseId}`} passHref>
+    <Link href={`/courses/${courseName}`} passHref>
       <div id={courseId} className={styles.coursecard}>
         <h3 className={styles.course}>{courseName}</h3>
       </div>
