@@ -177,6 +177,11 @@
 
 /* Event card */
 
-.date {
+.author{
+  font-weight: 600;
+}
+
+.date,
+.author {
   color: var(--gray-500);
 }

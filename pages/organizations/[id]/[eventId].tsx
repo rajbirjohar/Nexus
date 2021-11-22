@@ -1,14 +1,10 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
-import EventForm from '@/components/Events/EventForm'
 import clientPromise from '@/lib/mongodb'
+import styles from '@/styles/events.module.css'
 
 const Event = ({ event }) => {
-  const router = useRouter()
-  const { eventId } = router.query
-  const { data: session, status } = useSession()
   return (
     <Layout>
       {event.map((event) => (
@@ -19,8 +15,12 @@ const Event = ({ event }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <h1>{event.eventName}</h1>
-          <h3>Details</h3>
-          <h4>{event.eventDetails}</h4>
+          <h4 className={styles.author}>By {event.organizationName}</h4>
+          <span className={styles.date}>
+            {new Date(event.eventStartDate).toLocaleDateString()} -{' '}
+            {new Date(event.eventEndDate).toLocaleDateString()}
+          </span>
+          <h3>{event.eventDetails}</h3>
         </>
       ))}
     </Layout>

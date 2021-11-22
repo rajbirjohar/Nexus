@@ -40,7 +40,9 @@ export default function OrganizationCard({
           </svg>
         </div>
 
-        <h4 className={styles.organizationTagline}>{organizationTagline}</h4>
+        <h4 className={`${styles.organizationTagline} ${'clamp-2'}`}>
+          {organizationTagline}
+        </h4>
       </div>
     </Link>
   )
