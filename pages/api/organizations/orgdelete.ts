@@ -20,16 +20,14 @@ export default async function deleteOrganization(
       const { organizationData: id } = req.body
       const result = await db
         .collection('organizations')
-        .deleteOne({ _id: new mongodb.ObjectID(id) })
+        .deleteOne({ organizationName: id })
       await db
         .collection('users')
         .updateOne(
           { _id: new mongodb.ObjectId(session.user.id) },
           { $set: { orgRole: 'none', adminOfOrg: 'none' } }
         )
-      await db
-        .collection('events')
-        .deleteMany({ organizationId: new mongodb.ObjectId(id) })
+      await db.collection('events').deleteMany({ organizationName: id })
       res.status(200).json(result.deletedCount)
     } catch {
       res.status(500)
