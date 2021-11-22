@@ -32,6 +32,7 @@ export default function EventCard({
       <motion.div variants={card} id={eventId} className={styles.gridcard}>
         {endDate > new Date() && <span>Expired</span>}
         <h3 className={styles.course}>{eventName}</h3>
+        <span className={styles.author}>By {organizationName}</span>
         <p className="clamp-2">{eventDetails}</p>
         <span className={styles.date}>
           {new Date(startDate).toLocaleDateString()} -{' '}
