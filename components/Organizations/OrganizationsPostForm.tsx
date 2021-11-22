@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
+import router, { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import styles from '@/styles/form.module.css'
@@ -72,8 +72,7 @@ export default function OrganizationsPostForm() {
     const data = await response.json()
     if (response.status === 422) {
       toast.error('This name is taken. Please choose a different one.')
-    }
-    else if (response.status === 200) {
+    } else if (response.status === 200) {
       toast.success("You've created your organization!")
     } else {
       toast.error(

@@ -29,36 +29,37 @@ export default async function createOrganization(
         _organizationDescription,
       },
     } = req.body
-    const nameTaken = await db
-      .collection('organizations')
-      .countDocuments({ organizationName: _organizationName })
-    if (nameTaken > 1) {
-      res.status(422).json({ error: 'Event already has a name that exists.' })
-    } else {
-      const organization = await db.collection('organizations').insertOne({
-        organizerId: new mongodb.ObjectId(organizerId),
-        organizer: organizer,
-        email: email,
-        organizationName: _organizationName,
-        organizationTagline: _organizationTagline,
-        organizationDescription: _organizationDescription,
-        superMembersList: [
+      const nameTaken = await db
+        .collection('organizations')
+        .find({ organizationName: _organizationName })
+        .count()
+      if (nameTaken > 0) {
+        res.status(422).json({ error: 'Event already has a name that exists.' })
+      } else {
+        const organization = await db.collection('organizations').insertOne({
+          organizerId: new mongodb.ObjectId(organizerId),
+          organizer: organizer,
+          email: email,
+          organizationName: _organizationName,
+          organizationTagline: _organizationTagline,
+          organizationDescription: _organizationDescription,
+          superMembersList: [
+            {
+              adminId: new mongodb.ObjectId(organizerId),
+              admin: organizer,
+              email: email,
+            },
+          ],
+          membersList: [],
+        })
+        await db.collection('users').updateOne(
           {
-            adminId: new mongodb.ObjectId(organizerId),
-            admin: organizer,
-            email: email,
+            _id: new mongodb.ObjectId(session.user.id),
           },
-        ],
-        membersList: [],
-      })
-      await db.collection('users').updateOne(
-        {
-          _id: new mongodb.ObjectId(session.user.id),
-        },
-        { $set: { adminOfOrg: organization.insertedId } }
-      )
-      res.status(200).json({ message: 'Successfully posted organization.' })
-    }
+          { $set: { adminOfOrg: organization.insertedId } }
+        )
+        res.status(200).json({ message: 'Successfully posted organization.' })
+      }
   } else {
     // Not Signed in
     res.status(401).json({
