@@ -75,19 +75,18 @@ export default function CoursesPage({ courses }) {
           </div>
         )}
         <div className={cardstyles.courseGrid}>
-          {filteredCourses.map((course) => (
-            <CourseCard
-              key={course._id}
-              courseId={course._id}
-              courseName={course.subjectCourse}
-            />
-          ))}
+          {searchValue.length > 1 &&
+            filteredCourses.map((course) => (
+              <CourseCard
+                key={course._id}
+                courseId={course._id}
+                courseName={course.subjectCourse}
+              />
+            ))}
         </div>
-        <h4>You reached the end.</h4>
-        <p>
-          Seems like these are all the classes we have so far. Scraped with hard
-          work and enginuity by Isaac.
-        </p>
+        <h4>Go ahead and search for a course.</h4>
+
+        <p>Scraped with hard work and enginuity by Isaac.</p>
       </section>
     </Layout>
   )
