@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import EventForm from '@/components/Events/EventForm'
+import OrganizationsEditForm from '@/components/Organizations/OrganizationsEditForm'
 import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
 import clientPromise from '@/lib/mongodb'
 import formstyles from '@/styles/form.module.css'
@@ -19,6 +20,7 @@ const Organization = ({ organization, superMembers }) => {
     _organizationConfirmation: '',
   })
   const [displayWarning, setDisplayWarning] = useState(false)
+  const [displayEdit, setDisplayEdit] = useState(false)
 
   const handleSubmit = async (event) => {
     console.log(organization.organizationName)
@@ -98,13 +100,22 @@ const Organization = ({ organization, superMembers }) => {
           {session &&
             session.user.adminOfOrg &&
             session.user.adminOfOrg === organization.organizationName && (
-              <button
-                className={formstyles.deleteaction}
-                onClick={() => setDisplayWarning(!displayWarning)}
-              >
-                Delete Organization
-              </button>
+              <>
+                <button
+                  className={formstyles.deleteaction}
+                  onClick={() => setDisplayWarning(!displayWarning)}
+                >
+                  Delete Organization
+                </button>
+                <button
+                  className={formstyles.deleteaction}
+                  onClick={() => setDisplayEdit(!displayEdit)}
+                >
+                  Edit Organization
+                </button>
+              </>
             )}
+          {displayEdit && <OrganizationsEditForm />}
           {displayWarning && (
             <div className={formstyles.warningWrapper}>
               <p>
