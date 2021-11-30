@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
 import styles from '@/styles/events.module.css'
+const mongodb = require('mongodb')
 
 const Event = ({ event }) => {
   return (
@@ -37,11 +37,11 @@ export async function getServerSideProps(context) {
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const event = await db
     .collection('events')
-    .find({ eventName: eventId })
+    .find({ _id: new mongodb.ObjectId(eventId) })
     .toArray()
   const exists = await db
     .collection('events')
-    .countDocuments({ eventName: eventId })
+    .countDocuments({ _id: new mongodb.ObjectId(eventId) })
   if (exists < 1) {
     return {
       notFound: true,
