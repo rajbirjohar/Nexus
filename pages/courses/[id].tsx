@@ -6,16 +6,20 @@ import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
+import styles from '@/styles/courses.module.css'
 
 // Page: CourseReviews({course})
 // Params: course
 // Purpose: Dynamically display all the reviews pertaining to the
 // specific course that that the user has selected
 
-const CourseReviews = ({ course }) => {
+const CourseReviews = ({ course, averageRating }) => {
   const router = useRouter()
   const { id } = router.query
   const { data: session } = useSession()
+  const rating = averageRating
+    .map((averageRating) => averageRating.average)
+    .toString()
   return (
     <Layout>
       {course.map((course) => (
@@ -26,6 +30,7 @@ const CourseReviews = ({ course }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <h1>{course.subjectCourse}</h1>
+          <h3 className={styles.difficulty}>Average Difficulty: {rating}</h3>
           <h2>{course.courseTitle}</h2>
           {session && session.user.role && session.user.role.includes('none') && (
             <Link href="/profile" passHref>
@@ -66,9 +71,27 @@ export async function getServerSideProps(context) {
     .collection('allCourses')
     .find({ subjectCourse: id })
     .toArray()
+  const averageRating = await db
+    .collection('reviewPosts')
+    .aggregate([
+      {
+        $match: {
+          course: id,
+        },
+      },
+      {
+        $group: {
+          _id: '$course',
+          average: { $avg: '$difficulty' },
+        },
+      },
+      { $addFields: { average: { $trunc: ['$average', 1] } } },
+    ])
+    .toArray()
   return {
     props: {
       course: JSON.parse(JSON.stringify(course)),
+      averageRating: JSON.parse(JSON.stringify(averageRating)),
     },
   }
 }

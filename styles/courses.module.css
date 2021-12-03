@@ -46,6 +46,11 @@
   align-items: center;
 }
 
+.difficulty {
+  color: var(--gray-500);
+  margin: 0;
+}
+
 @media (max-width: 868px) {
   .hero {
     flex-direction: column;
