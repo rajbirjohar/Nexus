@@ -20,7 +20,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           stopDelayMs={200}
           height={3}
           showOnShallow={true}
-          options={{ easing: 'ease', speed: 500 }}
+          options={{ easing: 'ease', speed: 500, showSpinner: false }}
         />
         <Toaster />
         <Header />
