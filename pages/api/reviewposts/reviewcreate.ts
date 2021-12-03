@@ -38,7 +38,7 @@ const reviewPostCreate = async (req, res) => {
       reviewPost: _reviewPost,
       reviewProfessor: _reviewProfessor,
       taken: _taken,
-      difficulty: _difficulty,
+      difficulty: parseInt(_difficulty),
       anonymous: _anonymous,
       createdAt: new Date(),
     })
