@@ -120,7 +120,7 @@ mongodb+srv://<user>:<password>@cluster0.qhvo8.mongodb.net/myFirstDatabase?retry
 
 ### Set Up Google OAuth Application
 
-1. Follow the steps listed on [Google's Official OAauth2 Documentation] to set up your API Console and access Google's APIs.
+1. Follow the steps listed on [Google's Official OAauth2 Documentation](https://developers.google.com/identity/protocols/oauth2) to set up your API Console and access Google's APIs.
 2. After creating your project, note down the `Google Client ID` and the `Google Client Secret` as you will need these to fill out the environment variables.
 
 ### Set Up Environment Variables
