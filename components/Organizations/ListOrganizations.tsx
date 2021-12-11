@@ -61,7 +61,7 @@ export default function ListOrganizations() {
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search by name."
+            placeholder='Search clubs ex. "Nexus"'
             className={formstyles.search}
           />
           <svg className={formstyles.searchIcon}>
