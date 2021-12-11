@@ -58,7 +58,7 @@ export default function ListAllEvents() {
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search by name, club, or details."
+            placeholder="Search by name, club, or details"
             className={formstyles.search}
           />
           <svg className={formstyles.searchIcon}>

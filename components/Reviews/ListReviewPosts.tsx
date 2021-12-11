@@ -63,7 +63,7 @@ export default function ListReviewPosts({ courseId }) {
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search by quarter, professor or review"
+            placeholder="Quarter, professor or review"
             className={styles.search}
           />
           <svg className={styles.searchIcon}>

@@ -29,9 +29,11 @@ const CourseReviews = ({ course, averageRating }) => {
             {/* Change this icon when we have a logo */}
             <link rel="icon" href="/favicon.ico" />
           </Head>
+          <Link href="/courses" passHref><a>Go back to courses</a></Link>
           <h1>{course.subjectCourse}</h1>
           <h3 className={styles.difficulty}>Average Difficulty: {rating}</h3>
           <h2>{course.courseTitle}</h2>
+          {!session && <p>Please sign in to write a review.</p>}
           {session && session.user.role && session.user.role.includes('none') && (
             <Link href="/profile" passHref>
               <a>Please verify if you are a student.</a>

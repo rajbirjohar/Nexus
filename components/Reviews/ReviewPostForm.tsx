@@ -126,7 +126,7 @@ export default function ReviewPostForm({ course, courseId }) {
         value={reviewPost._reviewProfessor}
         onChange={handleChange}
         type="text"
-        placeholder="Professor Johnny Appleseed"
+        placeholder='"Professor Scotty"'
         className={styles.input}
       />
       <label htmlFor="_taken">
@@ -138,7 +138,7 @@ export default function ReviewPostForm({ course, courseId }) {
         value={reviewPost._taken}
         onChange={handleChange}
         type="text"
-        placeholder="Fall 2021"
+        placeholder='"Fall 2021"'
         className={styles.input}
       />
       {/* Pass handleChange() into Slider component */}
@@ -156,9 +156,11 @@ export default function ReviewPostForm({ course, courseId }) {
         />
         <span className={styles.checkmark}></span>
       </span>
-      <button className={styles.postbutton} type="submit">
-        Post Review!
-      </button>
+      <div className={styles.actions}>
+        <button className={styles.postbutton} type="submit">
+          Post Review!
+        </button>
+      </div>
     </form>
   )
 }

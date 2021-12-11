@@ -40,7 +40,7 @@ export default function CoursesPage({ courses }) {
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search courses"
+            placeholder='Search courses ex. "SCOTTY101"'
             className={styles.search}
           />
           <svg className={styles.searchIcon}>
