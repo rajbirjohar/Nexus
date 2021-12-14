@@ -24,8 +24,6 @@ export default function Loader() {
       <Skeleton />
       <Skeleton />
       <Skeleton />
-      <Skeleton />
-      <Skeleton />
     </>
   )
 }
