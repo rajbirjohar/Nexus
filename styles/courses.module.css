@@ -1,7 +1,6 @@
 .hero {
   display: flex;
   align-items: center;
-  margin-bottom: var(--gap-med);
 }
 .content {
   flex: 1;

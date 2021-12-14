@@ -33,6 +33,7 @@ export default async function createEvent(
       eventStartDate: new Date(_eventStartDate),
       eventEndDate: new Date(_eventEndDate),
       createdAt: new Date(),
+      comments: [],
     })
     res.status(200).json({ message: 'Successfully posted event.' })
   } else {

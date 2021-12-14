@@ -2,9 +2,13 @@ import Head from 'next/head'
 import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
 import styles from '@/styles/events.module.css'
+import { useSession } from 'next-auth/react'
+import CommentsForm from '@/components/Events/CommentsForm'
+import ListComments from '@/components/Events/ListComments'
 const mongodb = require('mongodb')
 
 const Event = ({ event }) => {
+  const { data: session } = useSession()
   return (
     <Layout>
       {event.map((event) => (
@@ -20,7 +24,15 @@ const Event = ({ event }) => {
             {new Date(event.eventStartDate).toLocaleDateString()} -{' '}
             {new Date(event.eventEndDate).toLocaleDateString()}
           </span>
-          <h3>{event.eventDetails}</h3>
+          <h3>Event Details</h3>
+          <p>{event.eventDetails}</p>
+          <h3>Comments</h3>
+          {session ? (
+            <CommentsForm eventId={event._id} />
+          ) : (
+            <p>Sign in to comment.</p>
+          )}
+          <ListComments eventId={event._id} />
         </>
       ))}
     </Layout>
