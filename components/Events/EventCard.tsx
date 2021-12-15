@@ -35,12 +35,14 @@ export default function EventCard({
         <span className={styles.author}>By {organizationName}</span>
         <p className="clamp-2">{eventDetails}</p>
         <span className={styles.date}>
-          From {new Date(startDate).toLocaleString('en-US', {
+          Starts{' '}
+          {new Date(startDate).toLocaleString('en-US', {
             dateStyle: 'medium',
             timeStyle: 'short',
-          })}{' '}
+          })}
           <br />
-          Until {new Date(endDate).toLocaleString('en-US', {
+          Ends{' '}
+          {new Date(endDate).toLocaleString('en-US', {
             dateStyle: 'medium',
             timeStyle: 'short',
           })}
