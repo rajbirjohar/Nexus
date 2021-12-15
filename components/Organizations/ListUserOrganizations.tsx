@@ -35,7 +35,7 @@ export default function ListUserOrganizations() {
     return <Loader />
   }
   return (
-    <div>
+    <div className={cardstyles.grid}>
       {data.organizations.length === 0 && <p>Create the first organization!</p>}
       {data.organizations.map((organization) => (
         <OrganizationCard

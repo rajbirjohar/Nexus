@@ -8,6 +8,7 @@ import EventForm from '@/components/Events/EventForm'
 import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
 import clientPromise from '@/lib/mongodb'
 import formstyles from '@/styles/form.module.css'
+import AddAdminForm from '@/components/Organizations/AddAdminForm'
 
 const Organization = ({ organization, superMembers }) => {
   const router = useRouter()
@@ -79,12 +80,24 @@ const Organization = ({ organization, superMembers }) => {
           <p>{organization.organizationDescription}</p>
           <h3>Admins</h3>
           {superMembers.map((superMember) => (
-            <li key={superMember.admin}>{superMember.admin}</li>
+            <li key={superMember.adminId}>{superMember.admin}</li>
           ))}
           {session &&
             session.user.adminOfOrg &&
-            session.user.adminOfOrg === organization._id && (
+            session.user.adminOfOrg.includes(organization._id) && (
               <>
+                <AddAdminForm organizationId={organization._id} />
+                <EventForm
+                  organizationName={organization.organizationName}
+                  organizationId={organization._id}
+                />
+              </>
+            )}
+          {session &&
+            session.user.creatorOfOrg &&
+            session.user.creatorOfOrg.includes(organization._id) && (
+              <>
+                <AddAdminForm organizationId={organization._id} />
                 <EventForm
                   organizationName={organization.organizationName}
                   organizationId={organization._id}
@@ -97,8 +110,8 @@ const Organization = ({ organization, superMembers }) => {
         Thus, only the logged in user can access the delete function */}
 
           {session &&
-            session.user.adminOfOrg &&
-            session.user.adminOfOrg === organization._id && (
+            session.user.creatorOfOrg &&
+            session.user.creatorOfOrg.includes(organization._id) && (
               <>
                 <h3>Dangerous Actions</h3>
                 <button
@@ -188,6 +201,7 @@ export async function getServerSideProps(context) {
       { $unwind: '$superMembersList' },
       {
         $project: {
+          adminId: '$superMembersList.admin',
           admin: '$superMembersList.admin',
           email: '$superMembersList.email',
         },

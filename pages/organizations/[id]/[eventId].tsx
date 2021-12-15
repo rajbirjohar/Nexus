@@ -45,13 +45,13 @@ const Event = ({ event }) => {
           <h1>{event.eventName}</h1>
           <h4 className={styles.author}>By {event.organizationName}</h4>
           <span className={styles.date}>
-            From{' '}
+            Starts{' '}
             {new Date(event.eventStartDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
-            })}{' '}
+            })}
             <br />
-            Until{' '}
+            Ends{' '}
             {new Date(event.eventEndDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
@@ -60,8 +60,15 @@ const Event = ({ event }) => {
           <h3>Event Details</h3>
           <p>{event.eventDetails}</p>
           {session &&
-            session.user &&
-            session.user.adminOfOrg === event.organizationId && (
+            session.user.adminOfOrg &&
+            session.user.adminOfOrg.includes(event.organizationId) && (
+              <button onClick={deleteEvent} className={formstyles.deleteaction}>
+                Delete Event
+              </button>
+            )}
+          {session &&
+            session.user.creatorOfOrg &&
+            session.user.creatorOfOrg.includes(event.organizationId) && (
               <button onClick={deleteEvent} className={formstyles.deleteaction}>
                 Delete Event
               </button>
