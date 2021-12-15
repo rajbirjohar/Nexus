@@ -28,18 +28,22 @@ export default function EventCard({
     // Link is used to route each card to a dynamic page
     // listing all course review posts for that specific
     // course
-    <Link
-      href={`/organizations/${organizationName}/${eventId}`}
-      passHref
-    >
+    <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
       <motion.div variants={card} id={eventId} className={styles.gridcard}>
         {endDate > new Date() && <span>Expired</span>}
         <h3 className={styles.course}>{eventName}</h3>
         <span className={styles.author}>By {organizationName}</span>
         <p className="clamp-2">{eventDetails}</p>
         <span className={styles.date}>
-          {new Date(startDate).toLocaleDateString()} -{' '}
-          {new Date(endDate).toLocaleDateString()}
+          From {new Date(startDate).toLocaleString('en-US', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })}{' '}
+          <br />
+          Until {new Date(endDate).toLocaleString('en-US', {
+            dateStyle: 'medium',
+            timeStyle: 'short',
+          })}
         </span>
       </motion.div>
     </Link>
