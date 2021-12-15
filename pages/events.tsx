@@ -16,8 +16,9 @@ export default function EventsPage() {
             <h1>Events</h1>
             <p>
               This is where you&#39;ll be able to see all of the ongoing and
-              future events of our clubs and organizations. If you&#39;re a club
-              organizer, feel free to post your own event!
+              future events of our clubs and organizations. Events are sorted by
+              the date and time that they end. If you&#39;re a club organizer,
+              feel free to post your own event!
             </p>
           </div>
           <Image

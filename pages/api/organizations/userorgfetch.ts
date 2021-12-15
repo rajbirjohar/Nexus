@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
+const mongodb = require('mongodb')
 
 // fetchOrganizations()
 // This endpoint will fetch all of our organizations
@@ -18,7 +19,11 @@ export default async function fetchUserOrgs(
   if (session) {
     const organizations = await db
       .collection('organizations')
-      .find({ email: session.user.email })
+      .find({
+        superMembersList: {
+          $elemMatch: { adminId: new mongodb.ObjectId(session.user.id) },
+        },
+      })
       .sort({ organizationName: 1 })
       .toArray()
 

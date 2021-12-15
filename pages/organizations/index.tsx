@@ -161,7 +161,7 @@ export default function OrganizationsPage() {
         {session &&
           session.user.orgRole &&
           session.user.orgRole.includes('Admin') &&
-          session.user.adminOfOrg.includes('none') && (
+          session.user.creatorOfOrg.includes('none') && (
             <>
               <OrganizationsPostForm />
             </>

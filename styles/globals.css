@@ -257,6 +257,7 @@ input,
 select,
 textarea {
   color: var(--purple-700);
+  line-height: 1.75;
 }
 
 input[type='text'],

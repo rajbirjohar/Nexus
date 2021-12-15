@@ -6,19 +6,23 @@ declare module 'next-auth' {
    */
   interface Session {
     user: {
-      id: string,
+      id: string
       name: string
       email: string
       image: string
       /** The user's role. */
       role: string
       orgRole: string
-      adminOfOrg: string
+      creatorOfOrg: string
+      adminOfOrg: Array
+      memberOfOrg: Array
     }
   }
   interface User {
     role: string
     orgRole: string
-    adminOfOrg: string
+    creatorOfOrg: string
+    adminOfOrg: Array
+    memberOfOrg: Array
   }
 }

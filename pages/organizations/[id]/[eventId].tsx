@@ -1,14 +1,38 @@
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
 import styles from '@/styles/events.module.css'
+import formstyles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
 import CommentsForm from '@/components/Events/CommentsForm'
 import ListComments from '@/components/Events/ListComments'
+import toast from 'react-hot-toast'
 const mongodb = require('mongodb')
 
 const Event = ({ event }) => {
   const { data: session } = useSession()
+  const router = useRouter()
+  const { eventId } = router.query
+  const organizationName = event.map((event) => event.organizationName)
+  const deleteEvent = async (event) => {
+    const response = await fetch(`/api/events/eventdelete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ eventData: eventId }),
+    })
+    await response.json()
+    if (response.status === 200) {
+      router.push(`/organizations/${organizationName}`)
+      toast.success('Deleted event.')
+    } else {
+      toast.error(
+        'Uh oh. Something went wrong. If this persists, please let us know.'
+      )
+    }
+  }
   return (
     <Layout>
       {event.map((event) => (
@@ -21,11 +45,35 @@ const Event = ({ event }) => {
           <h1>{event.eventName}</h1>
           <h4 className={styles.author}>By {event.organizationName}</h4>
           <span className={styles.date}>
-            {new Date(event.eventStartDate).toLocaleDateString()} -{' '}
-            {new Date(event.eventEndDate).toLocaleDateString()}
+            Starts{' '}
+            {new Date(event.eventStartDate).toLocaleString('en-US', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+            })}
+            <br />
+            Ends{' '}
+            {new Date(event.eventEndDate).toLocaleString('en-US', {
+              dateStyle: 'medium',
+              timeStyle: 'short',
+            })}
           </span>
           <h3>Event Details</h3>
           <p>{event.eventDetails}</p>
+          {session &&
+            session.user.adminOfOrg &&
+            session.user.adminOfOrg.includes(event.organizationId) && (
+              <button onClick={deleteEvent} className={formstyles.deleteaction}>
+                Delete Event
+              </button>
+            )}
+          {session &&
+            session.user.creatorOfOrg &&
+            session.user.creatorOfOrg.includes(event.organizationId) && (
+              <button onClick={deleteEvent} className={formstyles.deleteaction}>
+                Delete Event
+              </button>
+            )}
+
           <h3>Comments</h3>
           {session ? (
             <CommentsForm eventId={event._id} />
