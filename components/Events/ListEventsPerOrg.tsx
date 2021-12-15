@@ -31,17 +31,7 @@ export default function ListEventsPerOrg({ organizationId }) {
   }
   return (
     <div className={cardstyles.grid}>
-      {data.events.length === 0 && (
-        <div className={styles.noreviews}>
-          <p>No new events! Check back later.</p>
-          <Image
-            src={'/assets/post2.svg'}
-            height={300}
-            width={300}
-            alt="Post Image"
-          />
-        </div>
-      )}
+      {data.events.length === 0 && <p>Create your first event!</p>}
       {data.events.map((newEvent) => (
         <EventCard
           key={newEvent._id}

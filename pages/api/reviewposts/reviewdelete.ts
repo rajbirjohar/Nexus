@@ -1,15 +1,6 @@
 import clientPromise from '@/lib/mongodb'
-import { ObjectId } from 'mongodb'
 import { getSession } from 'next-auth/react'
 const mongodb = require('mongodb')
-// import { connectToDatabase } from '@/util/connectToDb'
-
-// fetchCourseReviews()
-// This endpoint takes in the unique ID of the route that
-// the user is currently on, which represents the course
-// that the user wants to view, and fetches all the reviews
-// on that course alone. We can use course name as our unique ID
-// since we know that no two courses can have the same name
 
 const reviewPostDelete = async (req, res) => {
   const isConnected = await clientPromise

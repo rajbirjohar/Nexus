@@ -24,7 +24,9 @@ export default async function auth(req, res) {
           picture
           role
           orgRole
+          creatorOfOrg
           adminOfOrg
+          memberOfOrg
         }) {
           return {
             id: profile.sub,
@@ -33,7 +35,9 @@ export default async function auth(req, res) {
             image: profile.picture,
             role: 'none',
             orgRole: 'none',
-            adminOfOrg: 'none',
+            creatorOfOrg: 'none',
+            adminOfOrg: [],
+            memberOfOrg: [],
           }
         },
       }),
@@ -51,7 +55,9 @@ export default async function auth(req, res) {
         session.user.id = user.id
         session.user.role = user.role
         session.user.orgRole = user.orgRole
+        session.user.creatorOfOrg = user.creatorOfOrg
         session.user.adminOfOrg = user.adminOfOrg
+        session.user.memberOfOrg = user.memberOfOrg
         return session
       },
     },

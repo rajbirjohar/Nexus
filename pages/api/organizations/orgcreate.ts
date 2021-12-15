@@ -56,7 +56,7 @@ export default async function createOrganization(
           {
             _id: new mongodb.ObjectId(session.user.id),
           },
-          { $set: { adminOfOrg: organization.insertedId } }
+          { $set: { creatorOfOrg: organization.insertedId } }
         )
         res.status(200).json({ message: 'Successfully posted organization.' })
       }
