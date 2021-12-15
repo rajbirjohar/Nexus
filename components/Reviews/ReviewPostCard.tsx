@@ -33,20 +33,20 @@ export default function ReviewPostCard({
   const { data: session } = useSession()
 
   const deleteReviewPost = async (event) => {
-    if (session) {
-      const res = await fetch(`/api/reviewposts/reviewdelete`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ reviewPostData: courseId, reviewPostId }),
-      })
-      await res.json()
-      if (res.status === 200) {
-        toast.success('Deleted review.')
-      } else {
-        toast.error('Uh oh. Something went wrong.')
-      }
+    const response = await fetch(`/api/reviewposts/reviewdelete`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ reviewPostData: courseId, reviewPostId }),
+    })
+    await response.json()
+    if (response.status === 200) {
+      toast.success('Deleted review.')
+    } else {
+      toast.error(
+        'Uh oh. Something went wrong. If this persists, please let us know.'
+      )
     }
   }
 
