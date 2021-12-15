@@ -21,10 +21,11 @@ export default async function fetchComments(
         $project: {
           comment: '$comments.comment',
           author: '$comments.author',
-          createdAt: '$comments.createdAt'
+          createdAt: '$comments.createdAt',
         },
       },
     ])
+    .sort({ createdAt: -1 })
     .toArray()
   return res.status(200).json({ comments })
 }
