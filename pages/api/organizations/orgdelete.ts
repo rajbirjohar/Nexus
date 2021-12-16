@@ -17,17 +17,33 @@ export default async function deleteOrganization(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     try {
-      const { organizationData: id } = req.body
-      const result = await db
-        .collection('organizations')
-        .deleteOne({ organizationName: id })
+      const {
+        organizationData: { organizationId },
+      } = req.body
+      // First reset the creator's role so they can make a new org
       await db
         .collection('users')
         .updateOne(
           { _id: new mongodb.ObjectId(session.user.id) },
           { $set: { orgRole: 'none', creatorOfOrg: 'none' } }
         )
-      await db.collection('events').deleteMany({ organizationName: id })
+      // Remove the orgId from all admins
+      await db.collection('users').updateMany(
+        {},
+        {
+          $pull: {
+            adminOfOrg: new mongodb.ObjectId(organizationId),
+          },
+        }
+      )
+      // Delete all events associated with this org
+      await db
+        .collection('events')
+        .deleteMany({ organizationId: new mongodb.ObjectId(organizationId) })
+      // Delete the org itself
+      const result = await db
+        .collection('organizations')
+        .deleteOne({ _id: new mongodb.ObjectId(organizationId) })
       res.status(200).json(result.deletedCount)
     } catch {
       res.status(500)
