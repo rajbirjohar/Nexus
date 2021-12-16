@@ -15,11 +15,13 @@ const Organization = ({ organization, superMembers }) => {
   const { id } = router.query
   const { data: session } = useSession()
   const [deleteOrg, setDeleteOrg] = useState({
+    organizationId: organization
+      .map((organization) => organization._id)
+      .toString(),
     _organization: '',
     _organizationConfirmation: '',
   })
   const [displayWarning, setDisplayWarning] = useState(false)
-
   const handleSubmit = async (event) => {
     event.preventDefault()
     const orgName = organization
@@ -47,14 +49,14 @@ const Organization = ({ organization, superMembers }) => {
     })
   }
 
-  const deleteOrganization = async (event) => {
+  const deleteOrganization = async (organizationData) => {
     if (session) {
       const res = await fetch('/api/organizations/orgdelete', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ organizationData: id }),
+        body: JSON.stringify({ organizationData: organizationData }),
       })
       await res.json()
       // wait for status from orgdelete endpoint to post success toast
