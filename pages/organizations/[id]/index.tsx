@@ -8,6 +8,7 @@ import EventForm from '@/components/Events/EventForm'
 import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
 import clientPromise from '@/lib/mongodb'
 import formstyles from '@/styles/form.module.css'
+import styles from '@/styles/organizations.module.css'
 import AddAdminForm from '@/components/Organizations/AddAdminForm'
 import AddMemberForm from '@/components/Organizations/AddMemberForm'
 
@@ -113,9 +114,11 @@ const Organization = ({ organization, superMembers, members }) => {
             </p>
           )}
           <h3>Admins</h3>
-          {superMembers.map((superMember) => (
-            <li key={superMember.adminId}>{superMember.admin}</li>
-          ))}
+          <ul className={styles.memberslist}>
+            {superMembers.map((superMember) => (
+              <li key={superMember.adminId}>{superMember.admin}</li>
+            ))}
+          </ul>
           {session && isAdmin && (
             <>
               <AddAdminForm organizationId={organization._id} />
@@ -131,12 +134,14 @@ const Organization = ({ organization, superMembers, members }) => {
                   <button onClick={() => setDisplayMembers(!displayMembers)}>
                     Hide Members
                   </button>
-                  {members.length === 0 && (
-                    <p>No one has joined your organization yet.</p>
-                  )}
-                  {members.map((member) => (
-                    <li key={member.memberId}>{member.member}</li>
-                  ))}
+                  <ul className={styles.memberslist}>
+                    {members.length === 0 && (
+                      <p>No one has joined your organization yet.</p>
+                    )}
+                    {members.map((member) => (
+                      <li key={member.memberId}>{member.member}</li>
+                    ))}
+                  </ul>
                 </div>
               ) : (
                 <div>
@@ -250,6 +255,7 @@ export async function getServerSideProps(context) {
         },
       },
     ])
+    .sort({ email: 1 })
     .toArray()
 
   const members = await db
@@ -265,6 +271,7 @@ export async function getServerSideProps(context) {
         },
       },
     ])
+    .sort({ email: 1 })
     .toArray()
 
   const exists = await db

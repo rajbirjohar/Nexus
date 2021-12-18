@@ -80,7 +80,7 @@ const Event = ({ event }) => {
           ) : (
             <p>Sign in to comment.</p>
           )}
-          <ListComments eventId={event._id} />
+          <ListComments eventId={event._id} organizationId={event.organizationId} />
         </>
       ))}
     </Layout>
