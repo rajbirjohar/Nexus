@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
@@ -35,16 +36,56 @@ export default function ListUserOrganizations() {
     return <Loader />
   }
   return (
-    <div className={cardstyles.grid}>
-      {data.organizations.length === 0 && <p>Create the first organization!</p>}
-      {data.organizations.map((organization) => (
-        <OrganizationCard
-          key={organization._id}
-          organizationId={organization._id}
-          organizationName={organization.organizationName}
-          organizationTagline={organization.organizationTagline}
-        />
-      ))}
-    </div>
+    <>
+      <h3>Created Organizations</h3>
+      <div className={cardstyles.grid}>
+        {data.creatorOrganization.length === 0 && (
+          <Link href="/organizations" passHref>
+            <a>Create your first organization!</a>
+          </Link>
+        )}
+        {data.creatorOrganization.map((organization) => (
+          <OrganizationCard
+            key={organization._id}
+            organizationId={organization._id}
+            organizationName={organization.organizationName}
+            organizationTagline={organization.organizationTagline}
+          />
+        ))}
+      </div>
+      <h3>Admined Organizations</h3>
+      <div className={cardstyles.grid}>
+        {data.creatorOrganization.length === 0 && (
+          <p>
+            You are not an Admin of any organization. If this is a mistake,
+            contact your organization creator to add you as an Admin.
+          </p>
+        )}
+        {data.adminOrganizations.map((organization) => (
+          <OrganizationCard
+            key={organization._id}
+            organizationId={organization._id}
+            organizationName={organization.organizationName}
+            organizationTagline={organization.organizationTagline}
+          />
+        ))}
+      </div>
+      <h3>Joined Organizations</h3>
+      <div className={cardstyles.grid}>
+        {data.creatorOrganization.length === 0 && (
+          <Link href="/organizations" passHref>
+            <a>Join your first organization!</a>
+          </Link>
+        )}
+        {data.memberOrganizations.map((organization) => (
+          <OrganizationCard
+            key={organization._id}
+            organizationId={organization._id}
+            organizationName={organization.organizationName}
+            organizationTagline={organization.organizationTagline}
+          />
+        ))}
+      </div>
+    </>
   )
 }
