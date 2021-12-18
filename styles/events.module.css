@@ -13,6 +13,10 @@
   color: var(--gray-500);
 }
 
+.author a {
+  font-weight: 700;
+}
+
 @media (max-width: 868px) {
   .hero {
     flex-direction: column;

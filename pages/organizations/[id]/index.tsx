@@ -11,6 +11,7 @@ import formstyles from '@/styles/form.module.css'
 import styles from '@/styles/organizations.module.css'
 import AddAdminForm from '@/components/Organizations/AddAdminForm'
 import AddMemberForm from '@/components/Organizations/AddMemberForm'
+import RemoveMemberForm from '@/components/Organizations/RemoveMemberForm'
 
 const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
@@ -102,16 +103,17 @@ const Organization = ({ organization, superMembers, members }) => {
           <p>{organization.organizationDescription}</p>
           {session && isNotMember && (
             <AddMemberForm
-              email={session.user.email}
+              memberId={session.user.id}
               organizationId={organization._id}
               organizationName={organization.organizationName}
             />
           )}
           {session && isMember && (
-            <p>
-              You&#39;re a member of {organization.organizationName}. Leaving
-              organizations feature is coming soon.
-            </p>
+            <RemoveMemberForm
+              memberId={session.user.id}
+              organizationId={organization._id}
+              organizationName={organization.organizationName}
+            />
           )}
           <h3>Admins</h3>
           <ul className={styles.memberslist}>

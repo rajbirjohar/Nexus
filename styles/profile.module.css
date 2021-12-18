@@ -74,8 +74,7 @@
 }
 
 .tab:hover {
-  background-color: var(--purple-500);
-  color: var(--gray-100);
+  background-color: var(--gray-200);
 }
 
 .active {
