@@ -56,8 +56,36 @@
   justify-content: flex-end;
 }
 
-.quote{
+.quote {
   margin: var(--gap-med) 0;
+}
+
+.tabs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-quarter);
+}
+
+.tab {
+  background: transparent;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.tab:hover {
+  background-color: var(--purple-500);
+  color: var(--gray-100);
+}
+
+.active {
+  background-color: var(--gray-200);
+}
+
+.active.tab:hover {
+  background-color: var(--gray-200);
+  color: var(--gray-800);
+  cursor: default;
 }
 
 @media (max-width: 868px) {

@@ -210,6 +210,10 @@ button {
   transition: background-color var(--transition);
 }
 
+button:hover {
+  background-color: var(--gray-300);
+}
+
 a,
 p a,
 a.reset {
