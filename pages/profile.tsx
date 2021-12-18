@@ -5,8 +5,9 @@ import Router, { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
-import ListReviewPosts from '@/components/Reviews/ListProfilePosts'
+import ListUserPosts from '@/components/Reviews/ListUserPosts'
 import styles from '@/styles/profile.module.css'
+import formstyles from '@/styles/form.module.css'
 import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
 
 export default function Profile() {
@@ -23,6 +24,7 @@ export default function Profile() {
     _role: '',
     displayWarning: true,
   })
+  const [tab, setTab] = useState(0)
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -57,7 +59,7 @@ export default function Profile() {
     const data = await response.json()
 
     if (response.status === 200) {
-      toast.success("You've set your role.")
+      toast.success("You've set your role!")
       Router.reload()
     } else {
       toast.error(
@@ -143,7 +145,7 @@ export default function Profile() {
           {session && (
             <>
               <p>
-                <strong>Welcome {session.user.name}!</strong>
+                <strong>Hello {session.user.name}!</strong>
               </p>
             </>
           )}
@@ -158,12 +160,37 @@ export default function Profile() {
           alt="Profile Image"
         />
       </div>
+      <div className={styles.tabs}>
+        <button
+          onClick={() => setTab(0)}
+          className={
+            tab === 0 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+          }
+        >
+          Organizations
+        </button>
+        <button
+          onClick={() => setTab(1)}
+          className={
+            tab === 1 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+          }
+        >
+          Reviews
+        </button>
+      </div>
       {session && (
         <>
-          <h2>Your Organizations</h2>
-          <ListUserOrganizations />
-          <h2>Your Reviews</h2>
-          <ListReviewPosts />
+          {tab === 0 ? (
+            <>
+              <h2>Your Organizations</h2>
+              <ListUserOrganizations />
+            </>
+          ) : (
+            <>
+              <h2>Your Reviews</h2>
+              <ListUserPosts />
+            </>
+          )}
           <blockquote className={styles.quote}>
             Rage, rage against the dying of the light.
           </blockquote>

@@ -1,17 +1,16 @@
 import useSWR from 'swr'
-import Link from 'next/link'
 import fetcher from '@/lib/fetcher'
 import TimeAgo from 'react-timeago'
 import Comment from './Comment'
 
-export default function ListComments({ eventId }) {
+export default function ListComments({ eventId, organizationId }) {
   const { data, error } = useSWR(`/api/events/comments/${eventId}`, fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
     return (
       <p>
-        Oops. Looks like the comments are not being fetched right now. If this
+        Oops. Looks like comments are not being fetched right now. If this
         persists, please let us know.
       </p>
     )
@@ -25,7 +24,11 @@ export default function ListComments({ eventId }) {
       {data.comments.map((comment) => (
         <Comment
           key={comment._id}
+          organizationId={organizationId}
+          eventId={eventId}
+          commentId={comment.commentId}
           comment={comment.comment}
+          authorId={comment.authorId}
           author={comment.author}
           date={<TimeAgo date={comment.createdAt} />}
         />

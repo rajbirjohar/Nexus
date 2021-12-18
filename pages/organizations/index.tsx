@@ -44,7 +44,7 @@ export default function OrganizationsPage() {
     })
     const data = await response.json()
     if (response.status === 200) {
-      toast.success("You've set your role.")
+      toast.success("You've set your role!")
       Router.reload()
     } else {
       toast.error(
