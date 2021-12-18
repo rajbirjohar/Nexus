@@ -8,6 +8,17 @@
   margin-right: var(--gap-med);
 }
 
+.memberslist {
+  padding: 0;
+  display: grid;
+  grid-template-rows: repeat(10, min-content);
+  grid-auto-flow: column;
+}
+
+.subtitle {
+  color: var(--gray-500);
+}
+
 @media (max-width: 868px) {
   .hero {
     flex-direction: column;
