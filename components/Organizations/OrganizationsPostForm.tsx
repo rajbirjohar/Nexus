@@ -73,8 +73,8 @@ export default function OrganizationsPostForm() {
     if (response.status === 422) {
       toast.error('This name is taken. Please choose a different one.')
     } else if (response.status === 200) {
-      Router.reload()
       toast.success("You've created your organization!")
+      Router.reload()
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

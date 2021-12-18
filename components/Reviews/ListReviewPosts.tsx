@@ -84,13 +84,21 @@ export default function ListReviewPosts({ courseId }) {
         </div>
       )}
       {!filteredReviews.length && data.reviewPosts.length !== 0 && (
-        <>
+        <div className={styles.notFound}>
+          <h3>Woah There.</h3>
           <p>
-            No reviews found!
+            What!? That&#39;s crazy. It seems no reviews match your keywords. Be
+            the one to write it!
             <br />
             <cite>— Robert</cite>
           </p>
-        </>
+          <Image
+            src={'/assets/void.svg'}
+            width={300}
+            height={300}
+            alt="Nothing Found Image"
+          />
+        </div>
       )}
       {filteredReviews.map((post) => (
         <ReviewPostCard

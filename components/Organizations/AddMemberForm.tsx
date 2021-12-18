@@ -27,7 +27,7 @@ export default function AddMemberForm({
       Router.reload()
     } else {
       toast.error(
-        'Uh oh, omething went wrong. If this persists, please let us know.'
+        'Uh oh, something went wrong. If this persists, please let us know.'
       )
     }
   }
