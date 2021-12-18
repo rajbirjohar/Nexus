@@ -118,20 +118,23 @@ export default function OrganizationsPage() {
             </span>
             <p>
               <strong>
-                Please tell us your position in your organization. This will
-                help us set the correct permissions for your members. Currently,
-                we only support the creation of <u>one organization</u>.
+                We currently support the creation of{' '}
+                <u>one organization per user</u>.
               </strong>
             </p>
             <p>
               <strong>Permissions:</strong>
               <br />
-              <strong>Admin: </strong>This role grants all permissions regarding{' '}
+              <strong>Creator: </strong>This role grants all permissions
+              regarding{' '}
               <u>club creation/deletion, event posting, and member viewing</u>.
               This is inline with positions such as President, Vice President,
               Director, etc. We strongly recommend the highest ranking officer
-              to be in charge of creating the club which they can then assign
-              other board members with thier positions.
+              to be in charge of creating the club which they can then add other
+              board members as <u>Admins</u>.
+              <br />
+              <strong>Admin: </strong>This role grants all permissions above{' '}
+              <u>except club deletion</u>.
             </p>
             <p>
               Please enter <strong>&#34;Admin&#34;</strong> if you satisfy Admin

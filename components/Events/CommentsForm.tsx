@@ -62,6 +62,11 @@ export default function CommentsForm({ eventId }) {
         placeholder="Show your interest!"
         className={styles.input}
       />
+      <div className={styles.actions}>
+        <button type="submit" className={styles.postbutton}>
+          Post Comment
+        </button>
+      </div>
     </form>
   )
 }

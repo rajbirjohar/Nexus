@@ -176,3 +176,12 @@
   right: 15px;
   color: var(--purple-400) !important;
 }
+
+@media (max-width: 668px) {
+  .actions {
+    flex-direction: column;
+  }
+  .postbutton {
+    width: 100%;
+  }
+}

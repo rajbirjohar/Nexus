@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
 const mongodb = require('mongodb')
 
-export default async function createOrganization(
+export default async function addAdmin(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -65,7 +65,7 @@ export default async function createOrganization(
             // We use userDetails[0] because mongodb returns
             // the document as an object within an array via
             // the .toArray() function. We don't want the array
-            // format though so we instead add the 0th index
+            // format though so we instead find the 0th index
             // since there will only ever be one item within
             // the returned array since emails are unique
             superMembersList: userDetails[0],
