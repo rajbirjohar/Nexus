@@ -12,6 +12,7 @@ import styles from '@/styles/organizations.module.css'
 import AddAdminForm from '@/components/Organizations/AddAdminForm'
 import AddMemberForm from '@/components/Organizations/AddMemberForm'
 import RemoveMemberForm from '@/components/Organizations/RemoveMemberForm'
+import RemoveAdminForm from '@/components/Organizations/RemoveAdminForm'
 
 const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
@@ -118,7 +119,17 @@ const Organization = ({ organization, superMembers, members }) => {
           <h3>Admins</h3>
           <ul className={styles.memberslist}>
             {superMembers.map((superMember) => (
-              <li key={superMember.adminId}>{superMember.admin}</li>
+              <li key={superMember.adminId}>
+                <strong>{superMember.admin}</strong> <br />
+                {superMember.email}
+                {/* {session && isCreator && (
+                  <RemoveAdminForm
+                    admin={superMember.admin}
+                    adminId={superMember.adminId}
+                    organizationId={organization._id}
+                  />
+                )} */}
+              </li>
             ))}
           </ul>
           {session && isAdmin && (
@@ -141,7 +152,9 @@ const Organization = ({ organization, superMembers, members }) => {
                       <p>No one has joined your organization yet.</p>
                     )}
                     {members.map((member) => (
-                      <li key={member.memberId}>{member.member}</li>
+                      <li key={member.memberId}>
+                        {member.member} - {member.email}
+                      </li>
                     ))}
                   </ul>
                 </div>
