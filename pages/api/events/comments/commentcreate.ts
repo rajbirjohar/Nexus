@@ -20,6 +20,7 @@ export default async function createComment(
       {
         $push: {
           comments: {
+            commentId: new mongodb.ObjectId(),
             authorId: new mongodb.ObjectId(authorId),
             author: author,
             email: email,
