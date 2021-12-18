@@ -27,12 +27,13 @@ export default async function deleteOrganization(
           { _id: new mongodb.ObjectId(session.user.id) },
           { $set: { orgRole: 'none', creatorOfOrg: 'none' } }
         )
-      // Remove the orgId from all admins
+      // Remove the orgId from all admins and members
       await db.collection('users').updateMany(
         {},
         {
           $pull: {
             adminOfOrg: new mongodb.ObjectId(organizationId),
+            memberOfOrg: new mongodb.ObjectId(organizationId),
           },
         }
       )

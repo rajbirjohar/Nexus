@@ -128,9 +128,11 @@ export default function OrganizationsPostForm() {
       <div>
         {maxLength - organization._organizationDescription.length}/{maxLength}
       </div>
-      <button className={styles.postbutton} type="submit">
-        Create Organization
-      </button>
+      <div className={styles.actions}>
+        <button className={styles.postbutton} type="submit">
+          Create Organization
+        </button>
+      </div>
     </form>
   )
 }

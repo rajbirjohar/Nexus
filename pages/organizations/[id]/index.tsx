@@ -9,24 +9,43 @@ import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
 import clientPromise from '@/lib/mongodb'
 import formstyles from '@/styles/form.module.css'
 import AddAdminForm from '@/components/Organizations/AddAdminForm'
+import AddMemberForm from '@/components/Organizations/AddMemberForm'
 
-const Organization = ({ organization, superMembers }) => {
+const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
   const { id } = router.query
   const { data: session } = useSession()
+  const orgId = organization.map((organization) => organization._id).toString()
+  const orgName = organization
+    .map((organization) => organization.organizationName)
+    .toString()
   const [deleteOrg, setDeleteOrg] = useState({
-    organizationId: organization
-      .map((organization) => organization._id)
-      .toString(),
+    organizationId: orgId,
     _organization: '',
     _organizationConfirmation: '',
   })
   const [displayWarning, setDisplayWarning] = useState(false)
+  const [displayMembers, setDisplayMembers] = useState(false)
+  const isCreator =
+    session &&
+    session.user.creatorOfOrg &&
+    session.user.creatorOfOrg.includes(orgId)
+
+  const isAdmin =
+    isCreator ||
+    (session &&
+      session.user.adminOfOrg &&
+      session.user.adminOfOrg.includes(orgId))
+
+  const isMember =
+    session &&
+    session.user.memberOfOrg &&
+    session.user.memberOfOrg.includes(orgId)
+
+  const isNotMember = !isAdmin && !isMember
+
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const orgName = organization
-      .map((organization) => organization.organizationName)
-      .toString()
     if (
       deleteOrg._organization === '' ||
       deleteOrg._organizationConfirmation === ''
@@ -50,22 +69,22 @@ const Organization = ({ organization, superMembers }) => {
   }
 
   const deleteOrganization = async (organizationData) => {
-    if (session) {
-      const res = await fetch('/api/organizations/orgdelete', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ organizationData: organizationData }),
-      })
-      await res.json()
-      // wait for status from orgdelete endpoint to post success toast
-      if (res.status === 200) {
-        router.push('/organizations')
-        toast.success('Deleted organization.')
-      } else {
-        toast.error('Uh oh. Something went wrong.')
-      }
+    const res = await fetch('/api/organizations/orgdelete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ organizationData: organizationData }),
+    })
+    await res.json()
+    // wait for status from orgdelete endpoint to post success toast
+    if (res.status === 200) {
+      router.push('/organizations')
+      toast.success('Deleted organization.')
+    } else {
+      toast.error(
+        'Uh oh. Something went wrong. If this persists, please let us know.'
+      )
     }
   }
   return (
@@ -80,104 +99,126 @@ const Organization = ({ organization, superMembers }) => {
           <h1>{organization.organizationName}</h1>
           <h4>{organization.organizationTagline}</h4>
           <p>{organization.organizationDescription}</p>
+          {session && isNotMember && (
+            <AddMemberForm
+              email={session.user.email}
+              organizationId={organization._id}
+              organizationName={organization.organizationName}
+            />
+          )}
+          {session && isMember && (
+            <p>
+              You&#39;re a member of {organization.organizationName}. Leaving
+              organizations feature is coming soon.
+            </p>
+          )}
           <h3>Admins</h3>
           {superMembers.map((superMember) => (
             <li key={superMember.adminId}>{superMember.admin}</li>
           ))}
-          {session &&
-            session.user.adminOfOrg &&
-            session.user.adminOfOrg.includes(organization._id) && (
-              <>
-                <AddAdminForm organizationId={organization._id} />
-                <EventForm
-                  organizationName={organization.organizationName}
-                  organizationId={organization._id}
-                />
-              </>
-            )}
-          {session &&
-            session.user.creatorOfOrg &&
-            session.user.creatorOfOrg.includes(organization._id) && (
-              <>
-                <AddAdminForm organizationId={organization._id} />
-                <EventForm
-                  organizationName={organization.organizationName}
-                  organizationId={organization._id}
-                />
-              </>
-            )}
-          <h3>Events</h3>
-          <ListEventsPerOrg organizationId={organization._id} />
-          {/* Checks if user is logged in and the user name matches organizer
-        Thus, only the logged in user can access the delete function */}
-
-          {session &&
-            session.user.creatorOfOrg &&
-            session.user.creatorOfOrg.includes(organization._id) && (
-              <>
-                <h3>Dangerous Actions</h3>
-                <button
-                  className={formstyles.deleteaction}
-                  onClick={() => setDisplayWarning(!displayWarning)}
-                >
-                  Delete Organization
-                </button>
-              </>
-            )}
-          {displayWarning && (
-            <div className={formstyles.warningWrapper}>
-              <p>
-                <strong>
-                  Warning:
-                  <br />
-                  You understand that deleting this organization will delete all
-                  posts, members, and admins from Nexus never to be seen again.
-                </strong>
-              </p>
-              <p>
-                <strong>
-                  If you are completely sure and aware of the consequences,
-                  please fill out the form below.
-                </strong>
-              </p>
-              <p>
-                Please enter{' '}
-                <strong>&#34;{organization.organizationName}&#34;</strong> to
-                delete this organization.
-              </p>
-              <form onSubmit={handleSubmit} className={formstyles.inputWrapper}>
-                <label htmlFor="_Organization">
-                  <strong>Organization:</strong>
-                </label>
-                <input
-                  aria-label="Organization Input"
-                  name="_organization"
-                  value={deleteOrg._organization}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Organization"
-                  className={formstyles.input}
-                />
-                <label htmlFor="_Organization">
-                  <strong>Confirm Organization:</strong>
-                </label>
-                <input
-                  aria-label="Organization Input"
-                  name="_organizationConfirmation"
-                  value={deleteOrg._organizationConfirmation}
-                  onChange={handleChange}
-                  type="text"
-                  placeholder="Organization"
-                  className={formstyles.input}
-                />
-                <div className={formstyles.actions}>
-                  <button className={formstyles.deleteaction} type="submit">
-                    Delete
+          {session && isAdmin && (
+            <>
+              <AddAdminForm organizationId={organization._id} />
+              <EventForm
+                creator={session.user.name}
+                email={session.user.email}
+                organizationName={organization.organizationName}
+                organizationId={organization._id}
+              />
+              <h3>Members</h3>
+              {displayMembers ? (
+                <div>
+                  <button onClick={() => setDisplayMembers(!displayMembers)}>
+                    Hide Members
+                  </button>
+                  {members.length === 0 && (
+                    <p>No one has joined your organization yet.</p>
+                  )}
+                  {members.map((member) => (
+                    <li key={member.memberId}>{member.member}</li>
+                  ))}
+                </div>
+              ) : (
+                <div>
+                  <button onClick={() => setDisplayMembers(!displayMembers)}>
+                    Show Members
                   </button>
                 </div>
-              </form>
-            </div>
+              )}
+            </>
           )}
+          {session && isCreator && (
+            <>
+              <h3>Dangerous Actions</h3>
+              <button
+                className={formstyles.deleteaction}
+                onClick={() => setDisplayWarning(!displayWarning)}
+              >
+                Delete Organization
+              </button>
+
+              {displayWarning && (
+                <div className={formstyles.warningWrapper}>
+                  <p>
+                    <strong>
+                      Warning:
+                      <br />
+                      You understand that deleting this organization will delete
+                      all posts, members, and admins from Nexus never to be seen
+                      again.
+                    </strong>
+                  </p>
+                  <p>
+                    <strong>
+                      If you are completely sure and aware of the consequences,
+                      please fill out the form below.
+                    </strong>
+                  </p>
+                  <p>
+                    Please enter{' '}
+                    <strong>&#34;{organization.organizationName}&#34;</strong>{' '}
+                    to delete this organization.
+                  </p>
+                  <form
+                    onSubmit={handleSubmit}
+                    className={formstyles.inputWrapper}
+                  >
+                    <label htmlFor="_Organization">
+                      <strong>Organization:</strong>
+                    </label>
+                    <input
+                      aria-label="Organization Input"
+                      name="_organization"
+                      value={deleteOrg._organization}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="Organization"
+                      className={formstyles.input}
+                    />
+                    <label htmlFor="_Organization">
+                      <strong>Confirm Organization:</strong>
+                    </label>
+                    <input
+                      aria-label="Organization Input"
+                      name="_organizationConfirmation"
+                      value={deleteOrg._organizationConfirmation}
+                      onChange={handleChange}
+                      type="text"
+                      placeholder="Organization"
+                      className={formstyles.input}
+                    />
+                    <div className={formstyles.actions}>
+                      <button className={formstyles.deleteaction} type="submit">
+                        Delete
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+            </>
+          )}
+          <h3>Events</h3>
+          <ListEventsPerOrg organizationId={organization._id} />
         </>
       ))}
     </Layout>
@@ -203,9 +244,24 @@ export async function getServerSideProps(context) {
       { $unwind: '$superMembersList' },
       {
         $project: {
-          adminId: '$superMembersList.admin',
+          adminId: '$superMembersList.adminId',
           admin: '$superMembersList.admin',
           email: '$superMembersList.email',
+        },
+      },
+    ])
+    .toArray()
+
+  const members = await db
+    .collection('organizations')
+    .aggregate([
+      { $match: { organizationName: id } },
+      { $unwind: '$membersList' },
+      {
+        $project: {
+          memberId: '$membersList.memberId',
+          member: '$membersList.member',
+          email: '$membersList.email',
         },
       },
     ])
@@ -224,6 +280,7 @@ export async function getServerSideProps(context) {
     props: {
       organization: JSON.parse(JSON.stringify(organization)),
       superMembers: JSON.parse(JSON.stringify(superMembers)),
+      members: JSON.parse(JSON.stringify(members)),
     },
   }
 }

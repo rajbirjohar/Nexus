@@ -1,15 +1,18 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
-import { useSession } from 'next-auth/react'
 
 const maxLength = 750
 
-export default function EventForm({ organizationName, organizationId }) {
-  const { data: session } = useSession()
+export default function EventForm({
+  creator,
+  email,
+  organizationName,
+  organizationId,
+}) {
   const [newEvent, setNewEvent] = useState({
-    eventCreator: session.user.name,
-    email: session.user.email,
+    eventCreator: creator,
+    email: email,
     organizationName: organizationName,
     organizationId: organizationId,
     _eventName: '',
@@ -122,9 +125,11 @@ export default function EventForm({ organizationName, organizationId }) {
         type="datetime-local"
         className={styles.input}
       />
-      <button className={styles.postbutton} type="submit">
-        Post Event!
-      </button>
+      <div className={styles.actions}>
+        <button className={styles.postbutton} type="submit">
+          Post Event!
+        </button>
+      </div>
     </form>
   )
 }
