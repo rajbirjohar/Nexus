@@ -3,7 +3,7 @@ import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
 const mongodb = require('mongodb')
 
-export default async function addMember(
+export default async function removeMember(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -14,28 +14,12 @@ export default async function addMember(
     const {
       memberData: { organizationId, memberId },
     } = req.body
-    const userDetails = await db
-      .collection('users')
-      .aggregate([
-        {
-          $match: { _id: new mongodb.ObjectId(memberId) },
-        },
-        {
-          $project: {
-            memberId: '$_id',
-            member: '$name',
-            email: '$email',
-            _id: 0,
-          },
-        },
-      ])
-      .toArray()
     await db.collection('users').updateOne(
       {
         _id: new mongodb.ObjectId(memberId),
       },
       {
-        $push: {
+        $pull: {
           memberOfOrg: new mongodb.ObjectId(organizationId),
         },
       }
@@ -43,18 +27,12 @@ export default async function addMember(
     await db.collection('organizations').updateOne(
       { _id: new mongodb.ObjectId(organizationId) },
       {
-        $addToSet: {
-          // We use userDetails[0] because mongodb returns
-          // the document as an object within an array via
-          // the .toArray() function. We don't want the array
-          // format though so we instead find the 0th index
-          // since there will only ever be one item within
-          // the returned array since emails are unique
-          membersList: userDetails[0],
+        $pull: {
+          membersList: { memberId: new mongodb.ObjectId(memberId) },
         },
       }
     )
-    res.status(200).json({ message: 'Successfully added member.' })
+    res.status(200).json({ message: 'Successfully removed member.' })
   } else {
     // Not Signed in
     res.status(401).json({

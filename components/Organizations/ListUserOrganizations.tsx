@@ -55,7 +55,7 @@ export default function ListUserOrganizations() {
       </div>
       <h3 className={styles.subtitle}>Admined Organizations</h3>
       <div className={cardstyles.grid}>
-        {data.creatorOrganization.length === 0 && (
+        {data.adminOrganizations.length === 0 && (
           <p>
             You are not an Admin of any organization. If this is a mistake,
             contact your organization creator to add you as an Admin.
@@ -72,7 +72,7 @@ export default function ListUserOrganizations() {
       </div>
       <h3 className={styles.subtitle}>Joined Organizations</h3>
       <div className={cardstyles.grid}>
-        {data.creatorOrganization.length === 0 && (
+        {data.memberOrganizations.length === 0 && (
           <Link href="/organizations" passHref>
             <a>Join your first organization!</a>
           </Link>
