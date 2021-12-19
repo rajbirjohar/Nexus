@@ -45,7 +45,6 @@
   color: var(--red-900);
   background: var(--red-100);
   width: max-content;
-  margin: var(--gap-half) 0;
 }
 
 .deleteaction:hover {
@@ -69,6 +68,33 @@
   align-items: center;
   width: 100%;
   text-align: center;
+}
+
+.tabs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-quarter);
+}
+
+.tab {
+  background: transparent;
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.tab:hover {
+  background-color: var(--gray-200);
+}
+
+.active {
+  background-color: var(--gray-200);
+}
+
+.active.tab:hover {
+  background-color: var(--gray-200);
+  color: var(--gray-800);
+  cursor: default;
 }
 
 /* Review form styles */
@@ -143,6 +169,7 @@
 .warningWrapper {
   display: flex;
   flex-direction: column;
+  margin-top: var(--gap-quarter);
   padding: var(--gap-med);
   border: 2px solid var(--red-200);
   background-color: var(--red-50);

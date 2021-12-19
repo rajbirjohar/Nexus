@@ -9,7 +9,7 @@ export default function AddAdminForm({ organizationId }) {
   })
   const handleSubmit = async (event) => {
     event.preventDefault()
-    const regex = /\S+@\S+\.\S+/
+    const regex = /\S+@ucr\.edu/
     if (admin._email === '') {
       toast.error('Please fill out the missing field.')
     } else if (!regex.test(admin._email)) {
