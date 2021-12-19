@@ -33,7 +33,7 @@ export default function EventsPage() {
             alt="Calendar Image"
           />
         </div>
-        <h2>Recent Events</h2>
+
         {session ? (
           <>
             <div className={styles.tabs}>
@@ -56,18 +56,19 @@ export default function EventsPage() {
             </div>
             {tab === 0 ? (
               <>
-                <h3>All Events</h3>
+                <h2>All Events</h2>
                 <ListAllEvents />
               </>
             ) : (
               <>
-                <h3>Member Events</h3>
+                <h2>Member Events</h2>
                 <ListUserEvents />
               </>
             )}
           </>
         ) : (
           <>
+            <h2>Recent Events</h2>
             <ListAllEvents />
           </>
         )}

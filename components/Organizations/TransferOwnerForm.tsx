@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
-export default function AddAdminForm({ organizationId }) {
+export default function TransferOwnerForm({ organizationId }) {
   const [admin, setAdmin] = useState({
     organizationId: organizationId,
     _email: '',
@@ -26,7 +26,7 @@ export default function AddAdminForm({ organizationId }) {
     })
   }
   const sendData = async (adminData) => {
-    const response = await fetch('/api/organizations/adminadd', {
+    const response = await fetch('/api/organizations/transferowner', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -36,12 +36,12 @@ export default function AddAdminForm({ organizationId }) {
     const data = await response.json()
     if (response.status === 404) {
       toast.error('User does not exist or email is wrong. Please try again.')
+    } else if (response.status === 405) {
+      toast.error('User must be an admin.')
     } else if (response.status === 403) {
-      toast.error('User is already an admin.')
-    } else if (response.status === 201) {
-      toast.success('Member has been updated to Admin!')
+      toast.error('User is already the owner of this org or another one.')
     } else if (response.status === 200) {
-      toast.success('Successfully added this Admin!')
+      toast.success('Successfully transferred ownership!')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -49,10 +49,9 @@ export default function AddAdminForm({ organizationId }) {
     }
     return data.adminData
   }
-
   return (
     <div>
-      <h3>Add an Admin</h3>
+      <h3>Transfer Owner</h3>
       <form onSubmit={handleSubmit} className={styles.inputWrapper}>
         <label htmlFor="_email">
           <strong>Email:</strong>
@@ -68,7 +67,7 @@ export default function AddAdminForm({ organizationId }) {
         />
         <span className={styles.actions}>
           <button type="submit" className={styles.postbutton}>
-            Add Admin
+            Transfer Owner
           </button>
         </span>
       </form>

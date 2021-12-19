@@ -12,27 +12,50 @@ export default async function removeAdmin(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     const {
-      adminData: { organizationId, adminId },
+      adminData: { organizationId, _email },
     } = req.body
-    await db.collection('users').updateOne(
-      {
-        _id: new mongodb.ObjectId(adminId),
-      },
-      {
-        $pull: {
-          adminOfOrg: new mongodb.ObjectId(organizationId),
+    const isCreator = await db
+      .collection('organizations')
+      .find({ email: _email })
+      .count()
+    const adminExists = await db
+      .collection('organizations')
+      .find({
+        _id: new mongodb.ObjectId(organizationId),
+        superMembersList: {
+          $elemMatch: { email: _email },
         },
-      }
-    )
-    await db.collection('organizations').updateOne(
-      { _id: new mongodb.ObjectId(organizationId) },
-      {
-        $pull: {
-          superMembersList: { adminId: new mongodb.ObjectId(adminId) },
+      })
+      .count()
+    if (isCreator > 0) {
+      res
+        .status(403)
+        .json({
+          message: 'You cannot remove yourself until you transfer ownership.',
+        })
+    } else if (adminExists === 0) {
+      res.status(404).json({ message: 'This Admin does not exist.' })
+    } else {
+      await db.collection('users').updateOne(
+        {
+          email: _email,
         },
-      }
-    )
-    res.status(200).json({ message: 'Successfully removed member.' })
+        {
+          $pull: {
+            adminOfOrg: new mongodb.ObjectId(organizationId),
+          },
+        }
+      )
+      await db.collection('organizations').updateOne(
+        { _id: new mongodb.ObjectId(organizationId) },
+        {
+          $pull: {
+            superMembersList: { email: _email },
+          },
+        }
+      )
+      res.status(200).json({ message: 'Successfully removed member.' })
+    }
   } else {
     // Not Signed in
     res.status(401).json({
