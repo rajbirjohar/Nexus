@@ -10,29 +10,50 @@ export default async function removeMember(
   const session = await getSession({ req })
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)
+
   if (session) {
     const {
       memberData: { organizationId, memberId },
     } = req.body
-    await db.collection('users').updateOne(
-      {
-        _id: new mongodb.ObjectId(memberId),
-      },
-      {
-        $pull: {
-          memberOfOrg: new mongodb.ObjectId(organizationId),
+    const userNotFound = await db
+      .collection('users')
+      .find({ _id: new mongodb.ObjectId(memberId) })
+      .count()
+    const memberNotExists = await db
+      .collection('organizations')
+      .find({
+        _id: new mongodb.ObjectId(organizationId),
+        membersList: {
+          $elemMatch: { memberId: new mongodb.ObjectId(memberId) },
         },
-      }
-    )
-    await db.collection('organizations').updateOne(
-      { _id: new mongodb.ObjectId(organizationId) },
-      {
-        $pull: {
-          membersList: { memberId: new mongodb.ObjectId(memberId) },
+      })
+      .count()
+    console.log(memberNotExists)
+    if (memberNotExists === 0) {
+      res.status(403).json({ error: 'Member does not exist in organization.' })
+    } else if (userNotFound === 0) {
+      res.status(404).json({ error: 'User does not exist.' })
+    } else {
+      await db.collection('users').updateOne(
+        {
+          _id: new mongodb.ObjectId(memberId),
         },
-      }
-    )
-    res.status(200).json({ message: 'Successfully removed member.' })
+        {
+          $pull: {
+            memberOfOrg: new mongodb.ObjectId(organizationId),
+          },
+        }
+      )
+      await db.collection('organizations').updateOne(
+        { _id: new mongodb.ObjectId(organizationId) },
+        {
+          $pull: {
+            membersList: { memberId: new mongodb.ObjectId(memberId) },
+          },
+        }
+      )
+      res.status(200).json({ message: 'Successfully removed member.' })
+    }
   } else {
     // Not Signed in
     res.status(401).json({

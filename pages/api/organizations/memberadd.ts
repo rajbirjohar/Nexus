@@ -14,47 +14,66 @@ export default async function addMember(
     const {
       memberData: { organizationId, memberId },
     } = req.body
-    const userDetails = await db
+    const userNotFound = await db
       .collection('users')
-      .aggregate([
-        {
-          $match: { _id: new mongodb.ObjectId(memberId) },
+      .find({ _id: new mongodb.ObjectId(memberId) })
+      .count()
+    const memberExists = await db
+      .collection('organizations')
+      .find({
+        _id: new mongodb.ObjectId(organizationId),
+        membersList: {
+          $elemMatch: { memberId: new mongodb.ObjectId(memberId) },
         },
-        {
-          $project: {
-            memberId: '$_id',
-            member: '$name',
-            email: '$email',
-            _id: 0,
+      })
+      .count()
+    if (memberExists > 0) {
+      res.status(403).json({ error: 'Member already exists in organization.' })
+    } else if (userNotFound === 0) {
+      res.status(404).json({ error: 'User does not exist.' })
+    } else {
+      const userDetails = await db
+        .collection('users')
+        .aggregate([
+          {
+            $match: { _id: new mongodb.ObjectId(memberId) },
           },
+          {
+            $project: {
+              memberId: '$_id',
+              member: '$name',
+              email: '$email',
+              _id: 0,
+            },
+          },
+        ])
+        .toArray()
+      await db.collection('users').updateOne(
+        {
+          _id: new mongodb.ObjectId(memberId),
         },
-      ])
-      .toArray()
-    await db.collection('users').updateOne(
-      {
-        _id: new mongodb.ObjectId(memberId),
-      },
-      {
-        $push: {
-          memberOfOrg: new mongodb.ObjectId(organizationId),
-        },
-      }
-    )
-    await db.collection('organizations').updateOne(
-      { _id: new mongodb.ObjectId(organizationId) },
-      {
-        $addToSet: {
-          // We use userDetails[0] because mongodb returns
-          // the document as an object within an array via
-          // the .toArray() function. We don't want the array
-          // format though so we instead find the 0th index
-          // since there will only ever be one item within
-          // the returned array since emails are unique
-          membersList: userDetails[0],
-        },
-      }
-    )
-    res.status(200).json({ message: 'Successfully added member.' })
+        {
+          $push: {
+            memberOfOrg: new mongodb.ObjectId(organizationId),
+          },
+        }
+      )
+      await db.collection('organizations').updateOne(
+        { _id: new mongodb.ObjectId(organizationId) },
+        {
+          $addToSet: {
+            // We use userDetails[0] because mongodb returns
+            // the document as an object within an array via
+            // the .toArray() function. We don't want the array
+            // format though so we instead find the 0th index
+            // since there will only ever be one item within
+            // the returned array since emails are unique
+            membersList: userDetails[0],
+          },
+        }
+      )
+      res.status(200).json({ message: 'Successfully added member.' })
+    }
   } else {
     // Not Signed in
     res.status(401).json({
