@@ -6,17 +6,20 @@ export default function TransferOwnerForm({ organizationId }) {
   const [admin, setAdmin] = useState({
     organizationId: organizationId,
     _email: '',
+    _emailConfirm: '',
   })
   const handleSubmit = async (event) => {
     event.preventDefault()
     const regex = /\S+@ucr\.edu/
     if (admin._email === '') {
       toast.error('Please fill out the missing field.')
-    } else if (!regex.test(admin._email)) {
+    } else if (!regex.test(admin._email) || !regex.test(admin._emailConfirm)) {
       toast.error('Email format is incorrect. Please try again.')
+    } else if (admin._email !== admin._emailConfirm) {
+      toast.error('Emails do not match. Please try again.')
     } else {
       sendData(admin)
-      setAdmin({ ...admin, _email: '' })
+      setAdmin({ ...admin, _email: '', _emailConfirm: '' })
     }
   }
   const handleChange = (event) => {
@@ -52,6 +55,10 @@ export default function TransferOwnerForm({ organizationId }) {
   return (
     <div>
       <h3>Transfer Owner</h3>
+      <p>
+        This action is irreversible unless the new owner transfer the
+        organization back to you. Please ensure this is what you want to do.
+      </p>
       <form onSubmit={handleSubmit} className={styles.inputWrapper}>
         <label htmlFor="_email">
           <strong>Email:</strong>
@@ -65,8 +72,20 @@ export default function TransferOwnerForm({ organizationId }) {
           placeholder="scotty@ucr.edu"
           className={styles.input}
         />
+        <label htmlFor="_emailConfirm">
+          <strong>Confirm Email:</strong>
+        </label>
+        <input
+          aria-label="Admin Email Input"
+          name="_emailConfirm"
+          value={admin._emailConfirm}
+          onChange={handleChange}
+          type="text"
+          placeholder="scotty@ucr.edu"
+          className={styles.input}
+        />
         <span className={styles.actions}>
-          <button type="submit" className={styles.postbutton}>
+          <button type="submit" className={styles.deleteaction}>
             Transfer Owner
           </button>
         </span>
