@@ -50,6 +50,11 @@ export default function RemoveAdminForm({ organizationId }) {
   return (
     <div>
       <h3>Remove an Admin</h3>
+      <p>
+        This person will no longer have access to admin roles for this
+        organization. You or another admin will have to re-add them if you
+        change your mind.
+      </p>
       <form onSubmit={handleSubmit} className={styles.inputWrapper}>
         <label htmlFor="_email">
           <strong>Email:</strong>
@@ -64,7 +69,7 @@ export default function RemoveAdminForm({ organizationId }) {
           className={styles.input}
         />
         <span className={styles.actions}>
-          <button type="submit" className={styles.postbutton}>
+          <button type="submit" className={styles.deleteaction}>
             Remove Admin
           </button>
         </span>
