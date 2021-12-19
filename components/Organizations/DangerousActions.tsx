@@ -30,6 +30,7 @@ export default function DangerousActions({ organizationId, organizationName }) {
   const [visibleTab, setVisibleTab] = useState(tabs[0].id)
   const buttons = tabs.map((item) => (
     <button
+      key={item.id}
       onClick={() => setVisibleTab(item.id)}
       className={
         visibleTab === item.id
@@ -41,7 +42,10 @@ export default function DangerousActions({ organizationId, organizationName }) {
     </button>
   ))
   const content = tabs.map((item) => (
-    <div style={visibleTab === item.id ? {} : { display: 'none' }}>
+    <div
+      key={item.id}
+      style={visibleTab === item.id ? {} : { display: 'none' }}
+    >
       {item.tabContent}
     </div>
   ))
