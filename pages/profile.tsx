@@ -7,7 +7,6 @@ import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import ListUserPosts from '@/components/Reviews/ListUserPosts'
 import styles from '@/styles/profile.module.css'
-import formstyles from '@/styles/form.module.css'
 import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
 
 export default function Profile() {
