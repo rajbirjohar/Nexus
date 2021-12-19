@@ -16,7 +16,13 @@ export default async function removeAdmin(
     } = req.body
     const isCreator = await db
       .collection('organizations')
-      .find({ email: _email })
+      .find({
+        _id: new mongodb.ObjectId(organizationId),
+        email: _email,
+        superMembersList: {
+          $elemMatch: { email: _email },
+        },
+      })
       .count()
     const adminExists = await db
       .collection('organizations')
@@ -28,11 +34,9 @@ export default async function removeAdmin(
       })
       .count()
     if (isCreator > 0) {
-      res
-        .status(403)
-        .json({
-          message: 'You cannot remove yourself until you transfer ownership.',
-        })
+      res.status(403).json({
+        message: 'You cannot remove yourself until you transfer ownership.',
+      })
     } else if (adminExists === 0) {
       res.status(404).json({ message: 'This Admin does not exist.' })
     } else {
