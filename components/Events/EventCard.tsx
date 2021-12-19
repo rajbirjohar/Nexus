@@ -35,16 +35,16 @@ export default function EventCard({
         <span className={styles.author}>By {organizationName}</span>
         <p className="clamp-2">{eventDetails}</p>
         <span className={styles.date}>
-          Starts{' '}
           {new Date(startDate).toLocaleString('en-US', {
-            dateStyle: 'medium',
+            dateStyle: 'short',
             timeStyle: 'short',
-          })}
-          <br />
-          Ends{' '}
+            timeZone: 'GMT',
+          })}{' '}
+          -{' '}
           {new Date(endDate).toLocaleString('en-US', {
-            dateStyle: 'medium',
+            dateStyle: 'short',
             timeStyle: 'short',
+            timeZone: 'GMT',
           })}
         </span>
       </motion.div>

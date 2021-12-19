@@ -55,12 +55,14 @@ const Event = ({ event }) => {
             {new Date(event.eventStartDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
+              timeZone: 'GMT',
             })}
             <br />
             Ends{' '}
             {new Date(event.eventEndDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
+              timeZone: 'GMT',
             })}
           </span>
           <h3>Event Details</h3>
