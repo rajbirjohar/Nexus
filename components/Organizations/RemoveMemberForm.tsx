@@ -1,8 +1,7 @@
 import Router from 'next/router'
 import toast from 'react-hot-toast'
-import styles from '@/styles/form.module.css'
 
-export default function AddMemberForm({
+export default function RemoveMemberForm({
   memberId,
   organizationId,
   organizationName,
@@ -13,8 +12,8 @@ export default function AddMemberForm({
     sendData(member)
   }
   const sendData = async (memberData) => {
-    const response = await fetch('/api/organizations/memberadd', {
-      method: 'POST',
+    const response = await fetch('/api/organizations/memberremove', {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -22,7 +21,7 @@ export default function AddMemberForm({
     })
     await response.json
     if (response.status === 200) {
-      toast.success(`You joined ${organizationName}!`)
+      toast.success(`You left ${organizationName}.`)
       Router.reload()
     } else {
       toast.error(
@@ -32,9 +31,7 @@ export default function AddMemberForm({
   }
   return (
     <form onSubmit={handleSubmit}>
-      <button type="submit" className={styles.postbutton}>
-        Join {organizationName}
-      </button>
+      <button type="submit">Leave {organizationName}</button>
     </form>
   )
 }

@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
@@ -43,7 +44,12 @@ const Event = ({ event }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <h1>{event.eventName}</h1>
-          <h4 className={styles.author}>By {event.organizationName}</h4>
+          <h4 className={styles.author}>
+            By{' '}
+            <Link href={`/organizations/${event.organizationName}`} passHref>
+              <a>{event.organizationName}</a>
+            </Link>
+          </h4>
           <span className={styles.date}>
             Starts{' '}
             {new Date(event.eventStartDate).toLocaleString('en-US', {
@@ -80,7 +86,10 @@ const Event = ({ event }) => {
           ) : (
             <p>Sign in to comment.</p>
           )}
-          <ListComments eventId={event._id} />
+          <ListComments
+            eventId={event._id}
+            organizationId={event.organizationId}
+          />
         </>
       ))}
     </Layout>

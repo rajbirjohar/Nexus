@@ -1,6 +1,4 @@
 /* Rubik Font */
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,600;0,700;0,800;1,500&display=swap');
-
 :root {
   /* Spacing */
   --gap-quarter: 0.25rem;
@@ -16,8 +14,6 @@
   --inline-radius: 5px;
 
   /* Typography */
-  --font-head: 'Rubik', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --font-mono: 'SFMono-Regular', 'Consolas', 'Liberation Mono', 'Menlo',
@@ -164,7 +160,6 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-head) !important;
   font-weight: 700;
 }
 
@@ -208,6 +203,10 @@ button {
   background-color: var(--gray-200);
   color: var(--gray-800);
   transition: background-color var(--transition);
+}
+
+button:hover {
+  background-color: var(--gray-300);
 }
 
 a,

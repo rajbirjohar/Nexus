@@ -17,7 +17,13 @@ export default async function fetchUserOrgs(
   const db = isConnected.db(process.env.MONGODB_DB)
   const session = await getSession({ req })
   if (session) {
-    const organizations = await db
+    const creatorOrganization = await db
+      .collection('organizations')
+      .find({ organizerId: new mongodb.ObjectId(session.user.id) })
+      .sort({ organizationName: 1 })
+      .toArray()
+
+    const adminOrganizations = await db
       .collection('organizations')
       .find({
         superMembersList: {
@@ -27,7 +33,18 @@ export default async function fetchUserOrgs(
       .sort({ organizationName: 1 })
       .toArray()
 
-    res.status(200).json({ organizations })
+    const memberOrganizations = await db
+      .collection('organizations')
+      .find({
+        membersList: {
+          $elemMatch: { memberId: new mongodb.ObjectId(session.user.id) },
+        },
+      })
+      .sort({ organizationName: 1 })
+      .toArray()
+    res
+      .status(200)
+      .json({ creatorOrganization, adminOrganizations, memberOrganizations })
   } else {
     res.status(401).json({
       error:

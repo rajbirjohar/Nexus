@@ -64,7 +64,9 @@ export default function CoursesPage({ courses }) {
             <h3>Woah There.</h3>
             <p>
               What!? That&#39;s crazy. It seems this class does not yet exist.
-              Contact us if you would like to see this class added.
+              Contact us if you want this class added.
+              <br />
+              <cite>— Robert</cite>
             </p>
             <Image
               src={'/assets/void.svg'}

@@ -19,8 +19,10 @@ export default async function fetchComments(
       { $unwind: '$comments' },
       {
         $project: {
+          commentId: '$comments.commentId',
           comment: '$comments.comment',
           author: '$comments.author',
+          authorId: '$comments.authorId',
           createdAt: '$comments.createdAt',
         },
       },

@@ -3,13 +3,14 @@ import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
 const mongodb = require('mongodb')
 
-export default async function addMember(
+export default async function removeMember(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
   const session = await getSession({ req })
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)
+
   if (session) {
     const {
       memberData: { organizationId, memberId },
@@ -18,7 +19,7 @@ export default async function addMember(
       .collection('users')
       .find({ _id: new mongodb.ObjectId(memberId) })
       .count()
-    const memberExists = await db
+    const memberNotExists = await db
       .collection('organizations')
       .find({
         _id: new mongodb.ObjectId(organizationId),
@@ -27,33 +28,18 @@ export default async function addMember(
         },
       })
       .count()
-    if (memberExists > 0) {
-      res.status(403).json({ error: 'Member already exists in organization.' })
+    console.log(memberNotExists)
+    if (memberNotExists === 0) {
+      res.status(403).json({ error: 'Member does not exist in organization.' })
     } else if (userNotFound === 0) {
       res.status(404).json({ error: 'User does not exist.' })
     } else {
-      const userDetails = await db
-        .collection('users')
-        .aggregate([
-          {
-            $match: { _id: new mongodb.ObjectId(memberId) },
-          },
-          {
-            $project: {
-              memberId: '$_id',
-              member: '$name',
-              email: '$email',
-              _id: 0,
-            },
-          },
-        ])
-        .toArray()
       await db.collection('users').updateOne(
         {
           _id: new mongodb.ObjectId(memberId),
         },
         {
-          $push: {
+          $pull: {
             memberOfOrg: new mongodb.ObjectId(organizationId),
           },
         }
@@ -61,18 +47,12 @@ export default async function addMember(
       await db.collection('organizations').updateOne(
         { _id: new mongodb.ObjectId(organizationId) },
         {
-          $addToSet: {
-            // We use userDetails[0] because mongodb returns
-            // the document as an object within an array via
-            // the .toArray() function. We don't want the array
-            // format though so we instead find the 0th index
-            // since there will only ever be one item within
-            // the returned array since emails are unique
-            membersList: userDetails[0],
+          $pull: {
+            membersList: { memberId: new mongodb.ObjectId(memberId) },
           },
         }
       )
-      res.status(200).json({ message: 'Successfully added member.' })
+      res.status(200).json({ message: 'Successfully removed member.' })
     }
   } else {
     // Not Signed in

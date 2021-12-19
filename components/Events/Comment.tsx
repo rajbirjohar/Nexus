@@ -1,12 +1,65 @@
-import styles from '@/styles/card.module.css'
+import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
+import cardstyles from '@/styles/card.module.css'
+import formstyles from '@/styles/form.module.css'
 
-const Comment = ({ comment, author, date }) => {
+const Comment = ({
+  organizationId,
+  eventId,
+  commentId,
+  comment,
+  authorId,
+  author,
+  date,
+}) => {
+  const { data: session } = useSession()
+  const isCreator =
+    session &&
+    session.user.creatorOfOrg &&
+    session.user.creatorOfOrg.includes(organizationId)
+  const isAdmin =
+    isCreator ||
+    (session &&
+      session.user.adminOfOrg &&
+      session.user.adminOfOrg.includes(organizationId))
+  const deleteComment = { commentId, eventId }
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    sendData(deleteComment)
+  }
+  const sendData = async (commentData) => {
+    const response = await fetch('/api/events/comments/commentdelete', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ commentData: commentData }),
+    })
+    await response.json
+    if (response.status === 200) {
+      toast.success('Deleted comment.')
+    } else {
+      toast.error(
+        'Uh oh, something went wrong. If this persists, please let us know.'
+      )
+    }
+  }
   return (
-    <div>
-      <p>{comment}</p>
-      <span className={styles.authorlabel}>
-        {author} about {date}
-      </span>
+    <div className={cardstyles.comment}>
+      <div>
+        <p>{comment}</p>
+        <span className={cardstyles.authorlabel}>
+          {author} about {date}
+        </span>{' '}
+        {(session && isAdmin) || (session && session.user.id === authorId) ? (
+          <>
+            /{' '}
+            <button onClick={handleSubmit} className={formstyles.deletecomment}>
+              Delete
+            </button>
+          </>
+        ) : null}
+      </div>
     </div>
   )
 }

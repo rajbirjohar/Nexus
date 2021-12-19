@@ -18,7 +18,7 @@ const fetchProfilePosts = async (req, res) => {
       const reviewPosts = await db
         .collection('reviewPosts')
         .find({ creatorId: new mongodb.ObjectId(session.user.id) })
-        .sort({ createdAt: -1 })
+        .sort({ subjectCourse: 1 })
         .toArray()
       return res.status(200).json({ reviewPosts })
     } catch {

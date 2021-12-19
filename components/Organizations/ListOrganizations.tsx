@@ -81,16 +81,25 @@ export default function ListOrganizations() {
           </svg>
         </div>
       )}
+
+      {!filteredOrgs.length && data.organizations.length !== 0 && (
+        <div className={formstyles.notFound}>
+          <h3>Woah There.</h3>
+          <p>
+            What!? That&#39;s crazy. It seems this organization does not yet
+            exist. Be the one to create it!
+            <br />
+            <cite>— Robert</cite>
+          </p>
+          <Image
+            src={'/assets/void.svg'}
+            width={300}
+            height={300}
+            alt="Nothing Found Image"
+          />
+        </div>
+      )}
       <div className={cardstyles.grid}>
-        {!filteredOrgs.length && data.organizations.length !== 0 && (
-          <>
-            <p>
-              No organizations found!
-              <br />
-              <cite>— Robert</cite>
-            </p>
-          </>
-        )}
         {filteredOrgs.map((organization) => (
           <OrganizationCard
             key={organization._id}

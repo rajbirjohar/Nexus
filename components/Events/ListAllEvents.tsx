@@ -78,16 +78,25 @@ export default function ListAllEvents() {
           </svg>
         </div>
       )}
+
+      {!filteredEvents.length && data.events.length !== 0 && (
+        <div className={formstyles.notFound}>
+          <h3>Woah There.</h3>
+          <p>
+            What!? That&#39;s crazy. It seems this event does not yet exist.
+            <br />
+            <cite>— Robert</cite>
+          </p>
+
+          <Image
+            src={'/assets/void.svg'}
+            width={300}
+            height={300}
+            alt="Nothing Found Image"
+          />
+        </div>
+      )}
       <div className={cardstyles.grid}>
-        {!filteredEvents.length && data.events.length !== 0 && (
-          <>
-            <p>
-              No events found!
-              <br />
-              <cite>— Robert</cite>
-            </p>
-          </>
-        )}
         {filteredEvents.map((newEvent) => (
           <EventCard
             key={newEvent._id}

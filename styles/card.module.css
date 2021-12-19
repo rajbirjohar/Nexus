@@ -177,7 +177,7 @@
 
 /* Event card */
 
-.author{
+.author {
   font-weight: 600;
 }
 
@@ -185,3 +185,6 @@
 .author {
   color: var(--gray-500);
 }
+
+/* Comment card */
+
