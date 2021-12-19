@@ -11,7 +11,7 @@ const tagLineLength = 250
 // Component: OrganizationPostForm()
 // Purpose: To take in user inputted data and submit it to the database
 
-export default function OrganizationsPostForm() {
+export default function OrganizationsForm() {
   const { data: session } = useSession()
 
   // Default values of an organization Object
