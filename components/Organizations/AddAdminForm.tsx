@@ -38,6 +38,8 @@ export default function AddAdminForm({ organizationId }) {
       toast.error('User does not exist or email is wrong. Please try again.')
     } else if (response.status === 403) {
       toast.error('User is already an admin.')
+    } else if (response.status === 201) {
+      toast.success('Member has been updated to Admin!')
     } else if (response.status === 200) {
       toast.success('Successfully added this Admin!')
     } else {
