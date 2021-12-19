@@ -28,7 +28,6 @@ export default async function removeMember(
         },
       })
       .count()
-    console.log(memberNotExists)
     if (memberNotExists === 0) {
       res.status(403).json({ error: 'Member does not exist in organization.' })
     } else if (userNotFound === 0) {

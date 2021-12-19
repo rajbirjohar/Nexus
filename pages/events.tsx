@@ -1,10 +1,15 @@
+import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import { useSession } from 'next-auth/react'
 import ListAllEvents from '@/components/Events/ListAllEvents'
 import Layout from '@/components/Layout'
 import styles from '@/styles/events.module.css'
+import ListUserEvents from '@/components/Events/ListUserEvents'
 
 export default function EventsPage() {
+  const { data: session } = useSession()
+  const [tab, setTab] = useState(0)
   return (
     <Layout>
       <Head>
@@ -29,7 +34,43 @@ export default function EventsPage() {
           />
         </div>
         <h2>Recent Events</h2>
-        <ListAllEvents />
+        {session ? (
+          <>
+            <div className={styles.tabs}>
+              <button
+                onClick={() => setTab(0)}
+                className={
+                  tab === 0 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+                }
+              >
+                All Events
+              </button>
+              <button
+                onClick={() => setTab(1)}
+                className={
+                  tab === 1 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+                }
+              >
+                Member Events
+              </button>
+            </div>
+            {tab === 0 ? (
+              <>
+                <h3>All Events</h3>
+                <ListAllEvents />
+              </>
+            ) : (
+              <>
+                <h3>Member Events</h3>
+                <ListUserEvents />
+              </>
+            )}
+          </>
+        ) : (
+          <>
+            <ListAllEvents />
+          </>
+        )}
       </section>
     </Layout>
   )
