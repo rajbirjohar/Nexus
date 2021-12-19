@@ -30,7 +30,9 @@ export default async function removeAdmin(
     if (isCreator > 0) {
       res
         .status(403)
-        .json({ message: 'You are trying to remove yourself, the creator.' })
+        .json({
+          message: 'You cannot remove yourself until you transfer ownership.',
+        })
     } else if (adminExists === 0) {
       res.status(404).json({ message: 'This Admin does not exist.' })
     } else {

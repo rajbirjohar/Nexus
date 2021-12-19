@@ -6,7 +6,7 @@ import Router from 'next/router'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import { useSession } from 'next-auth/react'
-import OrganizationsPostForm from '@/components/Organizations/OrganizationsPostForm'
+import OrganizationsForm from '@/components/Organizations/OrganizationsForm'
 import ListOrganizations from '@/components/Organizations/ListOrganizations'
 import styles from '@/styles/organizations.module.css'
 import formstyles from '@/styles/form.module.css'
@@ -112,33 +112,47 @@ export default function OrganizationsPage() {
                   d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                 />
               </svg>
-              <p>
-                <strong>Warning:</strong>
-              </p>
+              <h4>Warning</h4>
             </span>
             <p>
               <strong>
-                We currently support the creation of{' '}
+                We currently only support the creation of{' '}
                 <u>one organization per user</u>.
               </strong>
             </p>
             <p>
               <strong>Permissions:</strong>
-              <br />
-              <strong>Creator: </strong>This role grants all permissions
-              regarding{' '}
-              <u>club creation/deletion, event posting, and member viewing</u>.
-              This is inline with positions such as President, Vice President,
-              Director, etc. We strongly recommend the highest ranking officer
-              to be in charge of creating the club which they can then add other
-              board members as <u>Admins</u>.
-              <br />
-              <strong>Admin: </strong>This role grants all permissions above{' '}
-              <u>except club deletion</u>.
             </p>
             <p>
-              Please enter <strong>&#34;Admin&#34;</strong> if you satisfy Admin
-              requirements.
+              <strong>Creator (You): </strong>This role grants all permissions
+              regarding{' '}
+              <u>
+                club creation/deletion, admin addition/removal, owner
+                transfership, event posting, comment moderation, and member
+                viewing
+              </u>
+              . We strongly recommend the highest ranking officer to be in
+              charge of creating the club which they can then add other board
+              members as <u>Admins</u>.
+            </p>
+            <p>
+              <strong>Admin: </strong>This role grants all permissions regarding{' '}
+              <u>
+                admin addition, event posting, comment moderation, and member
+                viewing.
+              </u>
+              .
+            </p>
+            <p>
+              <strong>Member: </strong> Any other user that isn&#39;t already a
+              Creator or Admin will be able to join your club as a member. They
+              can filter events based on membership status and view your contact
+              information.
+            </p>
+            <p>
+              Please enter <strong>&#34;Admin&#34;</strong> if you understand
+              the rules and limitations of each role and would like to proceed
+              creating your own organization.
             </p>
             <form onSubmit={handleSubmit} className={formstyles.inputWrapper}>
               <label htmlFor="_orgRole">
@@ -153,8 +167,8 @@ export default function OrganizationsPage() {
                 placeholder="Role"
                 className={formstyles.input}
               />
-              <div className={styles.actions}>
-                <button className={formstyles.setrolebutton} type="submit">
+              <div className={formstyles.actions}>
+                <button className={formstyles.postbutton} type="submit">
                   Set Role
                 </button>
               </div>
@@ -166,7 +180,7 @@ export default function OrganizationsPage() {
           session.user.orgRole.includes('Admin') &&
           session.user.creatorOfOrg.includes('none') && (
             <>
-              <OrganizationsPostForm />
+              <OrganizationsForm />
             </>
           )}
         <ListOrganizations />

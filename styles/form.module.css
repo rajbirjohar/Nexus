@@ -41,6 +41,10 @@
   justify-content: flex-end;
 }
 
+.revealactions {
+  margin-bottom: var(--gap-med);
+}
+
 .deleteaction {
   color: var(--red-900);
   background: var(--red-100);
