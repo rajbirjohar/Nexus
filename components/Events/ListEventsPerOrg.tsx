@@ -5,26 +5,14 @@ import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
 import styles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
+import ErrorFetch from '../ErrorFetch'
 
 export default function ListEventsPerOrg({ organizationId }) {
   const { data, error } = useSWR(`/api/events/${organizationId}`, Fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
-    return (
-      <div className={styles.serverdown}>
-        <p>
-          Oops. Looks like the reviews are not being fetched right now. If this
-          persists, please let us know.
-        </p>
-        <Image
-          src={'/assets/server.svg'}
-          height={500}
-          width={500}
-          alt="Server Down Image"
-        />
-      </div>
-    )
+    return <ErrorFetch placeholder="events" />
   }
   if (!data) {
     return <Loader />

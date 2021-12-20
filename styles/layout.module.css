@@ -1,8 +1,7 @@
 .layout {
-  margin: 6rem auto;
+  margin: 6rem auto 0 auto;
   display: flex;
   flex-direction: column;
   max-width: var(--main-content);
-  min-height: 100vh;
   padding: 0 var(--gap-med);
 }

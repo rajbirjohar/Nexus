@@ -126,7 +126,7 @@ export default function EventForm({
         className={styles.input}
       />
       <div className={styles.actions}>
-        <button className={styles.postbutton} type="submit">
+        <button className={styles.post} type="submit">
           Post Event!
         </button>
       </div>

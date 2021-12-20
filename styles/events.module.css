@@ -17,33 +17,6 @@
   font-weight: 700;
 }
 
-.tabs {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-quarter);
-}
-
-.tab {
-  background: transparent;
-  transition: background-color var(--transition), color var(--transition);
-}
-
-.tab:hover {
-  background-color: var(--gray-200);
-}
-
-.active {
-  background-color: var(--gray-200);
-}
-
-.active.tab:hover {
-  background-color: var(--gray-200);
-  color: var(--gray-800);
-  cursor: default;
-}
-
 @media (max-width: 868px) {
   .hero {
     flex-direction: column;

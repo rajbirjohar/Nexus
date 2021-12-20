@@ -7,6 +7,7 @@ import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import ListUserPosts from '@/components/Reviews/ListUserPosts'
 import styles from '@/styles/profile.module.css'
+import formstyles from '@/styles/form.module.css'
 import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
 
 export default function Profile() {
@@ -149,7 +150,8 @@ export default function Profile() {
             </>
           )}
           <p>
-            Here you can view all your posts and organizations. Happy posting!
+            Here you can view all your posts and organizations in one place.
+            Happy posting 🎉!
           </p>
         </div>
         <Image
@@ -159,11 +161,13 @@ export default function Profile() {
           alt="Profile Image"
         />
       </div>
-      <div className={styles.tabs}>
+      <div className={formstyles.tabs}>
         <button
           onClick={() => setTab(0)}
           className={
-            tab === 0 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+            tab === 0
+              ? `${formstyles.active} ${formstyles.tab}`
+              : `${formstyles.tab}`
           }
         >
           Organizations
@@ -171,7 +175,9 @@ export default function Profile() {
         <button
           onClick={() => setTab(1)}
           className={
-            tab === 1 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+            tab === 1
+              ? `${formstyles.active} ${formstyles.tab}`
+              : `${formstyles.tab}`
           }
         >
           Reviews

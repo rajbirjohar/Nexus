@@ -3,9 +3,12 @@ import Image from 'next/image'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
+import NotFound from '../notFound'
 import TimeAgo from 'react-timeago'
+import ErrorFetch from '../ErrorFetch'
 import Loader from '@/components/Skeleton'
-import styles from '@/styles/form.module.css'
+import cardstyles from '@/styles/card.module.css'
+import formstyles from '@/styles/form.module.css'
 
 // Component: ListReviewPosts({course})
 // Params: course
@@ -19,18 +22,7 @@ export default function ListReviewPosts({ courseId }) {
   const [searchValue, setSearchValue] = useState('')
   if (error) {
     return (
-      <div className={styles.serverdown}>
-        <p>
-          Oops. Looks like the reviews are not being fetched right now. If this
-          persists, please let us know.
-        </p>
-        <Image
-          src={'/assets/server.svg'}
-          height={500}
-          width={500}
-          alt="Server Down Image"
-        />
-      </div>
+      <ErrorFetch placeholder="reviews" />
     )
   }
   if (!data) {
@@ -47,7 +39,7 @@ export default function ListReviewPosts({ courseId }) {
   return (
     <div>
       {data.reviewPosts.length === 0 ? (
-        <div className={styles.noreviews}>
+        <div className={formstyles.notFound}>
           <p>Be the first one to write a review!</p>
 
           <Image
@@ -58,15 +50,15 @@ export default function ListReviewPosts({ courseId }) {
           />
         </div>
       ) : (
-        <div className={styles.searchWrapper}>
+        <div className={formstyles.searchWrapper}>
           <input
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder="Quarter, professor or review"
-            className={styles.search}
+            className={formstyles.search}
           />
-          <svg className={styles.searchIcon}>
+          <svg className={formstyles.searchIcon}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -84,39 +76,27 @@ export default function ListReviewPosts({ courseId }) {
         </div>
       )}
       {!filteredReviews.length && data.reviewPosts.length !== 0 && (
-        <div className={styles.notFound}>
-          <h3>Woah There.</h3>
-          <p>
-            What!? That&#39;s crazy. It seems no reviews match your keywords. Be
-            the one to write it!
-            <br />
-            <cite>— Robert</cite>
-          </p>
-          <Image
-            src={'/assets/void.svg'}
-            width={300}
-            height={300}
-            alt="Nothing Found Image"
-          />
-        </div>
+        <NotFound placeholder="review" />
       )}
-      {filteredReviews.map((post) => (
-        <ReviewPostCard
-          key={post._id}
-          reviewPostId={post._id}
-          creator={post.creator}
-          creatorEmail={post.creatorEmail}
-          creatorId={post.creatorId}
-          courseId={post.courseId}
-          course={post.course}
-          reviewPost={post.reviewPost}
-          reviewProfessor={post.reviewProfessor}
-          taken={post.taken}
-          difficulty={post.difficulty}
-          anonymous={post.anonymous}
-          timestamp={<TimeAgo date={post.createdAt} />}
-        />
-      ))}
+      <div className={cardstyles.gridtall}>
+        {filteredReviews.map((post) => (
+          <ReviewPostCard
+            key={post._id}
+            reviewPostId={post._id}
+            creator={post.creator}
+            creatorEmail={post.creatorEmail}
+            creatorId={post.creatorId}
+            courseId={post.courseId}
+            course={post.course}
+            reviewPost={post.reviewPost}
+            reviewProfessor={post.reviewProfessor}
+            taken={post.taken}
+            difficulty={post.difficulty}
+            anonymous={post.anonymous}
+            timestamp={<TimeAgo date={post.createdAt} />}
+          />
+        ))}
+      </div>
     </div>
   )
 }

@@ -7,47 +7,8 @@
   margin-right: var(--gap-med);
 }
 
-.subtitle{
+.subtitle {
   font-size: 1.5rem;
-}
-
-.serverdown {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.searchWrapper {
-  position: relative;
-  width: 100%;
-}
-
-.search {
-  border: 2px solid var(--purple-200) !important;
-  width: 100%;
-  padding: var(--gap);
-  font-size: 18px;
-  border-radius: var(--radius);
-  margin: var(--gap) 0;
-  background-color: var(--gray-100) !important;
-  color: var(--purple-700) !important;
-}
-.search::placeholder {
-  color: var(--purple-700) !important;
-}
-
-.searchIcon {
-  position: absolute;
-  top: 35px;
-  right: 15px;
-  color: var(--purple-400) !important;
-}
-
-.notFound {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
 }
 
 .difficulty {

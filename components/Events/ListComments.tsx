@@ -1,19 +1,15 @@
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
-import TimeAgo from 'react-timeago'
+import ErrorFetch from '../ErrorFetch'
 import Comment from './Comment'
+import TimeAgo from 'react-timeago'
 
 export default function ListComments({ eventId, organizationId }) {
   const { data, error } = useSWR(`/api/events/comments/${eventId}`, fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
-    return (
-      <p>
-        Oops. Looks like comments are not being fetched right now. If this
-        persists, please let us know.
-      </p>
-    )
+    return <ErrorFetch placeholder="comments" />
   }
   if (!data) {
     return <p>Loading comments...</p>
