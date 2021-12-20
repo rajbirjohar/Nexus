@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import styles from '@/styles/card.module.css'
+import cardstyles from '@/styles/card.module.css'
 
 // Component: CourseCard({courseId, courseName})
 // Params: courseId, courseName
@@ -16,8 +16,8 @@ export default function CourseCard({ courseId, courseName }) {
     // listing all course review posts for that specific
     // course
     <Link href={`/courses/${courseName}`} passHref>
-      <div id={courseId} className={styles.coursecard}>
-        <h3 className={styles.course}>{courseName}</h3>
+      <div id={courseId} className={cardstyles.card}>
+        <h3 className={cardstyles.course}>{courseName}</h3>
       </div>
     </Link>
   )

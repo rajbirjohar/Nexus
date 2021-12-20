@@ -70,14 +70,16 @@ const Event = ({ event }) => {
           {session &&
             session.user.adminOfOrg &&
             session.user.adminOfOrg.includes(event.organizationId) && (
-              <button onClick={deleteEvent} className={formstyles.deleteaction}>
-                Delete Event
-              </button>
+              <div className={formstyles.actions}>
+                <button onClick={deleteEvent} className={formstyles.delete}>
+                  Delete Event
+                </button>
+              </div>
             )}
           {session &&
             session.user.creatorOfOrg &&
             session.user.creatorOfOrg.includes(event.organizationId) && (
-              <button onClick={deleteEvent} className={formstyles.deleteaction}>
+              <button onClick={deleteEvent} className={formstyles.delete}>
                 Delete Event
               </button>
             )}

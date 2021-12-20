@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
 import Loader from '@/components/Skeleton'
 import styles from '@/styles/organizations.module.css'
 import cardstyles from '@/styles/card.module.css'
+import ErrorFetch from '../ErrorFetch'
 
 // Component: ListOrganizations()
 // Params: None
@@ -17,20 +17,7 @@ export default function ListUserOrganizations() {
     refreshInterval: 1000,
   })
   if (error) {
-    return (
-      <div className={styles.serverdown}>
-        <p>
-          Oops. Looks like the organizations are not being fetched right now. If
-          this persists, please let us know.
-        </p>
-        <Image
-          src={'/assets/server.svg'}
-          height={500}
-          width={500}
-          alt="Server Down Image"
-        />
-      </div>
-    )
+    return <ErrorFetch placeholder="organizations" />
   }
   if (!data) {
     return <Loader />

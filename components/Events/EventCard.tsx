@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import styles from '@/styles/card.module.css'
+import cardstyles from '@/styles/card.module.css'
 
 // Component: CourseCard({courseId, courseName})
 // Params: courseId, courseName
@@ -29,12 +29,14 @@ export default function EventCard({
     // listing all course review posts for that specific
     // course
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
-      <motion.div variants={card} id={eventId} className={styles.gridcard}>
+      <motion.div variants={card} id={eventId} className={cardstyles.card}>
         {endDate > new Date() && <span>Expired</span>}
-        <h3 className={styles.course}>{eventName}</h3>
-        <span className={styles.author}>By {organizationName}</span>
+        <h3 className={cardstyles.course}>{eventName}</h3>
+        <span className={cardstyles.author}>
+          <strong>By {organizationName}</strong>
+        </span>
         <p className="clamp-2">{eventDetails}</p>
-        <span className={styles.date}>
+        <span className={cardstyles.date}>
           {new Date(startDate).toLocaleString('en-US', {
             dateStyle: 'short',
             timeStyle: 'short',

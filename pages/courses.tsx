@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import clientPromise from '@/lib/mongodb'
 import Layout from '@/components/Layout'
+import CourseCard from '@/components/Courses/CourseCard'
+import NotFound from '@/components/notFound'
 import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
-import { GetStaticProps } from 'next'
-import CourseCard from '@/components/Courses/CourseCard'
+import formstyles from '@/styles/form.module.css'
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
@@ -25,7 +27,7 @@ export default function CoursesPage({ courses }) {
             <p>
               Check out any course below. Each course will come with a list of
               reviews that other people have written from their experiences as a
-              student. Feel free to write your own for future readers.
+              student. Feel free to write your own for future readers ✍️.
             </p>
           </div>
           <Image
@@ -35,15 +37,15 @@ export default function CoursesPage({ courses }) {
             alt="Professor teaching"
           />
         </div>
-        <div className={styles.searchWrapper}>
+        <div className={formstyles.searchWrapper}>
           <input
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
             placeholder='Search courses ex. "SCOTTY101"'
-            className={styles.search}
+            className={formstyles.search}
           />
-          <svg className={styles.searchIcon}>
+          <svg className={formstyles.searchIcon}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,23 +62,11 @@ export default function CoursesPage({ courses }) {
           </svg>
         </div>
         {!filteredCourses.length && (
-          <div className={styles.notFound}>
-            <h3>Woah There.</h3>
-            <p>
-              What!? That&#39;s crazy. It seems this class does not yet exist.
-              Contact us if you want this class added.
-              <br />
-              <cite>— Robert</cite>
-            </p>
-            <Image
-              src={'/assets/void.svg'}
-              width={300}
-              height={300}
-              alt="Nothing Found Image"
-            />
-          </div>
+          <>
+            <NotFound placeholder="class" />
+          </>
         )}
-        <div className={cardstyles.courseGrid}>
+        <div className={cardstyles.gridshort}>
           {searchValue.length > 1 &&
             filteredCourses.map((course) => (
               <CourseCard
@@ -93,7 +83,9 @@ export default function CoursesPage({ courses }) {
     </Layout>
   )
 }
-
+// We use getStaticProps here so we are able to generate all the data
+// before build time and serve it to the client instantaneously
+// which is then cached by the server
 export const getStaticProps: GetStaticProps = async (context) => {
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)

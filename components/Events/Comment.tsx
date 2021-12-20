@@ -48,7 +48,7 @@ const Comment = ({
     <div className={cardstyles.comment}>
       <div>
         <p>{comment}</p>
-        <span className={cardstyles.authorlabel}>
+        <span className={cardstyles.author}>
           {author} about {date}
         </span>{' '}
         {(session && isAdmin) || (session && session.user.id === authorId) ? (

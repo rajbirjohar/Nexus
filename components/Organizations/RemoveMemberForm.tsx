@@ -1,5 +1,6 @@
 import Router from 'next/router'
 import toast from 'react-hot-toast'
+import formstyles from '@/styles/form.module.css'
 
 export default function RemoveMemberForm({
   memberId,
@@ -31,7 +32,9 @@ export default function RemoveMemberForm({
   }
   return (
     <form onSubmit={handleSubmit}>
-      <button type="submit">Leave {organizationName}</button>
+      <div className={formstyles.actions}>
+        <button type="submit">Leave {organizationName}</button>
+      </div>
     </form>
   )
 }

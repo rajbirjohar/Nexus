@@ -129,7 +129,7 @@ export default function OrganizationsForm() {
         {maxLength - organization._organizationDescription.length}/{maxLength}
       </div>
       <div className={styles.actions}>
-        <button className={styles.postbutton} type="submit">
+        <button className={styles.post} type="submit">
           Create Organization
         </button>
       </div>
