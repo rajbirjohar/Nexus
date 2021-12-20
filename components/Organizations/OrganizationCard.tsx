@@ -1,6 +1,5 @@
 import React from 'react'
-import { useSession } from 'next-auth/react'
-import styles from '@/styles/card.module.css'
+import cardstyles from '@/styles/card.module.css'
 import Link from 'next/link'
 
 // Component: OrganizationCard({
@@ -21,12 +20,12 @@ export default function OrganizationCard({
     // Link is used to route each card to a dynamic page
     // listing all details for that specific organization
     <Link href={`/organizations/${organizationName}`} passHref>
-      <div className={styles.gridcard}>
-        <div className={styles.orgheader}>
-          <h3 className={styles.organizationName}>{organizationName}</h3>
+      <div className={cardstyles.card}>
+        <div className={cardstyles.orgheader}>
+          <h3 className={cardstyles.organizationName}>{organizationName}</h3>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className={styles.linkIcon}
+            className={cardstyles.linkIcon}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -40,7 +39,7 @@ export default function OrganizationCard({
           </svg>
         </div>
 
-        <h4 className={`${styles.organizationTagline} ${'clamp-2'}`}>
+        <h4 className={`${cardstyles.organizationTagline} ${'clamp-2'}`}>
           {organizationTagline}
         </h4>
       </div>

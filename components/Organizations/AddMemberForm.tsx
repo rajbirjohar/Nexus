@@ -1,6 +1,6 @@
 import Router from 'next/router'
 import toast from 'react-hot-toast'
-import styles from '@/styles/form.module.css'
+import formstyles from '@/styles/form.module.css'
 
 export default function AddMemberForm({
   memberId,
@@ -32,9 +32,11 @@ export default function AddMemberForm({
   }
   return (
     <form onSubmit={handleSubmit}>
-      <button type="submit" className={styles.postbutton}>
-        Join {organizationName}
-      </button>
+      <div className={formstyles.actions}>
+        <button type="submit" className={formstyles.post}>
+          Join {organizationName}
+        </button>
+      </div>
     </form>
   )
 }

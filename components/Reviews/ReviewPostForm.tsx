@@ -157,7 +157,7 @@ export default function ReviewPostForm({ course, courseId }) {
         <span className={styles.checkmark}></span>
       </span>
       <div className={styles.actions}>
-        <button className={styles.postbutton} type="submit">
+        <button className={styles.post} type="submit">
           Post Review!
         </button>
       </div>

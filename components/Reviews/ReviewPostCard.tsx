@@ -1,7 +1,8 @@
 import React from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import styles from '@/styles/card.module.css'
+import cardstyles from '@/styles/card.module.css'
+import formstyles from '@/styles/form.module.css'
 
 // Component: ReviewPostCard({
 // reviewee,
@@ -51,10 +52,10 @@ export default function ReviewPostCard({
   }
 
   return (
-    <div className={styles.card}>
-      <div className={styles.reviewheader}>
-        <h3 className={styles.coursetitle}>{course}</h3>
-        <h3 className={styles.difficulty}>{difficulty}</h3>
+    <div className={cardstyles.card}>
+      <div className={cardstyles.reviewheader}>
+        <h3 className={cardstyles.coursetitle}>{course}</h3>
+        <h3 className={cardstyles.difficulty}>{difficulty}</h3>
       </div>
       <p>
         <strong>Review:</strong> <br />
@@ -66,14 +67,14 @@ export default function ReviewPostCard({
       <p>
         <strong>Taken:</strong> {taken}
       </p>
-      <p className={styles.authorlabel}>
+      <p className={cardstyles.author}>
         <strong>Author: </strong>
         {anonymous === true ? <>Anonymous</> : <>{creator}</>} about {timestamp}
       </p>
       {session && session.user.id === creatorId && (
-        <div className={styles.actions}>
+        <div className={formstyles.actions}>
           {/* <button className={styles.modify}>Modify</button> */}
-          <button onClick={deleteReviewPost} className={styles.deleteaction}>
+          <button onClick={deleteReviewPost} className={formstyles.delete}>
             Delete
           </button>
         </div>

@@ -67,7 +67,7 @@ export default function AddAdminForm({ organizationId }) {
           className={styles.input}
         />
         <span className={styles.actions}>
-          <button type="submit" className={styles.postbutton}>
+          <button type="submit" className={styles.post}>
             Add Admin
           </button>
         </span>

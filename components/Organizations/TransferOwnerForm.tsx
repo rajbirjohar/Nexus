@@ -57,7 +57,7 @@ export default function TransferOwnerForm({ organizationId }) {
       <h3>Transfer Owner</h3>
       <p>
         This action is irreversible unless the new owner transfer the
-        organization back to you. Please ensure this is what you want to do.
+        organization back to you. Please ensure this is what you want to do 🤔.
       </p>
       <form onSubmit={handleSubmit} className={styles.inputWrapper}>
         <label htmlFor="_email">
@@ -85,7 +85,7 @@ export default function TransferOwnerForm({ organizationId }) {
           className={styles.input}
         />
         <span className={styles.actions}>
-          <button type="submit" className={styles.deleteaction}>
+          <button type="submit" className={styles.delete}>
             Transfer Owner
           </button>
         </span>

@@ -18,14 +18,14 @@
   color: var(--purple-800) !important;
 }
 
-.postbutton {
+.post {
   margin: var(--gap-half) 0;
   background-color: var(--purple-500);
   color: var(--purple-50);
   width: max-content;
 }
 
-.postbutton:hover {
+.post:hover {
   background-color: var(--purple-600);
 }
 
@@ -41,17 +41,13 @@
   justify-content: flex-end;
 }
 
-.revealactions {
-  margin-bottom: var(--gap-med);
-}
-
-.deleteaction {
+.delete {
+  margin: var(--gap-half) 0;
   color: var(--red-900);
   background: var(--red-100);
-  width: max-content;
 }
 
-.deleteaction:hover {
+.delete:hover {
   background-color: var(--red-200);
 }
 
@@ -102,12 +98,6 @@
 }
 
 /* Review form styles */
-.noreviews {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .checkedWrapper {
   display: flex;
   flex-direction: row-reverse;
@@ -170,24 +160,15 @@
 }
 
 /* Warning form */
-.warningWrapper {
-  display: flex;
-  flex-direction: column;
-  margin-top: var(--gap-med);
-  padding: var(--gap-med);
-  border: 2px solid var(--red-200);
-  background-color: var(--red-50);
-  border-radius: var(--radius);
-}
-
 .warningTitle {
   display: flex;
   align-items: center;
-  gap: var(--gap-quarter)
+  gap: var(--gap-quarter);
+  margin: 0;
 }
 
 .warningIcon {
-  transform: scale(1.20);
+  transform: scale(1.2);
 }
 
 .setrolebutton {
@@ -236,7 +217,7 @@
   .actions {
     flex-direction: column;
   }
-  .postbutton {
+  .post {
     width: 100%;
   }
 }

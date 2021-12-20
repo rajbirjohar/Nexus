@@ -4,6 +4,8 @@ import useSWR from 'swr'
 import Loader from '../Skeleton'
 import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
+import NotFound from '../notFound'
+import ErrorFetch from '../ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
 
@@ -13,20 +15,7 @@ export default function ListUserEvents() {
   })
   const [searchValue, setSearchValue] = useState('')
   if (error) {
-    return (
-      <div className={formstyles.serverdown}>
-        <p>
-          Oops. Looks like the reviews are not being fetched right now. If this
-          persists, please let us know.
-        </p>
-        <Image
-          src={'/assets/server.svg'}
-          height={500}
-          width={500}
-          alt="Server Down Image"
-        />
-      </div>
-    )
+    return <ErrorFetch placeholder="events" />
   }
   if (!data) {
     return <Loader />
@@ -42,7 +31,7 @@ export default function ListUserEvents() {
   return (
     <div>
       {data.events.length === 0 ? (
-        <div className={formstyles.noreviews}>
+        <div className={formstyles.notFound}>
           <p>Create an event!</p>
 
           <Image
@@ -80,21 +69,7 @@ export default function ListUserEvents() {
       )}
 
       {!filteredEvents.length && data.events.length !== 0 && (
-        <div className={formstyles.notFound}>
-          <h3>Woah There.</h3>
-          <p>
-            What!? That&#39;s crazy. It seems this event does not yet exist.
-            <br />
-            <cite>— Robert</cite>
-          </p>
-
-          <Image
-            src={'/assets/void.svg'}
-            width={300}
-            height={300}
-            alt="Nothing Found Image"
-          />
-        </div>
+        <NotFound placeholder="event" />
       )}
       <div className={cardstyles.grid}>
         {filteredEvents.map((newEvent) => (

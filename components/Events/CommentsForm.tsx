@@ -63,7 +63,7 @@ export default function CommentsForm({ eventId }) {
         className={styles.input}
       />
       <div className={styles.actions}>
-        <button type="submit" className={styles.postbutton}>
+        <button type="submit" className={styles.post}>
           Post Comment
         </button>
       </div>

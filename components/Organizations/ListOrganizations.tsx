@@ -4,6 +4,8 @@ import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
 import Loader from '@/components/Skeleton'
+import NotFound from '../notFound'
+import ErrorFetch from '../ErrorFetch'
 import styles from '@/styles/organizations.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
@@ -19,20 +21,7 @@ export default function ListOrganizations() {
   })
   const [searchValue, setSearchValue] = useState('')
   if (error) {
-    return (
-      <div className={styles.serverdown}>
-        <p>
-          Oops. Looks like the organizations are not being fetched right now. If
-          this persists, please let us know.
-        </p>
-        <Image
-          src={'/assets/server.svg'}
-          height={500}
-          width={500}
-          alt="Server Down Image"
-        />
-      </div>
-    )
+    return <ErrorFetch placeholder="organizations" />
   }
   if (!data) {
     return <Loader />
@@ -45,7 +34,7 @@ export default function ListOrganizations() {
   return (
     <div>
       {data.organizations.length === 0 ? (
-        <div className={styles.noreviews}>
+        <div className={styles.notFound}>
           <p>Create the first organization!</p>
 
           <Image
@@ -83,21 +72,7 @@ export default function ListOrganizations() {
       )}
 
       {!filteredOrgs.length && data.organizations.length !== 0 && (
-        <div className={formstyles.notFound}>
-          <h3>Woah There.</h3>
-          <p>
-            What!? That&#39;s crazy. It seems this organization does not yet
-            exist. Be the one to create it!
-            <br />
-            <cite>— Robert</cite>
-          </p>
-          <Image
-            src={'/assets/void.svg'}
-            width={300}
-            height={300}
-            alt="Nothing Found Image"
-          />
-        </div>
+        <NotFound placeholder="organization" />
       )}
       <div className={cardstyles.grid}>
         {filteredOrgs.map((organization) => (

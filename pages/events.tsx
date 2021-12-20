@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import ListAllEvents from '@/components/Events/ListAllEvents'
 import Layout from '@/components/Layout'
 import styles from '@/styles/events.module.css'
+import formstyles from '@/styles/form.module.css'
 import ListUserEvents from '@/components/Events/ListUserEvents'
 
 export default function EventsPage() {
@@ -23,7 +24,7 @@ export default function EventsPage() {
               This is where you&#39;ll be able to see all of the ongoing and
               future events of our clubs and organizations. Events are sorted by
               the date and time that they end. If you&#39;re a club organizer,
-              feel free to post your own event!
+              feel free to post your own event 🎟!
             </p>
           </div>
           <Image
@@ -36,11 +37,13 @@ export default function EventsPage() {
 
         {session ? (
           <>
-            <div className={styles.tabs}>
+            <div className={formstyles.tabs}>
               <button
                 onClick={() => setTab(0)}
                 className={
-                  tab === 0 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+                  tab === 0
+                    ? `${formstyles.active} ${formstyles.tab}`
+                    : `${formstyles.tab}`
                 }
               >
                 All Events
@@ -48,7 +51,9 @@ export default function EventsPage() {
               <button
                 onClick={() => setTab(1)}
                 className={
-                  tab === 1 ? `${styles.active} ${styles.tab}` : `${styles.tab}`
+                  tab === 1
+                    ? `${formstyles.active} ${formstyles.tab}`
+                    : `${formstyles.tab}`
                 }
               >
                 Member Events

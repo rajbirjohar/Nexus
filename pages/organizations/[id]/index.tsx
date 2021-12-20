@@ -82,14 +82,17 @@ const Organization = ({ organization, superMembers, members }) => {
                 organizationId={organization._id}
               />
               <h3>Members</h3>
+              <p>View all the members that joined your organization.</p>
               {displayMembers ? (
                 <div>
-                  <button onClick={() => setDisplayMembers(!displayMembers)}>
-                    Hide Members
-                  </button>
+                  <div className={formstyles.actions}>
+                    <button onClick={() => setDisplayMembers(!displayMembers)}>
+                      Hide Members
+                    </button>
+                  </div>
                   <ul className={styles.memberslist}>
                     {members.length === 0 && (
-                      <p>No one has joined your organization yet.</p>
+                      <p>No one has joined your organization yet 😭.</p>
                     )}
                     {members.map((member) => (
                       <li key={member.memberId}>
@@ -99,7 +102,7 @@ const Organization = ({ organization, superMembers, members }) => {
                   </ul>
                 </div>
               ) : (
-                <div>
+                <div className={formstyles.actions}>
                   <button onClick={() => setDisplayMembers(!displayMembers)}>
                     Show Members
                   </button>
@@ -109,10 +112,15 @@ const Organization = ({ organization, superMembers, members }) => {
           )}
           {session && isCreator && (
             <>
-              <h2>Dangerous Actions</h2>
-              <div className={formstyles.revealactions}>
+              <h3>Dangerous Actions</h3>
+              <p>
+                Only the organization owner can view and perform these actions.
+                Please read through each warning before proceeding. It&#39;s
+                very tedious to manually change the database 😅.
+              </p>
+              <div className={formstyles.actions}>
                 <button
-                  className={formstyles.deleteaction}
+                  className={formstyles.delete}
                   onClick={() => setDisplayActions(!displayActions)}
                 >
                   Show Actions
