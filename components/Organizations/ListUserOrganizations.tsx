@@ -24,7 +24,7 @@ export default function ListUserOrganizations() {
   }
   return (
     <>
-      <h3 className={styles.subtitle}>Created Organizations</h3>
+      <h3 className={styles.subtitle}>Created</h3>
       <div className={cardstyles.grid}>
         {data.creatorOrganization.length === 0 && (
           <Link href="/organizations" passHref>
@@ -40,7 +40,7 @@ export default function ListUserOrganizations() {
           />
         ))}
       </div>
-      <h3 className={styles.subtitle}>Admined Organizations</h3>
+      <h3 className={styles.subtitle}>Admined</h3>
       <div className={cardstyles.grid}>
         {data.adminOrganizations.length === 0 && (
           <p>
@@ -57,7 +57,7 @@ export default function ListUserOrganizations() {
           />
         ))}
       </div>
-      <h3 className={styles.subtitle}>Joined Organizations</h3>
+      <h3 className={styles.subtitle}>Joined</h3>
       <div className={cardstyles.grid}>
         {data.memberOrganizations.length === 0 && (
           <Link href="/organizations" passHref>
