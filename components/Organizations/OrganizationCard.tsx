@@ -21,24 +21,7 @@ export default function OrganizationCard({
     // listing all details for that specific organization
     <Link href={`/organizations/${organizationName}`} passHref>
       <div className={cardstyles.card}>
-        <div className={cardstyles.orgheader}>
-          <h3 className={cardstyles.organizationName}>{organizationName}</h3>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className={cardstyles.linkIcon}
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="5"
-              d="M14 5l7 7m0 0l-7 7m7-7H3"
-            />
-          </svg>
-        </div>
-
+        <h3 className={cardstyles.organizationName}>{organizationName}</h3>
         <h4 className={`${cardstyles.organizationTagline} ${'clamp-2'}`}>
           {organizationTagline}
         </h4>

@@ -79,25 +79,6 @@
   height: 0vh;
 }
 
-.primary,
-.secondary {
-  margin-left: 0;
-}
-
-.primary {
-  background: var(--purple-300);
-  color: var(--purple-900);
-  transition: background var(--transition);
-}
-
-.primary:hover {
-  background: var(--purple-400);
-}
-
-.secondary:hover {
-  background: var(--gray-300);
-}
-
 .themeWrapper {
   display: flex;
   align-items: center;
