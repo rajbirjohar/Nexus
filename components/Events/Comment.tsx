@@ -54,9 +54,9 @@ const Comment = ({
         {(session && isAdmin) || (session && session.user.id === authorId) ? (
           <>
             /{' '}
-            <button onClick={handleSubmit} className={formstyles.deletecomment}>
+            <span onClick={handleSubmit} className={formstyles.deletecomment}>
               Delete
-            </button>
+            </span>
           </>
         ) : null}
       </div>

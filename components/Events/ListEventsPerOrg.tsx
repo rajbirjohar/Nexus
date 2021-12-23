@@ -19,7 +19,7 @@ export default function ListEventsPerOrg({ organizationId }) {
   }
   return (
     <div className={cardstyles.grid}>
-      {data.events.length === 0 && <p>Create your first event!</p>}
+      {data.events.length === 0 && <p>No events have been made.</p>}
       {data.events.map((newEvent) => (
         <EventCard
           key={newEvent._id}

@@ -65,8 +65,8 @@ export default function OrganizationsPage() {
             <h1>Organizations</h1>
             <p>
               Looking for a specific club or organization? Here you can view
-              them all at a glance. Each organization contains all of their
-              own events so be sure to check those out 💃.
+              them all at a glance. Each organization contains all of their own
+              events so be sure to check those out 💃.
             </p>
 
             {session &&

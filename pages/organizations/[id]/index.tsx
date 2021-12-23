@@ -64,7 +64,7 @@ const Organization = ({ organization, superMembers, members }) => {
               organizationName={organization.organizationName}
             />
           )}
-          <h3>Admins</h3>
+          <h2>Admins</h2>
           <ul className={styles.memberslist}>
             {superMembers.map((superMember) => (
               <li key={superMember.adminId}>
@@ -81,15 +81,31 @@ const Organization = ({ organization, superMembers, members }) => {
                 organizationName={organization.organizationName}
                 organizationId={organization._id}
               />
-              <h3>Members</h3>
-              <p>View all the members that joined your organization.</p>
-              {displayMembers ? (
+              <div className={formstyles.revealheader}>
+                <h2>Members</h2>
+                <button
+                  className={
+                    displayMembers
+                      ? `${formstyles.reveal} ${formstyles.rotated}`
+                      : `${formstyles.reveal} `
+                  }
+                  onClick={() => setDisplayMembers(!displayMembers)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+              {displayMembers && (
                 <div>
-                  <div className={formstyles.actions}>
-                    <button onClick={() => setDisplayMembers(!displayMembers)}>
-                      Hide Members
-                    </button>
-                  </div>
                   <ul className={styles.memberslist}>
                     {members.length === 0 && (
                       <p>No one has joined your organization yet 😭.</p>
@@ -101,40 +117,51 @@ const Organization = ({ organization, superMembers, members }) => {
                     ))}
                   </ul>
                 </div>
-              ) : (
-                <div className={formstyles.actions}>
-                  <button onClick={() => setDisplayMembers(!displayMembers)}>
-                    Show Members
-                  </button>
-                </div>
               )}
             </>
           )}
           {session && isCreator && (
             <>
-              <h3>Dangerous Actions</h3>
-              <p>
-                Only the organization owner can view and perform these actions.
-                Please read through each warning before proceeding. It&#39;s
-                very tedious to manually change the database 😅.
-              </p>
-              <div className={formstyles.actions}>
+              <div className={formstyles.revealheader}>
+                <h2>Dangerous Actions</h2>
                 <button
-                  className={formstyles.delete}
+                  className={
+                    displayActions
+                      ? `${formstyles.reveal} ${formstyles.rotated}`
+                      : `${formstyles.reveal} `
+                  }
                   onClick={() => setDisplayActions(!displayActions)}
                 >
-                  Show Actions
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
                 </button>
               </div>
               {displayActions && (
-                <DangerousActions
-                  organizationId={organization._id}
-                  organizationName={organization.organizationName}
-                />
+                <>
+                  <p>
+                    Only the organization owner can view and perform these
+                    actions. Please read through each warning before proceeding.
+                    It&#39;s very tedious to manually change the database 😅.
+                  </p>
+
+                  <DangerousActions
+                    organizationId={organization._id}
+                    organizationName={organization.organizationName}
+                  />
+                </>
               )}
             </>
           )}
-          <h3>Events</h3>
+          <h2>Events</h2>
           <ListEventsPerOrg organizationId={organization._id} />
         </>
       ))}

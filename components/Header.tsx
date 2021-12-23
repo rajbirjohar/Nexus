@@ -4,7 +4,8 @@ import Link from 'next/link'
 import ThemeChanger from '@/components/Theme'
 import { useWindowSize } from 'hooks/useWindowSize'
 import styles from '@/styles/header.module.css'
-import { motion, AnimatePresence } from 'framer-motion'
+import formstyles from '@/styles/form.module.css'
+import { motion } from 'framer-motion'
 
 // Component: Header
 // Params: none
@@ -92,19 +93,14 @@ export default function Header() {
                 <>
                   <Link href="/profile">Profile</Link>
                   <li>
-                    <button
-                      className={styles.secondary}
-                      onClick={() => signOut()}
-                    >
-                      Sign out
-                    </button>
+                    <button onClick={() => signOut()}>Sign out</button>
                   </li>
                 </>
               ) : (
                 // Else display the mobile navigation bar
                 <li>
                   <button
-                    className={styles.primary}
+                    className={formstyles.primary}
                     onClick={() => signIn('google')}
                   >
                     Sign in
@@ -165,7 +161,6 @@ export default function Header() {
                 />
                 <motion.button
                   variants={listItems}
-                  className={styles.secondary}
                   onClick={() =>
                     signOut({
                       callbackUrl: `${window.location.origin}`,
@@ -178,7 +173,7 @@ export default function Header() {
             ) : (
               <motion.button
                 variants={listItems}
-                className={styles.primary}
+                className={formstyles.primary}
                 onClick={() =>
                   signIn('google', {
                     callbackUrl: `${window.location.origin}/profile`,
