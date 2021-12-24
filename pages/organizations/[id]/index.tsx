@@ -12,6 +12,37 @@ import AddAdminForm from '@/components/Organizations/AddAdminForm'
 import AddMemberForm from '@/components/Organizations/AddMemberForm'
 import RemoveMemberForm from '@/components/Organizations/RemoveMemberForm'
 import DangerousActions from '@/components/Organizations/DangerousActions'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const list = {
+  closed: {
+    opacity: 0,
+    height: '0',
+    transition: {
+      duration: 0.15,
+      delayChildren: 0.15,
+    },
+  },
+  open: {
+    opacity: 1,
+    height: 'auto',
+    transition: {
+      duration: 0.25,
+      delayChildren: 0.15,
+    },
+  },
+}
+
+const listItems = {
+  closed: {
+    opacity: 0,
+    y: -5,
+  },
+  open: {
+    opacity: 1,
+    y: 0,
+  },
+}
 
 const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
@@ -104,20 +135,26 @@ const Organization = ({ organization, superMembers, members }) => {
                   </svg>
                 </button>
               </div>
-              {displayMembers && (
-                <div>
-                  <ul className={styles.memberslist}>
+              <AnimatePresence exitBeforeEnter>
+                {displayMembers && (
+                  <motion.ul
+                    animate={displayMembers ? 'open' : 'closed'}
+                    variants={list}
+                    exit="closed"
+                    initial="closed"
+                    className={styles.memberslist}
+                  >
                     {members.length === 0 && (
                       <p>No one has joined your organization yet 😭.</p>
                     )}
                     {members.map((member) => (
-                      <li key={member.memberId}>
+                      <motion.li variants={listItems} key={member.memberId}>
                         <strong>{member.member}</strong> / {member.email}
-                      </li>
+                      </motion.li>
                     ))}
-                  </ul>
-                </div>
-              )}
+                  </motion.ul>
+                )}
+              </AnimatePresence>
             </>
           )}
           {session && isCreator && (
@@ -145,20 +182,29 @@ const Organization = ({ organization, superMembers, members }) => {
                   </svg>
                 </button>
               </div>
-              {displayActions && (
-                <>
-                  <p>
-                    Only the organization owner can view and perform these
-                    actions. Please read through each warning before proceeding.
-                    It&#39;s very tedious to manually change the database 😅.
-                  </p>
-
-                  <DangerousActions
-                    organizationId={organization._id}
-                    organizationName={organization.organizationName}
-                  />
-                </>
-              )}
+              <AnimatePresence exitBeforeEnter>
+                {displayActions && (
+                  <motion.div
+                    animate={displayActions ? 'open' : 'closed'}
+                    variants={list}
+                    exit="closed"
+                    initial="closed"
+                  >
+                    <motion.div variants={listItems}>
+                      <p>
+                        Only the organization owner can view and perform these
+                        actions. Please read through each warning before
+                        proceeding. It&#39;s very tedious to manually change the
+                        database 😅.
+                      </p>
+                      <DangerousActions
+                        organizationId={organization._id}
+                        organizationName={organization.organizationName}
+                      />
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </>
           )}
           <h2>Events</h2>

@@ -5,7 +5,7 @@ import ThemeChanger from '@/components/Theme'
 import { useWindowSize } from 'hooks/useWindowSize'
 import styles from '@/styles/header.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 // Component: Header
 // Params: none
@@ -24,14 +24,16 @@ const list = {
     opacity: 1,
     height: '0vh',
     transition: {
-      duration: 0.0005,
+      delay: 0.1,
+      duration: 0.25,
+      staggerChildren: 0.05,
     },
   },
   open: {
     opacity: 1,
     height: '100vh',
     transition: {
-      duration: 0.0005,
+      duration: 0.25,
       delayChildren: 0.05,
       staggerChildren: 0.05,
     },
@@ -41,11 +43,11 @@ const list = {
 const listItems = {
   closed: {
     opacity: 0,
-    x: -15,
+    y: -15,
   },
   open: {
     opacity: 1,
-    x: 0,
+    y: 0,
   },
 }
 
@@ -130,63 +132,71 @@ export default function Header() {
               }
             ></span>
           </div>
-          <motion.ul
-            animate={open ? 'open' : 'closed'}
-            variants={list}
-            className={styles.notopen}
-          >
-            <MobileLink path="/" title="Home" onClick={() => setOpen(!open)} />
-            <MobileLink
-              path="/courses"
-              title="Courses"
-              onClick={() => setOpen(!open)}
-            />
-            <MobileLink
-              path="/events"
-              title="Events"
-              onClick={() => setOpen(!open)}
-            />
-            <MobileLink
-              path="/organizations"
-              title="Organizations"
-              onClick={() => setOpen(!open)}
-            />
+          <AnimatePresence exitBeforeEnter>
+            <motion.ul
+              animate={open ? 'open' : 'closed'}
+              variants={list}
+              exit="closed"
+              initial={false}
+              className={styles.notopen}
+            >
+              <MobileLink
+                path="/"
+                title="Home"
+                onClick={() => setOpen(!open)}
+              />
+              <MobileLink
+                path="/courses"
+                title="Courses"
+                onClick={() => setOpen(!open)}
+              />
+              <MobileLink
+                path="/events"
+                title="Events"
+                onClick={() => setOpen(!open)}
+              />
+              <MobileLink
+                path="/organizations"
+                title="Organizations"
+                onClick={() => setOpen(!open)}
+              />
 
-            {session ? (
-              <>
-                <MobileLink
-                  path="/profile"
-                  title="Profile"
-                  onClick={() => setOpen(!open)}
-                />
+              {session ? (
+                <>
+                  <MobileLink
+                    path="/profile"
+                    title="Profile"
+                    onClick={() => setOpen(!open)}
+                  />
+                  <motion.button
+                    variants={listItems}
+                    onClick={() =>
+                      signOut({
+                        callbackUrl: `${window.location.origin}`,
+                      })
+                    }
+                  >
+                    Sign out
+                  </motion.button>
+                </>
+              ) : (
                 <motion.button
                   variants={listItems}
+                  className={formstyles.primarylogin}
                   onClick={() =>
-                    signOut({
-                      callbackUrl: `${window.location.origin}`,
+                    signIn('google', {
+                      callbackUrl: `${window.location.origin}/profile`,
                     })
                   }
                 >
-                  Sign out
+                  Sign in
                 </motion.button>
-              </>
-            ) : (
-              <motion.button
-                variants={listItems}
-                className={formstyles.primarylogin}
-                onClick={() =>
-                  signIn('google', {
-                    callbackUrl: `${window.location.origin}/profile`,
-                  })
-                }
-              >
-                Sign in
-              </motion.button>
-            )}
-            <motion.li variants={listItems}>
-              <ThemeChanger />
-            </motion.li>
-          </motion.ul>
+              )}
+              <motion.li variants={listItems}>
+                <ThemeChanger />
+              </motion.li>
+            </motion.ul>
+          </AnimatePresence>
         </nav>
       )}
     </>

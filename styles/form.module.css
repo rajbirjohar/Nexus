@@ -99,6 +99,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .reveal {

@@ -9,6 +9,17 @@ import NotFound from '@/components/notFound'
 import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
+import { motion } from 'framer-motion'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+}
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
@@ -67,7 +78,13 @@ export default function CoursesPage({ courses }) {
             <NotFound placeholder="class" />
           </>
         )}
-        <div className={cardstyles.gridshort}>
+
+        <motion.div
+          variants={list}
+          initial="hidden"
+          animate="show"
+          className={cardstyles.gridshort}
+        >
           {searchValue.length > 1 &&
             filteredCourses.map((course) => (
               <CourseCard
@@ -76,7 +93,8 @@ export default function CoursesPage({ courses }) {
                 courseName={course.subjectCourse}
               />
             ))}
-        </div>
+        </motion.div>
+
         <h4>Go ahead and search for a course.</h4>
 
         <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>

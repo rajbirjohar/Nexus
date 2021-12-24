@@ -9,6 +9,17 @@ import ErrorFetch from '../ErrorFetch'
 import styles from '@/styles/organizations.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
+import { motion } from 'framer-motion'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+}
 
 // Component: ListOrganizations()
 // Params: None
@@ -46,7 +57,8 @@ export default function ListOrganizations() {
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>
-          <input autoComplete="off"
+          <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -74,7 +86,13 @@ export default function ListOrganizations() {
       {!filteredOrgs.length && data.organizations.length !== 0 && (
         <NotFound placeholder="organization" />
       )}
-      <div className={cardstyles.grid}>
+
+      <motion.div
+        variants={list}
+        initial="hidden"
+        animate="show"
+        className={cardstyles.grid}
+      >
         {filteredOrgs.map((organization) => (
           <OrganizationCard
             key={organization._id}
@@ -83,7 +101,7 @@ export default function ListOrganizations() {
             organizationTagline={organization.organizationTagline}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }
