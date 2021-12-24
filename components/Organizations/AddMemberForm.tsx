@@ -1,4 +1,4 @@
-import Router from 'next/router'
+import Router, {useRouter} from 'next/router'
 import toast from 'react-hot-toast'
 import formstyles from '@/styles/form.module.css'
 
@@ -7,6 +7,7 @@ export default function AddMemberForm({
   organizationId,
   organizationName,
 }) {
+  const router = useRouter()
   const member = { memberId, organizationId }
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -32,11 +33,11 @@ export default function AddMemberForm({
   }
   return (
     <form onSubmit={handleSubmit}>
-      <div className={formstyles.actions}>
-        <button type="submit" className={formstyles.post}>
+      <span className={formstyles.actions}>
+        <button type="submit" className={formstyles.primary}>
           Join {organizationName}
         </button>
-      </div>
+      </span>
     </form>
   )
 }

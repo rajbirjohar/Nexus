@@ -69,7 +69,7 @@ export default function EventForm({
     return data.newEventData
   }
   return (
-    <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <h3>New Event</h3>
       <p>
         You can create new events using the form below. The date input requires
@@ -81,12 +81,13 @@ export default function EventForm({
         <strong>Event Name:</strong>
       </label>
       <input
+        autoComplete="off"
         aria-label="Event Name Input"
         name="_eventName"
         value={newEvent._eventName}
         onChange={handleChange}
         type="text"
-        placeholder="Block Party"
+        placeholder="Scotty's Birthday"
         className={styles.input}
       />
       <label htmlFor="_eventDetails">
@@ -97,16 +98,17 @@ export default function EventForm({
         name="_eventDetails"
         value={newEvent._eventDetails}
         onChange={handleChange}
-        placeholder="Block Party"
+        placeholder="Scotty's Birthday Details"
         className={styles.input}
       />
-      <div>
+      <span className={styles.maxlength}>
         {maxLength - newEvent._eventDetails.length}/{maxLength}
-      </div>
+      </span>
       <label htmlFor="_eventStartDate">
         <strong>Event Start Date:</strong>
       </label>
       <input
+        autoComplete="off"
         aria-label="Event Start Date Input"
         name="_eventStartDate"
         value={newEvent._eventStartDate}
@@ -118,6 +120,7 @@ export default function EventForm({
         <strong>Event End Date:</strong>
       </label>
       <input
+        autoComplete="off"
         aria-label="Event End Date Input"
         name="_eventEndDate"
         value={newEvent._eventEndDate}
@@ -126,7 +129,7 @@ export default function EventForm({
         className={styles.input}
       />
       <div className={styles.actions}>
-        <button className={styles.post} type="submit">
+        <button className={styles.primary} type="submit">
           Post Event!
         </button>
       </div>

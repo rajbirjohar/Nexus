@@ -44,7 +44,7 @@ export default function TransferOwnerForm({ organizationId }) {
     } else if (response.status === 403) {
       toast.error('User is already the owner of this org or another one.')
     } else if (response.status === 200) {
-      toast.success('Successfully transferred ownership!')
+      toast.success('Successfully transferrose ownership!')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -59,11 +59,11 @@ export default function TransferOwnerForm({ organizationId }) {
         This action is irreversible unless the new owner transfer the
         organization back to you. Please ensure this is what you want to do 🤔.
       </p>
-      <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="_email">
           <strong>Email:</strong>
         </label>
-        <input
+        <input autoComplete="off"
           aria-label="Admin Email Input"
           name="_email"
           value={admin._email}
@@ -75,7 +75,7 @@ export default function TransferOwnerForm({ organizationId }) {
         <label htmlFor="_emailConfirm">
           <strong>Confirm Email:</strong>
         </label>
-        <input
+        <input autoComplete="off"
           aria-label="Admin Email Input"
           name="_emailConfirm"
           value={admin._emailConfirm}

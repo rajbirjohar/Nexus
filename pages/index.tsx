@@ -66,7 +66,7 @@ export default function Home() {
           <p>
             Post your experience and rate the difficulty for any course at UCR.
             Provide feedback on the course structure and the professor. With
-            students&#39; reviews, Nexus can help students be better prepared
+            students&#39; reviews, Nexus can help students be better preparose
             for future quarters.
           </p>
         </div>

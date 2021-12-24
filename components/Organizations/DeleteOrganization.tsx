@@ -75,11 +75,12 @@ export default function DeleteOrganization({
         Please enter <strong>&#34;{organizationName}&#34;</strong> to delete
         this organization.
       </p>
-      <form onSubmit={handleSubmit} className={formstyles.inputWrapper}>
+      <form onSubmit={handleSubmit} className={formstyles.form}>
         <label htmlFor="_Organization">
           <strong>Organization:</strong>
         </label>
         <input
+          autoComplete="off"
           aria-label="Organization Input"
           name="_organization"
           value={deleteOrg._organization}
@@ -92,6 +93,7 @@ export default function DeleteOrganization({
           <strong>Confirm Organization:</strong>
         </label>
         <input
+          autoComplete="off"
           aria-label="Organization Input"
           name="_organizationConfirmation"
           value={deleteOrg._organizationConfirmation}
@@ -100,11 +102,11 @@ export default function DeleteOrganization({
           placeholder="Organization"
           className={formstyles.input}
         />
-        <div className={formstyles.actions}>
+        <span className={formstyles.actions}>
           <button className={formstyles.delete} type="submit">
             Delete Organization
           </button>
-        </div>
+        </span>
       </form>
     </div>
   )

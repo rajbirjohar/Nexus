@@ -21,14 +21,12 @@ export default function ListReviewPosts({ courseId }) {
   })
   const [searchValue, setSearchValue] = useState('')
   if (error) {
-    return (
-      <ErrorFetch placeholder="reviews" />
-    )
+    return <ErrorFetch placeholder="reviews" />
   }
   if (!data) {
     return <Loader />
   }
-  const filteredReviews = Object(data.reviewPosts).filter(
+  const filteroseReviews = Object(data.reviewPosts).filter(
     (reviewPost) =>
       reviewPost.reviewProfessor
         .toLowerCase()
@@ -52,6 +50,7 @@ export default function ListReviewPosts({ courseId }) {
       ) : (
         <div className={formstyles.searchWrapper}>
           <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -75,11 +74,11 @@ export default function ListReviewPosts({ courseId }) {
           </svg>
         </div>
       )}
-      {!filteredReviews.length && data.reviewPosts.length !== 0 && (
+      {!filteroseReviews.length && data.reviewPosts.length !== 0 && (
         <NotFound placeholder="review" />
       )}
       <div className={cardstyles.gridtall}>
-        {filteredReviews.map((post) => (
+        {filteroseReviews.map((post) => (
           <ReviewPostCard
             key={post._id}
             reviewPostId={post._id}

@@ -49,11 +49,12 @@ export default function CommentsForm({ eventId }) {
     return data.commentData
   }
   return (
-    <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <label htmlFor="_comment">
         <strong>Comment:</strong>
       </label>
       <input
+        autoComplete="off"
         aria-label="Comment Input"
         name="_comment"
         value={comment._comment}
@@ -62,11 +63,11 @@ export default function CommentsForm({ eventId }) {
         placeholder="Show your interest!"
         className={styles.input}
       />
-      <div className={styles.actions}>
-        <button type="submit" className={styles.post}>
-          Post Comment
+      <span className={styles.actions}>
+        <button type="submit" className={styles.primary}>
+          Post Comment!
         </button>
-      </div>
+      </span>
     </form>
   )
 }

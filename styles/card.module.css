@@ -17,12 +17,16 @@
   gap: var(--gap-med);
 }
 
-.card {
+.card,
+.reviewcard {
   background-color: var(--gray-50);
   border: 2px solid var(--gray-100);
   border-radius: var(--radius);
   padding: var(--gap-med);
   box-shadow: var(--shadows-lg);
+}
+
+.card {
   transition: all 150ms ease-in-out;
 }
 
@@ -104,12 +108,12 @@
 }
 
 .gridcard:hover > .orgheader > .organizationName {
-  color: var(--purple-800);
+  color: var(--amber-800);
   margin-right: var(--gap-quarter);
 }
 
 .gridcard:hover > .orgheader > .linkIcon {
-  color: var(--purple-800);
+  color: var(--amber-800);
 }
 
 .organizationName {
@@ -119,7 +123,7 @@
 
 .organizationName,
 .linkIcon {
-  color: var(--purple-500);
+  color: var(--amber-500);
   transition: all 150ms ease-in-out;
 }
 
@@ -130,11 +134,11 @@
 /* Courses card styles */
 .course {
   margin: 0;
-  color: var(--purple-500);
+  color: var(--amber-500);
   transition: color 150ms ease-in-out;
 }
 .coursecard:hover > .course {
-  color: var(--purple-800);
+  color: var(--amber-800);
 }
 
 /* Event card */

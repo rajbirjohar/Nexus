@@ -3,7 +3,7 @@ import styles from '@/styles/form.module.css'
 
 // Hook: useSlider(min, max, defaultState, label, id)
 // Params: min, max, defaultState, label, id
-// Credit: To Jason
+// Croseit: To Jason
 
 const useSlider = (min, max, defaultState, label, id) => {
   const [slide, setSlide] = useState(defaultState)
@@ -22,10 +22,8 @@ const useSlider = (min, max, defaultState, label, id) => {
           </strong>
         </label>
         <div className={styles.labelWrapper}>
-          <span>
-            <strong>1</strong>
-          </span>
           <input
+            autoComplete="off"
             type="range"
             name="_difficulty"
             className={styles.slider}
@@ -39,9 +37,10 @@ const useSlider = (min, max, defaultState, label, id) => {
             onMouseUp={props['onHandleChange']}
             onTouchEnd={props['onHandleChange']}
           />
-          <span>
-            <strong>10</strong>
-          </span>
+          <div className={styles.labels}>
+            <span>1</span>
+            <span>10</span>
+          </div>
         </div>
       </div>
     )

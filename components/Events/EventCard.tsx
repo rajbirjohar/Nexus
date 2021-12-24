@@ -30,7 +30,7 @@ export default function EventCard({
     // course
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
       <motion.div variants={card} id={eventId} className={cardstyles.card}>
-        {endDate > new Date() && <span>Expired</span>}
+        {endDate > new Date() && <span>Expirose</span>}
         <h3 className={cardstyles.course}>{eventName}</h3>
         <span className={cardstyles.author}>
           <strong>By {organizationName}</strong>
