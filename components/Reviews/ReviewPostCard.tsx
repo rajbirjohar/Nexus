@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
+import { motion } from 'framer-motion'
 
 // Component: ReviewPostCard({
 // reviewee,
@@ -16,6 +17,16 @@ import formstyles from '@/styles/form.module.css'
 // reviewPostId,
 // })
 // Purpose: To display all data within a single review as a card
+
+const listItems = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.15,
+    },
+  },
+}
 
 export default function ReviewPostCard({
   creator,
@@ -52,7 +63,7 @@ export default function ReviewPostCard({
   }
 
   return (
-    <div className={cardstyles.reviewcard}>
+    <motion.div variants={listItems} className={cardstyles.reviewcard} layout>
       <div className={cardstyles.reviewheader}>
         <h3 className={cardstyles.coursetitle}>{course}</h3>
         <h3 className={cardstyles.difficulty}>{difficulty}</h3>
@@ -88,6 +99,6 @@ export default function ReviewPostCard({
           </button>
         </span>
       )}
-    </div>
+    </motion.div>
   )
 }

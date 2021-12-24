@@ -11,7 +11,7 @@ const list = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.25,
+      staggerChildren: 0.05,
     },
   },
 }

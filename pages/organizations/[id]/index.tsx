@@ -12,24 +12,17 @@ import AddAdminForm from '@/components/Organizations/AddAdminForm'
 import AddMemberForm from '@/components/Organizations/AddMemberForm'
 import RemoveMemberForm from '@/components/Organizations/RemoveMemberForm'
 import DangerousActions from '@/components/Organizations/DangerousActions'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 
 const list = {
   closed: {
-    opacity: 0,
     height: '0',
     transition: {
-      duration: 0.15,
-      delayChildren: 0.15,
+      when: 'afterChildren',
     },
   },
   open: {
-    opacity: 1,
     height: 'auto',
-    transition: {
-      duration: 0.25,
-      delayChildren: 0.15,
-    },
   },
 }
 
@@ -37,6 +30,9 @@ const listItems = {
   closed: {
     opacity: 0,
     y: -5,
+    transition: {
+      duration: 0.15,
+    },
   },
   open: {
     opacity: 1,
@@ -44,13 +40,54 @@ const listItems = {
   },
 }
 
+const Section = ({ header, children }) => {
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <div className={formstyles.revealheader}>
+        <h2>{header}</h2>
+        <button
+          className={
+            open
+              ? `${formstyles.reveal} ${formstyles.rotated}`
+              : `${formstyles.reveal} `
+          }
+          onClick={() => setOpen(!open)}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fillRule="evenodd"
+              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
+      </div>
+      <AnimatePresence exitBeforeEnter>
+        {open ? (
+          <motion.div
+            animate={open ? 'open' : 'closed'}
+            variants={list}
+            exit="closed"
+            initial="closed"
+          >
+            <motion.div variants={listItems}>{children}</motion.div>
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+    </>
+  )
+}
+
 const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
   const { id } = router.query
   const { data: session } = useSession()
   const orgId = organization.map((organization) => organization._id).toString()
-  const [displayActions, setDisplayActions] = useState(false)
-  const [displayMembers, setDisplayMembers] = useState(false)
   const isCreator =
     session &&
     session.user.creatorOfOrg &&
@@ -103,47 +140,24 @@ const Organization = ({ organization, superMembers, members }) => {
               </li>
             ))}
           </ul>
-          {session && isAdmin && (
-            <>
-              <AddAdminForm organizationId={organization._id} />
-              <EventForm
-                creator={session.user.name}
-                email={session.user.email}
-                organizationName={organization.organizationName}
-                organizationId={organization._id}
-              />
-              <div className={formstyles.revealheader}>
-                <h2>Members</h2>
-                <button
-                  className={
-                    displayMembers
-                      ? `${formstyles.reveal} ${formstyles.rotated}`
-                      : `${formstyles.reveal} `
-                  }
-                  onClick={() => setDisplayMembers(!displayMembers)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <AnimatePresence exitBeforeEnter>
-                {displayMembers && (
-                  <motion.ul
-                    animate={displayMembers ? 'open' : 'closed'}
-                    variants={list}
-                    exit="closed"
-                    initial="closed"
-                    className={styles.memberslist}
-                  >
+          <LayoutGroup>
+            {session && isAdmin && (
+              <>
+                <Section header="Add Admin">
+                  <AddAdminForm organizationId={organization._id} />
+                </Section>
+
+                <Section header="Create Event">
+                  <EventForm
+                    creator={session.user.name}
+                    email={session.user.email}
+                    organizationName={organization.organizationName}
+                    organizationId={organization._id}
+                  />
+                </Section>
+
+                <Section header="Members">
+                  <>
                     {members.length === 0 && (
                       <p>No one has joined your organization yet 😭.</p>
                     )}
@@ -152,61 +166,29 @@ const Organization = ({ organization, superMembers, members }) => {
                         <strong>{member.member}</strong> / {member.email}
                       </motion.li>
                     ))}
-                  </motion.ul>
-                )}
-              </AnimatePresence>
-            </>
-          )}
-          {session && isCreator && (
-            <>
-              <div className={formstyles.revealheader}>
-                <h2>Dangerous Actions</h2>
-                <button
-                  className={
-                    displayActions
-                      ? `${formstyles.reveal} ${formstyles.rotated}`
-                      : `${formstyles.reveal} `
-                  }
-                  onClick={() => setDisplayActions(!displayActions)}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                      clipRule="evenodd"
+                  </>
+                </Section>
+              </>
+            )}
+            {session && isCreator && (
+              <>
+                <Section header="Dangerous Actions">
+                  <>
+                    <p>
+                      Only the organization owner can view and perform these
+                      actions. Please read through each warning before
+                      proceeding. It&#39;s very tedious to manually change the
+                      database 😅.
+                    </p>
+                    <DangerousActions
+                      organizationId={organization._id}
+                      organizationName={organization.organizationName}
                     />
-                  </svg>
-                </button>
-              </div>
-              <AnimatePresence exitBeforeEnter>
-                {displayActions && (
-                  <motion.div
-                    animate={displayActions ? 'open' : 'closed'}
-                    variants={list}
-                    exit="closed"
-                    initial="closed"
-                  >
-                    <motion.div variants={listItems}>
-                      <p>
-                        Only the organization owner can view and perform these
-                        actions. Please read through each warning before
-                        proceeding. It&#39;s very tedious to manually change the
-                        database 😅.
-                      </p>
-                      <DangerousActions
-                        organizationId={organization._id}
-                        organizationName={organization.organizationName}
-                      />
-                    </motion.div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </>
-          )}
+                  </>
+                </Section>
+              </>
+            )}
+          </LayoutGroup>
           <h2>Events</h2>
           <ListEventsPerOrg organizationId={organization._id} />
         </>

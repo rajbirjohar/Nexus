@@ -1,5 +1,5 @@
 import styles from '@/styles/layout.module.css'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 
 // Component: Layout({children})
 // Params: children
