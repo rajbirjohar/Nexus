@@ -62,21 +62,12 @@
   background-color: var(--gray-50);
   overflow-x: hidden !important;
   overflow-y: auto !important;
-  transition: 500ms ease-in-out;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
   gap: var(--gap-med);
   font-size: 1.2rem;
-}
-
-.open {
-  height: 100%;
-}
-
-.notopen {
-  height: 0vh;
 }
 
 .themeWrapper {

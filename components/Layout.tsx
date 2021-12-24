@@ -11,6 +11,8 @@ export default function Layout({ children }) {
     <motion.main
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      layout="position"
       className={styles.layout}
     >
       {children}

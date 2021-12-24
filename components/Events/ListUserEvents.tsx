@@ -8,6 +8,17 @@ import NotFound from '../notFound'
 import ErrorFetch from '../ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
+import { motion } from 'framer-motion'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+}
 
 export default function ListUserEvents() {
   const { data, error } = useSWR('/api/events/usereventfetch', Fetcher, {
@@ -20,7 +31,7 @@ export default function ListUserEvents() {
   if (!data) {
     return <Loader />
   }
-  const filteroseEvents = Object(data.events).filter(
+  const filteredEvents = Object(data.events).filter(
     (event) =>
       event.eventName.toLowerCase().includes(searchValue.toLowerCase()) ||
       event.organizationName
@@ -43,7 +54,8 @@ export default function ListUserEvents() {
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>
-          <input autoComplete="off"
+          <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -68,11 +80,16 @@ export default function ListUserEvents() {
         </div>
       )}
 
-      {!filteroseEvents.length && data.events.length !== 0 && (
+      {!filteredEvents.length && data.events.length !== 0 && (
         <NotFound placeholder="event" />
       )}
-      <div className={cardstyles.grid}>
-        {filteroseEvents.map((newEvent) => (
+      <motion.div
+        variants={list}
+        initial="hidden"
+        animate="show"
+        className={cardstyles.grid}
+      >
+        {filteredEvents.map((newEvent) => (
           <EventCard
             key={newEvent._id}
             organizationName={newEvent.organizationName}
@@ -83,7 +100,7 @@ export default function ListUserEvents() {
             endDate={newEvent.eventEndDate}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }

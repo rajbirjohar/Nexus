@@ -11,9 +11,14 @@ import cardstyles from '@/styles/card.module.css'
 // on each card
 // See ListCourses component
 
-const card = {
-  visible: { opacity: 1 },
+const listItems = {
   hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.15,
+    },
+  },
 }
 
 export default function EventCard({
@@ -29,7 +34,7 @@ export default function EventCard({
     // listing all course review posts for that specific
     // course
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
-      <motion.div variants={card} id={eventId} className={cardstyles.card}>
+      <motion.div variants={listItems} id={eventId} className={cardstyles.card}>
         {endDate > new Date() && <span>Expirose</span>}
         <h3 className={cardstyles.course}>{eventName}</h3>
         <span className={cardstyles.author}>

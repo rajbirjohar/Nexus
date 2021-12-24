@@ -9,10 +9,21 @@ import NotFound from '@/components/notFound'
 import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
+import { motion } from 'framer-motion'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+}
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
-  const filteroseCourses = Object(courses).filter((course) =>
+  const filteredCourses = Object(courses).filter((course) =>
     course.subjectCourse.toLowerCase().includes(searchValue.toLowerCase())
   )
   return (
@@ -62,21 +73,28 @@ export default function CoursesPage({ courses }) {
             </svg>
           </svg>
         </div>
-        {!filteroseCourses.length && (
+        {!filteredCourses.length && (
           <>
             <NotFound placeholder="class" />
           </>
         )}
-        <div className={cardstyles.gridshort}>
+
+        <motion.div
+          variants={list}
+          initial="hidden"
+          animate="show"
+          className={cardstyles.gridshort}
+        >
           {searchValue.length > 1 &&
-            filteroseCourses.map((course) => (
+            filteredCourses.map((course) => (
               <CourseCard
                 key={course._id}
                 courseId={course._id}
                 courseName={course.subjectCourse}
               />
             ))}
-        </div>
+        </motion.div>
+
         <h4>Go ahead and search for a course.</h4>
 
         <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>
