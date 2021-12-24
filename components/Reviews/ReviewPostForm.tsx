@@ -39,7 +39,7 @@ export default function ReviewPostForm({ course, courseId }) {
   const [checked, setChecked] = useState(false)
 
   const handleSubmit = async (event) => {
-    // don't redirect the page
+    // don't roseirect the page
     event.preventDefault()
     // check if any text fields are empty
     if (
@@ -101,7 +101,7 @@ export default function ReviewPostForm({ course, courseId }) {
     return data.reviewPostData
   }
   return (
-    <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <label htmlFor="_reviewPost">
         <strong>Review:</strong>
       </label>
@@ -114,13 +114,13 @@ export default function ReviewPostForm({ course, courseId }) {
         className={styles.input}
         maxLength={maxLength}
       />
-      <div>
+      <span className={styles.maxlength}>
         {maxLength - reviewPost._reviewPost.length}/{maxLength}
-      </div>
+      </span>
       <label htmlFor="_reviewProfessor">
         <strong>Professor:</strong>
       </label>
-      <input
+      <input autoComplete="off"
         aria-label="Review Professor Input"
         name="_reviewProfessor"
         value={reviewPost._reviewProfessor}
@@ -132,7 +132,7 @@ export default function ReviewPostForm({ course, courseId }) {
       <label htmlFor="_taken">
         <strong>Taken:</strong>
       </label>
-      <input
+      <input autoComplete="off"
         aria-label="Taken Input"
         name="_taken"
         value={reviewPost._taken}
@@ -147,7 +147,7 @@ export default function ReviewPostForm({ course, courseId }) {
         <label htmlFor="anonymous">
           <strong>Anonymous?</strong>
         </label>
-        <input
+        <input autoComplete="off"
           type="checkbox"
           id="anonymous"
           name="_anonymous"
@@ -157,7 +157,7 @@ export default function ReviewPostForm({ course, courseId }) {
         <span className={styles.checkmark}></span>
       </span>
       <div className={styles.actions}>
-        <button className={styles.post} type="submit">
+        <button className={styles.primary} type="submit">
           Post Review!
         </button>
       </div>

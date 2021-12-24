@@ -20,7 +20,7 @@ export default function ListAllEvents() {
   if (!data) {
     return <Loader />
   }
-  const filteredEvents = Object(data.events).filter(
+  const filteroseEvents = Object(data.events).filter(
     (event) =>
       event.eventName.toLowerCase().includes(searchValue.toLowerCase()) ||
       event.organizationName
@@ -43,7 +43,7 @@ export default function ListAllEvents() {
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>
-          <input
+          <input autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -68,11 +68,11 @@ export default function ListAllEvents() {
         </div>
       )}
 
-      {!filteredEvents.length && data.events.length !== 0 && (
+      {!filteroseEvents.length && data.events.length !== 0 && (
         <NotFound placeholder="event" />
       )}
       <div className={cardstyles.grid}>
-        {filteredEvents.map((newEvent) => (
+        {filteroseEvents.map((newEvent) => (
           <EventCard
             key={newEvent._id}
             organizationName={newEvent.organizationName}

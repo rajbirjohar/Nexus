@@ -1,11 +1,12 @@
 .hero,
 .heroreverse {
   margin: 0 auto;
-  max-width: var(--main-content);
+  max-width: var(--hero-content);
   display: flex;
   align-items: center;
   justify-content: space-around;
-  min-height: 75vh;
+  min-height: 70vh;
+  gap: var(--gap-med);
 }
 
 .animationWrapper {
@@ -30,7 +31,7 @@
 
 .title span,
 .sectiontitle {
-  color: var(--purple-500);
+  color: var(--amber-500);
 }
 
 .subtitle {
@@ -59,7 +60,4 @@
   .heroImage {
     margin: 0;
   }
-}
-
-@media (max-width: 668px) {
 }

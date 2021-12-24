@@ -53,11 +53,12 @@ export default function AddAdminForm({ organizationId }) {
   return (
     <div>
       <h3>Add an Admin</h3>
-      <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="_email">
           <strong>Email:</strong>
         </label>
         <input
+          autoComplete="off"
           aria-label="Admin Email Input"
           name="_email"
           value={admin._email}
@@ -67,7 +68,7 @@ export default function AddAdminForm({ organizationId }) {
           className={styles.input}
         />
         <span className={styles.actions}>
-          <button type="submit" className={styles.post}>
+          <button type="submit" className={styles.primary}>
             Add Admin
           </button>
         </span>

@@ -7,13 +7,13 @@
   margin-right: var(--gap-med);
 }
 
-.inputWrapper {
+.form {
   display: flex;
   flex-direction: column;
 }
 
 .input {
-  border: 2px solid var(--purple-100);
+  border: 2px solid var(--amber-100);
   flex: 1;
   padding: var(--gap) var(--gap);
   font-size: 1.125rem;
@@ -22,15 +22,15 @@
   background-color: var(--gray-100) !important;
 }
 .input::placeholder {
-  color: var(--purple-700) !important;
+  color: var(--amber-700) !important;
 }
 
 .warningWrapper {
   display: flex;
   flex-direction: column;
   padding: var(--gap-med);
-  border: 2px solid var(--red-200);
-  background-color: var(--red-50);
+  border: 2px solid var(--rose-200);
+  background-color: var(--rose-50);
   border-radius: var(--radius);
 }
 
@@ -42,13 +42,13 @@
 .setrolebutton {
   width: max-content;
   margin-right: 0;
-  background-color: var(--purple-100);
-  color: var(--purple-800);
+  background-color: var(--amber-100);
+  color: var(--amber-800);
   transition: all var(--transition);
 }
 
 .setrolebutton:hover {
-  background-color: var(--purple-200);
+  background-color: var(--amber-200);
 }
 
 .actions {

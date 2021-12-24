@@ -7,6 +7,7 @@ import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 import styles from '@/styles/courses.module.css'
+import formstyles from '@/styles/form.module.css'
 
 // Page: CourseReviews({course})
 // Params: course
@@ -30,7 +31,20 @@ const CourseReviews = ({ course, averageRating }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <Link href="/courses" passHref>
-            <a>Go back to courses</a>
+            <a className={formstyles.linkwrap}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              Go back to courses
+            </a>
           </Link>
           <h1>{course.subjectCourse}</h1>
           <h2 className={styles.subtitle}>{course.courseTitle}</h2>

@@ -26,7 +26,7 @@ export default function ListOrganizations() {
   if (!data) {
     return <Loader />
   }
-  const filteredOrgs = Object(data.organizations).filter((organization) =>
+  const filteroseOrgs = Object(data.organizations).filter((organization) =>
     organization.organizationName
       .toLowerCase()
       .includes(searchValue.toLowerCase())
@@ -46,7 +46,7 @@ export default function ListOrganizations() {
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>
-          <input
+          <input autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -71,11 +71,11 @@ export default function ListOrganizations() {
         </div>
       )}
 
-      {!filteredOrgs.length && data.organizations.length !== 0 && (
+      {!filteroseOrgs.length && data.organizations.length !== 0 && (
         <NotFound placeholder="organization" />
       )}
       <div className={cardstyles.grid}>
-        {filteredOrgs.map((organization) => (
+        {filteroseOrgs.map((organization) => (
           <OrganizationCard
             key={organization._id}
             organizationId={organization._id}

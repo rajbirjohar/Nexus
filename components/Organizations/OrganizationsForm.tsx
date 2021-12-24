@@ -26,7 +26,7 @@ export default function OrganizationsForm() {
 
   // handleSubmit function
   const handleSubmit = async (event) => {
-    // don't redirect the page
+    // don't roseirect the page
     event.preventDefault()
     // check if any text fields are empty
     if (
@@ -84,11 +84,12 @@ export default function OrganizationsForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+    <form onSubmit={handleSubmit} className={styles.form}>
       <label htmlFor="_organizationName">
         <strong>Organization:</strong>
       </label>
       <input
+        autoComplete="off"
         aria-label="Organizations Name Input"
         name="_organizationName"
         value={organization._organizationName}
@@ -101,6 +102,7 @@ export default function OrganizationsForm() {
         <strong>Tagline:</strong>
       </label>
       <input
+        autoComplete="off"
         aria-label="Organizations Tagline Input"
         name="_organizationTagline"
         value={organization._organizationTagline}
@@ -125,14 +127,13 @@ export default function OrganizationsForm() {
         className={styles.input}
         maxLength={maxLength}
       />
-      <div>
+      <span className={styles.maxlength}>
         {maxLength - organization._organizationDescription.length}/{maxLength}
-      </div>
-      <div className={styles.actions}>
-        <button className={styles.post} type="submit">
-          Create Organization
-        </button>
-      </div>
+      </span>
+
+      <button className={styles.primary} type="submit">
+        Create Organization
+      </button>
     </form>
   )
 }

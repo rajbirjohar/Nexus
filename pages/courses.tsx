@@ -12,7 +12,7 @@ import formstyles from '@/styles/form.module.css'
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
-  const filteredCourses = Object(courses).filter((course) =>
+  const filteroseCourses = Object(courses).filter((course) =>
     course.subjectCourse.toLowerCase().includes(searchValue.toLowerCase())
   )
   return (
@@ -39,6 +39,7 @@ export default function CoursesPage({ courses }) {
         </div>
         <div className={formstyles.searchWrapper}>
           <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -61,14 +62,14 @@ export default function CoursesPage({ courses }) {
             </svg>
           </svg>
         </div>
-        {!filteredCourses.length && (
+        {!filteroseCourses.length && (
           <>
             <NotFound placeholder="class" />
           </>
         )}
         <div className={cardstyles.gridshort}>
           {searchValue.length > 1 &&
-            filteredCourses.map((course) => (
+            filteroseCourses.map((course) => (
               <CourseCard
                 key={course._id}
                 courseId={course._id}
@@ -78,7 +79,7 @@ export default function CoursesPage({ courses }) {
         </div>
         <h4>Go ahead and search for a course.</h4>
 
-        <p>Scraped with hard work and enginuity by Isaac.</p>
+        <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>
       </section>
     </Layout>
   )

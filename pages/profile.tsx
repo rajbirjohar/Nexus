@@ -94,11 +94,12 @@ export default function Profile() {
               Please enter <strong>&#34;professor&#34;</strong> if you are a
               professor.
             </p>
-            <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+            <form onSubmit={handleSubmit} className={styles.form}>
               <label htmlFor="_role">
                 <strong>Position:</strong>
               </label>
               <input
+                autoComplete="off"
                 aria-label="User Role Input"
                 name="_role"
                 value={userRole._role}
@@ -107,11 +108,10 @@ export default function Profile() {
                 placeholder="Role"
                 className={styles.input}
               />
-              <div className={styles.actions}>
-                <button className={styles.setrolebutton} type="submit">
-                  Set Role
-                </button>
-              </div>
+
+              <button className={styles.setrolebutton} type="submit">
+                Set Role
+              </button>
             </form>
           </div>
         )}

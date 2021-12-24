@@ -32,9 +32,9 @@ export default function RemoveMemberForm({
   }
   return (
     <form onSubmit={handleSubmit}>
-      <div className={formstyles.actions}>
+      <span className={formstyles.actions}>
         <button type="submit">Leave {organizationName}</button>
-      </div>
+      </span>
     </form>
   )
 }

@@ -55,11 +55,11 @@ export default function RemoveAdminForm({ organizationId }) {
         organization. You or another admin will have to re-add them if you
         change your mind 🤭.
       </p>
-      <form onSubmit={handleSubmit} className={styles.inputWrapper}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label htmlFor="_email">
           <strong>Email:</strong>
         </label>
-        <input
+        <input autoComplete="off"
           aria-label="Admin Email Input"
           name="_email"
           value={admin._email}

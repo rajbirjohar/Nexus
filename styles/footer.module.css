@@ -5,10 +5,12 @@
   background-color: var(--gray-100);
   align-items: center;
   margin-top: var(--big-gap);
+  /* Stretches to bottom of page */
+  box-shadow: 0 50vh 0 50vh var(--gray-100);
 }
 
 .linkWrapper {
-  width: var(--main-content);
+  width: var(--nav-content);
   margin: 0 auto;
   padding: var(--gap-quarter) var(--gap-med);
   display: flex;

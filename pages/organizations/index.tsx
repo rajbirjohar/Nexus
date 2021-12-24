@@ -139,11 +139,11 @@ export default function OrganizationsPage() {
               the rules and limitations of each role and would like to proceed
               creating your own organization.
             </p>
-            <form onSubmit={handleSubmit} className={formstyles.inputWrapper}>
+            <form onSubmit={handleSubmit} className={formstyles.form}>
               <label htmlFor="_orgRole">
                 <strong>Position:</strong>
               </label>
-              <input
+              <input autoComplete="off"
                 aria-label="Org Role Input"
                 name="_orgRole"
                 value={orgRole._orgRole}
@@ -153,7 +153,7 @@ export default function OrganizationsPage() {
                 className={formstyles.input}
               />
               <div className={formstyles.actions}>
-                <button className={formstyles.post} type="submit">
+                <button className={formstyles.primary} type="submit">
                   I Understand
                 </button>
               </div>
