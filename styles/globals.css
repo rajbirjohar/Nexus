@@ -152,6 +152,25 @@ body {
   flex-direction: column;
 }
 
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-family: var(--font-head) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-head) !important;
+  font-weight: 700;
+}
+
 p,
 li {
   font-size: 1.125rem;
@@ -163,16 +182,6 @@ li {
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: var(--font-head);
-  font-weight: 700;
 }
 
 h1 {
