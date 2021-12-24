@@ -8,6 +8,17 @@ import NotFound from '../notFound'
 import ErrorFetch from '../ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
+import { motion } from 'framer-motion'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+}
 
 export default function ListAllEvents() {
   const { data, error } = useSWR('/api/events/eventfetch', Fetcher, {
@@ -20,7 +31,7 @@ export default function ListAllEvents() {
   if (!data) {
     return <Loader />
   }
-  const filteroseEvents = Object(data.events).filter(
+  const filteredEvents = Object(data.events).filter(
     (event) =>
       event.eventName.toLowerCase().includes(searchValue.toLowerCase()) ||
       event.organizationName
@@ -32,7 +43,7 @@ export default function ListAllEvents() {
     <div>
       {data.events.length === 0 ? (
         <div className={formstyles.notFound}>
-          <p>Create an event!</p>
+          <p>No events have been made.</p>
 
           <Image
             src={'/assets/post2.svg'}
@@ -43,7 +54,8 @@ export default function ListAllEvents() {
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>
-          <input autoComplete="off"
+          <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
@@ -68,11 +80,16 @@ export default function ListAllEvents() {
         </div>
       )}
 
-      {!filteroseEvents.length && data.events.length !== 0 && (
+      {!filteredEvents.length && data.events.length !== 0 && (
         <NotFound placeholder="event" />
       )}
-      <div className={cardstyles.grid}>
-        {filteroseEvents.map((newEvent) => (
+      <motion.div
+        variants={list}
+        initial="hidden"
+        animate="show"
+        className={cardstyles.grid}
+      >
+        {filteredEvents.map((newEvent) => (
           <EventCard
             key={newEvent._id}
             organizationName={newEvent.organizationName}
@@ -83,7 +100,7 @@ export default function ListAllEvents() {
             endDate={newEvent.eventEndDate}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }

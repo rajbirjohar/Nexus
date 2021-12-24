@@ -1,11 +1,20 @@
-import Image from 'next/image'
 import useSWR from 'swr'
 import Loader from '../Skeleton'
 import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
-import styles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
 import ErrorFetch from '../ErrorFetch'
+import { motion } from 'framer-motion'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+    },
+  },
+}
 
 export default function ListEventsPerOrg({ organizationId }) {
   const { data, error } = useSWR(`/api/events/${organizationId}`, Fetcher, {
@@ -18,7 +27,12 @@ export default function ListEventsPerOrg({ organizationId }) {
     return <Loader />
   }
   return (
-    <div className={cardstyles.grid}>
+    <motion.div
+      variants={list}
+      initial="hidden"
+      animate="show"
+      className={cardstyles.grid}
+    >
       {data.events.length === 0 && <p>No events have been made.</p>}
       {data.events.map((newEvent) => (
         <EventCard
@@ -31,6 +45,6 @@ export default function ListEventsPerOrg({ organizationId }) {
           endDate={newEvent.eventEndDate}
         />
       ))}
-    </div>
+    </motion.div>
   )
 }

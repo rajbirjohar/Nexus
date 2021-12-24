@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import cardstyles from '@/styles/card.module.css'
+import { motion } from 'framer-motion'
 
 // Component: CourseCard({courseId, courseName})
 // Params: courseId, courseName
@@ -10,15 +11,29 @@ import cardstyles from '@/styles/card.module.css'
 // on each card
 // See ListCourses component
 
+const listItems = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      duration: 0.15,
+    },
+  },
+}
+
 export default function CourseCard({ courseId, courseName }) {
   return (
     // Link is used to route each card to a dynamic page
     // listing all course review posts for that specific
     // course
     <Link href={`/courses/${courseName}`} passHref>
-      <div id={courseId} className={cardstyles.card}>
+      <motion.div
+        variants={listItems}
+        id={courseId}
+        className={cardstyles.card}
+      >
         <h3 className={cardstyles.course}>{courseName}</h3>
-      </div>
+      </motion.div>
     </Link>
   )
 }
