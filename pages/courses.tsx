@@ -75,8 +75,8 @@ export default function CoursesPage({ courses }) {
             <NotFound placeholder="class" />
           </>
         )}
-        <LayoutGroup>
-          <motion.div className={cardstyles.gridshort}>
+        <motion.div className={cardstyles.gridshort}>
+          <LayoutGroup>
             {searchValue.length > 1 &&
               filteredCourses.map((course) => (
                 <CourseCard
@@ -85,8 +85,8 @@ export default function CoursesPage({ courses }) {
                   courseName={course.subjectCourse}
                 />
               ))}
-          </motion.div>
-        </LayoutGroup>
+          </LayoutGroup>
+        </motion.div>
         <h4>Go ahead and search for a course.</h4>
 
         <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>

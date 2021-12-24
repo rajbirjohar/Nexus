@@ -1,52 +1,30 @@
-import React, { useState } from 'react'
+import * as React from 'react'
+import { useState } from 'react'
 import DeleteOrganization from './DeleteOrganization'
 import RemoveAdminForm from './RemoveAdminForm'
 import TransferOwnerForm from './TransferOwnerForm'
-import styles from '@/styles/form.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
-
-const list = {
-  closed: {
-    opacity: 0,
-    display: 'none',
-    transition: {
-      duration: 0.5,
-    },
-  },
-  open: {
-    opacity: 1,
-    display: 'block',
-    transition: {
-      duration: 0.5,
-    },
-  },
-}
-
-const listItems = {
-  closed: {
-    opacity: 0,
-  },
-  open: {
-    opacity: 1,
-  },
-}
+import formstyles from '@/styles/form.module.css'
 
 export default function DangerousActions({ organizationId, organizationName }) {
-  const tabs = [
+  const allIngredients = [
     {
-      id: 1,
-      tabTitle: 'Remove Admin',
-      tabContent: <RemoveAdminForm organizationId={organizationId} />,
+      icon: '🍅',
+      label: 'Remove Admin',
+      id: 'removeAdmin',
+      component: <RemoveAdminForm organizationId={organizationId} />,
     },
     {
-      id: 2,
-      tabTitle: 'Transfer Owner',
-      tabContent: <TransferOwnerForm organizationId={organizationId} />,
+      icon: '🥬',
+      label: 'Transfer Owner',
+      id: 'transferOwner',
+      component: <TransferOwnerForm organizationId={organizationId} />,
     },
     {
-      id: 3,
-      tabTitle: 'Delete Organization',
-      tabContent: (
+      icon: '🧀',
+      label: 'Delete Organization',
+      id: 'deleteOrganization',
+      component: (
         <DeleteOrganization
           organizationId={organizationId}
           organizationName={organizationName}
@@ -54,36 +32,42 @@ export default function DangerousActions({ organizationId, organizationName }) {
       ),
     },
   ]
-  const [visibleTab, setVisibleTab] = useState(tabs[0].id)
 
+  const [removeAdmin, transferOwner, deleteOrganization] = allIngredients
+  const initialTabs = [removeAdmin, transferOwner, deleteOrganization]
+  const [selectedTab, setSelectedTab] = useState(initialTabs[0])
   return (
-    <AnimatePresence exitBeforeEnter>
-      <div className={styles.tabs}>
-        {tabs.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => setVisibleTab(item.id)}
-            className={
-              visibleTab === item.id
-                ? `${styles.active} ${styles.tab}`
-                : `${styles.tab}`
-            }
+    <div className="window">
+      <nav>
+        <div className={formstyles.tabs}>
+          {initialTabs.map((item) => (
+            <button
+              key={item.label}
+              className={
+                item.id === selectedTab.id
+                  ? `${formstyles.active} ${formstyles.tab}`
+                  : ` ${formstyles.tab}`
+              }
+              onClick={() => setSelectedTab(item)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+      <main>
+        <AnimatePresence exitBeforeEnter>
+          <motion.div
+            key={selectedTab ? selectedTab.label : 'empty'}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
           >
-            {item.tabTitle}
-          </button>
-        ))}
-      </div>
-      {tabs.map((item) => (
-        <motion.div
-          key={item.id}
-          animate={visibleTab === item.id ? 'open' : 'closed'}
-          variants={list}
-          exit="closed"
-          // style={visibleTab === item.id ? {} : { display: 'none' }}
-        >
-          <motion.div variants={listItems}>{item.tabContent}</motion.div>
-        </motion.div>
-      ))}
-    </AnimatePresence>
+            {selectedTab ? selectedTab.component : '😋'}
+          </motion.div>
+        </AnimatePresence>
+      </main>
+    </div>
   )
 }
