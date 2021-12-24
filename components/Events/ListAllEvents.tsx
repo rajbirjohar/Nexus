@@ -8,14 +8,14 @@ import NotFound from '../notFound'
 import ErrorFetch from '../ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
-import { motion } from 'framer-motion'
+import { motion, LayoutGroup } from 'framer-motion'
 
 const list = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.25,
+      staggerChildren: 0.05,
     },
   },
 }
@@ -29,7 +29,36 @@ export default function ListAllEvents() {
     return <ErrorFetch placeholder="events" />
   }
   if (!data) {
-    return <Loader />
+    return (
+      <>
+        <div className={formstyles.searchWrapper}>
+          <input
+            autoComplete="off"
+            aria-label="Disabled Searchbar"
+            type="text"
+            disabled
+            placeholder="Search by name, club, or details"
+            className={formstyles.search}
+          />
+          <svg className={formstyles.searchIcon}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </svg>
+        </div>
+        <Loader />
+      </>
+    )
   }
   const filteredEvents = Object(data.events).filter(
     (event) =>
@@ -83,24 +112,26 @@ export default function ListAllEvents() {
       {!filteredEvents.length && data.events.length !== 0 && (
         <NotFound placeholder="event" />
       )}
-      <motion.div
-        variants={list}
-        initial="hidden"
-        animate="show"
-        className={cardstyles.grid}
-      >
-        {filteredEvents.map((newEvent) => (
-          <EventCard
-            key={newEvent._id}
-            organizationName={newEvent.organizationName}
-            eventName={newEvent.eventName}
-            eventDetails={newEvent.eventDetails}
-            eventId={newEvent._id}
-            startDate={newEvent.eventStartDate}
-            endDate={newEvent.eventEndDate}
-          />
-        ))}
-      </motion.div>
+      <LayoutGroup>
+        <motion.div
+          variants={list}
+          initial="hidden"
+          animate="show"
+          className={cardstyles.grid}
+        >
+          {filteredEvents.map((newEvent) => (
+            <EventCard
+              key={newEvent._id}
+              organizationName={newEvent.organizationName}
+              eventName={newEvent.eventName}
+              eventDetails={newEvent.eventDetails}
+              eventId={newEvent._id}
+              startDate={newEvent.eventStartDate}
+              endDate={newEvent.eventEndDate}
+            />
+          ))}
+        </motion.div>
+      </LayoutGroup>
     </div>
   )
 }

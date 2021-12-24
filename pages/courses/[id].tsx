@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -8,6 +9,33 @@ import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 import styles from '@/styles/courses.module.css'
 import formstyles from '@/styles/form.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const list = {
+  closed: {
+    height: '0',
+    transition: {
+      when: 'afterChildren',
+    },
+  },
+  open: {
+    height: 'auto',
+  },
+}
+
+const listItems = {
+  closed: {
+    opacity: 0,
+    y: -5,
+    transition: {
+      duration: 0.15,
+    },
+  },
+  open: {
+    opacity: 1,
+    y: 0,
+  },
+}
 
 // Page: CourseReviews({course})
 // Params: course
@@ -18,6 +46,7 @@ const CourseReviews = ({ course, averageRating }) => {
   const router = useRouter()
   const { id } = router.query
   const { data: session } = useSession()
+  const [open, setOpen] = useState(false)
   const rating = averageRating
     .map((averageRating) => averageRating.average)
     .toString()
@@ -64,10 +93,46 @@ const CourseReviews = ({ course, averageRating }) => {
             session.user.role &&
             session.user.role.includes('student') && (
               <>
-                <ReviewPostForm
-                  course={course.subjectCourse}
-                  courseId={course._id}
-                />
+                <div className={formstyles.revealheader}>
+                  <h2>Write Review</h2>
+                  <button
+                    className={
+                      open
+                        ? `${formstyles.revealprimary} ${formstyles.rotated}`
+                        : `${formstyles.revealprimary} `
+                    }
+                    onClick={() => setOpen(!open)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <AnimatePresence exitBeforeEnter>
+                  {open && (
+                    <motion.div
+                      animate={open ? 'open' : 'closed'}
+                      variants={list}
+                      exit="closed"
+                      initial="closed"
+                    >
+                      <motion.div variants={listItems}>
+                        <ReviewPostForm
+                          course={course.subjectCourse}
+                          courseId={course._id}
+                        />
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </>
             )}
         </>

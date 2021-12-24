@@ -3,6 +3,33 @@ import DeleteOrganization from './DeleteOrganization'
 import RemoveAdminForm from './RemoveAdminForm'
 import TransferOwnerForm from './TransferOwnerForm'
 import styles from '@/styles/form.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const list = {
+  closed: {
+    opacity: 0,
+    display: 'none',
+    transition: {
+      duration: 0.5,
+    },
+  },
+  open: {
+    opacity: 1,
+    display: 'block',
+    transition: {
+      duration: 0.5,
+    },
+  },
+}
+
+const listItems = {
+  closed: {
+    opacity: 0,
+  },
+  open: {
+    opacity: 1,
+  },
+}
 
 export default function DangerousActions({ organizationId, organizationName }) {
   const tabs = [
@@ -28,31 +55,35 @@ export default function DangerousActions({ organizationId, organizationName }) {
     },
   ]
   const [visibleTab, setVisibleTab] = useState(tabs[0].id)
-  const buttons = tabs.map((item) => (
-    <button
-      key={item.id}
-      onClick={() => setVisibleTab(item.id)}
-      className={
-        visibleTab === item.id
-          ? `${styles.active} ${styles.tab}`
-          : `${styles.tab}`
-      }
-    >
-      {item.tabTitle}
-    </button>
-  ))
-  const content = tabs.map((item) => (
-    <div
-      key={item.id}
-      style={visibleTab === item.id ? {} : { display: 'none' }}
-    >
-      {item.tabContent}
-    </div>
-  ))
+
   return (
-    <>
-      <div className={styles.tabs}>{buttons}</div>
-      {content}
-    </>
+    <AnimatePresence exitBeforeEnter>
+      <div className={styles.tabs}>
+        {tabs.map((item) => (
+          <button
+            key={item.id}
+            onClick={() => setVisibleTab(item.id)}
+            className={
+              visibleTab === item.id
+                ? `${styles.active} ${styles.tab}`
+                : `${styles.tab}`
+            }
+          >
+            {item.tabTitle}
+          </button>
+        ))}
+      </div>
+      {tabs.map((item) => (
+        <motion.div
+          key={item.id}
+          animate={visibleTab === item.id ? 'open' : 'closed'}
+          variants={list}
+          exit="closed"
+          // style={visibleTab === item.id ? {} : { display: 'none' }}
+        >
+          <motion.div variants={listItems}>{item.tabContent}</motion.div>
+        </motion.div>
+      ))}
+    </AnimatePresence>
   )
 }

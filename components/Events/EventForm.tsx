@@ -70,7 +70,6 @@ export default function EventForm({
   }
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <h3>New Event</h3>
       <p>
         You can create new events using the form below. The date input requires
         a 12 hour time as well. Once you submit this form, your event will show
