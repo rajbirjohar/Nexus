@@ -6,6 +6,14 @@
   width: max-content;
 }
 
+.primarylogin {
+  margin: var(--gap-half) 0;
+  background-color: var(--amber-500);
+  color: var(--amber-50);
+  width: max-content;
+}
+
+.primarylogin:hover,
 .primary:hover {
   background-color: var(--amber-600);
 }
