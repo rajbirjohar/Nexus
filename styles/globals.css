@@ -371,8 +371,8 @@ input[type='range']:focus::-moz-range-track {
 input[type='checkbox'] {
   padding: 0;
   line-height: 1;
-  height: 15px;
-  width: 15px;
+  height: 20px;
+  width: 20px;
 }
 
 .clamp {
