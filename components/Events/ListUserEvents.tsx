@@ -20,7 +20,7 @@ export default function ListUserEvents() {
   if (!data) {
     return <Loader />
   }
-  const filteroseEvents = Object(data.events).filter(
+  const filteredEvents = Object(data.events).filter(
     (event) =>
       event.eventName.toLowerCase().includes(searchValue.toLowerCase()) ||
       event.organizationName
@@ -68,11 +68,11 @@ export default function ListUserEvents() {
         </div>
       )}
 
-      {!filteroseEvents.length && data.events.length !== 0 && (
+      {!filteredEvents.length && data.events.length !== 0 && (
         <NotFound placeholder="event" />
       )}
       <div className={cardstyles.grid}>
-        {filteroseEvents.map((newEvent) => (
+        {filteredEvents.map((newEvent) => (
           <EventCard
             key={newEvent._id}
             organizationName={newEvent.organizationName}

@@ -26,7 +26,7 @@ export default function ListReviewPosts({ courseId }) {
   if (!data) {
     return <Loader />
   }
-  const filteroseReviews = Object(data.reviewPosts).filter(
+  const filteredReviews = Object(data.reviewPosts).filter(
     (reviewPost) =>
       reviewPost.reviewProfessor
         .toLowerCase()
@@ -74,11 +74,11 @@ export default function ListReviewPosts({ courseId }) {
           </svg>
         </div>
       )}
-      {!filteroseReviews.length && data.reviewPosts.length !== 0 && (
+      {!filteredReviews.length && data.reviewPosts.length !== 0 && (
         <NotFound placeholder="review" />
       )}
       <div className={cardstyles.gridtall}>
-        {filteroseReviews.map((post) => (
+        {filteredReviews.map((post) => (
           <ReviewPostCard
             key={post._id}
             reviewPostId={post._id}

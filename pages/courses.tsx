@@ -12,7 +12,7 @@ import formstyles from '@/styles/form.module.css'
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
-  const filteroseCourses = Object(courses).filter((course) =>
+  const filteredCourses = Object(courses).filter((course) =>
     course.subjectCourse.toLowerCase().includes(searchValue.toLowerCase())
   )
   return (
@@ -62,14 +62,14 @@ export default function CoursesPage({ courses }) {
             </svg>
           </svg>
         </div>
-        {!filteroseCourses.length && (
+        {!filteredCourses.length && (
           <>
             <NotFound placeholder="class" />
           </>
         )}
         <div className={cardstyles.gridshort}>
           {searchValue.length > 1 &&
-            filteroseCourses.map((course) => (
+            filteredCourses.map((course) => (
               <CourseCard
                 key={course._id}
                 courseId={course._id}

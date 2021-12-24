@@ -26,7 +26,7 @@ export default function ListOrganizations() {
   if (!data) {
     return <Loader />
   }
-  const filteroseOrgs = Object(data.organizations).filter((organization) =>
+  const filteredOrgs = Object(data.organizations).filter((organization) =>
     organization.organizationName
       .toLowerCase()
       .includes(searchValue.toLowerCase())
@@ -71,11 +71,11 @@ export default function ListOrganizations() {
         </div>
       )}
 
-      {!filteroseOrgs.length && data.organizations.length !== 0 && (
+      {!filteredOrgs.length && data.organizations.length !== 0 && (
         <NotFound placeholder="organization" />
       )}
       <div className={cardstyles.grid}>
-        {filteroseOrgs.map((organization) => (
+        {filteredOrgs.map((organization) => (
           <OrganizationCard
             key={organization._id}
             organizationId={organization._id}
