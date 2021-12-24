@@ -13,6 +13,7 @@
   width: max-content;
 }
 
+.primarylogin:hover,
 .primary:hover {
   background-color: var(--amber-600);
 }
