@@ -95,6 +95,12 @@
   cursor: default;
 }
 
+.underline {
+  width: 100%;
+  height: 2px;
+  background: var(--amber-500);
+}
+
 .revealheader {
   display: flex;
   align-items: center;
@@ -103,15 +109,36 @@
   -webkit-backface-visibility: hidden;
 }
 
-.reveal {
+.reveal,
+.revealprimary {
   border-radius: 50%;
   transform: rotate(0deg);
   transition: all var(--transition);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.revealprimary {
+  background-color: var(--amber-500);
+  color: var(--amber-100);
+}
+
+.revealprimary:hover {
+  background-color: var(--amber-600);
 }
 
 .rotated {
   transform: rotate(45deg);
   transform-origin: center;
+}
+
+.reveal.rotated {
+  background-color: var(--gray-700);
+  color: var(--gray-100);
+}
+
+.revealprimary.rotated {
+  background-color: var(--amber-700);
+  color: var(--amber-100);
 }
 
 .linkwrap {

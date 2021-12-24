@@ -1,25 +1,30 @@
-import React, { useState } from 'react'
+import * as React from 'react'
+import { useState } from 'react'
 import DeleteOrganization from './DeleteOrganization'
 import RemoveAdminForm from './RemoveAdminForm'
 import TransferOwnerForm from './TransferOwnerForm'
-import styles from '@/styles/form.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
+import formstyles from '@/styles/form.module.css'
 
 export default function DangerousActions({ organizationId, organizationName }) {
-  const tabs = [
+  const allIngredients = [
     {
-      id: 1,
-      tabTitle: 'Remove Admin',
-      tabContent: <RemoveAdminForm organizationId={organizationId} />,
+      icon: '🍅',
+      label: 'Remove Admin',
+      id: 'removeAdmin',
+      component: <RemoveAdminForm organizationId={organizationId} />,
     },
     {
-      id: 2,
-      tabTitle: 'Transfer Owner',
-      tabContent: <TransferOwnerForm organizationId={organizationId} />,
+      icon: '🥬',
+      label: 'Transfer Owner',
+      id: 'transferOwner',
+      component: <TransferOwnerForm organizationId={organizationId} />,
     },
     {
-      id: 3,
-      tabTitle: 'Delete Organization',
-      tabContent: (
+      icon: '🧀',
+      label: 'Delete Organization',
+      id: 'deleteOrganization',
+      component: (
         <DeleteOrganization
           organizationId={organizationId}
           organizationName={organizationName}
@@ -27,32 +32,42 @@ export default function DangerousActions({ organizationId, organizationName }) {
       ),
     },
   ]
-  const [visibleTab, setVisibleTab] = useState(tabs[0].id)
-  const buttons = tabs.map((item) => (
-    <button
-      key={item.id}
-      onClick={() => setVisibleTab(item.id)}
-      className={
-        visibleTab === item.id
-          ? `${styles.active} ${styles.tab}`
-          : `${styles.tab}`
-      }
-    >
-      {item.tabTitle}
-    </button>
-  ))
-  const content = tabs.map((item) => (
-    <div
-      key={item.id}
-      style={visibleTab === item.id ? {} : { display: 'none' }}
-    >
-      {item.tabContent}
-    </div>
-  ))
+
+  const [removeAdmin, transferOwner, deleteOrganization] = allIngredients
+  const initialTabs = [removeAdmin, transferOwner, deleteOrganization]
+  const [selectedTab, setSelectedTab] = useState(initialTabs[0])
   return (
-    <>
-      <div className={styles.tabs}>{buttons}</div>
-      {content}
-    </>
+    <div className="window">
+      <nav>
+        <div className={formstyles.tabs}>
+          {initialTabs.map((item) => (
+            <button
+              key={item.label}
+              className={
+                item.id === selectedTab.id
+                  ? `${formstyles.active} ${formstyles.tab}`
+                  : ` ${formstyles.tab}`
+              }
+              onClick={() => setSelectedTab(item)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      </nav>
+      <main>
+        <AnimatePresence exitBeforeEnter>
+          <motion.div
+            key={selectedTab ? selectedTab.label : 'empty'}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+          >
+            {selectedTab ? selectedTab.component : '😋'}
+          </motion.div>
+        </AnimatePresence>
+      </main>
+    </div>
   )
 }

@@ -51,28 +51,25 @@ export default function AddAdminForm({ organizationId }) {
   }
 
   return (
-    <div>
-      <h3>Add an Admin</h3>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="_email">
-          <strong>Email:</strong>
-        </label>
-        <input
-          autoComplete="off"
-          aria-label="Admin Email Input"
-          name="_email"
-          value={admin._email}
-          onChange={handleChange}
-          type="text"
-          placeholder="scotty@ucr.edu"
-          className={styles.input}
-        />
-        <span className={styles.actions}>
-          <button type="submit" className={styles.primary}>
-            Add Admin
-          </button>
-        </span>
-      </form>
-    </div>
+    <form onSubmit={handleSubmit} className={styles.form}>
+      <label htmlFor="_email">
+        <strong>Email:</strong>
+      </label>
+      <input
+        autoComplete="off"
+        aria-label="Admin Email Input"
+        name="_email"
+        value={admin._email}
+        onChange={handleChange}
+        type="text"
+        placeholder="scotty@ucr.edu"
+        className={styles.input}
+      />
+      <span className={styles.actions}>
+        <button type="submit" className={styles.primary}>
+          Add Admin
+        </button>
+      </span>
+    </form>
   )
 }

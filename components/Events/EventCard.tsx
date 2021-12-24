@@ -34,7 +34,12 @@ export default function EventCard({
     // listing all course review posts for that specific
     // course
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
-      <motion.div variants={listItems} id={eventId} className={cardstyles.card}>
+      <motion.div
+        variants={listItems}
+        id={eventId}
+        className={cardstyles.card}
+        layout="position"
+      >
         {endDate > new Date() && <span>Expirose</span>}
         <h3 className={cardstyles.course}>{eventName}</h3>
         <span className={cardstyles.author}>
