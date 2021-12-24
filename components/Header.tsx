@@ -173,7 +173,7 @@ export default function Header() {
             ) : (
               <motion.button
                 variants={listItems}
-                className={formstyles.primary}
+                className={formstyles.primarylogin}
                 onClick={() =>
                   signIn('google', {
                     callbackUrl: `${window.location.origin}/profile`,

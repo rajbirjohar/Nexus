@@ -368,6 +368,13 @@ input[type='range']:focus::-moz-range-track {
   background: var(--gray-200);
 }
 
+input[type='checkbox'] {
+  padding: 0;
+  line-height: 1;
+  height: 15px;
+  width: 15px;
+}
+
 .clamp {
   display: -webkit-box;
   -webkit-box-orient: vertical;
