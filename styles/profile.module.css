@@ -4,7 +4,6 @@
 }
 .content {
   flex: 1;
-  margin-right: var(--gap-med);
 }
 
 .form {

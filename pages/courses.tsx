@@ -10,6 +10,7 @@ import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import { motion, LayoutGroup } from 'framer-motion'
+import { GreenTip } from '@/components/Tips'
 
 const list = {
   hidden: { opacity: 0 },
@@ -36,17 +37,17 @@ export default function CoursesPage({ courses }) {
           <div className={styles.content}>
             <h1>Courses</h1>
             <p>
-              Check out any course below. Each course will come with a list of
-              reviews that other people have written from their experiences as a
-              student. Feel free to write your own for future readers ✍️.
+              Check out any course below via thier initialed name such as
+              &#34;CS010A &#34;. Each course will come with a list of reviews
+              that other people have written from their experiences as a
+              student.
             </p>
+            <GreenTip header="Write A Review">
+              Your contribution will help thousands of potential students who
+              are looking into taking a course you took. Write a review and
+              share your experience!
+            </GreenTip>
           </div>
-          <Image
-            src={'/assets/teaching.svg'}
-            width={300}
-            height={300}
-            alt="Professor teaching"
-          />
         </div>
         <div className={formstyles.searchWrapper}>
           <input

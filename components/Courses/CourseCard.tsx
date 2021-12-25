@@ -26,7 +26,7 @@ export default function CourseCard({ courseId, courseName }) {
           ease: 'easeOut',
           duration: 0.15,
         }}
-        className={cardstyles.card}
+        className={cardstyles.coursecard}
       >
         <h3 className={cardstyles.course}>{courseName}</h3>
       </motion.div>

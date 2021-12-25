@@ -11,6 +11,7 @@
     "@types/mongodb": "^4.0.7",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "formik": "^2.2.9",
     "framer-motion": "^5.0.1",
     "lottie-react": "^2.1.0",
     "mongodb": "^4.1.4",

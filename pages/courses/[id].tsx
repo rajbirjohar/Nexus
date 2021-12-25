@@ -75,9 +75,13 @@ const CourseReviews = ({ course, averageRating }) => {
               Go back to courses
             </a>
           </Link>
-          <h1>{course.subjectCourse}</h1>
-          <h2 className={styles.subtitle}>{course.courseTitle}</h2>
-          <h3 className={styles.difficulty}>Average Difficulty: {rating}</h3>
+          <div className={styles.courseheader}>
+            <h1>{course.subjectCourse}</h1>
+            <h1 className={styles.difficulty}>
+              <span>Average:</span> {rating}
+            </h1>
+          </div>
+          <h4>{course.courseTitle}</h4>
           {!session && <p>Please sign in to write a review.</p>}
           {session && session.user.role && session.user.role.includes('none') && (
             <Link href="/profile" passHref>

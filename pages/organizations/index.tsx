@@ -104,12 +104,6 @@ export default function OrganizationsPage() {
                 </Link>
               )}
           </div>
-          <Image
-            src={'/assets/club.svg'}
-            width={300}
-            height={300}
-            alt="Team Image"
-          />
         </div>
         {session &&
           session.user.role &&

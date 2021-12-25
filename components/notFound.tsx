@@ -10,12 +10,12 @@ const NotFound = ({ placeholder }) => {
         <br />
         <cite>— Robert</cite>
       </p>
-      <Image
+      {/* <Image
         src={'/assets/void.svg'}
         width={200}
         height={200}
         alt="Nothing Found Image"
-      />
+      /> */}
     </div>
   )
 }

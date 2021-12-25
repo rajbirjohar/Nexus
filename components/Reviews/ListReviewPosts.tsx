@@ -50,13 +50,6 @@ export default function ListReviewPosts({ courseId }) {
       {data.reviewPosts.length === 0 ? (
         <div className={formstyles.notFound}>
           <p>Be the first one to write a review!</p>
-
-          <Image
-            src={'/assets/post2.svg'}
-            height={300}
-            width={300}
-            alt="Post Image"
-          />
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>
