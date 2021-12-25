@@ -31,11 +31,7 @@ export default function OrganizationCard({
     // Link is used to route each card to a dynamic page
     // listing all details for that specific organization
     <Link href={`/organizations/${organizationName}`} passHref>
-      <motion.div
-        variants={listItems}
-        className={cardstyles.card}
-        layout="position"
-      >
+      <motion.div variants={listItems} className={cardstyles.card}>
         <h3 className={cardstyles.organizationName}>{organizationName}</h3>
         <h4 className={`${cardstyles.organizationTagline} ${'clamp-2'}`}>
           {organizationTagline}

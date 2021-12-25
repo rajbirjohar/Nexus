@@ -15,6 +15,9 @@ const list = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
   },
 }
 
@@ -75,20 +78,23 @@ export default function CoursesPage({ courses }) {
             <NotFound placeholder="class" />
           </>
         )}
-        <motion.div className={cardstyles.gridshort}>
-          <LayoutGroup>
-            {searchValue.length > 1 &&
-              filteredCourses.map((course) => (
-                <CourseCard
-                  key={course._id}
-                  courseId={course._id}
-                  courseName={course.subjectCourse}
-                />
-              ))}
-          </LayoutGroup>
+
+        <motion.div
+          variants={list}
+          initial="hidden"
+          animate="show"
+          className={cardstyles.gridshort}
+        >
+          {searchValue.length > 1 &&
+            filteredCourses.map((course) => (
+              <CourseCard
+                key={course._id}
+                courseId={course._id}
+                courseName={course.subjectCourse}
+              />
+            ))}
         </motion.div>
         <h4>Go ahead and search for a course.</h4>
-
         <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>
       </section>
     </Layout>

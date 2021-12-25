@@ -112,26 +112,25 @@ export default function ListUserEvents() {
       {!filteredEvents.length && data.events.length !== 0 && (
         <NotFound placeholder="event" />
       )}
-      <LayoutGroup>
-        <motion.div
-          variants={list}
-          initial="hidden"
-          animate="show"
-          className={cardstyles.grid}
-        >
-          {filteredEvents.map((newEvent) => (
-            <EventCard
-              key={newEvent._id}
-              organizationName={newEvent.organizationName}
-              eventName={newEvent.eventName}
-              eventDetails={newEvent.eventDetails}
-              eventId={newEvent._id}
-              startDate={newEvent.eventStartDate}
-              endDate={newEvent.eventEndDate}
-            />
-          ))}
-        </motion.div>
-      </LayoutGroup>
+
+      <motion.div
+        variants={list}
+        initial="hidden"
+        animate="show"
+        className={cardstyles.grid}
+      >
+        {filteredEvents.map((newEvent) => (
+          <EventCard
+            key={newEvent._id}
+            organizationName={newEvent.organizationName}
+            eventName={newEvent.eventName}
+            eventDetails={newEvent.eventDetails}
+            eventId={newEvent._id}
+            startDate={newEvent.eventStartDate}
+            endDate={newEvent.eventEndDate}
+          />
+        ))}
+      </motion.div>
     </div>
   )
 }
