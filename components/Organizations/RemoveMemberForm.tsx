@@ -7,7 +7,7 @@ export default function RemoveMemberForm({
   organizationId,
   organizationName,
 }) {
-  const member = { memberId, organizationId }
+  const member = { memberId, organizationName, organizationId }
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)

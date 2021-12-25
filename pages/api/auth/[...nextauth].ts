@@ -27,6 +27,7 @@ export default async function auth(req, res) {
           creatorOfOrg
           adminOfOrg
           memberOfOrg
+          notifications
         }) {
           return {
             id: profile.sub,
@@ -38,6 +39,7 @@ export default async function auth(req, res) {
             creatorOfOrg: 'none',
             adminOfOrg: [],
             memberOfOrg: [],
+            notifications: [],
           }
         },
       }),
@@ -58,6 +60,7 @@ export default async function auth(req, res) {
         session.user.creatorOfOrg = user.creatorOfOrg
         session.user.adminOfOrg = user.adminOfOrg
         session.user.memberOfOrg = user.memberOfOrg
+        session.user.notifications = user.notifications
         return session
       },
     },

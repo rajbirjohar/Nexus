@@ -13,7 +13,7 @@ export default async function removeMember(
 
   if (session) {
     const {
-      memberData: { organizationId, memberId },
+      memberData: { organizationId, organizationName, memberId },
     } = req.body
     const userNotFound = await db
       .collection('users')
@@ -40,6 +40,14 @@ export default async function removeMember(
         {
           $pull: {
             memberOfOrg: new mongodb.ObjectId(organizationId),
+          },
+          $push: {
+            notifications: {
+              notifId: new mongodb.ObjectId(),
+              notifCreatedAt: new Date(),
+              notifType: 'update',
+              message: `You've left ${organizationName}.`,
+            },
           },
         }
       )

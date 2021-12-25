@@ -1,4 +1,4 @@
-import Router, {useRouter} from 'next/router'
+import Router, { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import formstyles from '@/styles/form.module.css'
 
@@ -8,7 +8,7 @@ export default function AddMemberForm({
   organizationName,
 }) {
   const router = useRouter()
-  const member = { memberId, organizationId }
+  const member = { organizationId, organizationName, memberId }
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)

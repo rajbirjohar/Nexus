@@ -24,7 +24,7 @@ const list = {
 }
 
 export default function ListUserPosts() {
-  const { data, error } = useSWR('/api/reviewposts/userreviewfetch', fetcher, {
+  const { data, error } = useSWR('/api/users/userreviewfetch', fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
