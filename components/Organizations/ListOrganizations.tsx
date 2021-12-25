@@ -116,23 +116,21 @@ export default function ListOrganizations() {
         <NotFound placeholder="organization" />
       )}
 
-      <LayoutGroup>
-        <motion.div
-          variants={list}
-          initial="hidden"
-          animate="show"
-          className={cardstyles.grid}
-        >
-          {filteredOrgs.map((organization) => (
-            <OrganizationCard
-              key={organization._id}
-              organizationId={organization._id}
-              organizationName={organization.organizationName}
-              organizationTagline={organization.organizationTagline}
-            />
-          ))}
-        </motion.div>
-      </LayoutGroup>
+      <motion.div
+        variants={list}
+        initial="hidden"
+        animate="show"
+        className={cardstyles.grid}
+      >
+        {filteredOrgs.map((organization) => (
+          <OrganizationCard
+            key={organization._id}
+            organizationId={organization._id}
+            organizationName={organization.organizationName}
+            organizationTagline={organization.organizationTagline}
+          />
+        ))}
+      </motion.div>
     </div>
   )
 }
