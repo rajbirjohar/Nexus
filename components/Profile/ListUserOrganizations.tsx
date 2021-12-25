@@ -24,7 +24,7 @@ const list = {
 }
 
 export default function ListUserOrganizations() {
-  const { data, error } = useSWR('/api/organizations/userorgfetch', fetcher, {
+  const { data, error } = useSWR('/api/users/userorgfetch', fetcher, {
     refreshInterval: 1000,
   })
   if (error) {

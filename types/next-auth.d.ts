@@ -16,6 +16,7 @@ declare module 'next-auth' {
       creatorOfOrg: string
       adminOfOrg: Array
       memberOfOrg: Array
+      notifications: Array
     }
   }
   interface User {
@@ -24,5 +25,6 @@ declare module 'next-auth' {
     creatorOfOrg: string
     adminOfOrg: Array
     memberOfOrg: Array
+    notifications: Array
   }
 }

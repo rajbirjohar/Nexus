@@ -17,6 +17,13 @@
   gap: var(--gap-med);
 }
 
+.notifgrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-med);
+  margin-bottom: var(--gap-med);
+}
+
 .card,
 .reviewcard,
 .coursecard {
@@ -43,20 +50,53 @@
   color: var(--gray-500);
 }
 
-.greentip {
+.greencard {
   padding: var(--gap-half) var(--gap-med);
   border-radius: var(--radius);
   background-color: var(--emerald-100);
 }
 
+.defaultcard {
+  padding: var(--gap-half) var(--gap-med);
+  border-radius: var(--radius);
+  background-color: var(--gray-100);
+}
+
+.defaultnotif,
+.greennotif {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-med);
+  padding: var(--gap-half) var(--gap-med);
+  border-radius: var(--radius);
+}
+
+.defaultnotif > button,
+.greennotif > button {
+  margin-top: var(--gap-half);
+  margin-right: -5px;
+}
+
+.defaultnotif {
+  background-color: var(--gray-100);
+}
+
+.greennotif {
+  background-color: var(--emerald-100);
+}
+
+.notifmessage {
+  flex: 1;
+}
+
 /* Dummy card styles */
 .dummycard {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
+  background-color: var(--gray-100);
   border-radius: var(--radius);
   padding: var(--gap-med);
   margin: var(--gap) 0;
-  box-shadow: var(--shadows-base);
+  box-shadow: var(--shadows-sm);
 }
 
 .dummyauthor {
