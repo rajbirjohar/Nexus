@@ -115,31 +115,39 @@ const Organization = ({ organization, superMembers, members }) => {
             {/* Change this icon when we have a logo */}
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <h1>{organization.organizationName}</h1>
+          <div className={styles.organizationHeader}>
+            <h1>{organization.organizationName}</h1>
+            <div>
+              {session && isNotMember && (
+                <AddMemberForm
+                  memberId={session.user.id}
+                  organizationId={organization._id}
+                  organizationName={organization.organizationName}
+                />
+              )}
+              {session && isMember && (
+                <RemoveMemberForm
+                  memberId={session.user.id}
+                  organizationId={organization._id}
+                  organizationName={organization.organizationName}
+                />
+              )}
+            </div>
+          </div>
           <h4>{organization.organizationTagline}</h4>
           <p>{organization.organizationDescription}</p>
-          {session && isNotMember && (
-            <AddMemberForm
-              memberId={session.user.id}
-              organizationId={organization._id}
-              organizationName={organization.organizationName}
-            />
+          {((session && isAdmin) || (session && isMember)) && (
+            <>
+              <h2>Admins</h2>
+              <ul className={styles.memberslist}>
+                {superMembers.map((superMember) => (
+                  <li key={superMember.adminId}>
+                    <strong>{superMember.admin} </strong> / {superMember.email}
+                  </li>
+                ))}
+              </ul>
+            </>
           )}
-          {session && isMember && (
-            <RemoveMemberForm
-              memberId={session.user.id}
-              organizationId={organization._id}
-              organizationName={organization.organizationName}
-            />
-          )}
-          <h2>Admins</h2>
-          <ul className={styles.memberslist}>
-            {superMembers.map((superMember) => (
-              <li key={superMember.adminId}>
-                <strong>{superMember.admin} </strong> / {superMember.email}
-              </li>
-            ))}
-          </ul>
           <LayoutGroup>
             {session && isAdmin && (
               <>

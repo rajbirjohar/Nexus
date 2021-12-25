@@ -3,7 +3,7 @@ import { useState } from 'react'
 import DeleteOrganization from './DeleteOrganization'
 import RemoveAdminForm from './RemoveAdminForm'
 import TransferOwnerForm from './TransferOwnerForm'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import formstyles from '@/styles/form.module.css'
 
 export default function DangerousActions({ organizationId, organizationName }) {
@@ -41,7 +41,7 @@ export default function DangerousActions({ organizationId, organizationName }) {
       <nav>
         <div className={formstyles.tabs}>
           {initialTabs.map((item) => (
-            <button
+            <motion.button
               key={item.label}
               className={
                 item.id === selectedTab.id
@@ -51,7 +51,13 @@ export default function DangerousActions({ organizationId, organizationName }) {
               onClick={() => setSelectedTab(item)}
             >
               {item.label}
-            </button>
+              {item.id === selectedTab.id ? (
+                <motion.div
+                  className={formstyles.underline}
+                  layoutId="actions"
+                />
+              ) : null}
+            </motion.button>
           ))}
         </div>
       </nav>

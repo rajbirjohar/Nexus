@@ -9,7 +9,7 @@ import ListUserPosts from '@/components/Reviews/ListUserPosts'
 import styles from '@/styles/profile.module.css'
 import formstyles from '@/styles/form.module.css'
 import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 
 export default function Profile() {
   const router = useRouter()
@@ -155,12 +155,6 @@ export default function Profile() {
             Happy posting 🎉!
           </p>
         </div>
-        <Image
-          src={'/assets/profile.svg'}
-          height={300}
-          width={300}
-          alt="Profile Image"
-        />
       </div>
 
       {session && (
@@ -168,7 +162,7 @@ export default function Profile() {
           <nav>
             <div className={formstyles.tabs}>
               {initialTabs.map((item) => (
-                <button
+                <motion.button
                   key={item.label}
                   className={
                     item.id === selectedTab.id
@@ -178,7 +172,13 @@ export default function Profile() {
                   onClick={() => setSelectedTab(item)}
                 >
                   {item.label}
-                </button>
+                  {item.id === selectedTab.id ? (
+                    <motion.div
+                      className={formstyles.underline}
+                      layoutId="profile"
+                    />
+                  ) : null}
+                </motion.button>
               ))}
             </div>
           </nav>

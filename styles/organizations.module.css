@@ -1,11 +1,16 @@
 .hero {
   display: flex;
   align-items: center;
-  margin-bottom: var(--gap-med);
+
 }
 .content {
   flex: 1;
-  margin-right: var(--gap-med);
+}
+
+.organizationHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .memberslist {
@@ -25,5 +30,10 @@
   }
   .content {
     margin-right: 0;
+  }
+  .organizationHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
   }
 }
