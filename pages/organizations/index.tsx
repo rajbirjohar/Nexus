@@ -10,6 +10,33 @@ import OrganizationsForm from '@/components/Organizations/OrganizationsForm'
 import ListOrganizations from '@/components/Organizations/ListOrganizations'
 import styles from '@/styles/organizations.module.css'
 import formstyles from '@/styles/form.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const list = {
+  closed: {
+    height: '0',
+    transition: {
+      when: 'afterChildren',
+    },
+  },
+  open: {
+    height: 'auto',
+  },
+}
+
+const listItems = {
+  closed: {
+    opacity: 0,
+    y: -5,
+    transition: {
+      duration: 0.15,
+    },
+  },
+  open: {
+    opacity: 1,
+    y: 0,
+  },
+}
 
 export default function OrganizationsPage() {
   const { data: session } = useSession()
@@ -71,18 +98,6 @@ export default function OrganizationsPage() {
 
             {session &&
               session.user.role &&
-              session.user.orgRole &&
-              session.user.role.includes('student' || 'professor') &&
-              session.user.orgRole.includes('none') && (
-                <button
-                  className={formstyles.apply}
-                  onClick={() => setDisplayWarning(!displayWarning)}
-                >
-                  Apply for Organizer
-                </button>
-              )}
-            {session &&
-              session.user.role &&
               session.user.role.includes('none') && (
                 <Link href="/profile" passHref>
                   <a>Please verify if you are a student or professor.</a>
@@ -96,70 +111,94 @@ export default function OrganizationsPage() {
             alt="Team Image"
           />
         </div>
-        {displayWarning && (
-          <div className={formstyles.warningWrapper}>
-            <h3>Before You Create</h3>
-            <p>
-              <strong>
-                We currently only support the creation of{' '}
-                <u>one organization per user</u>.
-              </strong>
-            </p>
-            <p>
-              <strong>Permissions:</strong>
-            </p>
-            <p>
-              <strong>Creator (You): </strong>This role grants all permissions
-              regarding{' '}
-              <u>
-                club creation/deletion, admin addition/removal, owner
-                transfership, event posting, comment moderation, and member
-                viewing
-              </u>
-              . We strongly recommend the highest ranking officer to be in
-              charge of creating the club which they can then add other board
-              members as <u>Admins</u>.
-            </p>
-            <p>
-              <strong>Admin: </strong>This role grants all permissions regarding{' '}
-              <u>
-                admin addition, event posting, comment moderation, and member
-                viewing.
-              </u>
-              .
-            </p>
-            <p>
-              <strong>Member: </strong> Any other user that isn&#39;t already a
-              Creator or Admin will be able to join your club as a member. They
-              can filter events based on membership status and view your contact
-              information.
-            </p>
-            <p>
-              Please enter <strong>&#34;Admin&#34;</strong> if you understand
-              the rules and limitations of each role and would like to proceed
-              creating your own organization.
-            </p>
-            <form onSubmit={handleSubmit} className={formstyles.form}>
-              <label htmlFor="_orgRole">
-                <strong>Position:</strong>
-              </label>
-              <input autoComplete="off"
-                aria-label="Org Role Input"
-                name="_orgRole"
-                value={orgRole._orgRole}
-                onChange={handleChange}
-                type="text"
-                placeholder="Role"
-                className={formstyles.input}
-              />
-              <div className={formstyles.actions}>
-                <button className={formstyles.primary} type="submit">
-                  I Understand
-                </button>
-              </div>
-            </form>
-          </div>
-        )}
+        {session &&
+          session.user.role &&
+          session.user.orgRole &&
+          session.user.role.includes('student' || 'professor') &&
+          session.user.orgRole.includes('none') && (
+            <button
+              className={formstyles.primary}
+              onClick={() => setDisplayWarning(!displayWarning)}
+            >
+              Apply for Organizer
+            </button>
+          )}
+        <AnimatePresence exitBeforeEnter>
+          {displayWarning && (
+            <motion.div
+              animate={displayWarning ? 'open' : 'closed'}
+              variants={list}
+              exit="closed"
+              initial="closed"
+              className={formstyles.warningWrapper}
+            >
+              <motion.div variants={listItems}>
+                <h3>Before You Create</h3>
+                <p>
+                  <strong>
+                    We currently only support the creation of{' '}
+                    <u>one organization per user</u>.
+                  </strong>
+                </p>
+                <p>
+                  <strong>Permissions:</strong>
+                </p>
+                <p>
+                  <strong>Creator (You): </strong>This role grants all
+                  permissions regarding{' '}
+                  <u>
+                    club creation/deletion, admin addition/removal, owner
+                    transfership, event posting, comment moderation, and member
+                    viewing
+                  </u>
+                  . We strongly recommend the highest ranking officer to be in
+                  charge of creating the club which they can then add other
+                  board members as <u>Admins</u>.
+                </p>
+                <p>
+                  <strong>Admin: </strong>This role grants all permissions
+                  regarding{' '}
+                  <u>
+                    admin addition, event posting, comment moderation, and
+                    member viewing
+                  </u>
+                  .
+                </p>
+                <p>
+                  <strong>Member: </strong> Any other user that isn&#39;t
+                  already a Creator or Admin will be able to join your club as a
+                  member. They can filter events based on membership status and
+                  view your contact information.
+                </p>
+                <p>
+                  Please enter <strong>&#34;Admin&#34;</strong> if you
+                  understand the rules and limitations of each role and would
+                  like to proceed creating your own organization.
+                </p>
+                <form onSubmit={handleSubmit} className={formstyles.form}>
+                  <label htmlFor="_orgRole">
+                    <strong>Position:</strong>
+                  </label>
+                  <input
+                    autoComplete="off"
+                    aria-label="Org Role Input"
+                    name="_orgRole"
+                    value={orgRole._orgRole}
+                    onChange={handleChange}
+                    type="text"
+                    placeholder="Role"
+                    className={formstyles.input}
+                  />
+                  <div className={formstyles.actions}>
+                    <button className={formstyles.primary} type="submit">
+                      I Understand
+                    </button>
+                  </div>
+                </form>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
         {session &&
           session.user.orgRole &&
           session.user.orgRole.includes('Admin') &&

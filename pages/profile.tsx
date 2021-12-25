@@ -9,6 +9,7 @@ import ListUserPosts from '@/components/Reviews/ListUserPosts'
 import styles from '@/styles/profile.module.css'
 import formstyles from '@/styles/form.module.css'
 import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Profile() {
   const router = useRouter()
@@ -24,7 +25,24 @@ export default function Profile() {
     _role: '',
     displayWarning: true,
   })
-  const [tab, setTab] = useState(0)
+  const allTabs = [
+    {
+      icon: '🍅',
+      label: 'Organizations',
+      id: 'organizations',
+      component: <ListUserOrganizations />,
+    },
+    {
+      icon: '🥬',
+      label: 'Reviews',
+      id: 'reviews',
+      component: <ListUserPosts />,
+    },
+  ]
+
+  const [organizations, reviews] = allTabs
+  const initialTabs = [organizations, reviews]
+  const [selectedTab, setSelectedTab] = useState(initialTabs[0])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -144,44 +162,42 @@ export default function Profile() {
           alt="Profile Image"
         />
       </div>
-      <div className={formstyles.tabs}>
-        <button
-          onClick={() => setTab(0)}
-          className={
-            tab === 0
-              ? `${formstyles.active} ${formstyles.tab}`
-              : `${formstyles.tab}`
-          }
-        >
-          Organizations
-        </button>
-        <button
-          onClick={() => setTab(1)}
-          className={
-            tab === 1
-              ? `${formstyles.active} ${formstyles.tab}`
-              : `${formstyles.tab}`
-          }
-        >
-          Reviews
-        </button>
-      </div>
+
       {session && (
         <>
-          {tab === 0 ? (
-            <>
-              <h2>Your Organizations</h2>
-              <ListUserOrganizations />
-            </>
-          ) : (
-            <>
-              <h2>Your Reviews</h2>
-              <ListUserPosts />
-            </>
-          )}
-          <blockquote className={styles.quote}>
-            Rage, rage against the dying of the light.
-          </blockquote>
+          <nav>
+            <div className={formstyles.tabs}>
+              {initialTabs.map((item) => (
+                <button
+                  key={item.label}
+                  className={
+                    item.id === selectedTab.id
+                      ? `${formstyles.active} ${formstyles.tab}`
+                      : ` ${formstyles.tab}`
+                  }
+                  onClick={() => setSelectedTab(item)}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </div>
+          </nav>
+          <section>
+            <AnimatePresence exitBeforeEnter>
+              <motion.div
+                key={selectedTab ? selectedTab.label : 'empty'}
+                animate={{ opacity: 1, x: 0 }}
+                initial={{ opacity: 0, x: -5 }}
+                exit={{ opacity: 0, x: 5 }}
+                transition={{ duration: 0.15 }}
+              >
+                <h2>{selectedTab.label}</h2>
+                {selectedTab
+                  ? selectedTab.component
+                  : 'Nothing to see here 😋.'}
+              </motion.div>
+            </AnimatePresence>
+          </section>
         </>
       )}
     </Layout>
