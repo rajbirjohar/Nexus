@@ -13,23 +13,25 @@
 
 .gridshort {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
   gap: var(--gap-med);
 }
 
 .card,
-.reviewcard {
+.reviewcard,
+.coursecard {
   background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
   border-radius: var(--radius);
   padding: var(--gap-med);
-  box-shadow: var(--shadows-lg);
+  box-shadow: var(--shadows-sm);
 }
 
+.coursecard,
 .card {
   transition: all 150ms ease-in-out;
 }
 
+.coursecard:hover,
 .card:hover {
   background-color: var(--gray-100);
   transform: translateY(-0.25rem);
@@ -39,6 +41,12 @@
 .author,
 .date {
   color: var(--gray-500);
+}
+
+.greentip {
+  padding: var(--gap-half) var(--gap-med);
+  border-radius: var(--radius);
+  background-color: var(--emerald-100);
 }
 
 /* Dummy card styles */
@@ -74,13 +82,13 @@
 
 @keyframes pulse {
   0% {
-    background-color: var(--gray-200);
+    background-color: var(--gray-100);
   }
   50% {
-    background-color: var(--gray-300);
+    background-color: var(--gray-200);
   }
   100% {
-    background-color: var(--gray-200);
+    background-color: var(--gray-100);
   }
 }
 

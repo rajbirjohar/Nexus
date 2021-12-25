@@ -48,7 +48,7 @@
 .linkwrapper {
   display: flex;
   align-items: center;
-  gap: var(--gap-med);
+  gap: var(--gap);
 }
 
 .open,
@@ -66,8 +66,8 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: var(--gap-med);
-  font-size: 1.2rem;
+  gap: 2.5rem;
+  font-size: 1.25rem;
 }
 
 .themeWrapper {

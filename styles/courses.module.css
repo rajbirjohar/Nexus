@@ -2,13 +2,11 @@
   display: flex;
   align-items: center;
 }
-.content {
-  flex: 1;
-  margin-right: var(--gap-med);
-}
 
-.subtitle {
-  font-size: 1.15;
+.courseheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .difficulty {
@@ -21,5 +19,11 @@
   }
   .content {
     margin-right: 0;
+  }
+}
+
+@media (max-width: 668px) {
+  .courseheader span {
+    display: none;
   }
 }

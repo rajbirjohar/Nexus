@@ -9,11 +9,10 @@
   --gap-med: 1.5rem;
   --small-gap: 4rem;
   --big-gap: 4rem;
-  --hero-content: 72rem;
-  --main-content: 60rem;
+  --main-content: 70rem;
   --nav-content: 74rem;
   --radius-sm: 5px;
-  --radius: 10px;
+  --radius: 12px;
   --radius-lg: 25px;
   --radius-round: 50%;
   --inline-radius: 5px;
@@ -30,11 +29,11 @@
   --transition-slow: 0.3s ease-in-out;
 
   /* Shadows */
-  --shadows-sm: 0 1px 2px 0 rgba(178, 183, 190, 0.15);
+  --shadows-sm: rgba(0, 0, 0, 0.08) 0px 4px 12px;
   --shadows-base: 0 1px 3px 0 rgba(178, 183, 190, 0.15),
     0 1px 2px 0 rgba(178, 183, 190, 0.15);
-  --shadows-lg: 0 10px 15px -3px rgba(178, 183, 190, 0.15),
-    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadows-lg: rgba(17, 17, 26, 0.1) 0px 0px 16px,
+    0px 24px 80px rgba(0, 0, 0, 0.07);
   --shadows-xl: 0 20px 25px -5px rgba(178, 183, 190, 0.15),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --nav-shadow: rgba(178, 183, 190, 0.15) 0px 5px 10px 0px;
@@ -72,6 +71,17 @@
   --rose-700: #be123c;
   --rose-800: #9f1239;
   --rose-900: #881337;
+
+  --emerald-50: #ecfdf5;
+  --emerald-100: #d1fae5;
+  --emerald-200: #a7f3d0;
+  --emerald-300: #6ee7b7;
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --emerald-700: #047857;
+  --emerald-800: #065f46;
+  --emerald-900: #064e3b;
 }
 
 [data-theme='dark'] {
@@ -108,8 +118,19 @@
   --rose-800: #ffe4e6;
   --rose-900: #fff1f2;
 
+  --emerald-50: #064e3b;
+  --emerald-100: #065f46;
+  --emerald-200: #047857;
+  --emerald-300: #059669;
+  --emerald-400: #10b981;
+  --emerald-500: #34d399;
+  --emerald-600: #6ee7b7;
+  --emerald-700: #a7f3d0;
+  --emerald-800: #d1fae5;
+  --emerald-900: #ecfdf5;
+
   --nav-shadow: rgba(3, 3, 3, 0.171) 0px 5px 10px 0px;
-  --shadows-sm: 0 1px 2px 0 rgba(3, 3, 3, 0.171);
+  --shadows-sm: rgba(0, 0, 0, 0.175) 0px 4px 12px;
   --shadows-base: 0 1px 3px 0 rgba(3, 3, 3, 0.171),
     0 1px 2px 0 rgba(3, 3, 3, 0.171);
   --shadows-lg: 0 10px 15px -3px rgba(3, 3, 3, 0.171),
@@ -174,12 +195,12 @@ li {
 }
 
 h1 {
-  font-size: 2rem;
+  font-size: 2.5rem;
   line-height: 1;
 }
 
 h2 {
-  font-size: 1.75rem;
+  font-size: 2rem;
 }
 
 h3 {
@@ -192,7 +213,7 @@ h4 {
 
 hr {
   border: none;
-  border-bottom: 1px solid var(--amber-100);
+  border-bottom: 2px solid var(--gray-900);
 }
 
 blockquote {
@@ -291,6 +312,7 @@ textarea {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+  transition: all var(--transition);
 }
 
 input[type='text']:disabled {
@@ -301,13 +323,10 @@ input[type='text']:disabled::placeholder {
   color: var(--gray-300) !important;
 }
 
-input:focus {
-  outline: none !important;
-  border: 2px solid var(--amber-500);
-}
+input:focus,
 textarea:focus {
   outline: none !important;
-  border: 2px solid var(--amber-500);
+  border: 2px solid var(--amber-200)
 }
 
 input[type='range'] {

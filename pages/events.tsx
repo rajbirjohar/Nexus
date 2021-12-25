@@ -7,7 +7,7 @@ import Layout from '@/components/Layout'
 import styles from '@/styles/events.module.css'
 import formstyles from '@/styles/form.module.css'
 import ListUserEvents from '@/components/Events/ListUserEvents'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 
 export default function EventsPage() {
   const { data: session } = useSession()
@@ -41,24 +41,17 @@ export default function EventsPage() {
             <p>
               This is where you&#39;ll be able to see all of the ongoing and
               future events of our clubs and organizations. Events are sorted by
-              the date and time that they end. If you&#39;re a club organizer,
-              feel free to post your own event 🎟!
+              the date and time that they end.
             </p>
           </div>
-          <Image
-            src={'/assets/calendar.svg'}
-            height={300}
-            width={300}
-            alt="Calendar Image"
-          />
         </div>
 
         {session && (
           <>
-            <nav>
+            <LayoutGroup>
               <div className={formstyles.tabs}>
                 {initialTabs.map((item) => (
-                  <button
+                  <motion.button
                     key={item.label}
                     className={
                       item.id === selectedTab.id
@@ -68,10 +61,16 @@ export default function EventsPage() {
                     onClick={() => setSelectedTab(item)}
                   >
                     {item.label}
-                  </button>
+                    {item.id === selectedTab.id ? (
+                      <motion.div
+                        className={formstyles.underline}
+                        layoutId="events"
+                      />
+                    ) : null}
+                  </motion.button>
                 ))}
               </div>
-            </nav>
+            </LayoutGroup>
             <section>
               <AnimatePresence exitBeforeEnter>
                 <motion.div

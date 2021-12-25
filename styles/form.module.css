@@ -19,9 +19,9 @@
 }
 
 .serverdown {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; */
 }
 
 .actions {
@@ -61,11 +61,11 @@
 }
 
 .notFound {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
-  text-align: center;
+  text-align: center; */
 }
 
 .tabs {
@@ -78,6 +78,8 @@
 
 .tab {
   background: transparent;
+  position: relative;
+  padding: var(--gap-half);
   transition: background-color var(--transition), color var(--transition);
 }
 
@@ -86,19 +88,24 @@
 }
 
 .active {
-  background-color: var(--gray-100);
+  background-color: transparent;
   color: var(--amber-500);
 }
 
 .active.tab:hover {
+  background-color: transparent;
   color: var(--amber-500);
   cursor: default;
 }
 
 .underline {
-  width: 100%;
-  height: 2px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
   background: var(--amber-500);
+  border-radius: var(--radius);
 }
 
 .revealheader {

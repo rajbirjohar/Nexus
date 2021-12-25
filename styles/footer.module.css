@@ -1,9 +1,10 @@
 .footer {
-  height: 10rem;
+  padding: var(--gap-double) 0;
   width: 100wv;
   display: flex;
   background-color: var(--gray-100);
-  align-items: center;
+  align-items: flex-start;
+
   margin-top: var(--big-gap);
   /* Stretches to bottom of page */
   box-shadow: 0 50vh 0 50vh var(--gray-100);
@@ -14,7 +15,17 @@
   margin: 0 auto;
   padding: var(--gap-quarter) var(--gap-med);
   display: flex;
-  justify-content: flex-start;
   flex-direction: column;
   gap: 1.5rem;
+}
+
+.links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+@media (max-width: 668px) {
+  .links {
+    flex-direction: column;
+  }
 }
