@@ -130,10 +130,15 @@ export default function OrganizationsForm() {
       <span className={styles.maxlength}>
         {maxLength - organization._organizationDescription.length}/{maxLength}
       </span>
-
-      <button className={styles.primary} type="submit">
-        Create Organization
-      </button>
+      <span className={styles.actions}>
+        <button className={styles.primary} type="submit">
+          Create{' '}
+          {organization._organizationName === ''
+            ? 'Organization'
+            : organization._organizationName}
+          !
+        </button>
+      </span>
     </form>
   )
 }

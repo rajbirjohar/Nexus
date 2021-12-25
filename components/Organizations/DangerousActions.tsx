@@ -7,7 +7,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import formstyles from '@/styles/form.module.css'
 
 export default function DangerousActions({ organizationId, organizationName }) {
-  const allIngredients = [
+  const allTabs = [
     {
       icon: '🍅',
       label: 'Remove Admin',
@@ -33,11 +33,11 @@ export default function DangerousActions({ organizationId, organizationName }) {
     },
   ]
 
-  const [removeAdmin, transferOwner, deleteOrganization] = allIngredients
+  const [removeAdmin, transferOwner, deleteOrganization] = allTabs
   const initialTabs = [removeAdmin, transferOwner, deleteOrganization]
   const [selectedTab, setSelectedTab] = useState(initialTabs[0])
   return (
-    <div className="window">
+    <div>
       <nav>
         <div className={formstyles.tabs}>
           {initialTabs.map((item) => (
@@ -55,19 +55,19 @@ export default function DangerousActions({ organizationId, organizationName }) {
           ))}
         </div>
       </nav>
-      <main>
+      <section>
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={selectedTab ? selectedTab.label : 'empty'}
-            animate={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
+            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -5 }}
+            exit={{ opacity: 0, x: 5 }}
             transition={{ duration: 0.15 }}
           >
-            {selectedTab ? selectedTab.component : '😋'}
+            {selectedTab ? selectedTab.component : 'Nothing to see here 😋.'}
           </motion.div>
         </AnimatePresence>
-      </main>
+      </section>
     </div>
   )
 }

@@ -34,7 +34,7 @@ export default function ListUserOrganizations() {
     return <Loader />
   }
   return (
-    <>
+    <div>
       <h3 className={styles.subtitle}>Created</h3>
       <motion.div
         variants={list}
@@ -99,6 +99,6 @@ export default function ListUserOrganizations() {
           />
         ))}
       </motion.div>
-    </>
+    </div>
   )
 }
