@@ -7,10 +7,28 @@ import Layout from '@/components/Layout'
 import styles from '@/styles/events.module.css'
 import formstyles from '@/styles/form.module.css'
 import ListUserEvents from '@/components/Events/ListUserEvents'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function EventsPage() {
   const { data: session } = useSession()
-  const [tab, setTab] = useState(0)
+  const allTabs = [
+    {
+      icon: '🍅',
+      label: 'All Events',
+      id: 'allevents',
+      component: <ListAllEvents />,
+    },
+    {
+      icon: '🥬',
+      label: 'Member Events',
+      id: 'memberevents',
+      component: <ListUserEvents />,
+    },
+  ]
+  const [allevents, memberevents] = allTabs
+  const initialTabs = [allevents, memberevents]
+  const [selectedTab, setSelectedTab] = useState(initialTabs[0])
+
   return (
     <Layout>
       <Head>
@@ -35,46 +53,41 @@ export default function EventsPage() {
           />
         </div>
 
-        {session ? (
+        {session && (
           <>
-            <div className={formstyles.tabs}>
-              <button
-                onClick={() => setTab(0)}
-                className={
-                  tab === 0
-                    ? `${formstyles.active} ${formstyles.tab}`
-                    : `${formstyles.tab}`
-                }
-              >
-                All Events
-              </button>
-              <button
-                onClick={() => setTab(1)}
-                className={
-                  tab === 1
-                    ? `${formstyles.active} ${formstyles.tab}`
-                    : `${formstyles.tab}`
-                }
-              >
-                Member Events
-              </button>
-            </div>
-            {tab === 0 ? (
-              <>
-                <h2>All Events</h2>
-                <ListAllEvents />
-              </>
-            ) : (
-              <>
-                <h2>Member Events</h2>
-                <ListUserEvents />
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <h2>Recent Events</h2>
-            <ListAllEvents />
+            <nav>
+              <div className={formstyles.tabs}>
+                {initialTabs.map((item) => (
+                  <button
+                    key={item.label}
+                    className={
+                      item.id === selectedTab.id
+                        ? `${formstyles.active} ${formstyles.tab}`
+                        : ` ${formstyles.tab}`
+                    }
+                    onClick={() => setSelectedTab(item)}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </nav>
+            <section>
+              <AnimatePresence exitBeforeEnter>
+                <motion.div
+                  key={selectedTab ? selectedTab.label : 'empty'}
+                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: -5 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  transition={{ duration: 0.15 }}
+                >
+                  <h2>{selectedTab.label}</h2>
+                  {selectedTab
+                    ? selectedTab.component
+                    : 'Nothing to see here 😋.'}
+                </motion.div>
+              </AnimatePresence>
+            </section>
           </>
         )}
       </section>

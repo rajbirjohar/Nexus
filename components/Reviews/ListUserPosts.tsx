@@ -23,7 +23,7 @@ const list = {
   },
 }
 
-export default function ListUserReviewPosts() {
+export default function ListUserPosts() {
   const { data, error } = useSWR('/api/reviewposts/userreviewfetch', fetcher, {
     refreshInterval: 1000,
   })
