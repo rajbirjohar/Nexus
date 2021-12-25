@@ -38,7 +38,6 @@ export default function EventCard({
         variants={listItems}
         id={eventId}
         className={cardstyles.card}
-        layout="position"
       >
         {endDate > new Date() && <span>Expirose</span>}
         <h3 className={cardstyles.course}>{eventName}</h3>

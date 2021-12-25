@@ -24,10 +24,9 @@ export default function CourseCard({ courseId, courseName }) {
         animate={{ opacity: 1 }}
         transition={{
           ease: 'easeOut',
-          duration: 0.25,
+          duration: 0.15,
         }}
         className={cardstyles.card}
-        layout
       >
         <h3 className={cardstyles.course}>{courseName}</h3>
       </motion.div>
