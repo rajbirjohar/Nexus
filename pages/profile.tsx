@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 import Router, { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
-import ListUserPosts from '@/components/Reviews/ListUserPosts'
+import ListUserPosts from '@/components/Profile/ListUserPosts'
+import ListUserOrganizations from '@/components/Profile/ListUserOrganizations'
+import ListNotifications from '@/components/Profile/ListNotifications'
 import styles from '@/styles/profile.module.css'
 import formstyles from '@/styles/form.module.css'
-import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 
 export default function Profile() {
@@ -159,45 +159,50 @@ export default function Profile() {
 
       {session && (
         <>
-          <nav>
-            <div className={formstyles.tabs}>
-              {initialTabs.map((item) => (
-                <motion.button
-                  key={item.label}
-                  className={
-                    item.id === selectedTab.id
-                      ? `${formstyles.active} ${formstyles.tab}`
-                      : ` ${formstyles.tab}`
-                  }
-                  onClick={() => setSelectedTab(item)}
+          <LayoutGroup>
+            <ListNotifications />
+          </LayoutGroup>
+          <motion.div>
+            <nav>
+              <div className={formstyles.tabs}>
+                {initialTabs.map((item) => (
+                  <motion.button
+                    key={item.label}
+                    className={
+                      item.id === selectedTab.id
+                        ? `${formstyles.active} ${formstyles.tab}`
+                        : ` ${formstyles.tab}`
+                    }
+                    onClick={() => setSelectedTab(item)}
+                  >
+                    {item.label}
+                    {item.id === selectedTab.id ? (
+                      <motion.div
+                        className={formstyles.underline}
+                        layoutId="profile"
+                      />
+                    ) : null}
+                  </motion.button>
+                ))}
+              </div>
+            </nav>
+            <section>
+              <AnimatePresence exitBeforeEnter>
+                <motion.div
+                  key={selectedTab ? selectedTab.label : 'empty'}
+                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: -5 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  transition={{ duration: 0.15 }}
                 >
-                  {item.label}
-                  {item.id === selectedTab.id ? (
-                    <motion.div
-                      className={formstyles.underline}
-                      layoutId="profile"
-                    />
-                  ) : null}
-                </motion.button>
-              ))}
-            </div>
-          </nav>
-          <section>
-            <AnimatePresence exitBeforeEnter>
-              <motion.div
-                key={selectedTab ? selectedTab.label : 'empty'}
-                animate={{ opacity: 1, x: 0 }}
-                initial={{ opacity: 0, x: -5 }}
-                exit={{ opacity: 0, x: 5 }}
-                transition={{ duration: 0.15 }}
-              >
-                <h2>{selectedTab.label}</h2>
-                {selectedTab
-                  ? selectedTab.component
-                  : 'Nothing to see here 😋.'}
-              </motion.div>
-            </AnimatePresence>
-          </section>
+                  <h2>{selectedTab.label}</h2>
+                  {selectedTab
+                    ? selectedTab.component
+                    : 'Nothing to see here 😋.'}
+                </motion.div>
+              </AnimatePresence>
+            </section>
+          </motion.div>
         </>
       )}
     </Layout>

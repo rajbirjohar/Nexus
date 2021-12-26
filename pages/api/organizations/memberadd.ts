@@ -12,7 +12,7 @@ export default async function addMember(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     const {
-      memberData: { organizationId, memberId },
+      memberData: { organizationId, organizationName, memberId },
     } = req.body
     const userNotFound = await db
       .collection('users')
@@ -55,6 +55,12 @@ export default async function addMember(
         {
           $push: {
             memberOfOrg: new mongodb.ObjectId(organizationId),
+            notifications: {
+              notifId: new mongodb.ObjectId(),
+              notifCreatedAt: new Date(),
+              notifType: 'success',
+              message: `You're now a member of ${organizationName}!`,
+            },
           },
         }
       )
