@@ -26,32 +26,38 @@ export default function ListNotifications() {
     return <ErrorFetch placeholder="notifications" />
   }
   if (!data) {
-    return <motion.p layout="position">Fetching Notifications...</motion.p>
+    return (
+      <div className={cardstyles.defaultnotif}>
+        <p>Fetching Notifications...</p>
+      </div>
+    )
   }
   return (
-    <div>
+    <motion.div
+      variants={list}
+      initial="hidden"
+      animate="show"
+      layout
+      layoutId="notifications"
+      className={cardstyles.notifgrid}
+    >
       {data.notifications.length === 0 ? (
-        <motion.p layout="position">Zero new notifications 😄.</motion.p>
+        <div className={cardstyles.defaultnotif}>
+          <p>Zero new notifications 😄.</p>
+        </div>
       ) : (
-        <LayoutGroup>
-          <motion.div
-            variants={list}
-            initial="hidden"
-            animate="show"
-            className={cardstyles.notifgrid}
-          >
-            {data.notifications.map((notif) => (
-              <NotificationCard
-                key={notif.notifId}
-                notifId={notif.notifId}
-                type={notif.notifType}
-                message={notif.message}
-                createdAt={<TimeAgo date={notif.notifCreatedAt} />}
-              />
-            ))}
-          </motion.div>
-        </LayoutGroup>
+        <>
+          {data.notifications.map((notif) => (
+            <NotificationCard
+              key={notif.notifId}
+              notifId={notif.notifId}
+              type={notif.notifType}
+              message={notif.message}
+              createdAt={<TimeAgo date={notif.notifCreatedAt} />}
+            />
+          ))}
+        </>
       )}
-    </div>
+    </motion.div>
   )
 }
