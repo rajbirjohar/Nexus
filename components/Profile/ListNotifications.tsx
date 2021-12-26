@@ -8,7 +8,7 @@ import { motion, LayoutGroup } from 'framer-motion'
 
 const list = {
   hidden: {
-    opacity: 0,
+    opacity: 1,
   },
   show: {
     opacity: 1,
@@ -27,8 +27,10 @@ export default function ListNotifications() {
   }
   if (!data) {
     return (
-      <div className={cardstyles.defaultnotif}>
-        <p>Fetching Notifications...</p>
+      <div className={cardstyles.notifgrid}>
+        <div className={cardstyles.defaultnotif}>
+          <p>Fetching Notifications...</p>
+        </div>
       </div>
     )
   }
@@ -37,8 +39,7 @@ export default function ListNotifications() {
       variants={list}
       initial="hidden"
       animate="show"
-      layout
-      layoutId="notifications"
+      layout="position"
       className={cardstyles.notifgrid}
     >
       {data.notifications.length === 0 ? (
