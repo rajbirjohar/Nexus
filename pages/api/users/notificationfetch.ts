@@ -38,6 +38,7 @@ export default async function fetchNotifications(
           },
         ])
         .sort({ notifCreatedAt: -1 })
+        .limit(5)
         .toArray()
       return res.status(200).json({ notifications })
     } catch {

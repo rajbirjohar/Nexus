@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 import Router, { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
@@ -11,75 +10,6 @@ import ListNotifications from '@/components/Profile/ListNotifications'
 import styles from '@/styles/profile.module.css'
 import formstyles from '@/styles/form.module.css'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-
-const list = {
-  closed: {
-    height: '0',
-    transition: {
-      when: 'afterChildren',
-    },
-  },
-  open: {
-    height: 'auto',
-  },
-}
-
-const listItems = {
-  closed: {
-    opacity: 0,
-    y: -5,
-    transition: {
-      duration: 0.15,
-    },
-  },
-  open: {
-    opacity: 1,
-    y: 0,
-  },
-}
-
-const Section = ({ header, children }) => {
-  const [open, setOpen] = useState(false)
-  return (
-    <>
-      <div className={formstyles.revealheader}>
-        <h2>{header}</h2>
-        <button
-          className={
-            open
-              ? `${formstyles.reveal} ${formstyles.rotated}`
-              : `${formstyles.reveal} `
-          }
-          onClick={() => setOpen(!open)}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
-          >
-            <path
-              fillRule="evenodd"
-              d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-              clipRule="evenodd"
-            />
-          </svg>
-        </button>
-      </div>
-      <AnimatePresence exitBeforeEnter>
-        {open ? (
-          <motion.div
-            animate={open ? 'open' : 'closed'}
-            variants={list}
-            exit="closed"
-            initial="closed"
-          >
-            <motion.div variants={listItems}>{children}</motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </>
-  )
-}
 
 export default function Profile() {
   const router = useRouter()
@@ -230,49 +160,49 @@ export default function Profile() {
       {session && (
         <>
           <LayoutGroup>
-            <Section header="Notifications">
-              <ListNotifications />
-            </Section>
+            <ListNotifications />
           </LayoutGroup>
-          <nav>
-            <div className={formstyles.tabs}>
-              {initialTabs.map((item) => (
-                <motion.button
-                  key={item.label}
-                  className={
-                    item.id === selectedTab.id
-                      ? `${formstyles.active} ${formstyles.tab}`
-                      : ` ${formstyles.tab}`
-                  }
-                  onClick={() => setSelectedTab(item)}
+          <motion.div>
+            <nav>
+              <div className={formstyles.tabs}>
+                {initialTabs.map((item) => (
+                  <motion.button
+                    key={item.label}
+                    className={
+                      item.id === selectedTab.id
+                        ? `${formstyles.active} ${formstyles.tab}`
+                        : ` ${formstyles.tab}`
+                    }
+                    onClick={() => setSelectedTab(item)}
+                  >
+                    {item.label}
+                    {item.id === selectedTab.id ? (
+                      <motion.div
+                        className={formstyles.underline}
+                        layoutId="profile"
+                      />
+                    ) : null}
+                  </motion.button>
+                ))}
+              </div>
+            </nav>
+            <section>
+              <AnimatePresence exitBeforeEnter>
+                <motion.div
+                  key={selectedTab ? selectedTab.label : 'empty'}
+                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: -5 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  transition={{ duration: 0.15 }}
                 >
-                  {item.label}
-                  {item.id === selectedTab.id ? (
-                    <motion.div
-                      className={formstyles.underline}
-                      layoutId="profile"
-                    />
-                  ) : null}
-                </motion.button>
-              ))}
-            </div>
-          </nav>
-          <section>
-            <AnimatePresence exitBeforeEnter>
-              <motion.div
-                key={selectedTab ? selectedTab.label : 'empty'}
-                animate={{ opacity: 1, x: 0 }}
-                initial={{ opacity: 0, x: -5 }}
-                exit={{ opacity: 0, x: 5 }}
-                transition={{ duration: 0.15 }}
-              >
-                <h2>{selectedTab.label}</h2>
-                {selectedTab
-                  ? selectedTab.component
-                  : 'Nothing to see here 😋.'}
-              </motion.div>
-            </AnimatePresence>
-          </section>
+                  <h2>{selectedTab.label}</h2>
+                  {selectedTab
+                    ? selectedTab.component
+                    : 'Nothing to see here 😋.'}
+                </motion.div>
+              </AnimatePresence>
+            </section>
+          </motion.div>
         </>
       )}
     </Layout>
