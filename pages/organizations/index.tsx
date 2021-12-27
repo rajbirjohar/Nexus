@@ -1,16 +1,18 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import Router from 'next/router'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import { useSession } from 'next-auth/react'
+import { LottieWrapper } from '@/components/LottieWrapper'
 import OrganizationsForm from '@/components/Organizations/OrganizationsForm'
 import ListOrganizations from '@/components/Organizations/ListOrganizations'
+import { GreenTip } from '@/components/Tips'
 import styles from '@/styles/organizations.module.css'
 import formstyles from '@/styles/form.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
+import animationData from '@/lotties/group.json'
 
 const list = {
   closed: {
@@ -89,20 +91,21 @@ export default function OrganizationsPage() {
       <section>
         <div className={styles.hero}>
           <div className={styles.content}>
-            <h1>Organizations</h1>
-            <p>
-              Looking for a specific club or organization? Here you can view
-              them all at a glance. Each organization contains all of their own
-              events so be sure to check those out 💃.
-            </p>
-
-            {session &&
-              session.user.role &&
-              session.user.role.includes('none') && (
-                <Link href="/profile" passHref>
-                  <a>Please verify if you are a student or professor.</a>
-                </Link>
-              )}
+            <div className={styles.text}>
+              <h1>Organizations</h1>
+              <p>
+                Looking for a specific club or organization? Here you can view
+                them all at a glance. Each organization contains all of their
+                own events so be sure to check those out 💃.
+              </p>
+              <GreenTip header="Find Your People">
+                There is an organization for everyone! Joining an organization
+                or a club is a great way to connect and meet new people.
+              </GreenTip>
+            </div>
+            <div className={styles.animationWrapper}>
+              <LottieWrapper animationData={animationData} />
+            </div>
           </div>
         </div>
         {session &&

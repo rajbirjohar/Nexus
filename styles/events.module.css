@@ -1,6 +1,23 @@
 .hero {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: var(--gap-med);
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: var(--gap);
+}
+
+.text {
+  flex: 1;
+}
+
+.animationWrapper {
+  flex: 1;
+  max-height: 350px;
+  max-width: 100%;
 }
 
 .date,
@@ -13,7 +30,7 @@
 }
 
 @media (max-width: 868px) {
-  .hero {
+  .content {
     flex-direction: column;
   }
   .content {
