@@ -7,7 +7,8 @@
 .content {
   display: flex;
   align-items: flex-start;
-  margin-bottom: var(--gap);
+  gap: var(--gap-med);
+  margin-bottom: var(--gap-med);
 }
 
 .text {
@@ -16,8 +17,9 @@
 
 .animationWrapper {
   flex: 1;
-  max-height: 350px;
+  max-height: 100%;
   max-width: 100%;
+  margin: auto 0;
 }
 
 .date,

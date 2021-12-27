@@ -7,6 +7,7 @@
 .content {
   display: flex;
   align-items: flex-start;
+  gap: var(--gap-med);
 }
 
 .text {
@@ -38,7 +39,7 @@
 }
 
 @media (max-width: 868px) {
-  .hero {
+  .content {
     flex-direction: column;
   }
   .content {
