@@ -113,10 +113,12 @@ export default function Home() {
             date information. Courses are scraped directly from UCR&#39;s
             website.
           </HeroCard>
-          <HeroCard animationData={rocketAnimationData} title="Explore">
-            Everything happening on campus, is happening right here. Find all
-            current events and show your interest through comments.
-          </HeroCard>
+          <div className={styles.lastcard}>
+            <HeroCard animationData={rocketAnimationData} title="Explore">
+              Everything happening on campus, is happening right here. Find all
+              current events and show your interest through comments.
+            </HeroCard>
+          </div>
         </section>
       </section>
       <div className={styles.swipeIcon}>

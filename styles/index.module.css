@@ -160,6 +160,10 @@
   .card {
     width: 20rem;
   }
+  .lastcard {
+    padding-right: var(--gap-med);
+    margin-right: var(--gap-med);
+  }
   .title {
     font-size: 3rem;
   }
