@@ -17,16 +17,21 @@
   padding: 0 var(--gap-med);
 }
 
+
+.centered {
+  text-align: center;
+}
+
 .herocards {
   display: flex;
   gap: var(--gap-med);
-  max-width: 75rem;
+  max-width: 72rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
   overflow: scroll;
-  height: auto;
-  justify-items: center;
+  justify-items: center !important;
   scrollbar-width: none;
+  height: 100%;
 }
 
 .card {
@@ -40,7 +45,13 @@
   border-radius: var(--radius);
   padding: var(--gap-med);
   box-shadow: var(--shadows);
-  width: 22rem;
+  min-height: 100%;
+}
+
+.lastcard {
+  flex: 1;
+  flex-shrink: 0;
+  min-height: 100%;
 }
 
 .cardTitle,
@@ -123,7 +134,7 @@
   .hero {
     flex-direction: column;
     align-items: center;
-    margin: 0 auto;
+    margin: var(--gap-quarter) auto;
     gap: 0;
   }
   .heroreverse,
@@ -138,24 +149,18 @@
   .animationWrapper {
     min-width: 0px;
     max-width: 320px;
-    margin: -3rem 0;
   }
-  /* .herocardsWrapper {
-    padding-right: var(--gap-med);
-    margin-right: var(--gap-med);
-  } */
-  .herocards {
-
-  }
-
   .card {
-    width: 20rem;
+    min-width: 20rem;
+    max-width: 20rem;
+    min-height: 100%;
   }
-  .lastcard {
-    padding-right: var(--gap-med);
-  }
-  .herocards {
-    padding-right: var(--small-double);
+  /* This is the dumbest sh*t ever.
+  I love CSS but I also hate CSS 
+  because of things like this. */
+  .herocards::after {
+    content: '';
+    min-width: 1px;
   }
   .title {
     font-size: 3rem;
