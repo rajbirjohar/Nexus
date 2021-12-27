@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import clientPromise from '@/lib/mongodb'
 import Layout from '@/components/Layout'
+import { LottieWrapper } from '@/components/LottieWrapper'
 import CourseCard from '@/components/Courses/CourseCard'
 import NotFound from '@/components/notFound'
+import { GreenTip } from '@/components/Tips'
 import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion, LayoutGroup } from 'framer-motion'
-import { GreenTip } from '@/components/Tips'
+import { motion } from 'framer-motion'
+import animationData from '@/lotties/studentonbooks.json'
 
 const list = {
   hidden: { opacity: 0 },
@@ -35,18 +36,21 @@ export default function CoursesPage({ courses }) {
       <section>
         <div className={styles.hero}>
           <div className={styles.content}>
-            <h1>Courses</h1>
-            <p>
-              Check out any course below via thier initialed name such as
-              &#34;CS010A&#34;. Each course will come with a list of reviews
-              that other people have written from their experiences as a
-              student.
-            </p>
-            <GreenTip header="Write A Review">
-              Your contribution will help thousands of potential students who
-              are looking into taking a course you took. Write a review and
-              share your experience!
-            </GreenTip>
+            <div className={styles.text}>
+              <h1>Courses</h1>
+              <p>
+                Each course will come with a list of reviews that other people
+                have written from their experiences as a student.
+              </p>
+              <GreenTip header="Write A Review">
+                Your contribution will help thousands of potential students who
+                are looking into taking a course you took. Write a review and
+                share your experience!
+              </GreenTip>
+            </div>
+            <div className={styles.animationWrapper}>
+              <LottieWrapper animationData={animationData} />
+            </div>
           </div>
         </div>
         <div className={formstyles.searchWrapper}>
