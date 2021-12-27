@@ -101,7 +101,6 @@ export default function Home() {
           <LottieWrapper animationData={heroAnimationData} />
         </div>
       </section>
-
       <section className={styles.herocardsWrapper}>
         <section className={styles.herocards}>
           <HeroCard animationData={searchAnimationData} title="Learn">

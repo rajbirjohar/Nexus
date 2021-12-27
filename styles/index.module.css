@@ -24,8 +24,7 @@
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
   overflow: scroll;
-  height: auto;
-  justify-items: center;
+  justify-items: center !important;
   scrollbar-width: none;
   height: 100%;
 }
@@ -147,6 +146,7 @@
   }
   .herocards:last-child {
     padding-right: var(--gap-med);
+
   }
   .herocards {
     padding-right: var(--small-double);
