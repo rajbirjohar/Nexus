@@ -146,7 +146,7 @@
   }
 
   .herocards {
-    margin-right: var(--small-double);
+    padding-right: var(--small-double);
   }
   .title {
     font-size: 3rem;
