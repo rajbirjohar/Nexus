@@ -143,10 +143,10 @@
     min-width: 20rem;
     max-width: 20rem;
     min-height: 100%;
+    margin-right: var(--small-gap);
   }
 
-  .herocards {
-    padding-right: var(--small-gap);
+  .card:last-of-type {
   }
 
   .title {
