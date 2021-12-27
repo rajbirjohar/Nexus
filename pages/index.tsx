@@ -160,13 +160,13 @@ export default function Home() {
       <section className={styles.hero}>
         <div className={styles.content}>
           <h3 className={styles.sectiontitle}>Events</h3>
-          <h2>Support the Orgs</h2>
+          <h2>Be In the Know</h2>
           <p>
             Stay up-to date on the latest events on campus. Socialize with your
             peers and make life long connections. Find your academic and social
             life balance through Nexus.
           </p>
-          <h2>Promote your Events</h2>
+          <h2>Promote Your Events</h2>
           <p>
             No need to create flyers for your events. Instantly share any
             changes so no one misses out. Nexus will create the hype for you
@@ -184,13 +184,13 @@ export default function Home() {
         </div>
         <div className={styles.content}>
           <h3 className={styles.sectiontitle}>Organizations</h3>
-          <h2>Find your Passion</h2>
+          <h2>Find Your Passion</h2>
           <p>
             Explore every UCR affiliated organization with a click of a button.
             View important and up-to date information on clubs that catch your
             eye. Use Nexus as a tool to discover more about yourself.
           </p>
-          <h2>Discover like-minded people</h2>
+          <h2>Discover Like-minded People</h2>
           <p>
             Post promotional pictures about your club to recruit new members.
             Make information available to everyone at UCR in an instant.

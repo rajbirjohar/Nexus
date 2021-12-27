@@ -144,12 +144,9 @@
     max-width: 20rem;
     min-height: 100%;
   }
-  .herocards.card:last-child {
-    padding-right: var(--gap-med);
 
-  }
   .herocards {
-    padding-right: var(--small-double);
+    margin-right: var(--small-double);
   }
   .title {
     font-size: 3rem;
