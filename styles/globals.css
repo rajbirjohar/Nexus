@@ -218,7 +218,7 @@ a.reset:focus {
   color: var(--teal-800);
 }
 
-svg {
+button svg {
   min-width: 20px;
   max-width: 20px;
   min-height: 20px;
