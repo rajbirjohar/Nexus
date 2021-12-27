@@ -14,10 +14,11 @@
   gap: var(--small-gap);
   max-width: var(--main-content);
   padding: 0 var(--gap-med);
+}
 
 .centered {
   text-align: center;
-  }
+}
 
 .herocards {
   display: flex;
