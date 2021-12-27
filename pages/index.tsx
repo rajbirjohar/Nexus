@@ -48,7 +48,7 @@ export default function Home() {
         {/* Change this icon when we have a logo */}
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <section className={styles.hero}>
+      <section className={`${styles.hero} ${styles.centered}`}>
         <div className={styles.content}>
           <h3 className={styles.subtitle}>Nexus @ UCR</h3>
           <h1 className={styles.title}>
@@ -199,7 +199,7 @@ export default function Home() {
         </div>
       </section>
       <section className={styles.endheroWrapper}>
-        <div className={styles.endhero}>
+        <div className={`${styles.endhero} ${styles.centered}`}>
           <div className={styles.content}>
             <h3 className={styles.sectiontitle}>Welcome</h3>
 

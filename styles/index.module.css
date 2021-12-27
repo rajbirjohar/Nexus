@@ -17,6 +17,10 @@
   padding: 0 var(--gap-med);
 }
 
+.centered {
+  text-align: center;
+}
+
 .herocards {
   display: flex;
   gap: var(--gap-med);
