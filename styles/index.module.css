@@ -24,6 +24,7 @@
   max-width: 75rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
+  padding-right: var(--small-double);
   overflow-x: auto;
   height: auto;
   justify-items: center;
@@ -134,7 +135,7 @@
   .animationWrapper {
     min-width: 0px;
     max-width: 320px;
-    margin: -1rem 0;
+    margin: -3rem 0;
   }
   .animationWrapperSmall {
     min-width: 0px;
