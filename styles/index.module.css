@@ -17,19 +17,26 @@
   padding: 0 var(--gap-med);
 }
 
+.herocardsWrapper {
+  /* padding: 0 var(--gap-med); */
+}
+
 .herocards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  /* display: grid;
+  grid-template-columns: 1fr 1fr 1fr; */
+  display: flex;
   gap: var(--gap-med);
-  max-width: 75rem;
+  max-width: 72rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
-  overflow-x: auto;
+  overflow: scroll;
   height: auto;
   justify-items: center;
+  scrollbar-width: none;
 }
 
 .card {
+  flex-shrink: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -38,7 +45,7 @@
   border-radius: var(--radius);
   padding: var(--gap-med);
   box-shadow: var(--shadows);
-  width: 23rem;
+  width: 22rem;
 }
 
 .cardTitle,
@@ -61,19 +68,21 @@
   background-color: var(--teal-600);
 }
 
+.content,
 .animationWrapper {
-  min-width: 500px;
-  max-width: 500px;
+  flex: 1;
+}
+
+.animationWrapper {
+  width: 100%;
+  height: 100%;
 }
 
 .animationWrapperSmall {
-  margin: auto;
-  min-width: 200px;
-  max-width: 200px;
-}
-
-.content {
-  flex: 1;
+  margin: 0 auto;
+  padding: var(--gap-med);
+  width: 200px;
+  height: 200px;
 }
 
 .title {
@@ -134,14 +143,12 @@
   .animationWrapper {
     min-width: 0px;
     max-width: 320px;
-    margin: -3rem 0;
-  }
-  .animationWrapperSmall {
-    min-width: 0px;
-    max-width: 200px;
   }
   .herocards {
-    padding-right: var(--small-double);
+    justify-content: flex-start;
+  }
+  .card {
+    width: 20rem;
   }
   .title {
     font-size: 3rem;
@@ -150,6 +157,10 @@
     margin: 0 auto;
   }
   .swipeIcon {
+    min-width: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    max-height: 20px;
     display: flex;
     fill: var(--teal-500);
     transform: scale(1.2);

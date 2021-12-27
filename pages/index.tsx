@@ -1,9 +1,11 @@
+import React, { useEffect } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useSession, signIn } from 'next-auth/react'
 import HeroLayout from '@/components/HeroLayout'
 import styles from '@/styles/index.module.css'
-import Lottie, { useLottie } from 'lottie-react'
+// import Lottie, { useLottie } from 'lottie-react'
+import Lottie from 'react-lottie'
 import heroAnimationData from '../lotties/puzzleplantcropped.json'
 import teamAnimationData from '../lotties/teamblue.json'
 import partyAnimationData from '../lotties/party.json'
@@ -13,25 +15,23 @@ import searchAnimationData from '../lotties/searching.json'
 import rocketAnimationData from '../lotties/rocket.json'
 import checkAnimationData from '../lotties/check.json'
 
-const style = {
-  height: 500,
-  width: '100%',
+const LottieWrapper = ({ animationData }) => {
+  const heroOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  }
+  return <Lottie options={heroOptions} height="100%" width="100%" />
 }
 
-const stylesmall = {
-  height: 200,
-  width: '100%',
-}
-
-const HeroCard = ({ animation, title, children }) => {
+const HeroCard = ({ animationData, title, children }) => {
   return (
     <div className={styles.card}>
       <div className={styles.animationWrapperSmall}>
-        <Lottie
-          animationData={animation}
-          style={stylesmall}
-          renderer="canvas"
-        />
+        <LottieWrapper animationData={animationData} />
       </div>
       <h4 className={styles.cardTitle}>{title}</h4>
       <p className={styles.cardCaption}>{children}</p>
@@ -98,27 +98,22 @@ export default function Home() {
           )}
         </div>
         <div className={styles.animationWrapper}>
-          <Lottie
-            animationData={heroAnimationData}
-            style={style}
-            renderer="canvas"
-          />
+          <LottieWrapper animationData={heroAnimationData} />
         </div>
       </section>
 
       <section className={styles.herocardsWrapper}>
         <section className={styles.herocards}>
-          <HeroCard animation={searchAnimationData} title="Learn">
+          <HeroCard animationData={searchAnimationData} title="Learn">
             Know what to expect before you walk into your first day of class.
-            Never again be blindsided by a professor&#39;s teaching style,
-            material, and exams.
+            Never again be blindsided by a teaching style, material, and exams.
           </HeroCard>
-          <HeroCard animation={checkAnimationData} title="Fast">
+          <HeroCard animationData={checkAnimationData} title="Fast">
             Posts are instantly uploaded so you know you have the most up to
             date information. Courses are scraped directly from UCR&#39;s
             website.
           </HeroCard>
-          <HeroCard animation={rocketAnimationData} title="Explore">
+          <HeroCard animationData={rocketAnimationData} title="Explore">
             Everything happening on campus, is happening right here. Find all
             current events and show your interest through comments.
           </HeroCard>
@@ -141,11 +136,7 @@ export default function Home() {
       </div>
       <section className={styles.heroreverse}>
         <div className={styles.animationWrapper}>
-          <Lottie
-            animationData={booksAnimationData}
-            style={style}
-            renderer="canvas"
-          />
+          <LottieWrapper animationData={booksAnimationData} />
         </div>
         <div className={styles.content}>
           <h3 className={styles.sectiontitle}>Courses</h3>
@@ -183,21 +174,13 @@ export default function Home() {
           </p>
         </div>
         <div className={styles.animationWrapper}>
-          <Lottie
-            animationData={partyAnimationData}
-            style={style}
-            renderer="canvas"
-          />
+          <LottieWrapper animationData={partyAnimationData} />
         </div>
       </section>
 
       <section className={styles.heroreverse}>
         <div className={styles.animationWrapper}>
-          <Lottie
-            animationData={teamAnimationData}
-            style={style}
-            renderer="canvas"
-          />
+          <LottieWrapper animationData={teamAnimationData} />
         </div>
         <div className={styles.content}>
           <h3 className={styles.sectiontitle}>Organizations</h3>
@@ -273,11 +256,7 @@ export default function Home() {
             )}
           </div>
           <div className={styles.animationWrapper}>
-            <Lottie
-              animationData={signAnimationData}
-              style={style}
-              renderer="canvas"
-            />
+            <LottieWrapper animationData={signAnimationData} />
           </div>
         </div>
       </section>
