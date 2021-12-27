@@ -3,20 +3,32 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-evenly;
   min-height: 75vh;
-  gap: var(--gap-med);
-}
-
-.herocardsWrapper {
-  position: relative;
-  height: max-content;
+  gap: var(--small-gap);
+  max-width: var(--main-content);
 }
 
 .herocards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--gap-med);
+  max-width: 75rem;
+  margin: 0 auto;
+  padding: var(--gap-double) 0;
+  overflow-x: auto;
+  height: auto;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows);
+  width: 24rem;
 }
 
 .cardTitle,
@@ -25,7 +37,7 @@
 }
 
 .heroprimary {
-  padding: var(--gap-med) var(--big-gap);
+  padding: var(--gap) var(--big-gap);
   background-color: var(--teal-500);
   color: var(--teal-50);
   gap: var(--gap-quarter);
@@ -44,15 +56,14 @@
   max-width: 500px;
 }
 
-.heroImage {
-  display: flex;
-  flex: 1;
-  margin: 0 var(--gap-med);
+.animationWrapperSmall {
+  margin: auto;
+  min-width: 200px;
+  max-width: 200px;
 }
 
 .content {
   flex: 1;
-  margin-left: var(--gap-med);
 }
 
 .title {
@@ -68,42 +79,52 @@
 .subtitle {
   color: var(--gray-400);
 }
+/* 
+@media (max-width: 868px) {
+  .herocards {
+    --gradient-size-start: calc(0% - env(safe-area-inset-left) - 10px);
+    --gradient-size-end: calc(7% - env(safe-area-inset-right) - 0px);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--gradient-size-start),
+      #000 calc(100% - var(--gradient-size-end)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--gradient-size-start),
+      #000 calc(100% - var(--gradient-size-end)),
+      transparent 100%
+    );
+  }
+} */
 
 @media (max-width: 668px) {
   .hero {
     flex-direction: column;
     align-items: center;
     gap: 0;
-    min-height: none;
   }
   .heroreverse {
     flex-direction: column-reverse;
     align-items: center;
     gap: 0;
-    min-height: none;
-  }
-  .endhero {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-  }
-  .endcontentright,
-  .endcontentright {
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
   }
   .animationWrapper {
-    flex: 0;
     min-width: 0px;
     max-width: 320px;
   }
-  .content {
-    margin-left: 0;
+  .animationWrapperSmall {
+    min-width: 0px;
+    max-width: 200px;
   }
-  .heroImage {
-    margin: 0;
+
+  .card {
+    width: 22rem;
   }
+
   .title {
     font-size: 3rem;
   }

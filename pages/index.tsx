@@ -2,9 +2,8 @@ import Head from 'next/head'
 import Link from 'next/link'
 import clientPromise from '@/lib/mongodb'
 import { useSession, signIn } from 'next-auth/react'
-import Layout from '@/components/Layout'
+import HeroLayout from '@/components/HeroLayout'
 import styles from '@/styles/index.module.css'
-import cardstyles from '@/styles/card.module.css'
 import Lottie, { useLottie } from 'lottie-react'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import heroAnimationData from '../lotties/social.json'
@@ -28,8 +27,14 @@ const stylesmall = {
 
 const HeroCard = ({ animation, title, children }) => {
   return (
-    <div className={cardstyles.card}>
-      <Lottie animationData={animation} style={stylesmall} renderer="canvas" />
+    <div className={styles.card}>
+      <div className={styles.animationWrapperSmall}>
+        <Lottie
+          animationData={animation}
+          style={stylesmall}
+          renderer="canvas"
+        />
+      </div>
       <h4 className={styles.cardTitle}>{title}</h4>
       <p className={styles.cardCaption}>{children}</p>
     </div>
@@ -39,7 +44,7 @@ const HeroCard = ({ animation, title, children }) => {
 export default function Home() {
   const { data: session } = useSession()
   return (
-    <Layout>
+    <HeroLayout>
       <Head>
         <title>Nexus</title>
         {/* Change this icon when we have a logo */}
@@ -262,6 +267,6 @@ export default function Home() {
           />
         </div>
       </section>
-    </Layout>
+    </HeroLayout>
   )
 }

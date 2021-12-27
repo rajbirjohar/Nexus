@@ -9,7 +9,7 @@
   --gap-med: 1.5rem;
   --small-gap: 4rem;
   --big-gap: 4rem;
-  --main-content: 74rem;
+  --main-content: 72rem;
   --radius-sm: 5px;
   --radius: 12px;
   --radius-lg: 25px;
@@ -134,6 +134,7 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden !important;
 }
 
 body {

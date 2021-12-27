@@ -3,6 +3,14 @@
   min-height: 75vh;
   display: flex;
   flex-direction: column;
-  width: var(--main-content);
+  max-width: var(--main-content);
+  padding: 0 var(--gap-med);
+}
+
+.herolayout {
+  margin: 6rem auto 0 auto;
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
   padding: 0 var(--gap-med);
 }
