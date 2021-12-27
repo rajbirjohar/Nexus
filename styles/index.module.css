@@ -144,7 +144,7 @@
     max-width: 20rem;
     min-height: 100%;
   }
-  .herocards:last-child {
+  .herocards.card:last-child {
     padding-right: var(--gap-med);
 
   }
