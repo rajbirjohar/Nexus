@@ -144,6 +144,10 @@
     min-width: 0px;
     max-width: 320px;
   }
+  .herocardsWrapper {
+    padding-right: var(--gap-med);
+    margin-right: var(--gap-med);
+  }
   .herocards {
     justify-content: flex-start;
   }
