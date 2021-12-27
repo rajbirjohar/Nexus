@@ -26,7 +26,7 @@
   grid-template-columns: 1fr 1fr 1fr; */
   display: flex;
   gap: var(--gap-med);
-  max-width: 72rem;
+  max-width: 75rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
   overflow: scroll;
@@ -143,6 +143,7 @@
   .animationWrapper {
     min-width: 0px;
     max-width: 320px;
+    margin: -3rem 0;
   }
   /* .herocardsWrapper {
     padding-right: var(--gap-med);
@@ -158,6 +159,9 @@
   }
   .lastcard {
     padding-right: var(--gap-med);
+  }
+  .herocards {
+    padding-right: var(--small-double);
   }
   .title {
     font-size: 3rem;
