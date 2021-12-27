@@ -27,13 +27,11 @@ export default function Profile() {
   })
   const allTabs = [
     {
-      icon: '🍅',
       label: 'Organizations',
       id: 'organizations',
       component: <ListUserOrganizations />,
     },
     {
-      icon: '🥬',
       label: 'Reviews',
       id: 'reviews',
       component: <ListUserPosts />,

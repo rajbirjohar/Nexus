@@ -1,13 +1,15 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Image from 'next/image'
 import { useSession } from 'next-auth/react'
 import ListAllEvents from '@/components/Events/ListAllEvents'
 import Layout from '@/components/Layout'
 import styles from '@/styles/events.module.css'
 import formstyles from '@/styles/form.module.css'
 import ListUserEvents from '@/components/Events/ListUserEvents'
+import { LottieWrapper } from '@/components/LottieWrapper'
+import { GreenTip } from '@/components/Tips'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import animationData from '@/lotties/bookmark.json'
 
 export default function EventsPage() {
   const { data: session } = useSession()
@@ -37,12 +39,21 @@ export default function EventsPage() {
       <section>
         <div className={styles.hero}>
           <div className={styles.content}>
-            <h1>Events</h1>
-            <p>
-              This is where you&#39;ll be able to see all of the ongoing and
-              future events of our clubs and organizations. Events are sorted by
-              the date and time that they end.
-            </p>
+            <div className={styles.text}>
+              <h1>Events</h1>
+              <p>
+                This is where you&#39;ll be able to see all of the ongoing and
+                future events of our clubs and organizations. Events are sorted
+                by the date and time they end.
+              </p>
+              <GreenTip header="Join an Org">
+                Events from organizations you join will be curated for you all
+                in one place. You can view all the events that matter to you.
+              </GreenTip>
+            </div>
+            <div className={styles.animationWrapper}>
+              <LottieWrapper animationData={animationData} />
+            </div>
           </div>
         </div>
 
@@ -80,7 +91,6 @@ export default function EventsPage() {
                   exit={{ opacity: 0, x: 5 }}
                   transition={{ duration: 0.15 }}
                 >
-                  <h2>{selectedTab.label}</h2>
                   {selectedTab
                     ? selectedTab.component
                     : 'Nothing to see here 😋.'}
@@ -90,7 +100,6 @@ export default function EventsPage() {
           </>
         ) : (
           <>
-            <h2>All Events</h2>
             <ListAllEvents />
           </>
         )}

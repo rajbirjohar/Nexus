@@ -9,18 +9,14 @@
 .endhero {
   margin: 0 auto;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
-  min-height: 75vh;
+  min-height: 70vh;
   gap: var(--small-gap);
   max-width: var(--main-content);
   padding: 0 var(--gap-med);
-}
-
 
 .centered {
   text-align: center;
-}
 
 .herocards {
   display: flex;
@@ -30,7 +26,7 @@
   padding: var(--gap-double) var(--gap-med);
   overflow: scroll;
   justify-items: center !important;
-  scrollbar-width: none;
+  scrollbar-width: none !important;
   height: 100%;
 }
 
@@ -137,6 +133,9 @@
     margin: var(--gap-quarter) auto;
     gap: 0;
   }
+  .centered {
+    text-align: center;
+  }
   .heroreverse,
   .endhero {
     flex-direction: column-reverse;
@@ -145,10 +144,6 @@
   }
   .endhero {
     padding-bottom: var(--small-gap);
-  }
-  .animationWrapper {
-    min-width: 0px;
-    max-width: 320px;
   }
   .card {
     min-width: 20rem;

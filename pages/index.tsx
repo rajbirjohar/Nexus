@@ -4,28 +4,15 @@ import Link from 'next/link'
 import { useSession, signIn } from 'next-auth/react'
 import HeroLayout from '@/components/HeroLayout'
 import styles from '@/styles/index.module.css'
-// import Lottie, { useLottie } from 'lottie-react'
-import Lottie from 'react-lottie'
-import heroAnimationData from '../lotties/puzzleplantcropped.json'
-import teamAnimationData from '../lotties/teamblue.json'
-import partyAnimationData from '../lotties/party.json'
-import booksAnimationData from '../lotties/bookstack.json'
-import signAnimationData from '../lotties/heart.json'
-import searchAnimationData from '../lotties/searching.json'
-import rocketAnimationData from '../lotties/rocket.json'
-import checkAnimationData from '../lotties/check.json'
-
-const LottieWrapper = ({ animationData }) => {
-  const heroOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
-  }
-  return <Lottie options={heroOptions} height="100%" width="100%" />
-}
+import { LottieWrapper } from '@/components/LottieWrapper'
+import heroAnimationData from '@/lotties/puzzleplantcropped.json'
+import teamAnimationData from '@/lotties/teamblue.json'
+import partyAnimationData from '@/lotties/party.json'
+import booksAnimationData from '@/lotties/bookstack.json'
+import signAnimationData from '@/lotties/heart.json'
+import searchAnimationData from '@/lotties/searching.json'
+import rocketAnimationData from '@/lotties/rocket.json'
+import checkAnimationData from '@/lotties/check.json'
 
 const HeroCard = ({ animationData, title, children }) => {
   return (
