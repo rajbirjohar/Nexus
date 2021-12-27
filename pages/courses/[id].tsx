@@ -37,6 +37,25 @@ const listItems = {
   },
 }
 
+const button = {
+  closed: {
+    rotate: 0,
+    transition: {
+      duration: 0.05,
+      delay: 0,
+      ease: 'easeOut',
+    },
+  },
+  open: {
+    rotate: 45,
+    transition: {
+      duration: 0.05,
+      delay: 0,
+      ease: 'easeIn',
+    },
+  },
+}
+
 // Page: CourseReviews({course})
 // Params: course
 // Purpose: Dynamically display all the reviews pertaining to the
@@ -99,12 +118,11 @@ const CourseReviews = ({ course, averageRating }) => {
               <>
                 <div className={formstyles.revealheader}>
                   <h2>Write Review</h2>
-                  <button
-                    className={
-                      open
-                        ? `${formstyles.revealprimary} ${formstyles.rotated}`
-                        : `${formstyles.revealprimary} `
-                    }
+                  <motion.button
+                    initial="closed"
+                    variants={button}
+                    animate={open ? 'open' : 'closed'}
+                    className={formstyles.revealprimary}
                     onClick={() => setOpen(!open)}
                   >
                     <svg
@@ -118,7 +136,7 @@ const CourseReviews = ({ course, averageRating }) => {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </button>
+                  </motion.button>
                 </div>
                 <AnimatePresence exitBeforeEnter>
                   {open && (
