@@ -21,11 +21,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: var(--gap-med);
-  max-width: 72rem;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: var(--gap-double) 0;
+  padding: var(--gap-double) var(--gap-med);
   overflow-x: auto;
   height: auto;
+  justify-items: center;
 }
 
 .card {
@@ -114,10 +115,11 @@
   }
 } */
 
-@media (max-width: 668px) {
+@media (max-width: 768px) {
   .hero {
     flex-direction: column;
     align-items: center;
+    margin: 0 auto;
     gap: 0;
   }
   .heroreverse,
@@ -132,6 +134,7 @@
   .animationWrapper {
     min-width: 0px;
     max-width: 320px;
+    margin: -1rem 0;
   }
   .animationWrapperSmall {
     min-width: 0px;
@@ -140,12 +143,15 @@
   .title {
     font-size: 3rem;
   }
+  .heroprimary {
+    margin: 0 auto;
+  }
   .swipeIcon {
     display: flex;
     fill: var(--teal-500);
     transform: scale(1.2);
     justify-content: center;
     align-items: center;
-    margin: var(--gap-quarter) auto;
+    margin: var(--gap-med) auto 0 auto;
   }
 }
