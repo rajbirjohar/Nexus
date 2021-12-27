@@ -20,7 +20,7 @@
 .herocards {
   display: flex;
   gap: var(--gap-med);
-  max-width: 75rem;
+  max-width: 72rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
   overflow: scroll;
@@ -152,7 +152,7 @@
   }
   .herocards::after {
     content: '';
-    min-width: var(--small-gap);
+    min-width: var(--gap-med);
   }
   .title {
     font-size: 3rem;
