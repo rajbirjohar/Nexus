@@ -17,11 +17,6 @@
   padding: 0 var(--gap-med);
 }
 
-.herocardsWrapper {
-  margin: 0 auto;
-  display: flex;
-}
-
 .herocards {
   display: flex;
   gap: var(--gap-med);
@@ -149,7 +144,7 @@
     margin-right: var(--gap-med);
   } */
   .herocards {
-    justify-content: flex-start;
+
   }
 
   .card {
