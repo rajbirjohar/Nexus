@@ -145,8 +145,8 @@
     min-height: 100%;
   }
 
-  .herocards > :last-child {
-    margin-right: var(--gap-med);
+  .herocards {
+    padding-right: var(--small-gap);
   }
 
   .title {
