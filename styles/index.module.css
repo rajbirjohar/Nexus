@@ -24,7 +24,6 @@
   max-width: 75rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
-  padding-right: var(--small-double);
   overflow-x: auto;
   height: auto;
   justify-items: center;
@@ -140,6 +139,9 @@
   .animationWrapperSmall {
     min-width: 0px;
     max-width: 200px;
+  }
+  .herocards {
+    padding-right: var(--small-double);
   }
   .title {
     font-size: 3rem;
