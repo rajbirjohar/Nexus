@@ -1,15 +1,13 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import clientPromise from '@/lib/mongodb'
 import { useSession, signIn } from 'next-auth/react'
 import HeroLayout from '@/components/HeroLayout'
 import styles from '@/styles/index.module.css'
 import Lottie, { useLottie } from 'lottie-react'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-import heroAnimationData from '../lotties/social.json'
-import teamAnimationData from '../lotties/team.json'
+import heroAnimationData from '../lotties/puzzleplantcropped.json'
+import teamAnimationData from '../lotties/teamblue.json'
 import partyAnimationData from '../lotties/party.json'
-import booksAnimationData from '../lotties/books.json'
+import booksAnimationData from '../lotties/studentonbooks.json'
 import signAnimationData from '../lotties/signin.json'
 import searchAnimationData from '../lotties/searching.json'
 import rocketAnimationData from '../lotties/rocket.json'
@@ -126,7 +124,21 @@ export default function Home() {
           </HeroCard>
         </section>
       </section>
-
+      <div className={styles.swipeIcon}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+          />
+        </svg>
+      </div>
       <section className={styles.heroreverse}>
         <div className={styles.animationWrapper}>
           <Lottie
@@ -204,18 +216,45 @@ export default function Home() {
           </p>
         </div>
       </section>
-      <section className={styles.hero}>
-        <div className={styles.content}>
-          <h3 className={styles.sectiontitle}>Welcome</h3>
+      <section className={styles.endheroWrapper}>
+        <div className={styles.endhero}>
+          <div className={styles.content}>
+            <h3 className={styles.sectiontitle}>Welcome</h3>
 
-          {session ? (
-            <>
-              <h1 className={styles.title}>
-                Awesome. You&#39;re ready <span>to start</span>.
-              </h1>
-              <Link href="profile" passHref>
-                <button className={styles.heroprimary}>
-                  Go to My Profile
+            {session ? (
+              <>
+                <h1 className={styles.title}>
+                  Awesome. You&#39;re ready <span>to start</span>.
+                </h1>
+                <Link href="profile" passHref>
+                  <button className={styles.heroprimary}>
+                    Go to My Profile
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
+                      />
+                    </svg>
+                  </button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <h1 className={styles.title}>
+                  What are you waiting for? Start by <span>signing up</span>.
+                </h1>
+                <button
+                  className={styles.heroprimary}
+                  onClick={() => signIn('google')}
+                >
+                  Sign In with UCR
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -230,41 +269,16 @@ export default function Home() {
                     />
                   </svg>
                 </button>
-              </Link>
-            </>
-          ) : (
-            <>
-              <h1 className={styles.title}>
-                What are you waiting for? Start by <span>signing up</span>.
-              </h1>
-              <button
-                className={styles.heroprimary}
-                onClick={() => signIn('google')}
-              >
-                Sign In with UCR
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </button>
-            </>
-          )}
-        </div>
-        <div className={styles.animationWrapper}>
-          <Lottie
-            animationData={signAnimationData}
-            style={style}
-            renderer="canvas"
-          />
+              </>
+            )}
+          </div>
+          <div className={styles.animationWrapper}>
+            <Lottie
+              animationData={signAnimationData}
+              style={style}
+              renderer="canvas"
+            />
+          </div>
         </div>
       </section>
     </HeroLayout>

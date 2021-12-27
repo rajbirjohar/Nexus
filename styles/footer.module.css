@@ -1,18 +1,18 @@
 .footer {
-  padding: var(--gap-double) var(--gap-med);
+  padding: 0 var(--gap-med);
   width: 100wv;
   display: flex;
   align-items: flex-start;
-  margin-top: var(--big-gap);
+  background-color: var(--card);
   /* Stretches to bottom of page */
-  box-shadow: 0 50vh 0 50vh var(--gray-100);
+  box-shadow: 0 50vh 0 50vh var(--card);
 }
 
 .linkWrapper {
   border-top: 2px solid var(--gray-100);
   width: var(--main-content);
   margin: 0 auto;
-  padding: var(--gap-double) 0;
+  padding: var(--small-gap) 0;
   display: flex;
   gap: var(--gap-double);
 }
