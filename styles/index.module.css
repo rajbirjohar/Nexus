@@ -24,8 +24,7 @@
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
   overflow: scroll;
-  height: auto;
-  justify-items: center;
+  justify-items: center !important;
   scrollbar-width: none;
 }
 
@@ -40,7 +39,9 @@
   border-radius: var(--radius);
   padding: var(--gap-med);
   box-shadow: var(--shadows);
-  width: 22rem;
+  min-height: 100%;
+  max-width: 22rem;
+  max-width: 22rem;
 }
 
 .cardTitle,
@@ -139,19 +140,13 @@
     min-width: 0px;
     max-width: 320px;
   }
-  /* .herocardsWrapper {
-    padding-right: var(--gap-med);
-    margin-right: var(--gap-med);
-  } */
-  .herocards {
-
-  }
 
   .card {
-    width: 20rem;
+    min-width: 20rem;
+    max-width: 20rem;
   }
   .lastcard {
-    padding-right: var(--gap-med);
+    margin-right: var(--gap-med);
   }
   .title {
     font-size: 3rem;
