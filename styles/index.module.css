@@ -150,19 +150,14 @@
   } */
   .herocards {
     justify-content: flex-start;
-    padding-right: var(--gap-med);
-    margin-right: var(--gap-med);
   }
-  .herocards:nth-last-child() {
-    padding-right: var(--gap-med);
-    margin-right: var(--gap-med);
-  }
+
   .card {
     width: 20rem;
   }
   .lastcard {
     padding-right: var(--gap-med);
-    margin-right: var(--gap-med);
+    height: 100%;
   }
   .title {
     font-size: 3rem;
@@ -171,15 +166,17 @@
     margin: 0 auto;
   }
   .swipeIcon {
-    min-width: 20px;
-    max-width: 20px;
-    min-height: 20px;
-    max-height: 20px;
     display: flex;
     fill: var(--teal-500);
     transform: scale(1.2);
     justify-content: center;
     align-items: center;
     margin: var(--gap-med) auto 0 auto;
+  }
+  .swipeIcon svg {
+    min-width: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    max-height: 20px;
   }
 }
