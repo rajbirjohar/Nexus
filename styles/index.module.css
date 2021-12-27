@@ -150,11 +150,10 @@
     max-width: 20rem;
     min-height: 100%;
   }
-
-  .lastcard {
-    margin-right: var(--small-gap);
+  .herocards::after {
+    content: '';
+    min-width: var(--small-gap);
   }
-
   .title {
     font-size: 3rem;
   }
