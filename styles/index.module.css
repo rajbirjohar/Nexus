@@ -14,8 +14,9 @@
   gap: var(--small-gap);
   max-width: var(--main-content);
   padding: 0 var(--gap-med);
-  align-items: center;
-}
+
+.centered {
+  text-align: center;
 
 .herocards {
   display: flex;
