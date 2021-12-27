@@ -17,10 +17,14 @@
   padding: 0 var(--gap-med);
 }
 
+.centered {
+  text-align: center;
+}
+
 .herocards {
   display: flex;
   gap: var(--gap-med);
-  max-width: 75rem;
+  max-width: 72rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
   overflow: scroll;
@@ -40,6 +44,12 @@
   border-radius: var(--radius);
   padding: var(--gap-med);
   box-shadow: var(--shadows);
+  min-height: 100%;
+}
+
+.lastcard {
+  flex: 1;
+  flex-shrink: 0;
   min-height: 100%;
 }
 
@@ -144,12 +154,12 @@
     max-width: 20rem;
     min-height: 100%;
   }
-  .herocards.card:last-child {
-    padding-right: var(--gap-med);
-
-  }
-  .herocards {
-    padding-right: var(--small-double);
+  /* This is the dumbest sh*t ever.
+  I love CSS but I also hate CSS 
+  because of things like this. */
+  .herocards::after {
+    content: '';
+    min-width: 1px;
   }
   .title {
     font-size: 3rem;
