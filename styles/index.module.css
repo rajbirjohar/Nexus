@@ -154,10 +154,10 @@
 
   .card {
     width: 20rem;
+    height: 100%;
   }
   .lastcard {
     padding-right: var(--gap-med);
-    height: 100%;
   }
   .title {
     font-size: 3rem;
