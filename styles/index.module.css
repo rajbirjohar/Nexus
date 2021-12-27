@@ -145,8 +145,8 @@
     min-height: 100%;
   }
 
-  .card:last-of-type {
-    padding-right: var(--gap-med);
+  .herocards > :last-child {
+    margin-right: var(--gap-med);
   }
 
   .title {
