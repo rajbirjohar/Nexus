@@ -38,7 +38,7 @@ export default function CoursesPage({ courses }) {
             <h1>Courses</h1>
             <p>
               Check out any course below via thier initialed name such as
-              &#34;CS010A &#34;. Each course will come with a list of reviews
+              &#34;CS010A&#34;. Each course will come with a list of reviews
               that other people have written from their experiences as a
               student.
             </p>

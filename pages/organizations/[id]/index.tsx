@@ -40,18 +40,36 @@ const listItems = {
   },
 }
 
+const button = {
+  closed: {
+    rotate: 0,
+    transition: {
+      duration: 0.05,
+      delay: 0,
+      ease: 'easeOut',
+    },
+  },
+  open: {
+    rotate: 45,
+    transition: {
+      duration: 0.05,
+      delay: 0,
+      ease: 'easeIn',
+    },
+  },
+}
+
 const Section = ({ header, children }) => {
   const [open, setOpen] = useState(false)
   return (
     <>
       <div className={formstyles.revealheader}>
         <h2>{header}</h2>
-        <button
-          className={
-            open
-              ? `${formstyles.reveal} ${formstyles.rotated}`
-              : `${formstyles.reveal} `
-          }
+        <motion.button
+          initial="closed"
+          variants={button}
+          animate={open ? 'open' : 'closed'}
+          className={formstyles.reveal}
           onClick={() => setOpen(!open)}
         >
           <svg
@@ -65,7 +83,7 @@ const Section = ({ header, children }) => {
               clipRule="evenodd"
             />
           </svg>
-        </button>
+        </motion.button>
       </div>
       <AnimatePresence exitBeforeEnter>
         {open ? (

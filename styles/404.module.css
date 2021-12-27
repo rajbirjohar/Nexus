@@ -1,0 +1,18 @@
+.hero {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.animationWrapper {
+  min-width: 500px;
+  max-width: 500px;
+}
+
+@media (max-width: 668px) {
+  .animationWrapper {
+    min-width: 0px;
+    max-width: 320px;
+  }
+}

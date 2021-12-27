@@ -46,7 +46,7 @@ export default function EventsPage() {
           </div>
         </div>
 
-        {session && (
+        {session ? (
           <>
             <LayoutGroup>
               <div className={formstyles.tabs}>
@@ -87,6 +87,11 @@ export default function EventsPage() {
                 </motion.div>
               </AnimatePresence>
             </section>
+          </>
+        ) : (
+          <>
+            <h2>All Events</h2>
+            <ListAllEvents />
           </>
         )}
       </section>

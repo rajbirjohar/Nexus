@@ -1,21 +1,21 @@
 /* Global form styles */
 .primary {
   margin: var(--gap-half) 0;
-  background-color: var(--amber-500);
-  color: var(--amber-50);
+  background-color: var(--teal-500);
+  color: var(--teal-50);
   width: max-content;
 }
 
 .primarylogin {
   margin: var(--gap-half) 0;
-  background-color: var(--amber-500);
-  color: var(--amber-50);
+  background-color: var(--teal-500);
+  color: var(--teal-50);
   width: max-content;
 }
 
 .primarylogin:hover,
 .primary:hover {
-  background-color: var(--amber-600);
+  background-color: var(--teal-600);
 }
 
 .serverdown {
@@ -43,6 +43,7 @@
 }
 
 .deleteicon {
+  padding: var(--gap-half);
   border-radius: var(--radius-round);
 }
 
@@ -80,7 +81,7 @@
   background: transparent;
   position: relative;
   padding: var(--gap-half);
-  transition: background-color var(--transition), color var(--transition);
+  transition: all var(--transition);
 }
 
 .tab:hover {
@@ -89,12 +90,13 @@
 
 .active {
   background-color: transparent;
-  color: var(--amber-500);
+  color: var(--teal-500);
 }
 
 .active.tab:hover {
   background-color: transparent;
-  color: var(--amber-500);
+  color: var(--teal-500);
+  box-shadow: none;
   cursor: default;
 }
 
@@ -104,7 +106,7 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: var(--amber-500);
+  background: var(--teal-500);
   border-radius: var(--radius);
 }
 
@@ -119,33 +121,18 @@
 .reveal,
 .revealprimary {
   border-radius: 50%;
-  transform: rotate(0deg);
+  padding: var(--gap-half);
   transition: all var(--transition);
   -webkit-tap-highlight-color: transparent;
 }
 
 .revealprimary {
-  background-color: var(--amber-500);
-  color: var(--amber-100);
+  background-color: var(--teal-500);
+  color: var(--teal-100);
 }
 
 .revealprimary:hover {
-  background-color: var(--amber-600);
-}
-
-.rotated {
-  transform: rotate(45deg);
-  transform-origin: center;
-}
-
-.reveal.rotated {
-  background-color: var(--gray-700);
-  color: var(--gray-100);
-}
-
-.revealprimary.rotated {
-  background-color: var(--amber-700);
-  color: var(--amber-100);
+  background-color: var(--teal-600);
 }
 
 .linkwrap {
