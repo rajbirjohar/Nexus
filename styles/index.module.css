@@ -29,8 +29,7 @@
   height: 100%;
 }
 
-.card,
-.lastcard {
+.card {
   flex-shrink: 0;
   flex: 1;
   display: flex;
@@ -41,6 +40,12 @@
   border-radius: var(--radius);
   padding: var(--gap-med);
   box-shadow: var(--shadows);
+  min-height: 100%;
+}
+
+.lastcard {
+  flex: 1;
+  flex-shrink: 0;
   min-height: 100%;
 }
 
@@ -147,9 +152,6 @@
   }
 
   .lastcard {
-    min-width: 20rem;
-    max-width: 20rem;
-    min-height: 100%;
     margin-right: var(--small-gap);
   }
 
