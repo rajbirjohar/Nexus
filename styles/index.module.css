@@ -147,6 +147,9 @@
   .herocards {
     justify-content: flex-start;
   }
+  .herocards:nth-last-child() {
+    padding-right: var(--gap-med);
+  }
   .card {
     width: 20rem;
   }
