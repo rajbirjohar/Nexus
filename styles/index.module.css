@@ -145,9 +145,10 @@
     min-height: 100%;
   }
 
-  .herocards {
-    padding-right: var(--small-double);
+  .card:last-of-type {
+    padding-right: var(--gap-med);
   }
+
   .title {
     font-size: 3rem;
   }
