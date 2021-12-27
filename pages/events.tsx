@@ -9,7 +9,7 @@ import ListUserEvents from '@/components/Events/ListUserEvents'
 import { LottieWrapper } from '@/components/LottieWrapper'
 import { GreenTip } from '@/components/Tips'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-import animationData from '@/lotties/bookmark.json'
+import animationData from '@/lotties/teamblue.json'
 
 export default function EventsPage() {
   const { data: session } = useSession()
@@ -44,7 +44,8 @@ export default function EventsPage() {
               <p>
                 This is where you&#39;ll be able to see all of the ongoing and
                 future events of our clubs and organizations. Events are sorted
-                by the date and time they end.
+                by the date and time they end. All organizations list all of
+                their own events so be sure to check those out!
               </p>
               <GreenTip header="Join an Org">
                 Events from organizations you join will be curated for you all
@@ -91,6 +92,7 @@ export default function EventsPage() {
                   exit={{ opacity: 0, x: 5 }}
                   transition={{ duration: 0.15 }}
                 >
+                  <h2>{selectedTab.label}</h2>
                   {selectedTab
                     ? selectedTab.component
                     : 'Nothing to see here 😋.'}
@@ -100,6 +102,7 @@ export default function EventsPage() {
           </>
         ) : (
           <>
+            <h2>All Events</h2>
             <ListAllEvents />
           </>
         )}
