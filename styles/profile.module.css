@@ -12,7 +12,7 @@
 }
 
 .input {
-  border: 2px solid var(--amber-100);
+  border: 2px solid var(--teal-100);
   flex: 1;
   padding: var(--gap) var(--gap);
   font-size: 1.125rem;
@@ -21,7 +21,7 @@
   background-color: var(--gray-100) !important;
 }
 .input::placeholder {
-  color: var(--amber-700) !important;
+  color: var(--teal-700) !important;
 }
 
 .warningWrapper {
@@ -41,13 +41,13 @@
 .setrolebutton {
   width: max-content;
   margin-right: 0;
-  background-color: var(--amber-100);
-  color: var(--amber-800);
+  background-color: var(--teal-100);
+  color: var(--teal-800);
   transition: all var(--transition);
 }
 
 .setrolebutton:hover {
-  background-color: var(--amber-200);
+  background-color: var(--teal-200);
 }
 
 .actions {

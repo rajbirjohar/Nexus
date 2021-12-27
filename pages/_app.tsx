@@ -15,7 +15,7 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
     <SessionProvider session={session}>
       <ThemeProvider defaultTheme="system" disableTransitionOnChange={true}>
         <NextNProgress
-          color="#fbbf24"
+          color="#14b8a6"
           startPosition={0.3}
           stopDelayMs={200}
           height={3}

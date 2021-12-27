@@ -40,7 +40,7 @@ export default function EventCard({
         className={cardstyles.card}
       >
         {endDate > new Date() && <span>Expirose</span>}
-        <h3 className={cardstyles.course}>{eventName}</h3>
+        <h3 className={cardstyles.eventName}>{eventName}</h3>
         <span className={cardstyles.author}>
           <strong>By {organizationName}</strong>
         </span>

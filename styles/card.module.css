@@ -27,10 +27,15 @@
 .card,
 .reviewcard,
 .coursecard {
-  background-color: var(--gray-50);
+  background-color: var(--card);
   border-radius: var(--radius);
   padding: var(--gap-med);
-  box-shadow: var(--shadows-sm);
+  box-shadow: var(--shadows);
+}
+
+.card:hover > .eventName,
+.card:hover > .organizationName {
+  color: var(--teal-800);
 }
 
 .coursecard,
@@ -40,7 +45,6 @@
 
 .coursecard:hover,
 .card:hover {
-  background-color: var(--gray-100);
   transform: translateY(-0.25rem);
   cursor: pointer;
 }
@@ -53,7 +57,7 @@
 .greencard {
   padding: var(--gap-half) var(--gap-med);
   border-radius: var(--radius);
-  background-color: var(--emerald-100);
+  background-color: var(--teal-100);
 }
 
 .defaultcard {
@@ -83,7 +87,7 @@
 }
 
 .greennotif {
-  background-color: var(--emerald-100);
+  background-color: var(--teal-100);
 }
 
 .notifmessage {
@@ -92,11 +96,11 @@
 
 /* Dummy card styles */
 .dummycard {
-  background-color: var(--gray-100);
+  background-color: var(--card);
   border-radius: var(--radius);
   padding: var(--gap-med);
   margin: var(--gap) 0;
-  box-shadow: var(--shadows-sm);
+  box-shadow: var(--shadows);
 }
 
 .dummyauthor {
@@ -110,7 +114,7 @@
   height: 25px;
   animation: pulse 2s infinite;
   border-radius: var(--radius-sm);
-  background-color: var(--gray-200);
+  background-color: var(--gray-100);
 }
 
 .dummytitle {
@@ -122,13 +126,13 @@
 
 @keyframes pulse {
   0% {
-    background-color: var(--gray-100);
+    background-color: var(--gray-50);
   }
   50% {
-    background-color: var(--gray-200);
+    background-color: var(--gray-100);
   }
   100% {
-    background-color: var(--gray-100);
+    background-color: var(--gray-50);
   }
 }
 
@@ -156,12 +160,12 @@
 }
 
 .gridcard:hover > .orgheader > .organizationName {
-  color: var(--amber-800);
+  color: var(--teal-800);
   margin-right: var(--gap-quarter);
 }
 
 .gridcard:hover > .orgheader > .linkIcon {
-  color: var(--amber-800);
+  color: var(--teal-800);
 }
 
 .organizationName {
@@ -171,7 +175,7 @@
 
 .organizationName,
 .linkIcon {
-  color: var(--amber-500);
+  color: var(--teal-500);
   transition: all 150ms ease-in-out;
 }
 
@@ -182,13 +186,18 @@
 /* Courses card styles */
 .course {
   margin: 0;
-  color: var(--amber-500);
+  color: var(--teal-500);
   transition: color 150ms ease-in-out;
 }
 .coursecard:hover > .course {
-  color: var(--amber-800);
+  color: var(--teal-800);
 }
 
 /* Event card */
+
+.eventName {
+  color: var(--teal-500);
+  transition: all 150ms ease-in-out;
+}
 
 /* Comment card */

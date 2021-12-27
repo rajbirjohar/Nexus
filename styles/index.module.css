@@ -4,12 +4,44 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  min-height: 70vh;
+  min-height: 75vh;
   gap: var(--gap-med);
 }
 
+.herocardsWrapper {
+  position: relative;
+  height: max-content;
+}
+
+.herocards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--gap-med);
+}
+
+.cardTitle,
+.cardCaption {
+  text-align: center;
+}
+
+.heroprimary {
+  padding: var(--gap-med) var(--big-gap);
+  background-color: var(--teal-500);
+  color: var(--teal-50);
+  gap: var(--gap-quarter);
+}
+
+.heroprimary svg {
+  transform: scale(1.2);
+}
+
+.heroprimary:hover {
+  background-color: var(--teal-600);
+}
+
 .animationWrapper {
-  max-width: 400px;
+  min-width: 500px;
+  max-width: 500px;
 }
 
 .heroImage {
@@ -24,13 +56,13 @@
 }
 
 .title {
-  font-size: 2.75rem;
+  font-size: 3.75rem;
   line-height: 1.2;
 }
 
 .title span,
 .sectiontitle {
-  color: var(--amber-500);
+  color: var(--teal-500);
 }
 
 .subtitle {
@@ -40,17 +72,30 @@
 @media (max-width: 668px) {
   .hero {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding-right: 0;
+    gap: 0;
+    min-height: none;
   }
   .heroreverse {
     flex-direction: column-reverse;
-    justify-content: space-evenly;
     align-items: center;
+    gap: 0;
+    min-height: none;
+  }
+  .endhero {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  .endcontentright,
+  .endcontentright {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
   .animationWrapper {
     flex: 0;
+    min-width: 0px;
     max-width: 320px;
   }
   .content {
@@ -58,5 +103,8 @@
   }
   .heroImage {
     margin: 0;
+  }
+  .title {
+    font-size: 3rem;
   }
 }

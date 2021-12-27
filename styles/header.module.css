@@ -6,7 +6,6 @@
   position: fixed;
   top: 0;
   background: var(--gray-50);
-  color: var(--gray-900);
   display: flex;
   box-shadow: none;
   transition: height 250ms ease-in-out 0s, box-shadow 250ms ease-in-out 0s,
@@ -22,7 +21,7 @@
 .innernav {
   display: flex;
   margin: 0 auto;
-  width: var(--nav-content);
+  width: var(--main-content);
   align-items: center;
   justify-content: space-between;
 }
@@ -66,7 +65,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  gap: 2.5rem;
+  gap: 2rem;
   font-size: 1.25rem;
 }
 
@@ -76,17 +75,17 @@
 }
 
 .theme {
-  background-color: var(--gray-100);
-  color: var(--gray-800);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--transition);
+  padding: var(--gap-half);
+  transition: all var(--transition);
   border-radius: var(--radius-round);
 }
 
 .theme:hover {
   background-color: var(--gray-200);
+  border-radius: var(--radius);
 }
 
 .hamburger {
