@@ -150,9 +150,12 @@
     max-width: 20rem;
     min-height: 100%;
   }
+  /* This is the dumbest sh*t ever.
+  I love CSS but I also hate CSS 
+  because of things like this. */
   .herocards::after {
     content: '';
-    min-width: var(--gap-med);
+    min-width: 1px;
   }
   .title {
     font-size: 3rem;
