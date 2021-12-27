@@ -144,15 +144,18 @@
     min-width: 0px;
     max-width: 320px;
   }
-  .herocardsWrapper {
+  /* .herocardsWrapper {
+    padding-right: var(--gap-med);
+    margin-right: var(--gap-med);
+  } */
+  .herocards {
+    justify-content: flex-start;
     padding-right: var(--gap-med);
     margin-right: var(--gap-med);
   }
-  .herocards {
-    justify-content: flex-start;
-  }
   .herocards:nth-last-child() {
     padding-right: var(--gap-med);
+    margin-right: var(--gap-med);
   }
   .card {
     width: 20rem;
