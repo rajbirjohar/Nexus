@@ -9,15 +9,12 @@
 .endhero {
   margin: 0 auto;
   display: flex;
+  align-items: center;
   justify-content: space-evenly;
   min-height: 70vh;
   gap: var(--small-gap);
   max-width: var(--main-content);
   padding: 0 var(--gap-med);
-}
-
-.centered {
-  text-align: center;
 }
 
 .herocards {
