@@ -1,5 +1,5 @@
 .layout {
-  margin: 6rem auto var(--gap-med) auto;
+  margin: 6rem auto var(--small-gap) auto;
   min-height: 75vh;
   display: flex;
   flex-direction: column;
