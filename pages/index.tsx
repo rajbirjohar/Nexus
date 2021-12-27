@@ -113,10 +113,16 @@ export default function Home() {
             website.
           </HeroCard>
 
-          <HeroCard animationData={rocketAnimationData} title="Explore">
-            Everything happening on campus, is happening right here. Find all
-            current events and show your interest through comments.
-          </HeroCard>
+          <div className={`{$styles.card} ${styles.lastcard}`}>
+            <div className={styles.animationWrapperSmall}>
+              <LottieWrapper animationData={rocketAnimationData} />
+            </div>
+            <h4 className={styles.cardTitle}>Explore</h4>
+            <p className={styles.cardCaption}>
+              Everything happening on campus, is happening right here. Find all
+              current events and show your interest through comments.
+            </p>
+          </div>
         </section>
       </section>
       <div className={styles.swipeIcon}>
