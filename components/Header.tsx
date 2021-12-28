@@ -24,18 +24,19 @@ const list = {
     opacity: 1,
     height: '0vh',
     transition: {
-      delay: 0.1,
       duration: 0.25,
       staggerChildren: 0.05,
+      when: 'afterChildren',
     },
   },
   open: {
     opacity: 1,
     height: '100vh',
     transition: {
-      duration: 0.25,
-      delayChildren: 0.05,
+      duration: 0.35,
+      // delayChildren: 0.5,
       staggerChildren: 0.05,
+      when: 'beforeChildren',
     },
   },
 }
@@ -44,10 +45,17 @@ const listItems = {
   closed: {
     opacity: 0,
     y: -15,
+    transition: {
+      ease: 'easeInOut',
+      duration: '0.15',
+    },
   },
   open: {
     opacity: 1,
     y: 0,
+    transition: {
+      ease: 'easeInOut',
+    },
   },
 }
 
@@ -170,6 +178,7 @@ export default function Header() {
                   />
                   <motion.button
                     variants={listItems}
+                    className={styles.logout}
                     onClick={() =>
                       signOut({
                         callbackUrl: `${window.location.origin}`,

@@ -41,9 +41,7 @@
 @media (max-width: 868px) {
   .content {
     flex-direction: column;
-  }
-  .content {
-    margin-right: 0;
+    align-items: center;
   }
   .organizationHeader {
     flex-direction: column;

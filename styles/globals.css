@@ -253,7 +253,7 @@ button {
   font-weight: 600;
   border-radius: var(--radius);
   cursor: pointer;
-  transition: all var(--transition);
+  transition: background-color var(--transition), box-shadow var(--transition);
 }
 
 button:hover {
