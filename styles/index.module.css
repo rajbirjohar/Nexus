@@ -23,9 +23,9 @@
   max-width: 72rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
-  overflow: scroll;
+  /* Display scrollbar only when needed */
+  overflow-x: auto;
   justify-items: center !important;
-  scrollbar-width: none !important;
   height: 100%;
 }
 
@@ -104,6 +104,8 @@
   display: none;
 }
 
+/* Adds a fade mask on either side of the cards 
+box but still iffy on if I like it or not */
 /* @media (max-width: 868px) {
   .herocards {
     --gradient-size-start: calc(0% - env(safe-area-inset-left) - 10px);
@@ -175,5 +177,17 @@
     max-width: 20px;
     min-height: 20px;
     max-height: 20px;
+  }
+}
+
+/* Hide scrollbar on all touch devices  */
+
+@media (hover: none) {
+  .herocards {
+    -ms-overflow-style: none !important; /* Internet Explorer 10+ */
+    scrollbar-width: none !important; /* Firefox */
+  }
+  .herocards::-webkit-scrollbar {
+    display: none !important; /* Safari and Chrome */
   }
 }
