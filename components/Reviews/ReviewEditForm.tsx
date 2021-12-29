@@ -3,6 +3,7 @@ import toast from 'react-hot-toast'
 import useSlider from './Slider'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
+import { motion } from 'framer-motion'
 
 // Max length for review
 const maxLength = 750
@@ -11,12 +12,20 @@ const maxLength = 750
 // Params: name, email, course
 // Purpose: To take in user inputted data and submit it to the database
 
-export default function ReviewPostForm({ course, courseId }) {
+export default function ReviewEditForm({
+  reviewPostId,
+  oldReviewPost,
+  oldReviewProfessor,
+  oldTaken,
+  oldDifficulty,
+  oldAnonymous,
+  onHandleChange,
+}) {
   // useSlider hook
   const [slideValue, Slider, setSlide] = useSlider(
     1,
     10,
-    5,
+    oldDifficulty,
     'Difficulty:',
     'difficulty'
   )
@@ -25,41 +34,40 @@ export default function ReviewPostForm({ course, courseId }) {
   const { data: session } = useSession()
   const [reviewPost, setReviewPost] = useState({
     creatorId: session.user.id,
-    creator: session.user.name,
-    creatorEmail: session.user.email,
-    _reviewPost: '',
-    _reviewProfessor: '',
-    _course: course,
-    _courseId: courseId,
-    _taken: '',
-    _difficulty: 5,
-    _anonymous: true,
+    reviewPostId: reviewPostId,
+    _newReviewPost: oldReviewPost,
+    _newReviewProfessor: oldReviewProfessor,
+    _newTaken: oldTaken,
+    _difficulty: oldDifficulty,
+    _newAnonymous: oldAnonymous,
   })
   // State for anonymous checkbox
-  const [checked, setChecked] = useState(true)
+  const [checked, setChecked] = useState(oldAnonymous)
 
   const handleSubmit = async (event) => {
     // don't roseirect the page
     event.preventDefault()
-    // check if any text fields are empty
+    // Check if ALL old values have not changed
     if (
-      reviewPost._reviewPost === '' ||
-      reviewPost._reviewProfessor === '' ||
-      reviewPost._taken === ''
+      reviewPost._newReviewPost === oldReviewPost &&
+      reviewPost._newReviewProfessor === oldReviewProfessor &&
+      reviewPost._newTaken === oldTaken &&
+      reviewPost._difficulty === oldDifficulty &&
+      reviewPost._newAnonymous === oldAnonymous
+    ) {
+      toast.error('No updates made.')
+      // check if any text fields are empty
+    } else if (
+      reviewPost._newReviewPost === '' ||
+      reviewPost._newReviewProfessor === '' ||
+      reviewPost._newTaken === ''
     ) {
       toast.error('Please fill out the missing fields.')
     } else {
       // calls sendData() to send our state data to our API
       sendData(reviewPost)
-      // clears our inputs after submitting
-      setReviewPost({
-        ...reviewPost,
-        _reviewPost: '',
-        _reviewProfessor: '',
-        _taken: '',
-        _difficulty: 5,
-        _anonymous: true,
-      })
+      // Hide edit form
+      !onHandleChange()
     }
   }
 
@@ -75,21 +83,21 @@ export default function ReviewPostForm({ course, courseId }) {
   }
 
   const handleCheckChange = () => {
-    setChecked(checked)
+    setChecked(!checked)
+
     setReviewPost({
       ...reviewPost,
-      _anonymous: checked,
+      _newAnonymous: !checked,
     })
-    console.log(reviewPost._anonymous)
   }
 
-  const sendData = async (reviewPostData) => {
-    const response = await fetch(`/api/reviewposts/reviewcreate`, {
-      method: 'POST',
+  const sendData = async (newReviewPostData) => {
+    const response = await fetch(`/api/reviewposts/reviewedit`, {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ reviewPostData: reviewPostData }),
+      body: JSON.stringify({ newReviewPostData: newReviewPostData }),
     })
     const data = await response.json()
     if (response.status === 200) {
@@ -102,21 +110,29 @@ export default function ReviewPostForm({ course, courseId }) {
     return data.reviewPostData
   }
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <motion.form
+      layout
+      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: -5 }}
+      exit={{ opacity: 0, x: 5 }}
+      transition={{ duration: 0.15 }}
+      onSubmit={handleSubmit}
+      className={styles.form}
+    >
       <label htmlFor="_reviewPost">
         <strong>Review:</strong>
       </label>
       <textarea
         aria-label="Review Post Input"
-        name="_reviewPost"
-        value={reviewPost._reviewPost}
+        name="_newReviewPost"
+        value={reviewPost._newReviewPost}
         onChange={handleChange}
         placeholder='"I love this class!"'
         className={styles.input}
         maxLength={maxLength}
       />
       <span className={styles.maxlength}>
-        {maxLength - reviewPost._reviewPost.length}/{maxLength}
+        {maxLength - reviewPost._newReviewPost.length}/{maxLength}
       </span>
       <label htmlFor="_reviewProfessor">
         <strong>Professor:</strong>
@@ -124,8 +140,8 @@ export default function ReviewPostForm({ course, courseId }) {
       <input
         autoComplete="off"
         aria-label="Review Professor Input"
-        name="_reviewProfessor"
-        value={reviewPost._reviewProfessor}
+        name="_newReviewProfessor"
+        value={reviewPost._newReviewProfessor}
         onChange={handleChange}
         type="text"
         placeholder='"Professor Scotty"'
@@ -137,8 +153,8 @@ export default function ReviewPostForm({ course, courseId }) {
       <input
         autoComplete="off"
         aria-label="Taken Input"
-        name="_taken"
-        value={reviewPost._taken}
+        name="_newTaken"
+        value={reviewPost._newTaken}
         onChange={handleChange}
         type="text"
         placeholder='"Fall 2021"'
@@ -154,7 +170,7 @@ export default function ReviewPostForm({ course, courseId }) {
           autoComplete="off"
           type="checkbox"
           id="anonymous"
-          name="_anonymous"
+          name="_newAnonymous"
           checked={checked}
           onChange={handleCheckChange}
         />
@@ -162,9 +178,9 @@ export default function ReviewPostForm({ course, courseId }) {
       </span>
       <div className={styles.actions}>
         <button className={styles.primary} type="submit">
-          Post Review!
+          Edit Review!
         </button>
       </div>
-    </form>
+    </motion.form>
   )
 }

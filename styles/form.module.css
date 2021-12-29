@@ -18,16 +18,16 @@
   background-color: var(--teal-600);
 }
 
-.serverdown {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-}
-
 .actions {
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  gap: var(--gap-half);
+  margin: var(--gap-half) 0;
+}
+
+.editicon {
+  margin: 0;
 }
 
 .delete,
@@ -42,9 +42,14 @@
   border-radius: var(--radius);
 }
 
-.deleteicon {
+.deleteicon,
+.editicon {
   padding: var(--gap-half);
   border-radius: var(--radius-round);
+}
+
+.editicon:hover {
+  background-color: var(--gray-200);
 }
 
 .delete:hover,
