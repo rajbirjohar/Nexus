@@ -75,27 +75,25 @@ export default function ReviewPostForm({ course, courseId }) {
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         sendData(values)
-        setTimeout(() => {
-          resetForm({
-            values: {
-              creatorId: session.user.id,
-              creator: session.user.name,
-              creatorEmail: session.user.email,
-              _reviewPost: '',
-              _reviewProfessor: '',
-              _course: course,
-              _courseId: courseId,
-              _taken: '',
-              _difficulty: slideValue,
-              _anonymous: true,
-            },
-          })
-          setSubmitting(false)
-        }, 400)
+        resetForm({
+          values: {
+            creatorId: session.user.id,
+            creator: session.user.name,
+            creatorEmail: session.user.email,
+            _reviewPost: '',
+            _reviewProfessor: '',
+            _course: course,
+            _courseId: courseId,
+            _taken: '',
+            _difficulty: slideValue,
+            _anonymous: true,
+          },
+        })
+        setSubmitting(false)
       }}
     >
-      {({ values, isSubmitting }) => (
-        <Form>
+      {({ values, handleSubmit, isSubmitting }) => (
+        <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
             <label htmlFor="_reviewPost">
               <strong>Review:</strong>

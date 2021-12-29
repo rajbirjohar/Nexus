@@ -53,22 +53,20 @@ export default function CommentsForm({ eventId }) {
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         sendData(values)
-        setTimeout(() => {
-          resetForm({
-            values: {
-              eventId: eventId,
-              authorId: session.user.id,
-              author: session.user.name,
-              email: session.user.email,
-              _comment: '',
-            },
-          })
-          setSubmitting(false)
-        }, 400)
+        resetForm({
+          values: {
+            eventId: eventId,
+            authorId: session.user.id,
+            author: session.user.name,
+            email: session.user.email,
+            _comment: '',
+          },
+        })
+        setSubmitting(false)
       }}
     >
-      {({ values, isSubmitting }) => (
-        <Form>
+      {({ values, handleSubmit, isSubmitting }) => (
+        <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
             <label htmlFor="_comment">
               <strong>Comment:</strong>

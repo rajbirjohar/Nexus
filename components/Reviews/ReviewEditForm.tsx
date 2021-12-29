@@ -98,14 +98,12 @@ export default function ReviewEditForm({
         }}
         onSubmit={(values, { setSubmitting }) => {
           sendData(values)
-          setTimeout(() => {
-            setSubmitting(false)
-          }, 400)
           !onHandleChange()
+          setSubmitting(false)
         }}
       >
-        {({ values, isSubmitting }) => (
-          <Form>
+        {({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
               <label htmlFor="_reviewPost">
                 <strong>Review:</strong>

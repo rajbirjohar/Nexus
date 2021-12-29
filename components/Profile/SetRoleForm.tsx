@@ -65,13 +65,11 @@ export default function SetRoleForm({ userId }) {
         }}
         onSubmit={(values, { setSubmitting }) => {
           sendData(values)
-          setTimeout(() => {
-            setSubmitting(false)
-          }, 400)
+          setSubmitting(false)
         }}
       >
-        {({ values, isSubmitting }) => (
-          <Form>
+        {({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
               <label htmlFor="_comment">
                 <strong>Role:</strong>
