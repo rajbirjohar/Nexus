@@ -22,19 +22,20 @@
   width: 100%;
   display: flex;
   justify-content: flex-end;
-  gap: var(--gap-half);
+  gap: var(--gap);
   margin: var(--gap-half) 0;
 }
 
 .editicon {
-  margin: 0;
+  background-color: var(--teal-200);
+  color: var(--teal-800);
 }
 
 .delete,
 .deleteicon {
   margin: 0;
   color: var(--rose-800);
-  background: var(--rose-100);
+  background: var(--rose-50);
   max-width: max-content;
 }
 
@@ -49,12 +50,12 @@
 }
 
 .editicon:hover {
-  background-color: var(--gray-200);
+  background-color: var(--teal-300);
 }
 
 .delete:hover,
 .deleteicon:hover {
-  background-color: var(--rose-200);
+  background-color: var(--rose-100);
 }
 
 .deletecomment {

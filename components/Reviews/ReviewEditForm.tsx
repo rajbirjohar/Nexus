@@ -111,7 +111,7 @@ export default function ReviewEditForm({
   }
   return (
     <motion.form
-      layout
+      layout="position"
       animate={{ opacity: 1, x: 0 }}
       initial={{ opacity: 0, x: -5 }}
       exit={{ opacity: 0, x: 5 }}
