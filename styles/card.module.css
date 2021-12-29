@@ -49,6 +49,10 @@
   cursor: pointer;
 }
 
+.author {
+  margin: 0;
+}
+
 .author,
 .date {
   color: var(--gray-400);
@@ -197,7 +201,15 @@
 
 .eventName {
   color: var(--teal-500);
+  margin: 0;
   transition: all 150ms ease-in-out;
 }
-
+.expired {
+  background-color: var(--rose-100);
+  color: var(--rose-800);
+  border-radius: var(--radius-sm);
+  padding: var(--gap-quarter);
+  margin-top: var(--gap-med);
+  width: max-content;
+}
 /* Comment card */

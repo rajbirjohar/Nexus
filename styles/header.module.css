@@ -50,19 +50,19 @@
   gap: var(--gap);
 }
 
-.open,
 .notopen {
   width: 100vw;
   position: fixed;
   z-index: 2;
   top: 0;
   left: 0;
+  margin-top: 4.5rem;
   background-color: var(--gray-50);
   overflow-x: hidden !important;
   overflow-y: auto !important;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 1.5rem;
   font-size: 1.25rem;
@@ -77,7 +77,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--gap-half);
+  padding: 0.75rem;
   transition: all var(--transition);
   border-radius: var(--radius-round);
 }
