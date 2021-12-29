@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
-import toast from 'react-hot-toast'
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
 // length of description
 const maxLength = 1000
 const tagLineLength = 250
+
+interface Organization {
+  organizerId: string
+  organizer: string
+  email: string
+  _organizationName: string
+  _organizationTagline: string
+  _organizationDescription: string
+}
 
 // Component: OrganizationPostForm()
 // Purpose: To take in user inputted data and submit it to the database
@@ -23,7 +33,14 @@ export default function OrganizationsForm() {
     _organizationTagline: '',
     _organizationDescription: '',
   })
-
+  const initialValues: Organization = {
+    organizerId: session.user.id,
+    organizer: session.user.name,
+    email: session.user.email,
+    _organizationName: '',
+    _organizationTagline: '',
+    _organizationDescription: '',
+  }
   // handleSubmit function
   const handleSubmit = async (event) => {
     // don't roseirect the page

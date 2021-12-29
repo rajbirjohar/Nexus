@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
-import Link from 'next/link'
-import Router from 'next/router'
-import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import { useSession } from 'next-auth/react'
 import { LottieWrapper } from '@/components/LottieWrapper'
@@ -13,6 +10,7 @@ import styles from '@/styles/organizations.module.css'
 import formstyles from '@/styles/form.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
 import animationData from '@/lotties/group.json'
+import CreatorRoleForm from '@/components/Organizations/CreatorRoleForm'
 
 const list = {
   closed: {
@@ -42,45 +40,8 @@ const listItems = {
 
 export default function OrganizationsPage() {
   const { data: session } = useSession()
-  const [orgRole, setOrgRole] = useState({ _orgRole: '' })
   const [displayWarning, setDisplayWarning] = useState(false)
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    if (orgRole._orgRole === '') {
-      toast.error('Please fill out your role.')
-    } else if (orgRole._orgRole === 'Admin') {
-      sendData(orgRole)
-      setOrgRole({ _orgRole: '' })
-    } else {
-      toast.error('Your input is incorrect. Please try again.')
-    }
-  }
-
-  const handleChange = (event) => {
-    setOrgRole({
-      _orgRole: event.target.value,
-    })
-  }
-
-  const sendData = async (orgRoleData) => {
-    const response = await fetch('/api/courses/setrole', {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ orgRoleData: orgRoleData }),
-    })
-    const data = await response.json()
-    if (response.status === 200) {
-      toast.success("You've set your role!")
-      Router.reload()
-    } else {
-      toast.error(
-        'Uh oh. Something happened. Please contact us if this persists.'
-      )
-    }
-  }
   return (
     <Layout>
       <Head>
@@ -113,89 +74,75 @@ export default function OrganizationsPage() {
           session.user.orgRole &&
           session.user.role.includes('student' || 'professor') &&
           session.user.orgRole.includes('none') && (
-            <button
-              className={formstyles.primary}
-              onClick={() => setDisplayWarning(!displayWarning)}
-            >
-              Apply for Organizer
-            </button>
+            <>
+              <span className={formstyles.actions}>
+                <button
+                  className={formstyles.primary}
+                  onClick={() => setDisplayWarning(!displayWarning)}
+                >
+                  Apply for Organizer
+                </button>
+              </span>
+              <AnimatePresence exitBeforeEnter>
+                {displayWarning && (
+                  <motion.div
+                    animate={displayWarning ? 'open' : 'closed'}
+                    variants={list}
+                    exit="closed"
+                    initial="closed"
+                    layout
+                    className={formstyles.warningWrapper}
+                  >
+                    <motion.div variants={listItems}>
+                      <h3>Before You Create</h3>
+                      <p>
+                        <strong>
+                          We currently only support the creation of{' '}
+                          <u>one organization per user</u>.
+                        </strong>
+                      </p>
+                      <p>
+                        <strong>Permissions:</strong>
+                      </p>
+                      <p>
+                        <strong>Creator (You): </strong>This role grants all
+                        permissions regarding{' '}
+                        <u>
+                          club creation/deletion, admin addition/removal, owner
+                          transfership, event posting, comment moderation, and
+                          member viewing
+                        </u>
+                        . We strongly recommend the highest ranking officer to
+                        be in charge of creating the club which they can then
+                        add other board members as <u>Admins</u>.
+                      </p>
+                      <p>
+                        <strong>Admin: </strong>This role grants all permissions
+                        regarding{' '}
+                        <u>
+                          admin addition, event posting, comment moderation, and
+                          member viewing
+                        </u>
+                        .
+                      </p>
+                      <p>
+                        <strong>Member: </strong> Any other user that isn&#39;t
+                        already a Creator or Admin will be able to join your
+                        club as a member. They can filter events based on
+                        membership status and view your contact information.
+                      </p>
+                      <p>
+                        Please enter <strong>&#34;Admin&#34;</strong> if you
+                        understand the rules and limitations of each role and
+                        would like to proceed creating your own organization.
+                      </p>
+                      <CreatorRoleForm userId={session.user.id} />
+                    </motion.div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </>
           )}
-        <AnimatePresence exitBeforeEnter>
-          {displayWarning && (
-            <motion.div
-              animate={displayWarning ? 'open' : 'closed'}
-              variants={list}
-              exit="closed"
-              initial="closed"
-              className={formstyles.warningWrapper}
-            >
-              <motion.div variants={listItems}>
-                <h3>Before You Create</h3>
-                <p>
-                  <strong>
-                    We currently only support the creation of{' '}
-                    <u>one organization per user</u>.
-                  </strong>
-                </p>
-                <p>
-                  <strong>Permissions:</strong>
-                </p>
-                <p>
-                  <strong>Creator (You): </strong>This role grants all
-                  permissions regarding{' '}
-                  <u>
-                    club creation/deletion, admin addition/removal, owner
-                    transfership, event posting, comment moderation, and member
-                    viewing
-                  </u>
-                  . We strongly recommend the highest ranking officer to be in
-                  charge of creating the club which they can then add other
-                  board members as <u>Admins</u>.
-                </p>
-                <p>
-                  <strong>Admin: </strong>This role grants all permissions
-                  regarding{' '}
-                  <u>
-                    admin addition, event posting, comment moderation, and
-                    member viewing
-                  </u>
-                  .
-                </p>
-                <p>
-                  <strong>Member: </strong> Any other user that isn&#39;t
-                  already a Creator or Admin will be able to join your club as a
-                  member. They can filter events based on membership status and
-                  view your contact information.
-                </p>
-                <p>
-                  Please enter <strong>&#34;Admin&#34;</strong> if you
-                  understand the rules and limitations of each role and would
-                  like to proceed creating your own organization.
-                </p>
-                <form onSubmit={handleSubmit} className={formstyles.form}>
-                  <label htmlFor="_orgRole">
-                    <strong>Position:</strong>
-                  </label>
-                  <input
-                    autoComplete="off"
-                    aria-label="Org Role Input"
-                    name="_orgRole"
-                    value={orgRole._orgRole}
-                    onChange={handleChange}
-                    type="text"
-                    placeholder="Role"
-                    className={formstyles.input}
-                  />
-                  <div className={formstyles.actions}>
-                    <button className={formstyles.primary} type="submit">
-                      I Understand
-                    </button>
-                  </div>
-                </form>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
         {session &&
           session.user.orgRole &&
           session.user.orgRole.includes('Admin') &&
