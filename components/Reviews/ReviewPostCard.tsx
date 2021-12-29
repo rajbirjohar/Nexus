@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
@@ -6,17 +6,6 @@ import formstyles from '@/styles/form.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
 import ReviewEditForm from './ReviewEditForm'
 
-// Component: ReviewPostCard({
-// reviewee,
-// reviewPost,
-// reviewProfessor,
-// course,
-// taken,
-// difficulty,
-// timestamp,
-// anonymous,
-// reviewPostId,
-// })
 // Purpose: To display all data within a single review as a card
 
 const listItems = {
@@ -24,22 +13,31 @@ const listItems = {
   show: { opacity: 1 },
 }
 
-const editForm = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
+const deleteTextWrapper = {
+  closed: {
+    width: '0',
     transition: {
-      staggerChildren: 0.05,
+      when: 'afterChildren',
     },
+  },
+  open: {
+    width: 'auto',
   },
 }
 
-const editFormChild = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
+const deleteText = {
+  closed: {
+    opacity: 0,
+    x: -5,
     transition: {
       duration: 0.15,
+    },
+  },
+  open: {
+    opacity: 1,
+    x: 0,
+    transition: {
+      delay: 0.15,
     },
   },
 }
@@ -60,7 +58,27 @@ export default function ReviewPostCard({
 }) {
   const { data: session } = useSession()
   const [isEdit, setIsEdit] = useState(false)
-  const deleteReviewPost = async (event) => {
+  const [isDelete, setIsDelete] = useState(false)
+  const wrapperRef = useRef(null)
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside, false)
+    return () => {
+      document.removeEventListener('click', handleClickOutside, false)
+    }
+  }, [])
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      setIsDelete(false)
+    }
+  }
+  const confirmDelete = (event) => {
+    if (isDelete === true) {
+      deleteReviewPost()
+    } else {
+      setIsDelete(true)
+    }
+  }
+  async function deleteReviewPost() {
     const response = await fetch(`/api/reviewposts/reviewdelete`, {
       method: 'DELETE',
       headers: {
@@ -123,7 +141,11 @@ export default function ReviewPostCard({
       </AnimatePresence>
       {session && session.user.id === creatorId && (
         <motion.span layout className={formstyles.actions}>
-          <button onClick={deleteReviewPost} className={formstyles.deleteicon}>
+          <motion.button
+            onClick={confirmDelete}
+            className={formstyles.deleteicon}
+            ref={wrapperRef}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -137,7 +159,20 @@ export default function ReviewPostCard({
                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
               />
             </svg>
-          </button>
+            <AnimatePresence exitBeforeEnter>
+              {isDelete && (
+                <motion.span
+                  variants={deleteTextWrapper}
+                  animate={isDelete ? 'open' : 'closed'}
+                  initial="closed"
+                  exit="closed"
+                >
+                  <motion.span variants={deleteText}>Confirm</motion.span>
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </motion.button>
+
           <button
             onClick={() => {
               setIsEdit(!isEdit)
