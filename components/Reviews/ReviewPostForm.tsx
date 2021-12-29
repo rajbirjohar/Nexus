@@ -103,6 +103,7 @@ export default function ReviewPostForm({ course, courseId }) {
             </ErrorMessage>
           </div>
           <Field
+            autocomplete="off"
             component="textarea"
             name="_reviewPost"
             placeholder='"I love this class!"'
@@ -121,6 +122,7 @@ export default function ReviewPostForm({ course, courseId }) {
             </ErrorMessage>
           </div>
           <Field
+            autocomplete="off"
             type="text"
             name="_reviewProfessor"
             placeholder='"Professor Scotty"'
@@ -133,9 +135,14 @@ export default function ReviewPostForm({ course, courseId }) {
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Field type="text" name="_taken" placeholder='"Winter 1907"' />
+          <Field
+            autocomplete="off"
+            type="text"
+            name="_taken"
+            placeholder='"Winter 1907"'
+          />
           <label className={styles.checkedWrapper}>
-            <Field type="checkbox" name="_anonymous" />
+            <Field autocomplete="off" type="checkbox" name="_anonymous" />
             <strong>Anonymous?</strong>
           </label>
           <label htmlFor="_difficulty">

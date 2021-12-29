@@ -78,7 +78,13 @@ export default function SetRoleForm({ userId }) {
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <Field type="text" name="_role" placeholder="Role" maxLength={10} />
+            <Field
+              autocomplete="off"
+              type="text"
+              name="_role"
+              placeholder="Role"
+              maxLength={10}
+            />
             <span className={styles.actions}>
               <button
                 className={styles.primary}

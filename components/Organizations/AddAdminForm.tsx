@@ -74,7 +74,8 @@ export default function AddAdminForm({ organizationId }) {
             </ErrorMessage>
           </div>
           <Field
-            type="text"
+            autocomplete="off"
+            type="email"
             name="_email"
             placeholder="scotty001@ucr.edu"
             maxLength={20}
