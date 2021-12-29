@@ -26,27 +26,40 @@
   margin: var(--gap-half) 0;
 }
 
+.editicon,
+.deleteicon {
+  padding: var(--gap);
+  height: max-content;
+}
+/* So the delete text "Confirm" does not slightly
+make the button taller */
+.deleteicon span {
+  line-height: 1;
+}
+
+.editicon,
+.deleteNotif {
+  border-radius: var(--radius-round);
+}
+
+.deleteicon {
+  border-radius: var(--radius-lg);
+}
+
 .editicon {
   background-color: var(--teal-200);
   color: var(--teal-800);
 }
 
+.deleteNotif {
+  padding: var(--gap-half);
+}
+
 .delete,
-.deleteicon {
-  margin: 0;
+.deleteicon,
+.deleteNotif {
   color: var(--rose-800);
   background: var(--rose-50);
-  max-width: max-content;
-}
-
-.delete {
-  border-radius: var(--radius);
-}
-
-.deleteicon,
-.editicon {
-  padding: var(--gap-half);
-  border-radius: var(--radius-round);
 }
 
 .editicon:hover {
@@ -54,7 +67,8 @@
 }
 
 .delete:hover,
-.deleteicon:hover {
+.deleteicon:hover,
+.deleteNotif:hover {
   background-color: var(--rose-100);
 }
 
@@ -65,14 +79,6 @@
 
 .deletecomment:hover {
   cursor: pointer;
-}
-
-.notFound {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  text-align: center; */
 }
 
 .tabs {
@@ -127,7 +133,7 @@
 .reveal,
 .revealprimary {
   border-radius: 50%;
-  padding: var(--gap-half);
+  padding: var(--gap);
   transition: all var(--transition);
   -webkit-tap-highlight-color: transparent;
 }

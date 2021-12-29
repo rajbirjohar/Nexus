@@ -48,7 +48,7 @@ export const NotificationCard = ({ notifId, type, message, createdAt }) => {
         <span className={cardstyles.date}>{createdAt}</span>
       </p>
 
-      <button onClick={deleteNotif} className={formstyles.deleteicon}>
+      <button onClick={deleteNotif} className={formstyles.deleteNotif}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
