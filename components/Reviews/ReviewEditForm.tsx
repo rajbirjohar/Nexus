@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import useSlider from './Slider'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
@@ -8,9 +9,15 @@ import { motion } from 'framer-motion'
 // Max length for review
 const maxLength = 750
 
-// Component: ReviewPostForm({name, email, course})
-// Params: name, email, course
-// Purpose: To take in user inputted data and submit it to the database
+interface ReviewPost {
+  reviewPostId: string
+  creatorId: string
+  _newReviewPost: string
+  _newReviewProfessor: string
+  _newTaken: string
+  _difficulty: number
+  _newAnonymous: boolean
+}
 
 export default function ReviewEditForm({
   reviewPostId,
@@ -22,17 +29,11 @@ export default function ReviewEditForm({
   onHandleChange,
 }) {
   // useSlider hook
-  const [slideValue, Slider, setSlide] = useSlider(
-    1,
-    10,
-    oldDifficulty,
-    'Difficulty:',
-    'difficulty'
-  )
+  const [slideValue, Slider, setSlide] = useSlider(1, 10, oldDifficulty)
 
   // default values for reviewPost Object
   const { data: session } = useSession()
-  const [reviewPost, setReviewPost] = useState({
+  const initialValues: ReviewPost = {
     creatorId: session.user.id,
     reviewPostId: reviewPostId,
     _newReviewPost: oldReviewPost,
@@ -40,55 +41,6 @@ export default function ReviewEditForm({
     _newTaken: oldTaken,
     _difficulty: oldDifficulty,
     _newAnonymous: oldAnonymous,
-  })
-  // State for anonymous checkbox
-  const [checked, setChecked] = useState(oldAnonymous)
-
-  const handleSubmit = async (event) => {
-    // don't roseirect the page
-    event.preventDefault()
-    // Check if ALL old values have not changed
-    if (
-      reviewPost._newReviewPost === oldReviewPost &&
-      reviewPost._newReviewProfessor === oldReviewProfessor &&
-      reviewPost._newTaken === oldTaken &&
-      reviewPost._difficulty === oldDifficulty &&
-      reviewPost._newAnonymous === oldAnonymous
-    ) {
-      toast.error('No updates made.')
-      // check if any text fields are empty
-    } else if (
-      reviewPost._newReviewPost === '' ||
-      reviewPost._newReviewProfessor === '' ||
-      reviewPost._newTaken === ''
-    ) {
-      toast.error('Please fill out the missing fields.')
-    } else {
-      // calls sendData() to send our state data to our API
-      sendData(reviewPost)
-      // Hide edit form
-      !onHandleChange()
-    }
-  }
-
-  const handleChange = (event) => {
-    if (event.target.id === 'difficulty') {
-      setSlide(event.target.value)
-    }
-    setReviewPost({
-      ...reviewPost,
-      _difficulty: slideValue,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-  const handleCheckChange = () => {
-    setChecked(!checked)
-
-    setReviewPost({
-      ...reviewPost,
-      _newAnonymous: !checked,
-    })
   }
 
   const sendData = async (newReviewPostData) => {
@@ -101,7 +53,7 @@ export default function ReviewEditForm({
     })
     const data = await response.json()
     if (response.status === 200) {
-      toast.success('Your review has been posted!')
+      toast.success('Your review has been edited!')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -110,77 +62,111 @@ export default function ReviewEditForm({
     return data.reviewPostData
   }
   return (
-    <motion.form
+    <motion.div
       layout="position"
       animate={{ opacity: 1, x: 0 }}
       initial={{ opacity: 0, x: -5 }}
       exit={{ opacity: 0, x: 5 }}
       transition={{ duration: 0.15 }}
-      onSubmit={handleSubmit}
-      className={styles.form}
     >
-      <label htmlFor="_reviewPost">
-        <strong>Review:</strong>
-      </label>
-      <textarea
-        aria-label="Review Post Input"
-        name="_newReviewPost"
-        value={reviewPost._newReviewPost}
-        onChange={handleChange}
-        placeholder='"I love this class!"'
-        className={styles.input}
-        maxLength={maxLength}
-      />
-      <span className={styles.maxlength}>
-        {maxLength - reviewPost._newReviewPost.length}/{maxLength}
-      </span>
-      <label htmlFor="_reviewProfessor">
-        <strong>Professor:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Review Professor Input"
-        name="_newReviewProfessor"
-        value={reviewPost._newReviewProfessor}
-        onChange={handleChange}
-        type="text"
-        placeholder='"Professor Scotty"'
-        className={styles.input}
-      />
-      <label htmlFor="_taken">
-        <strong>Taken:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Taken Input"
-        name="_newTaken"
-        value={reviewPost._newTaken}
-        onChange={handleChange}
-        type="text"
-        placeholder='"Fall 2021"'
-        className={styles.input}
-      />
-      {/* Pass handleChange() into Slider component */}
-      <Slider onHandleChange={handleChange} />
-      <span className={styles.checkedWrapper}>
-        <label htmlFor="anonymous">
-          <strong>Anonymous?</strong>
-        </label>
-        <input
-          autoComplete="off"
-          type="checkbox"
-          id="anonymous"
-          name="_newAnonymous"
-          checked={checked}
-          onChange={handleCheckChange}
-        />
-        <span className={styles.checkmark}></span>
-      </span>
-      <div className={styles.actions}>
-        <button className={styles.primary} type="submit">
-          Edit Review!
-        </button>
-      </div>
-    </motion.form>
+      <Formik
+        validateOnBlur={false}
+        initialValues={initialValues}
+        validate={(values: ReviewPost) => {
+          let errors: FormikErrors<ReviewPost> = {}
+          if (!values._newReviewPost) {
+            errors._newReviewPost = 'Required'
+          }
+          if (!values._newReviewProfessor) {
+            errors._newReviewProfessor = 'Required'
+          }
+          if (!values._newTaken) {
+            errors._newTaken = 'Required'
+          }
+          if (
+            values._newReviewPost === oldReviewPost &&
+            values._newReviewProfessor === oldReviewProfessor &&
+            values._newTaken === oldTaken &&
+            values._newAnonymous === oldAnonymous &&
+            values._difficulty === oldDifficulty
+          ) {
+            errors._newReviewPost = 'You made no changes'
+            errors._newReviewProfessor = 'You made no changes'
+            errors._newTaken = 'You made no changes'
+          }
+          return errors
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          sendData(values)
+          setTimeout(() => {
+            setSubmitting(false)
+          }, 400)
+          !onHandleChange()
+        }}
+      >
+        {({ values, isSubmitting }) => (
+          <Form>
+            <div className={styles.inputheader}>
+              <label htmlFor="_reviewPost">
+                <strong>Review:</strong>
+              </label>
+              <ErrorMessage name="_newReviewPost">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              component="textarea"
+              name="_newReviewPost"
+              placeholder='"I love this class!"'
+              rows="3"
+              maxLength={maxLength}
+            />
+            <span className={styles.maxlength}>
+              {maxLength - values._newReviewPost.length}/{maxLength}
+            </span>
+            <div className={styles.inputheader}>
+              <label htmlFor="_newReviewProfessor">
+                <strong>Professor:</strong>
+              </label>
+              <ErrorMessage name="_newReviewProfessor">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              type="text"
+              name="_newReviewProfessor"
+              placeholder='"Professor Scotty"'
+            />
+            <div className={styles.inputheader}>
+              <label htmlFor="_newTaken">
+                <strong>Taken:</strong>
+              </label>
+              <ErrorMessage name="_newTaken">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field type="text" name="_newTaken" placeholder='"Winter 1907"' />
+            <label className={styles.checkedWrapper}>
+              <Field type="checkbox" name="_newAnonymous" />
+              <strong>Anonymous?</strong>
+            </label>
+            <label htmlFor="_difficulty">
+              <br />
+              <strong>Difficulty: {values._difficulty}</strong>
+            </label>
+            <Slider />
+            <span className={styles.actions}>
+              <button
+                className={styles.primary}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Edit Review!
+              </button>
+            </span>
+          </Form>
+        )}
+      </Formik>
+    </motion.div>
   )
 }

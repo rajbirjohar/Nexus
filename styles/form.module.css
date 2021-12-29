@@ -185,14 +185,8 @@ make the button taller */
 /* Review form styles */
 .checkedWrapper {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
   align-items: center;
-  margin: var(--gap-half) 0;
-}
-
-.checkedWrapper label {
-  margin-left: var(--gap-quarter);
+  gap: var(--gap-half);
 }
 
 .labelWrapper {
