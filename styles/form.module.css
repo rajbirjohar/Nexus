@@ -1,4 +1,10 @@
 /* Global form styles */
+.inputheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .primary {
   margin: var(--gap-half) 0;
   background-color: var(--teal-500);
@@ -18,17 +24,28 @@
   background-color: var(--teal-600);
 }
 
+.error {
+  color: var(--rose-500);
+  font-weight: 600;
+}
+
 .actions {
   width: 100%;
   display: flex;
   justify-content: flex-end;
   gap: var(--gap);
-  margin: var(--gap-half) 0;
+}
+
+.commentactions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap);
 }
 
 .editicon,
 .deleteicon {
-  padding: var(--gap);
+  padding: 0.75rem;
   height: max-content;
 }
 /* So the delete text "Confirm" does not slightly
@@ -133,7 +150,7 @@ make the button taller */
 .reveal,
 .revealprimary {
   border-radius: 50%;
-  padding: var(--gap);
+  padding: 0.75rem;
   transition: all var(--transition);
   -webkit-tap-highlight-color: transparent;
 }
@@ -162,6 +179,7 @@ make the button taller */
 
 .maxlength {
   color: var(--gray-400);
+  max-width: max-content;
 }
 
 /* Review form styles */
@@ -215,5 +233,8 @@ make the button taller */
 @media (max-width: 668px) {
   .primary {
     width: 100%;
+  }
+  .commentactions {
+    flex-direction: column;
   }
 }
