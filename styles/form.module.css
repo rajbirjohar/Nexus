@@ -45,7 +45,7 @@
 
 .editicon,
 .deleteicon {
-  padding: 0.75rem;
+  padding: 0.6rem;
   height: max-content;
 }
 /* So the delete text "Confirm" does not slightly
@@ -150,7 +150,7 @@ make the button taller */
 .reveal,
 .revealprimary {
   border-radius: 50%;
-  padding: 0.75rem;
+  padding: 0.6rem;
   transition: all var(--transition);
   -webkit-tap-highlight-color: transparent;
 }
