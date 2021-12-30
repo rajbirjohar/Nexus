@@ -123,39 +123,6 @@ export default function TransferOwnerForm({ organizationId }) {
           </Form>
         )}
       </Formik>
-      {/* <form onSubmit={handleSubmit} className={styles.form}>
-        <label htmlFor="_email">
-          <strong>Email:</strong>
-        </label>
-        <input
-          autoComplete="off"
-          aria-label="Admin Email Input"
-          name="_email"
-          value={admin._email}
-          onChange={handleChange}
-          type="text"
-          placeholder="scotty@ucr.edu"
-          className={styles.input}
-        />
-        <label htmlFor="_emailConfirm">
-          <strong>Confirm Email:</strong>
-        </label>
-        <input
-          autoComplete="off"
-          aria-label="Admin Email Input"
-          name="_emailConfirm"
-          value={admin._emailConfirm}
-          onChange={handleChange}
-          type="text"
-          placeholder="scotty@ucr.edu"
-          className={styles.input}
-        />
-        <span className={styles.actions}>
-          <button type="submit" className={styles.delete}>
-            Transfer Owner
-          </button>
-        </span>
-      </form> */}
     </div>
   )
 }
