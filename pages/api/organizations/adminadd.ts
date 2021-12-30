@@ -37,7 +37,7 @@ export default async function addAdmin(
       .find({ email: _email })
       .count()
     if (adminExists > 0) {
-      res.status(403).json({ error: 'Admin already exists in organization.' })
+      res.status(403).json({ message: 'Admin already exists in organization.' })
     } else if (userNotFound === 0) {
       res.status(404).json({ error: 'User does not exist.' })
     } else if (adminExistsAsMember > 0) {

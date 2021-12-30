@@ -1,34 +1,26 @@
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
+import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
+
+const maxLength = 150
+
+interface Comment {
+  eventId: string
+  authorId: string
+  author: string
+  email: string
+  _comment: string
+}
 
 export default function CommentsForm({ eventId }) {
   const { data: session } = useSession()
-  const [comment, setComment] = useState({
+  const initialValues: Comment = {
     eventId: eventId,
     authorId: session.user.id,
     author: session.user.name,
     email: session.user.email,
     _comment: '',
-  })
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    if (comment._comment === '') {
-      toast.error('Please fill out the missing field')
-    } else {
-      sendData(comment)
-      setComment({
-        ...comment,
-        _comment: '',
-      })
-    }
-  }
-  const handleChange = (event) => {
-    setComment({
-      ...comment,
-      [event.target.name]: event.target.value,
-    })
   }
   const sendData = async (commentData) => {
     const response = await fetch('/api/events/comments/commentcreate', {
@@ -49,25 +41,61 @@ export default function CommentsForm({ eventId }) {
     return data.commentData
   }
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <label htmlFor="_comment">
-        <strong>Comment:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Comment Input"
-        name="_comment"
-        value={comment._comment}
-        onChange={handleChange}
-        type="text"
-        placeholder="Show your interest!"
-        className={styles.input}
-      />
-      <span className={styles.actions}>
-        <button type="submit" className={styles.primary}>
-          Post Comment!
-        </button>
-      </span>
-    </form>
+    <Formik
+      validateOnBlur={false}
+      initialValues={initialValues}
+      validate={(values: Comment) => {
+        let errors: FormikErrors<Comment> = {}
+        if (!values._comment) {
+          errors._comment = 'Required'
+        }
+        return errors
+      }}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        sendData(values)
+        resetForm({
+          values: {
+            eventId: eventId,
+            authorId: session.user.id,
+            author: session.user.name,
+            email: session.user.email,
+            _comment: '',
+          },
+        })
+        setSubmitting(false)
+      }}
+    >
+      {({ values, handleSubmit, isSubmitting }) => (
+        <Form onSubmit={handleSubmit}>
+          <div className={styles.inputheader}>
+            <label htmlFor="_comment">
+              <strong>Comment:</strong>
+            </label>
+            <ErrorMessage name="_comment">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Field
+            autocomplete="off"
+            type="text"
+            name="_comment"
+            placeholder="Show your interest!"
+            maxLength={maxLength}
+          />
+          <span className={styles.commentactions}>
+            <span className={styles.maxlength}>
+              {maxLength - values._comment.length}/{maxLength}
+            </span>
+            <button
+              className={styles.primary}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Post Comment!
+            </button>
+          </span>
+        </Form>
+      )}
+    </Formik>
   )
 }

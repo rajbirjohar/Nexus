@@ -1,8 +1,20 @@
 import React, { useState } from 'react'
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
 const maxLength = 750
+
+interface Event {
+  creator: string
+  email: string
+  organizationName: string
+  organizationId: string
+  _eventName: string
+  _eventDetails: string
+  _eventStartDate: string
+  _eventEndDate: string
+}
 
 export default function EventForm({
   creator,
@@ -10,6 +22,16 @@ export default function EventForm({
   organizationName,
   organizationId,
 }) {
+  const initialValues: Event = {
+    creator: creator,
+    email: email,
+    organizationName: organizationName,
+    organizationId: organizationId,
+    _eventName: '',
+    _eventDetails: '',
+    _eventStartDate: '',
+    _eventEndDate: '',
+  }
   const [newEvent, setNewEvent] = useState({
     eventCreator: creator,
     email: email,
@@ -20,36 +42,7 @@ export default function EventForm({
     _eventStartDate: '',
     _eventEndDate: '',
   })
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    if (
-      newEvent._eventName === '' ||
-      newEvent._eventDetails === '' ||
-      newEvent._eventStartDate === '' ||
-      newEvent._eventEndDate === ''
-    ) {
-      toast.error('Please fill out the missing fields')
-    } else if (newEvent._eventEndDate < newEvent._eventStartDate) {
-      toast.error('Event end date cannot be before start date.')
-      // } else if (newEvent._eventStartDate < today) {
-      //   toast.error('Event cannot begin before today.')
-    } else {
-      sendData(newEvent)
-      setNewEvent({
-        ...newEvent,
-        _eventName: '',
-        _eventDetails: '',
-        _eventStartDate: '',
-        _eventEndDate: '',
-      })
-    }
-  }
-  const handleChange = (event) => {
-    setNewEvent({
-      ...newEvent,
-      [event.target.name]: event.target.value,
-    })
-  }
+
   const sendData = async (newEventData) => {
     const response = await fetch('/api/events/eventcreate', {
       method: 'POST',
@@ -69,69 +62,129 @@ export default function EventForm({
     return data.newEventData
   }
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
+    <>
+      {' '}
       <p>
         You can create new events using the form below. The date input requires
         a 12 hour time as well. Once you submit this form, your event will show
         up on the Events page and will automatically hide once the end date has
         been reached.
       </p>
-      <label htmlFor="_eventName">
-        <strong>Event Name:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Event Name Input"
-        name="_eventName"
-        value={newEvent._eventName}
-        onChange={handleChange}
-        type="text"
-        placeholder="Scotty's Birthday"
-        className={styles.input}
-      />
-      <label htmlFor="_eventDetails">
-        <strong>Event Details:</strong>
-      </label>
-      <textarea
-        aria-label="Event Details Input"
-        name="_eventDetails"
-        value={newEvent._eventDetails}
-        onChange={handleChange}
-        placeholder="Scotty's Birthday Details"
-        className={styles.input}
-      />
-      <span className={styles.maxlength}>
-        {maxLength - newEvent._eventDetails.length}/{maxLength}
-      </span>
-      <label htmlFor="_eventStartDate">
-        <strong>Event Start Date:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Event Start Date Input"
-        name="_eventStartDate"
-        value={newEvent._eventStartDate}
-        onChange={handleChange}
-        type="datetime-local"
-        className={styles.input}
-      />
-      <label htmlFor="_eventEndDate">
-        <strong>Event End Date:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Event End Date Input"
-        name="_eventEndDate"
-        value={newEvent._eventEndDate}
-        onChange={handleChange}
-        type="datetime-local"
-        className={styles.input}
-      />
-      <div className={styles.actions}>
-        <button className={styles.primary} type="submit">
-          Post Event!
-        </button>
-      </div>
-    </form>
+      <Formik
+        validateOnBlur={false}
+        initialValues={initialValues}
+        validate={(values: Event) => {
+          let errors: FormikErrors<Event> = {}
+          if (!values._eventName) {
+            errors._eventName = 'Required'
+          }
+          if (!values._eventDetails) {
+            errors._eventDetails = 'Required'
+          }
+          if (!values._eventStartDate) {
+            errors._eventStartDate = 'Required'
+          }
+          if (!values._eventEndDate) {
+            errors._eventEndDate = 'Required'
+          } else if (
+            new Date(values._eventEndDate) < new Date(values._eventStartDate)
+          ) {
+            errors._eventEndDate = 'End date is before start date'
+          } else if (new Date(values._eventEndDate) < new Date()) {
+            errors._eventEndDate = 'End date has passed'
+          }
+          return errors
+        }}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          sendData(values)
+          resetForm({
+            values: {
+              creator: creator,
+              email: email,
+              organizationName: organizationName,
+              organizationId: organizationId,
+              _eventName: '',
+              _eventDetails: '',
+              _eventStartDate: '',
+              _eventEndDate: '',
+            },
+          })
+          setSubmitting(false)
+        }}
+      >
+        {({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventName">
+                <strong>Event Name:</strong>
+              </label>
+              <ErrorMessage name="_eventName">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              name="_eventName"
+              type="text"
+              placeholder="Scotty's Birthday"
+            />
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventDetails">
+                <strong>Event Details:</strong>
+              </label>
+              <ErrorMessage name="_eventDetails">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              name="_eventDetails"
+              component="textarea"
+              rows="3"
+              placeholder="Scotty's Birthday Details"
+              maxLength={maxLength}
+            />
+            <span className={styles.maxlength}>
+              {maxLength - values._eventDetails.length}/{maxLength}
+            </span>
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventStartDate">
+                <strong>Event Start Date:</strong>
+              </label>
+              <ErrorMessage name="_eventStartDate">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              type="datetime-local"
+              name="_eventStartDate"
+            />
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventEndDate">
+                <strong>Event End Date:</strong>
+              </label>
+              <ErrorMessage name="_eventEndDate">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              type="datetime-local"
+              name="_eventEndDate"
+            />
+            <span className={styles.actions}>
+              <button
+                className={styles.primary}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Post Event!
+              </button>
+            </span>
+          </Form>
+        )}
+      </Formik>
+    </>
   )
 }

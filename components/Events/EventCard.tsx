@@ -34,28 +34,25 @@ export default function EventCard({
     // listing all course review posts for that specific
     // course
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
-      <motion.div
-        variants={listItems}
-        id={eventId}
-        className={cardstyles.card}
-      >
-        {endDate > new Date() && <span>Expirose</span>}
+      <motion.div variants={listItems} id={eventId} className={cardstyles.card}>
+        {new Date(endDate) < new Date() && (
+          <span className={cardstyles.expired}>Expired</span>
+        )}
         <h3 className={cardstyles.eventName}>{eventName}</h3>
-        <span className={cardstyles.author}>
+        <p className={cardstyles.author}>
           <strong>By {organizationName}</strong>
-        </span>
+        </p>
+
         <p className="clamp-2">{eventDetails}</p>
         <span className={cardstyles.date}>
           {new Date(startDate).toLocaleString('en-US', {
             dateStyle: 'short',
             timeStyle: 'short',
-            timeZone: 'GMT',
           })}{' '}
           -{' '}
           {new Date(endDate).toLocaleString('en-US', {
             dateStyle: 'short',
             timeStyle: 'short',
-            timeZone: 'GMT',
           })}
         </span>
       </motion.div>

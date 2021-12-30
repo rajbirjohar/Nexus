@@ -20,7 +20,22 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           showOnShallow={false}
           options={{ easing: 'ease', speed: 500, showSpinner: false }}
         />
-        <Toaster />
+        <Toaster
+          toastOptions={{
+            success: {
+              style: {
+                background: 'var(--teal-100)',
+                color: 'var(--teal-800)',
+              },
+            },
+            error: {
+              style: {
+                background: 'var(--rose-100)',
+                color: 'var(--rose-800)',
+              },
+            },
+          }}
+        />
         <Header />
         <Component {...pageProps} />
         <Footer />
