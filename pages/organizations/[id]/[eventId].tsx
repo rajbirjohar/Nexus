@@ -121,13 +121,11 @@ const Event = ({ event }) => {
             {new Date(event.eventStartDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
-              timeZone: 'GMT',
             })}{' '}
             until{' '}
             {new Date(event.eventEndDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
-              timeZone: 'GMT',
             })}
           </span>
           <p>{event.eventDetails}</p>
