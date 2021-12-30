@@ -171,19 +171,6 @@ const Organization = ({ organization, superMembers, members }) => {
           <LayoutGroup>
             {session && isAdmin && (
               <>
-                <Section header="Add Admin">
-                  <AddAdminForm organizationId={organization._id} />
-                </Section>
-
-                <Section header="Create Event">
-                  <EventForm
-                    creator={session.user.name}
-                    email={session.user.email}
-                    organizationName={organization.organizationName}
-                    organizationId={organization._id}
-                  />
-                </Section>
-
                 <Section header="Members">
                   <>
                     {members.length === 0 && (
@@ -195,6 +182,17 @@ const Organization = ({ organization, superMembers, members }) => {
                       </motion.li>
                     ))}
                   </>
+                </Section>
+                <Section header="Create Event">
+                  <EventForm
+                    creator={session.user.name}
+                    email={session.user.email}
+                    organizationName={organization.organizationName}
+                    organizationId={organization._id}
+                  />
+                </Section>
+                <Section header="Add Admin">
+                  <AddAdminForm organizationId={organization._id} />
                 </Section>
               </>
             )}

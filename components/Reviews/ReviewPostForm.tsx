@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import useSlider from './Slider'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
@@ -7,23 +8,24 @@ import { useSession } from 'next-auth/react'
 // Max length for review
 const maxLength = 750
 
-// Component: ReviewPostForm({name, email, course})
-// Params: name, email, course
-// Purpose: To take in user inputted data and submit it to the database
+interface ReviewPost {
+  creatorId: string
+  creator: string
+  creatorEmail: string
+  _reviewPost: string
+  _reviewProfessor: string
+  _course: string
+  _courseId: string
+  _taken: string
+  _difficulty: number
+  _anonymous: boolean
+}
 
 export default function ReviewPostForm({ course, courseId }) {
   // useSlider hook
-  const [slideValue, Slider, setSlide] = useSlider(
-    1,
-    10,
-    5,
-    'Difficulty:',
-    'difficulty'
-  )
-
-  // default values for reviewPost Object
+  const [slideValue, Slider, setSlide] = useSlider(1, 10, 5)
   const { data: session } = useSession()
-  const [reviewPost, setReviewPost] = useState({
+  const initialValues: ReviewPost = {
     creatorId: session.user.id,
     creator: session.user.name,
     creatorEmail: session.user.email,
@@ -32,55 +34,8 @@ export default function ReviewPostForm({ course, courseId }) {
     _course: course,
     _courseId: courseId,
     _taken: '',
-    _difficulty: 5,
+    _difficulty: slideValue,
     _anonymous: true,
-  })
-  // State for anonymous checkbox
-  const [checked, setChecked] = useState(true)
-
-  const handleSubmit = async (event) => {
-    // don't roseirect the page
-    event.preventDefault()
-    // check if any text fields are empty
-    if (
-      reviewPost._reviewPost === '' ||
-      reviewPost._reviewProfessor === '' ||
-      reviewPost._taken === ''
-    ) {
-      toast.error('Please fill out the missing fields.')
-    } else {
-      // calls sendData() to send our state data to our API
-      sendData(reviewPost)
-      // clears our inputs after submitting
-      setReviewPost({
-        ...reviewPost,
-        _reviewPost: '',
-        _reviewProfessor: '',
-        _taken: '',
-        _difficulty: 5,
-        _anonymous: true,
-      })
-    }
-  }
-
-  const handleChange = (event) => {
-    if (event.target.id === 'difficulty') {
-      setSlide(event.target.value)
-    }
-    setReviewPost({
-      ...reviewPost,
-      _difficulty: slideValue,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-  const handleCheckChange = () => {
-    setChecked(checked)
-    setReviewPost({
-      ...reviewPost,
-      _anonymous: checked,
-    })
-    console.log(reviewPost._anonymous)
   }
 
   const sendData = async (reviewPostData) => {
@@ -102,69 +57,110 @@ export default function ReviewPostForm({ course, courseId }) {
     return data.reviewPostData
   }
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <label htmlFor="_reviewPost">
-        <strong>Review:</strong>
-      </label>
-      <textarea
-        aria-label="Review Post Input"
-        name="_reviewPost"
-        value={reviewPost._reviewPost}
-        onChange={handleChange}
-        placeholder='"I love this class!"'
-        className={styles.input}
-        maxLength={maxLength}
-      />
-      <span className={styles.maxlength}>
-        {maxLength - reviewPost._reviewPost.length}/{maxLength}
-      </span>
-      <label htmlFor="_reviewProfessor">
-        <strong>Professor:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Review Professor Input"
-        name="_reviewProfessor"
-        value={reviewPost._reviewProfessor}
-        onChange={handleChange}
-        type="text"
-        placeholder='"Professor Scotty"'
-        className={styles.input}
-      />
-      <label htmlFor="_taken">
-        <strong>Taken:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Taken Input"
-        name="_taken"
-        value={reviewPost._taken}
-        onChange={handleChange}
-        type="text"
-        placeholder='"Fall 2021"'
-        className={styles.input}
-      />
-      {/* Pass handleChange() into Slider component */}
-      <Slider onHandleChange={handleChange} />
-      <span className={styles.checkedWrapper}>
-        <label htmlFor="anonymous">
-          <strong>Anonymous?</strong>
-        </label>
-        <input
-          autoComplete="off"
-          type="checkbox"
-          id="anonymous"
-          name="_anonymous"
-          checked={checked}
-          onChange={handleCheckChange}
-        />
-        <span className={styles.checkmark}></span>
-      </span>
-      <div className={styles.actions}>
-        <button className={styles.primary} type="submit">
-          Post Review!
-        </button>
-      </div>
-    </form>
+    <Formik
+      validateOnBlur={false}
+      initialValues={initialValues}
+      validate={(values: ReviewPost) => {
+        let errors: FormikErrors<ReviewPost> = {}
+        if (!values._reviewPost) {
+          errors._reviewPost = 'Required'
+        }
+        if (!values._reviewProfessor) {
+          errors._reviewProfessor = 'Required'
+        }
+        if (!values._taken) {
+          errors._taken = 'Required'
+        }
+        return errors
+      }}
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        sendData(values)
+        resetForm({
+          values: {
+            creatorId: session.user.id,
+            creator: session.user.name,
+            creatorEmail: session.user.email,
+            _reviewPost: '',
+            _reviewProfessor: '',
+            _course: course,
+            _courseId: courseId,
+            _taken: '',
+            _difficulty: slideValue,
+            _anonymous: true,
+          },
+        })
+        setSubmitting(false)
+      }}
+    >
+      {({ values, handleSubmit, isSubmitting }) => (
+        <Form onSubmit={handleSubmit}>
+          <div className={styles.inputheader}>
+            <label htmlFor="_reviewPost">
+              <strong>Review:</strong>
+            </label>
+            <ErrorMessage name="_reviewPost">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Field
+            autocomplete="off"
+            component="textarea"
+            name="_reviewPost"
+            placeholder='"I love this class!"'
+            rows="3"
+            maxLength={maxLength}
+          />
+          <span className={styles.maxlength}>
+            {maxLength - values._reviewPost.length}/{maxLength}
+          </span>
+          <div className={styles.inputheader}>
+            <label htmlFor="_reviewProfessor">
+              <strong>Professor:</strong>
+            </label>
+            <ErrorMessage name="_reviewProfessor">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Field
+            autocomplete="off"
+            type="text"
+            name="_reviewProfessor"
+            placeholder='"Professor Scotty"'
+          />
+          <div className={styles.inputheader}>
+            <label htmlFor="_taken">
+              <strong>Taken:</strong>
+            </label>
+            <ErrorMessage name="_taken">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Field
+            autocomplete="off"
+            type="text"
+            name="_taken"
+            placeholder='"Winter 1907"'
+          />
+          <label className={styles.checkedWrapper}>
+            <Field autocomplete="off" type="checkbox" name="_anonymous" />
+            <strong>Anonymous?</strong>
+          </label>
+          <label htmlFor="_difficulty">
+            <br />
+            <strong>Difficulty: {values._difficulty}</strong>
+          </label>
+          <Slider />
+          <span className={styles.actions}>
+            <button
+              className={styles.primary}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Post Review!
+            </button>
+          </span>
+        </Form>
+      )}
+    </Formik>
   )
 }

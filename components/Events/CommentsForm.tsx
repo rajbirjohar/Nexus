@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
@@ -54,22 +53,20 @@ export default function CommentsForm({ eventId }) {
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         sendData(values)
-        setTimeout(() => {
-          resetForm({
-            values: {
-              eventId: eventId,
-              authorId: session.user.id,
-              author: session.user.name,
-              email: session.user.email,
-              _comment: '',
-            },
-          })
-          setSubmitting(false)
-        }, 400)
+        resetForm({
+          values: {
+            eventId: eventId,
+            authorId: session.user.id,
+            author: session.user.name,
+            email: session.user.email,
+            _comment: '',
+          },
+        })
+        setSubmitting(false)
       }}
     >
-      {({ values, isSubmitting }) => (
-        <Form>
+      {({ values, handleSubmit, isSubmitting }) => (
+        <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
             <label htmlFor="_comment">
               <strong>Comment:</strong>
@@ -79,6 +76,7 @@ export default function CommentsForm({ eventId }) {
             </ErrorMessage>
           </div>
           <Field
+            autocomplete="off"
             type="text"
             name="_comment"
             placeholder="Show your interest!"

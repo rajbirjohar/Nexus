@@ -1,12 +1,22 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
-import toast from 'react-hot-toast'
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
 // length of description
 const maxLength = 1000
 const tagLineLength = 250
+
+interface Organization {
+  organizerId: string
+  organizer: string
+  email: string
+  _organizationName: string
+  _organizationTagline: string
+  _organizationDescription: string
+}
 
 // Component: OrganizationPostForm()
 // Purpose: To take in user inputted data and submit it to the database
@@ -14,53 +24,15 @@ const tagLineLength = 250
 export default function OrganizationsForm() {
   const { data: session } = useSession()
 
-  // Default values of an organization Object
-  const [organization, setOrganization] = useState({
+  const initialValues: Organization = {
     organizerId: session.user.id,
     organizer: session.user.name,
     email: session.user.email,
     _organizationName: '',
     _organizationTagline: '',
     _organizationDescription: '',
-  })
-
-  // handleSubmit function
-  const handleSubmit = async (event) => {
-    // don't roseirect the page
-    event.preventDefault()
-    // check if any text fields are empty
-    if (
-      organization._organizationName === '' ||
-      organization._organizationTagline === '' ||
-      organization._organizationDescription === ''
-    ) {
-      toast.error('Please fill out the missing fields.')
-    } else {
-      // calls sendData() to send our state data to our API
-      sendData(organization)
-      // clears our inputs after submitting
-      setOrganization({
-        ...organization,
-        _organizationName: '',
-        _organizationTagline: '',
-        _organizationDescription: '',
-      })
-    }
   }
 
-  // handleChange function takes in the user input
-  // and sets each value of the organization Object
-  // uses the "name" attribute to map it to the event
-  // since it is unique which is why we can use the
-  // ... spreader and the target.name: target.value
-  const handleChange = (event) => {
-    setOrganization({
-      ...organization,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-  // sendData function sends the data to the orgcreate endpoint
   const sendData = async (organizationData) => {
     const response = await fetch('/api/organizations/orgcreate', {
       method: 'POST',
@@ -84,61 +56,98 @@ export default function OrganizationsForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className={styles.form}>
-      <label htmlFor="_organizationName">
-        <strong>Organization:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Organizations Name Input"
-        name="_organizationName"
-        value={organization._organizationName}
-        onChange={handleChange}
-        type="text"
-        placeholder="Best Club on Campus"
-        className={styles.input}
-      />
-      <label htmlFor="_organizationTagline">
-        <strong>Tagline:</strong>
-      </label>
-      <input
-        autoComplete="off"
-        aria-label="Organizations Tagline Input"
-        name="_organizationTagline"
-        value={organization._organizationTagline}
-        onChange={handleChange}
-        placeholder="A memorable Tagline"
-        className={styles.input}
-        maxLength={tagLineLength}
-      />
-      <div>
-        {tagLineLength - organization._organizationTagline.length}/
-        {tagLineLength}
-      </div>
-      <label htmlFor="_organizationDescription">
-        <strong>Description:</strong>
-      </label>
-      <textarea
-        aria-label="Organizations Description Input"
-        name="_organizationDescription"
-        value={organization._organizationDescription}
-        onChange={handleChange}
-        placeholder="A very cool Description"
-        className={styles.input}
-        maxLength={maxLength}
-      />
-      <span className={styles.maxlength}>
-        {maxLength - organization._organizationDescription.length}/{maxLength}
-      </span>
-      <span className={styles.actions}>
-        <button className={styles.primary} type="submit">
-          Create{' '}
-          {organization._organizationName === ''
-            ? 'Organization'
-            : organization._organizationName}
-          !
-        </button>
-      </span>
-    </form>
+    <>
+      <h3>Create Your Organization</h3>
+      <Formik
+        validateOnBlur={false}
+        initialValues={initialValues}
+        validate={(values: Organization) => {
+          let errors: FormikErrors<Organization> = {}
+          if (!values._organizationName) {
+            errors._organizationName = 'Required'
+          }
+          if (!values._organizationTagline) {
+            errors._organizationTagline = 'Required'
+          }
+          if (!values._organizationDescription) {
+            errors._organizationDescription = 'Required'
+          }
+          return errors
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          sendData(values)
+          setSubmitting(false)
+        }}
+      >
+        {({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
+            <div className={styles.inputheader}>
+              <label htmlFor="_organizationName">
+                <strong>Organization Name:</strong>
+              </label>
+              <ErrorMessage name="_organizationName">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              type="text"
+              name="_organizationName"
+              placeholder="Scotty's Club"
+            />
+            <div className={styles.inputheader}>
+              <label htmlFor="_organizationTagline">
+                <strong>Organization Tagline:</strong>
+              </label>
+              <ErrorMessage name="_organizationTagline">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              type="text"
+              name="_organizationTagline"
+              placeholder="A memorable tagline"
+              maxLength={tagLineLength}
+            />
+            <span className={styles.maxlength}>
+              {tagLineLength - values._organizationTagline.length}/
+              {tagLineLength}
+            </span>
+            <div className={styles.inputheader}>
+              <label htmlFor="_organizationDescription">
+                <strong>Organization Description:</strong>
+              </label>
+              <ErrorMessage name="_organizationDescription">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              component="textarea"
+              name="_organizationDescription"
+              placeholder="A very cool description"
+              maxLength={maxLength}
+            />
+            <span className={styles.commentactions}>
+              <span className={styles.maxlength}>
+                {maxLength - values._organizationDescription.length}/{maxLength}
+              </span>
+              <button
+                className={styles.primary}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Create{' '}
+                {!values._organizationName
+                  ? 'Organization'
+                  : values._organizationName}
+                !
+              </button>
+            </span>
+          </Form>
+        )}
+      </Formik>
+    </>
   )
 }
