@@ -126,7 +126,7 @@ export default function EventForm({
               autocomplete="off"
               name="_eventName"
               type="text"
-              placeholder="Scotty's Birthday Details"
+              placeholder="Scotty's Birthday"
             />
             <div className={styles.inputheader}>
               <label htmlFor="_eventDetails">
@@ -141,7 +141,7 @@ export default function EventForm({
               name="_eventDetails"
               component="textarea"
               rows="3"
-              placeholder="Scotty's Birthday"
+              placeholder="Scotty's Birthday Details"
               maxLength={maxLength}
             />
             <span className={styles.maxlength}>
