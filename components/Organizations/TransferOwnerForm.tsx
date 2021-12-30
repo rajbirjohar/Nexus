@@ -115,7 +115,7 @@ export default function TransferOwnerForm({ organizationId }) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={styles.primary}
+                className={styles.delete}
               >
                 Transfer Owner
               </button>
