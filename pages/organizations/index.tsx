@@ -3,6 +3,7 @@ import Head from 'next/head'
 import Layout from '@/components/Layout'
 import { useSession } from 'next-auth/react'
 import { LottieWrapper } from '@/components/LottieWrapper'
+import CreatorRoleForm from '@/components/Organizations/CreatorRoleForm'
 import OrganizationsForm from '@/components/Organizations/OrganizationsForm'
 import ListOrganizations from '@/components/Organizations/ListOrganizations'
 import { GreenTip } from '@/components/Tips'
@@ -10,7 +11,6 @@ import styles from '@/styles/organizations.module.css'
 import formstyles from '@/styles/form.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
 import animationData from '@/lotties/group.json'
-import CreatorRoleForm from '@/components/Organizations/CreatorRoleForm'
 
 const list = {
   closed: {
@@ -21,20 +21,6 @@ const list = {
   },
   open: {
     height: 'auto',
-  },
-}
-
-const listItems = {
-  closed: {
-    opacity: 0,
-    y: -5,
-    transition: {
-      duration: 0.15,
-    },
-  },
-  open: {
-    opacity: 1,
-    y: 0,
   },
 }
 
@@ -93,51 +79,7 @@ export default function OrganizationsPage() {
                     layout
                     className={formstyles.warningWrapper}
                   >
-                    <motion.div variants={listItems}>
-                      <h3>Before You Create</h3>
-                      <p>
-                        <strong>
-                          We currently only support the creation of{' '}
-                          <u>one organization per user</u>.
-                        </strong>
-                      </p>
-                      <p>
-                        <strong>Permissions:</strong>
-                      </p>
-                      <p>
-                        <strong>Creator (You): </strong>This role grants all
-                        permissions regarding{' '}
-                        <u>
-                          club creation/deletion, admin addition/removal, owner
-                          transfership, event posting, comment moderation, and
-                          member viewing
-                        </u>
-                        . We strongly recommend the highest ranking officer to
-                        be in charge of creating the club which they can then
-                        add other board members as <u>Admins</u>.
-                      </p>
-                      <p>
-                        <strong>Admin: </strong>This role grants all permissions
-                        regarding{' '}
-                        <u>
-                          admin addition, event posting, comment moderation, and
-                          member viewing
-                        </u>
-                        .
-                      </p>
-                      <p>
-                        <strong>Member: </strong> Any other user that isn&#39;t
-                        already a Creator or Admin will be able to join your
-                        club as a member. They can filter events based on
-                        membership status and view your contact information.
-                      </p>
-                      <p>
-                        Please enter <strong>&#34;Admin&#34;</strong> if you
-                        understand the rules and limitations of each role and
-                        would like to proceed creating your own organization.
-                      </p>
-                      <CreatorRoleForm userId={session.user.id} />
-                    </motion.div>
+                    <CreatorRoleForm userId={session.user.id} />
                   </motion.div>
                 )}
               </AnimatePresence>
