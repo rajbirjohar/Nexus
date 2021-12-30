@@ -34,6 +34,7 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--gap);
+  margin-top: var(--gap-half);
 }
 
 .commentactions {
@@ -41,6 +42,16 @@
   display: flex;
   justify-content: space-between;
   gap: var(--gap);
+}
+
+.lucky {
+  background-color: var(--teal-200);
+  color: var(--teal-800);
+  width: max-content;
+}
+
+.lucky:hover {
+  background-color: var(--teal-300);
 }
 
 .editicon,
@@ -225,7 +236,8 @@ make the button taller */
 }
 
 @media (max-width: 668px) {
-  .primary {
+  .primary,
+  .lucky {
     width: 100%;
   }
   .commentactions {
