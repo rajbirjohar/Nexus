@@ -1,43 +1,27 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
+import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
-import formstyles from '@/styles/form.module.css'
+import styles from '@/styles/form.module.css'
+
+interface Organization {
+  organizationId: string
+  _organization: string
+  _confirmOrganization: string
+}
 
 export default function DeleteOrganization({
   organizationId,
   organizationName,
 }) {
   const router = useRouter()
-  const [deleteOrg, setDeleteOrg] = useState({
+  const initialValues: Organization = {
     organizationId: organizationId,
     _organization: '',
-    _organizationConfirmation: '',
-  })
-  const handleSubmit = async (event) => {
-    event.preventDefault()
-    if (
-      deleteOrg._organization === '' ||
-      deleteOrg._organizationConfirmation === ''
-    ) {
-      toast.error('Please fill out your Organization Name.')
-    } else if (
-      deleteOrg._organization === organizationName &&
-      deleteOrg._organizationConfirmation === organizationName
-    ) {
-      deleteOrganization(deleteOrg)
-    } else {
-      toast.error('Your input is incorrect. Please try again.')
-    }
+    _confirmOrganization: '',
   }
 
-  const handleChange = (event) => {
-    setDeleteOrg({
-      ...deleteOrg,
-      [event.target.name]: event.target.value,
-    })
-  }
-
-  const deleteOrganization = async (organizationData) => {
+  const sendData = async (organizationData) => {
     const res = await fetch('/api/organizations/orgdelete', {
       method: 'DELETE',
       headers: {
@@ -46,7 +30,6 @@ export default function DeleteOrganization({
       body: JSON.stringify({ organizationData: organizationData }),
     })
     await res.json()
-    // wait for status from orgdelete endpoint to post success toast
     if (res.status === 200) {
       router.push('/organizations')
       toast.success('Deleted organization.')
@@ -75,39 +58,79 @@ export default function DeleteOrganization({
         Please enter <strong>&#34;{organizationName}&#34;</strong> to delete
         this organization.
       </p>
-      <form onSubmit={handleSubmit} className={formstyles.form}>
-        <label htmlFor="_Organization">
-          <strong>Organization:</strong>
-        </label>
-        <input
-          autoComplete="off"
-          aria-label="Organization Input"
-          name="_organization"
-          value={deleteOrg._organization}
-          onChange={handleChange}
-          type="text"
-          placeholder="Organization"
-          className={formstyles.input}
-        />
-        <label htmlFor="_Organization">
-          <strong>Confirm Organization:</strong>
-        </label>
-        <input
-          autoComplete="off"
-          aria-label="Organization Input"
-          name="_organizationConfirmation"
-          value={deleteOrg._organizationConfirmation}
-          onChange={handleChange}
-          type="text"
-          placeholder="Organization"
-          className={formstyles.input}
-        />
-        <span className={formstyles.actions}>
-          <button className={formstyles.delete} type="submit">
-            Delete Organization
-          </button>
-        </span>
-      </form>
+      <Formik
+        validateOnBlur={false}
+        initialValues={initialValues}
+        validate={(values: Organization) => {
+          let errors: FormikErrors<Organization> = {}
+          if (!values._organization) {
+            errors._organization = 'Required'
+          }
+          if (!values._confirmOrganization) {
+            errors._confirmOrganization = 'Required'
+          }
+          if (values._organization !== values._confirmOrganization) {
+            errors._organization = 'Organizations do not match'
+            errors._confirmOrganization = 'Organizations do not match'
+          }
+          return errors
+        }}
+        onSubmit={(values, { setSubmitting, resetForm }) => {
+          sendData(values)
+          resetForm({
+            values: {
+              organizationId: organizationId,
+              _organization: '',
+              _confirmOrganization: '',
+            },
+          })
+          setSubmitting(false)
+        }}
+      >
+        {({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
+            <div className={styles.inputheader}>
+              <label htmlFor="_email">
+                <strong>Organization:</strong>
+              </label>
+              <ErrorMessage name="_organization">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              type="text"
+              name="_organization"
+              placeholder="Organization Name"
+              maxLength={20}
+            />
+            <div className={styles.inputheader}>
+              <label htmlFor="_confirmOrganization">
+                <strong>Confirm Organization:</strong>
+              </label>
+              <ErrorMessage name="_confirmOrganization">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autocomplete="off"
+              type="text"
+              name="_confirmOrganization"
+              placeholder="Organization Name"
+              maxLength={20}
+            />
+            <span className={styles.actions}>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={styles.delete}
+              >
+                Delete Organization
+              </button>
+            </span>
+          </Form>
+        )}
+      </Formik>
     </div>
   )
 }

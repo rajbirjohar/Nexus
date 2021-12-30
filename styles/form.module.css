@@ -1,4 +1,10 @@
 /* Global form styles */
+.inputheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .primary {
   margin: var(--gap-half) 0;
   background-color: var(--teal-500);
@@ -18,38 +24,80 @@
   background-color: var(--teal-600);
 }
 
-.serverdown {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
+.error {
+  color: var(--rose-500);
+  font-weight: 600;
 }
 
 .actions {
   width: 100%;
   display: flex;
   justify-content: flex-end;
+  gap: var(--gap);
+  margin-top: var(--gap-half);
 }
 
-.delete,
+.commentactions {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+.lucky {
+  background-color: var(--teal-200);
+  color: var(--teal-800);
+  width: max-content;
+}
+
+.lucky:hover {
+  background-color: var(--teal-300);
+}
+
+.editicon,
 .deleteicon {
-  margin: 0;
-  color: var(--rose-800);
-  background: var(--rose-100);
-  max-width: max-content;
+  padding: 0.6rem;
+  height: max-content;
+}
+/* So the delete text "Confirm" does not slightly
+make the button taller */
+.deleteicon span {
+  line-height: 1;
 }
 
-.delete {
-  border-radius: var(--radius);
-}
-
-.deleteicon {
-  padding: var(--gap-half);
+.editicon,
+.deleteNotif {
   border-radius: var(--radius-round);
 }
 
+.deleteicon {
+  border-radius: var(--radius-lg);
+}
+
+.editicon {
+  background-color: var(--teal-200);
+  color: var(--teal-800);
+}
+
+.deleteNotif {
+  padding: var(--gap-half);
+}
+
+.delete,
+.deleteicon,
+.deleteNotif {
+  color: var(--rose-800);
+  background: var(--rose-50);
+}
+
+.editicon:hover {
+  background-color: var(--teal-300);
+}
+
 .delete:hover,
-.deleteicon:hover {
-  background-color: var(--rose-200);
+.deleteicon:hover,
+.deleteNotif:hover {
+  background-color: var(--rose-100);
 }
 
 .deletecomment {
@@ -59,14 +107,6 @@
 
 .deletecomment:hover {
   cursor: pointer;
-}
-
-.notFound {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  text-align: center; */
 }
 
 .tabs {
@@ -121,7 +161,7 @@
 .reveal,
 .revealprimary {
   border-radius: 50%;
-  padding: var(--gap-half);
+  padding: 0.6rem;
   transition: all var(--transition);
   -webkit-tap-highlight-color: transparent;
 }
@@ -150,19 +190,14 @@
 
 .maxlength {
   color: var(--gray-400);
+  max-width: max-content;
 }
 
 /* Review form styles */
 .checkedWrapper {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
   align-items: center;
-  margin: var(--gap-half) 0;
-}
-
-.checkedWrapper label {
-  margin-left: var(--gap-quarter);
+  gap: var(--gap-half);
 }
 
 .labelWrapper {
@@ -201,7 +236,11 @@
 }
 
 @media (max-width: 668px) {
-  .primary {
+  .primary,
+  .lucky {
     width: 100%;
+  }
+  .commentactions {
+    flex-direction: column;
   }
 }

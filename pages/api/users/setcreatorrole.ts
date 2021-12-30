@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
-// import { connectToDatabase } from '@/util/connectToDb'
+const mongodb = require('mongodb')
 
-export default async function setRole(
+export default async function setCreatorRole(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -12,11 +12,14 @@ export default async function setRole(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     const {
-      orgRoleData: { _orgRole },
+      orgRoleData: { userId, _orgRole },
     } = req.body
     await db
       .collection('users')
-      .updateOne({ email: session.user.email }, { $set: { orgRole: _orgRole } })
+      .updateOne(
+        { _id: new mongodb.ObjectId(userId) },
+        { $set: { orgRole: _orgRole } }
+      )
     res.status(200).json({ message: 'Successfully updated role.' })
   } else {
     // Not Signed in
