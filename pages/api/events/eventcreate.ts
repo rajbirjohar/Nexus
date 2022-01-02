@@ -34,11 +34,13 @@ export default async function createEvent(
         _eventDetails,
         _eventStartDate,
         _eventEndDate,
-        // _eventImage,
+        _eventImage,
       },
     } = req.body
+    console.log("In api: ", _eventImage);
     // const cloudinaryRes = await cloudinary.uploader.upload(_eventImage, function(error, result) {console.log(result, error)})
-    // console.log("Cloudinary Response: ", cloudinaryRes.secure_url);
+    const cloudinaryRes = await cloudinary.uploader.unsigned_upload(_eventImage, "event-images", function(error, result) {console.log(result, error)});
+    console.log("Cloudinary Response: ", cloudinaryRes.secure_url);
     
     await db.collection('events').insertOne({
       eventCreator: eventCreator,
@@ -49,7 +51,7 @@ export default async function createEvent(
       eventDetails: _eventDetails,
       eventStartDate: new Date(_eventStartDate),
       eventEndDate: new Date(_eventEndDate),
-      // eventImageURL: cloudinaryRes.secure_url,
+      eventImageURL: cloudinaryRes.secure_url,
       createdAt: new Date(),
       comments: [],
     })
