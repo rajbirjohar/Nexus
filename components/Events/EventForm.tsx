@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
+import image from 'next/image'
+import Dropzone from 'react-dropzone'
 
 const maxLength = 750
 
@@ -14,6 +16,7 @@ interface Event {
   _eventDetails: string
   _eventStartDate: string
   _eventEndDate: string
+  _eventImage: string
 }
 
 export default function EventForm({
@@ -31,6 +34,7 @@ export default function EventForm({
     _eventDetails: '',
     _eventStartDate: '',
     _eventEndDate: '',
+    _eventImage: '',
   }
   const [newEvent, setNewEvent] = useState({
     eventCreator: creator,
@@ -42,6 +46,8 @@ export default function EventForm({
     _eventStartDate: '',
     _eventEndDate: '',
   })
+  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer>()
+  // const [imageSrc, setImageSrc] = useState()
 
   const sendData = async (newEventData) => {
     const response = await fetch('/api/events/eventcreate', {
@@ -96,6 +102,7 @@ export default function EventForm({
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
+          console.log('In onSubmit: ', values._eventImage)
           sendData(values)
           resetForm({
             values: {
@@ -107,12 +114,13 @@ export default function EventForm({
               _eventDetails: '',
               _eventStartDate: '',
               _eventEndDate: '',
+              _eventImage: '',
             },
           })
           setSubmitting(false)
         }}
       >
-        {({ values, handleSubmit, isSubmitting }) => (
+        {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
               <label htmlFor="_eventName">
@@ -173,6 +181,73 @@ export default function EventForm({
               type="datetime-local"
               name="_eventEndDate"
             />
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventImage">
+                <strong>Event Image:</strong>
+              </label>
+              <ErrorMessage name="_eventImage">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            {/* <Field
+              autocomplete="off"
+              name="_eventImage"
+              type="file"
+              accept="image/png, image/jpeg"
+              // onChange={(event) => {
+              //   console.log("In onChange, currentTarget: ", event.currentTarget);
+              //   const reader = new FileReader()
+              //   const file = event.currentTarget.files[0]
+
+              //   if (file) {
+              //     reader.onloadend = function(e) {
+              //       // console.log("reader: ", reader);
+              //       // console.log("file: ", file);
+
+              //       console.log("reader.result: ", reader.result);
+              //       setImageSrc(reader.result.toString());
+              //       console.log("imageSrc: ", imageSrc);
+
+              //       // setFieldValue("_eventImage", reader.result.toString()) 
+              //     }
+              //     reader.readAsDataURL(file)
+              //   }
+              // }}
+              onChange={(event) =>{
+                console.log("onChange", event.target.files[0]);
+                // setFieldValue("_eventImage", event.target.files[0]);
+              }}
+            /> */}
+            <Dropzone
+              accept="image/*"
+              multiple={false} 
+              maxFiles={1}
+              onDrop={(acceptedFiles) => {
+                console.log(acceptedFiles)
+                const reader = new FileReader()
+
+                reader.onabort = () => console.log('file reading was aborted')
+                reader.onerror = () => console.log('file reading has failed')
+                reader.onload = () => {
+                  // Do whatever you want with the file contents
+                  const imageData = reader.result
+                  console.log(imageData)
+                  setFieldValue("_eventImage", imageData)
+                }
+                reader.readAsDataURL(acceptedFiles[0])
+              }}
+            >
+                {({ getRootProps, getInputProps }) => (
+                  <section>
+                    <div {...getRootProps()}>
+                      <input {...getInputProps()} />
+                      <p>
+                        Drag and drop some files here, or click to select files
+                      </p>
+                    </div>
+                  </section>
+                )}
+            </Dropzone>
             <span className={styles.actions}>
               <button
                 className={styles.primary}
