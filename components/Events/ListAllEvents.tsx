@@ -72,14 +72,7 @@ export default function ListAllEvents() {
     <div>
       {data.events.length === 0 ? (
         <div className={formstyles.notFound}>
-          <p>No events have been made.</p>
-
-          <Image
-            src={'/assets/post2.svg'}
-            height={300}
-            width={300}
-            alt="Post Image"
-          />
+          <p>No events today!</p>
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>

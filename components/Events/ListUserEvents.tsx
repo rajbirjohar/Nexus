@@ -72,14 +72,7 @@ export default function ListUserEvents() {
     <div>
       {data.events.length === 0 ? (
         <div className={formstyles.notFound}>
-          <p>Create an event!</p>
-
-          <Image
-            src={'/assets/post2.svg'}
-            height={300}
-            width={300}
-            alt="Post Image"
-          />
+          <p>No events today!</p>
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>

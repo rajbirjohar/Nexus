@@ -8,10 +8,10 @@ export default function ImageDropzone(props) {
   const [files, setFiles] = useState([])
   const [errors, setErrors] = useState('')
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/jpeg, image/png',
+    accept: 'image/jpeg, image/png, image/jpg,',
     multiple: false,
     maxFiles: 1,
-    maxSize: 2000000,
+    maxSize: 1000000,
     onDrop: (acceptedFiles, fileRejections) => {
       setFiles(
         acceptedFiles.map((file) =>
@@ -24,25 +24,24 @@ export default function ImageDropzone(props) {
         setFiles([])
         file.errors.map((err) => {
           if (err.code === 'file-too-large') {
-            setErrors(`Error: File is greater than 2MB`)
+            setErrors(`Error: File is greater than 1MB`)
           }
           if (err.code === 'file-invalid-type') {
             setErrors(`Error: ${err.message}`)
           }
         })
       })
-      acceptedFiles.map(() => {
-        setErrors('')
-        const reader = new FileReader()
-        reader.onabort = () => console.log('file reading was aborted')
-        reader.onerror = () => console.log('file reading has failed')
-        reader.onload = () => {
-          // Do whatever you want with the file contents
-          const imageData = reader.result
-          setFieldValue('_image', imageData)
-        }
-        reader.readAsDataURL(acceptedFiles[0])
-      })
+      setErrors('')
+      const reader = new FileReader()
+      reader.onabort = () => console.log('file reading was aborted')
+      reader.onerror = () => console.log('file reading has failed')
+      reader.onload = () => {
+        // Do whatever you want with the file contents
+        const imageData = reader.result
+        setFieldValue('_image', imageData)
+      }
+      reader.readAsDataURL(acceptedFiles[0])
+      console.log(reader)
     },
   })
   const thumbs = files.map((file) => (

@@ -79,7 +79,7 @@ export default function SetRoleForm({ userId }) {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="text"
               name="_role"
               placeholder="Role"
