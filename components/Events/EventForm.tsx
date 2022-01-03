@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
+import ImageDropzone from './ImageDropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
@@ -14,6 +15,7 @@ interface Event {
   _eventDetails: string
   _eventStartDate: string
   _eventEndDate: string
+  _image: string
 }
 
 export default function EventForm({
@@ -31,17 +33,8 @@ export default function EventForm({
     _eventDetails: '',
     _eventStartDate: '',
     _eventEndDate: '',
+    _image: '',
   }
-  const [newEvent, setNewEvent] = useState({
-    eventCreator: creator,
-    email: email,
-    organizationName: organizationName,
-    organizationId: organizationId,
-    _eventName: '',
-    _eventDetails: '',
-    _eventStartDate: '',
-    _eventEndDate: '',
-  })
 
   const sendData = async (newEventData) => {
     const response = await fetch('/api/events/eventcreate', {
@@ -63,7 +56,6 @@ export default function EventForm({
   }
   return (
     <>
-      {' '}
       <p>
         You can create new events using the form below. The date input requires
         a 12 hour time as well. Once you submit this form, your event will show
@@ -93,6 +85,9 @@ export default function EventForm({
           } else if (new Date(values._eventEndDate) < new Date()) {
             errors._eventEndDate = 'End date has passed'
           }
+          if (!values._image) {
+            errors._image = 'Required'
+          }
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -107,12 +102,13 @@ export default function EventForm({
               _eventDetails: '',
               _eventStartDate: '',
               _eventEndDate: '',
+              _image: '',
             },
           })
           setSubmitting(false)
         }}
       >
-        {({ values, handleSubmit, isSubmitting }) => (
+        {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
               <label htmlFor="_eventName">
@@ -173,6 +169,15 @@ export default function EventForm({
               type="datetime-local"
               name="_eventEndDate"
             />
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventImage">
+                <strong>Event Banner:</strong>
+              </label>
+              <ErrorMessage name="_image">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <ImageDropzone setFieldValue={setFieldValue} />
             <span className={styles.actions}>
               <button
                 className={styles.primary}
