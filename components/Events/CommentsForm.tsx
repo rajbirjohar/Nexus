@@ -76,7 +76,7 @@ export default function CommentsForm({ eventId }) {
             </ErrorMessage>
           </div>
           <Field
-            autocomplete="off"
+            autoComplete="off"
             type="text"
             name="_comment"
             placeholder="Show your interest!"

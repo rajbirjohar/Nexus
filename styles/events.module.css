@@ -4,6 +4,12 @@
   gap: var(--gap-med);
 }
 
+.banner {
+  width: 100% !important;
+  height: 300px;
+  position: relative !important;
+}
+
 .content {
   display: flex;
   align-items: flex-start;
