@@ -8,13 +8,13 @@ const {
   hostname: cloud_name,
   username: api_key,
   password: api_secret,
-} = new URL(process.env.CLOUDINARY_URL);
+} = new URL(process.env.CLOUDINARY_URL)
 
 cloudinary.config({
   cloud_name,
   api_key,
   api_secret,
-});
+})
 
 export default async function createEvent(
   req: NextApiRequest,
@@ -37,11 +37,7 @@ export default async function createEvent(
         _eventImage,
       },
     } = req.body
-    console.log("In api: ", _eventImage);
-    // const cloudinaryRes = await cloudinary.uploader.upload(_eventImage, function(error, result) {console.log(result, error)})
-    const cloudinaryRes = await cloudinary.uploader.unsigned_upload(_eventImage, "event-images", function(error, result) {console.log(result, error)});
-    console.log("Cloudinary Response: ", cloudinaryRes.secure_url);
-    
+    const cloudinaryRes = await cloudinary.uploader.upload(_eventImage)
     await db.collection('events').insertOne({
       eventCreator: eventCreator,
       email: email,
@@ -52,6 +48,7 @@ export default async function createEvent(
       eventStartDate: new Date(_eventStartDate),
       eventEndDate: new Date(_eventEndDate),
       eventImageURL: cloudinaryRes.secure_url,
+      imagePublicId: cloudinaryRes.public_id,
       createdAt: new Date(),
       comments: [],
     })

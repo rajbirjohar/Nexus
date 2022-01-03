@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
-import image from 'next/image'
 import Dropzone from 'react-dropzone'
 
 const maxLength = 750
+
+const thumbsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 16,
+}
 
 interface Event {
   creator: string
@@ -36,18 +42,6 @@ export default function EventForm({
     _eventEndDate: '',
     _eventImage: '',
   }
-  const [newEvent, setNewEvent] = useState({
-    eventCreator: creator,
-    email: email,
-    organizationName: organizationName,
-    organizationId: organizationId,
-    _eventName: '',
-    _eventDetails: '',
-    _eventStartDate: '',
-    _eventEndDate: '',
-  })
-  const [imageSrc, setImageSrc] = useState<string | ArrayBuffer>()
-  // const [imageSrc, setImageSrc] = useState()
 
   const sendData = async (newEventData) => {
     const response = await fetch('/api/events/eventcreate', {
@@ -69,7 +63,6 @@ export default function EventForm({
   }
   return (
     <>
-      {' '}
       <p>
         You can create new events using the form below. The date input requires
         a 12 hour time as well. Once you submit this form, your event will show
@@ -98,6 +91,9 @@ export default function EventForm({
             errors._eventEndDate = 'End date is before start date'
           } else if (new Date(values._eventEndDate) < new Date()) {
             errors._eventEndDate = 'End date has passed'
+          }
+          if (!values._eventImage) {
+            errors._eventImage = 'Required'
           }
           return errors
         }}
@@ -189,64 +185,33 @@ export default function EventForm({
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            {/* <Field
-              autocomplete="off"
-              name="_eventImage"
-              type="file"
-              accept="image/png, image/jpeg"
-              // onChange={(event) => {
-              //   console.log("In onChange, currentTarget: ", event.currentTarget);
-              //   const reader = new FileReader()
-              //   const file = event.currentTarget.files[0]
-
-              //   if (file) {
-              //     reader.onloadend = function(e) {
-              //       // console.log("reader: ", reader);
-              //       // console.log("file: ", file);
-
-              //       console.log("reader.result: ", reader.result);
-              //       setImageSrc(reader.result.toString());
-              //       console.log("imageSrc: ", imageSrc);
-
-              //       // setFieldValue("_eventImage", reader.result.toString()) 
-              //     }
-              //     reader.readAsDataURL(file)
-              //   }
-              // }}
-              onChange={(event) =>{
-                console.log("onChange", event.target.files[0]);
-                // setFieldValue("_eventImage", event.target.files[0]);
-              }}
-            /> */}
             <Dropzone
               accept="image/*"
-              multiple={false} 
+              multiple={false}
               maxFiles={1}
               onDrop={(acceptedFiles) => {
-                console.log(acceptedFiles)
                 const reader = new FileReader()
-
                 reader.onabort = () => console.log('file reading was aborted')
                 reader.onerror = () => console.log('file reading has failed')
                 reader.onload = () => {
                   // Do whatever you want with the file contents
                   const imageData = reader.result
                   console.log(imageData)
-                  setFieldValue("_eventImage", imageData)
+                  setFieldValue('_eventImage', imageData)
                 }
                 reader.readAsDataURL(acceptedFiles[0])
               }}
             >
-                {({ getRootProps, getInputProps }) => (
-                  <section>
-                    <div {...getRootProps()}>
-                      <input {...getInputProps()} />
-                      <p>
-                        Drag and drop some files here, or click to select files
-                      </p>
-                    </div>
-                  </section>
-                )}
+              {({ getRootProps, getInputProps }) => (
+                <section>
+                  <div {...getRootProps()}>
+                    <input {...getInputProps()} />
+                    <p>
+                      Drag and drop some files here, or click to select files
+                    </p>
+                  </div>
+                </section>
+              )}
             </Dropzone>
             <span className={styles.actions}>
               <button
