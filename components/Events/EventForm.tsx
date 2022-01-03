@@ -1,17 +1,10 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
+import ImageDropzone from './ImageDropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
-import Dropzone from 'react-dropzone'
 
 const maxLength = 750
-
-const thumbsContainer = {
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
-  marginTop: 16,
-}
 
 interface Event {
   creator: string
@@ -22,7 +15,7 @@ interface Event {
   _eventDetails: string
   _eventStartDate: string
   _eventEndDate: string
-  _eventImage: string
+  _image: string
 }
 
 export default function EventForm({
@@ -40,7 +33,7 @@ export default function EventForm({
     _eventDetails: '',
     _eventStartDate: '',
     _eventEndDate: '',
-    _eventImage: '',
+    _image: '',
   }
 
   const sendData = async (newEventData) => {
@@ -92,13 +85,12 @@ export default function EventForm({
           } else if (new Date(values._eventEndDate) < new Date()) {
             errors._eventEndDate = 'End date has passed'
           }
-          if (!values._eventImage) {
-            errors._eventImage = 'Required'
+          if (!values._image) {
+            errors._image = 'Required'
           }
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log('In onSubmit: ', values._eventImage)
           sendData(values)
           resetForm({
             values: {
@@ -110,7 +102,7 @@ export default function EventForm({
               _eventDetails: '',
               _eventStartDate: '',
               _eventEndDate: '',
-              _eventImage: '',
+              _image: '',
             },
           })
           setSubmitting(false)
@@ -179,40 +171,13 @@ export default function EventForm({
             />
             <div className={styles.inputheader}>
               <label htmlFor="_eventImage">
-                <strong>Event Image:</strong>
+                <strong>Event Banner:</strong>
               </label>
-              <ErrorMessage name="_eventImage">
+              <ErrorMessage name="_image">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <Dropzone
-              accept="image/*"
-              multiple={false}
-              maxFiles={1}
-              onDrop={(acceptedFiles) => {
-                const reader = new FileReader()
-                reader.onabort = () => console.log('file reading was aborted')
-                reader.onerror = () => console.log('file reading has failed')
-                reader.onload = () => {
-                  // Do whatever you want with the file contents
-                  const imageData = reader.result
-                  console.log(imageData)
-                  setFieldValue('_eventImage', imageData)
-                }
-                reader.readAsDataURL(acceptedFiles[0])
-              }}
-            >
-              {({ getRootProps, getInputProps }) => (
-                <section>
-                  <div {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <p>
-                      Drag and drop some files here, or click to select files
-                    </p>
-                  </div>
-                </section>
-              )}
-            </Dropzone>
+            <ImageDropzone setFieldValue={setFieldValue} />
             <span className={styles.actions}>
               <button
                 className={styles.primary}
