@@ -107,13 +107,14 @@ const Event = ({ event }) => {
             {/* Change this icon when we have a logo */}
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <Image
-            src={event.eventImageURL}
-            height={300}
-            width="100%"
-            objectFit="cover"
-            alt="Banner"
-          />
+          <div className={styles.banner}>
+            <Image
+              src={event.eventImageURL}
+              layout="fill"
+              objectFit="cover"
+              alt="Banner"
+            />
+          </div>
           <h1>{event.eventName}</h1>
           <h4 className={styles.author}>
             By{' '}

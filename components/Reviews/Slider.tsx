@@ -17,7 +17,7 @@ const useSlider = (min, max, defaultState) => {
     return (
       <div className={styles.labelWrapper}>
         <Field
-          autocomplete="off"
+          autoComplete="off"
           type="range"
           name="_difficulty"
           className={styles.slider}

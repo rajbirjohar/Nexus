@@ -113,7 +113,7 @@ export default function ReviewEditForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               component="textarea"
               name="_newReviewPost"
               placeholder='"I love this class!"'
@@ -132,7 +132,7 @@ export default function ReviewEditForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="text"
               name="_newReviewProfessor"
               placeholder='"Professor Scotty"'
@@ -146,13 +146,13 @@ export default function ReviewEditForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="text"
               name="_newTaken"
               placeholder='"Winter 1907"'
             />
             <label className={styles.checkedWrapper}>
-              <Field autocomplete="off" type="checkbox" name="_newAnonymous" />
+              <Field autoComplete="off" type="checkbox" name="_newAnonymous" />
               <strong>Anonymous?</strong>
             </label>
             <label htmlFor="_difficulty">

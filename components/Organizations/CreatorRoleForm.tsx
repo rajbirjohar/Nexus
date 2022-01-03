@@ -119,7 +119,7 @@ export default function CreatorRoleForm({ userId }) {
                 </ErrorMessage>
               </div>
               <Field
-                autocomplete="off"
+                autoComplete="off"
                 type="text"
                 name="_orgRole"
                 placeholder="Show your interest!"

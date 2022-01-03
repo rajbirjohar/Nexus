@@ -90,7 +90,7 @@ export default function TransferOwnerForm({ organizationId }) {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="email"
               name="_email"
               placeholder="scotty001@ucr.edu"
@@ -105,7 +105,7 @@ export default function TransferOwnerForm({ organizationId }) {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="email"
               name="_confirmEmail"
               placeholder="scotty001@ucr.edu"

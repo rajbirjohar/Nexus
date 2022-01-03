@@ -90,7 +90,7 @@ export default function OrganizationsForm() {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="text"
               name="_organizationName"
               placeholder="Scotty's Club"
@@ -104,7 +104,7 @@ export default function OrganizationsForm() {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="text"
               name="_organizationTagline"
               placeholder="A memorable tagline"
@@ -123,7 +123,7 @@ export default function OrganizationsForm() {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               component="textarea"
               name="_organizationDescription"
               placeholder="A very cool description"

@@ -98,7 +98,7 @@ export default function DeleteOrganization({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="text"
               name="_organization"
               placeholder="Organization Name"
@@ -113,7 +113,7 @@ export default function DeleteOrganization({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="text"
               name="_confirmOrganization"
               placeholder="Organization Name"

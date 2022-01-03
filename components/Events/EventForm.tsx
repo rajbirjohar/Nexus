@@ -119,7 +119,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               name="_eventName"
               type="text"
               placeholder="Scotty's Birthday"
@@ -133,7 +133,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               name="_eventDetails"
               component="textarea"
               rows="3"
@@ -152,7 +152,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="datetime-local"
               name="_eventStartDate"
             />
@@ -165,7 +165,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="datetime-local"
               name="_eventEndDate"
             />
