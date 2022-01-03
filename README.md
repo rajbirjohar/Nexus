@@ -39,12 +39,13 @@
 - [x] Authentication
 - [x] Review Posts
 - [x] Event Posts
+- [x] Images Banners
 - [x] Org Profiles
 - [x] User Profiles
 - [x] Search
 - [x] Dark Mode
-- [ ] Roles
-- [ ] Sort
+- [x] Roles
+- [x] Sort
 
 ### About
 
@@ -294,7 +295,9 @@ At the top of the `/courses` page there is a search bar allowing users to filter
 
 - Next-Auth
 - SWR
+- Formik
 - CSS Modules
 - Framer Motion
 - react-hot-toast
 - Lottie
+- react-dropzone
