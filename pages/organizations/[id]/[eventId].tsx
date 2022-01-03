@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import Head from 'next/head'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Layout from '@/components/Layout'
 import clientPromise from '@/lib/mongodb'
@@ -71,21 +72,21 @@ const Event = ({ event }) => {
       setIsDelete(false)
     }
   }
-  const confirmDelete = (event) => {
+  const confirmDelete = (eventId, imagePublicId) => {
     if (isDelete === true) {
-      deleteEvent()
+      deleteEvent({ eventId, imagePublicId })
     } else {
       setIsDelete(true)
     }
   }
   const organizationName = event.map((event) => event.organizationName)
-  async function deleteEvent() {
+  async function deleteEvent({ eventId, imagePublicId }) {
     const response = await fetch(`/api/events/eventdelete`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ eventData: eventId }),
+      body: JSON.stringify({ eventData: eventId, imagePublicId }),
     })
     await response.json()
     if (response.status === 200) {
@@ -106,6 +107,13 @@ const Event = ({ event }) => {
             {/* Change this icon when we have a logo */}
             <link rel="icon" href="/favicon.ico" />
           </Head>
+          <Image
+            src={event.eventImageURL}
+            height={300}
+            width="100%"
+            objectFit="cover"
+            alt="Banner"
+          />
           <h1>{event.eventName}</h1>
           <h4 className={styles.author}>
             By{' '}
@@ -133,7 +141,7 @@ const Event = ({ event }) => {
             <div className={formstyles.actions}>
               <motion.button
                 // onClick={deleteReviewPost}
-                onClick={confirmDelete}
+                onClick={() => confirmDelete(event._id, event.imagePublicId)}
                 className={formstyles.deleteicon}
                 ref={wrapperRef}
               >
