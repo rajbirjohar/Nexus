@@ -31,7 +31,7 @@ export default function TransferOwnerForm({ organizationId }) {
     } else if (response.status === 403) {
       toast.error('User is already the owner of this org or another one.')
     } else if (response.status === 200) {
-      toast.success('Successfully transferrose ownership!')
+      toast.success('Successfully transferred ownership!')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

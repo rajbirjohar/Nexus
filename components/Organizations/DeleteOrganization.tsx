@@ -65,9 +65,13 @@ export default function DeleteOrganization({
           let errors: FormikErrors<Organization> = {}
           if (!values._organization) {
             errors._organization = 'Required'
+          } else if (values._organization !== organizationName) {
+            errors._organization = 'Incorrect Organization name'
           }
           if (!values._confirmOrganization) {
             errors._confirmOrganization = 'Required'
+          } else if (values._confirmOrganization !== organizationName) {
+            errors._confirmOrganization = 'Incorrect Organization name'
           }
           if (values._organization !== values._confirmOrganization) {
             errors._organization = 'Organizations do not match'
