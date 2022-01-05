@@ -107,14 +107,19 @@ const Event = ({ event }) => {
             {/* Change this icon when we have a logo */}
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          <div className={styles.banner}>
-            <Image
-              src={event.eventImageURL}
-              layout="fill"
-              objectFit="cover"
-              alt="Banner"
-            />
-          </div>
+          {/* Might want to add some placeholder instead
+          This using the ? optional chaining is only meant
+          for events created before banner implementation */}
+          {event?.eventImageURL && (
+            <div className={styles.banner}>
+              <Image
+                src={event.eventImageURL}
+                layout="fill"
+                objectFit="cover"
+                alt="Banner"
+              />
+            </div>
+          )}
           <h1>{event.eventName}</h1>
           <h4 className={styles.author}>
             By{' '}
@@ -130,11 +135,13 @@ const Event = ({ event }) => {
             {new Date(event.eventStartDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
+              timeZone: 'GMT',
             })}{' '}
             until{' '}
             {new Date(event.eventEndDate).toLocaleString('en-US', {
               dateStyle: 'medium',
               timeStyle: 'short',
+              timeZone: 'GMT',
             })}
           </span>
           <p>{event.eventDetails}</p>
