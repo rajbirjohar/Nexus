@@ -48,11 +48,13 @@ export default function EventCard({
           {new Date(startDate).toLocaleString('en-US', {
             dateStyle: 'short',
             timeStyle: 'short',
+            timeZone: 'GMT',
           })}{' '}
           -{' '}
           {new Date(endDate).toLocaleString('en-US', {
             dateStyle: 'short',
             timeStyle: 'short',
+            timeZone: 'GMT',
           })}
         </span>
       </motion.div>
