@@ -213,3 +213,7 @@
   width: max-content;
 }
 /* Comment card */
+
+.comment p {
+  word-wrap: break-word;
+}

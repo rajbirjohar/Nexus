@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
-const maxLength = 150
+const maxLength = 200
 
 interface Comment {
   eventId: string
