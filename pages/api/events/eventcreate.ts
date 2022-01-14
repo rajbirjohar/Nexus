@@ -34,10 +34,10 @@ export default async function createEvent(
         _eventDetails,
         _eventStartDate,
         _eventEndDate,
-        _image,
+        _eventImage,
       },
     } = req.body
-    const cloudinaryRes = await cloudinary.uploader.upload(_image)
+    const cloudinaryRes = await cloudinary.uploader.upload(_eventImage)
     await db.collection('events').insertOne({
       eventCreator: eventCreator,
       email: email,

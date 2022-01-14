@@ -4,54 +4,57 @@ import { useDropzone } from 'react-dropzone'
 import formstyles from '@/styles/form.module.css'
 
 export default function ImageDropzone(props) {
-  const { setFieldValue } = props
-  const [files, setFiles] = useState([])
-  const [errors, setErrors] = useState('')
+  const { setFieldValue, name } = props
+  const [file, setFile] = useState([])
+  const [error, setError] = useState('')
   const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/jpeg, image/png, image/jpg,',
+    accept: 'image/png, image/jpeg, image/jpg',
     multiple: false,
-    maxFiles: 1,
-    maxSize: 1000000,
+    maxSize: 1000000, // 1MB because we are poor
     onDrop: (acceptedFiles, fileRejections) => {
-      setFiles(
-        acceptedFiles.map((file) =>
-          Object.assign(file, {
-            preview: URL.createObjectURL(file),
-          })
-        )
-      )
+      // If the file fails any of the requirements, run
       fileRejections.map((file) => {
-        setFiles([])
+        setFile([])
         file.errors.map((err) => {
           if (err.code === 'file-too-large') {
-            setErrors(`Error: File is greater than 1MB`)
+            setError('Error: File is greater than 1MB')
           }
           if (err.code === 'file-invalid-type') {
-            setErrors(`Error: ${err.message}`)
+            setError('Error: File must be png or jpeg only')
           }
         })
       })
-      setErrors('')
-      const reader = new FileReader()
-      reader.onabort = () => console.log('file reading was aborted')
-      reader.onerror = () => console.log('file reading has failed')
-      reader.onload = () => {
-        // Do whatever you want with the file contents
-        const imageData = reader.result
-        setFieldValue('_image', imageData)
-      }
-      reader.readAsDataURL(acceptedFiles[0])
-      console.log(reader)
+      // Else generate preview URL and imageData for submission
+      acceptedFiles.map((file) => {
+        setError('')
+        setFile(
+          acceptedFiles.map((file) =>
+            Object.assign(file, {
+              preview: URL.createObjectURL(file),
+            })
+          )
+        )
+        const reader = new FileReader()
+        // Need to pass in acceptedFiles instead of file
+        reader.readAsDataURL(acceptedFiles[0])
+        reader.onabort = () => console.log('file reading was aborted')
+        reader.onerror = () => console.log('file reading has failed')
+        reader.onload = () => {
+          // Extract base64 string from 'result' property
+          const imageData = reader.result
+          setFieldValue(name, imageData)
+        }
+      })
     },
   })
-  const thumbs = files.map((file) => (
+  const thumbs = file.map((file) => (
     <div className={formstyles.thumb} key={file.name}>
       <div className={formstyles.thumbInner}>
         <button
           className={formstyles.imagedeleteicon}
           onClick={() => {
-            setFiles([])
-            setFieldValue('_image', '')
+            setFile([])
+            setFieldValue(name, '')
           }}
         >
           <svg
@@ -72,8 +75,8 @@ export default function ImageDropzone(props) {
   ))
   useEffect(() => {
     // Make sure to revoke the data uris to avoid memory leaks
-    files.forEach((file) => URL.revokeObjectURL(file.preview))
-  }, [files])
+    file.forEach((file) => URL.revokeObjectURL(file.preview))
+  }, [file])
   return (
     <div className={formstyles.dropzone}>
       <div {...getRootProps()}>
@@ -81,7 +84,7 @@ export default function ImageDropzone(props) {
         <p className={formstyles.prompt}>
           Drop a cool picture or click to add one <br />
           <i>(.png or .jpeg only please!)</i> <br />
-          <span className={formstyles.error}>{errors}</span>
+          <span className={formstyles.error}>{error}</span>
         </p>
       </div>
       <aside className={formstyles.thumbsContainer}>{thumbs}</aside>
