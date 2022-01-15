@@ -100,26 +100,32 @@ export default function MobileHeader() {
               setIsOpen={setIsOpen}
               isOpen={isOpen}
             />
-            <motion.li variants={listItem} onClick={() => setIsOpen(!isOpen)}>
-              <Link href="/courses">Courses</Link>
-            </motion.li>
-            <motion.li variants={listItem} onClick={() => setIsOpen(!isOpen)}>
-              <Link href="/events">Events</Link>
-            </motion.li>
-            <motion.li variants={listItem} onClick={() => setIsOpen(!isOpen)}>
-              <Link href="/organizations">Organizations</Link>
-            </motion.li>
-            <motion.li variants={listItem} onClick={() => setIsOpen(!isOpen)}>
-              <Link href="/guestbook">Guestbook</Link>
-            </motion.li>
+            <NavLink
+              title="Courses"
+              path="/courses"
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+            />
+            <NavLink
+              title="Events"
+              path="/events"
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+            />
+            <NavLink
+              title="Organizations"
+              path="/organizations"
+              setIsOpen={setIsOpen}
+              isOpen={isOpen}
+            />
             {session ? (
               <>
-                <motion.li
-                  variants={listItem}
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <Link href="/profile">Profile</Link>
-                </motion.li>
+                <NavLink
+                  title="Profile"
+                  path="/profile"
+                  setIsOpen={setIsOpen}
+                  isOpen={isOpen}
+                />
                 <motion.li variants={listItem}>
                   <button onClick={() => signOut()}>Sign out</button>
                 </motion.li>
