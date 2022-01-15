@@ -55,7 +55,7 @@
 }
 
 .heroprimary {
-  padding: var(--gap) var(--big-gap);
+  padding: var(--gap) var(--small-gap);
   background-color: var(--teal-500);
   color: var(--teal-50);
   gap: var(--gap-quarter);

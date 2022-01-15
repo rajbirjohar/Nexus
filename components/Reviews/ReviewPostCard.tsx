@@ -6,8 +6,6 @@ import formstyles from '@/styles/form.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
 import ReviewEditForm from './ReviewEditForm'
 
-// Purpose: To display all data within a single review as a card
-
 const listItems = {
   hidden: { opacity: 0 },
   show: { opacity: 1 },
