@@ -1,18 +1,23 @@
 # Nexus
 
+<p align="center">
+<img src="/documentation/images/NexusLanding.png" alt="cover page for Nexus project">
+</p>
+&nbsp;
+
 > Authors:  
-> Rajbir Johar  
-> Isaac Curiel  
 > Florian Catalan  
+> Brian Coffey  
+> Isaac Curiel  
+> Rajbir Johar  
 > Robert Rivera  
-> Brian Coffey
 
 ## Table of Contents
-1. [Overview](#overview)
-2. [Usage](#usage)
-3. [How To Run](#how-to-run)
-4. [Diagrams](#diagrams)
-5. [Stack & Dependencies](#stack-and-dependencies)
+1. [Overview](#overview)  
+2. [Usage](#usage)  
+3. [How To Run](#how-to-run)  
+4. [Diagrams](#diagrams)  
+5. [Dependencies](#dependencies)  
 
 ## Overview
 
@@ -24,17 +29,21 @@
 
 ### Features
 
-- [x] Dark Mode
-- [x] Authentication
+- [x] Static Site Generation
+- [x] Server Side Rendering
 - [x] Serverless APIs
-- [x] Org Profiles
-- [x] Posts (CRUD)
+- [x] Dynamic Data Fetching
 - [x] Instant Routing
 - [x] Protected Routing
-- [ ] Dynamic Routing
-- [ ] Pagination
+- [x] Dynamic Routing
+- [x] Authentication
+- [x] Review Posts
+- [x] Event Posts
+- [x] Org Profiles
+- [x] User Profiles
+- [x] Search
+- [x] Dark Mode
 - [ ] Roles
-- [ ] Search
 - [ ] Sort
 
 ### About
@@ -140,31 +149,88 @@ If you want to learn more about MongoDB, visit the following pages:
 
 > UI/UX Mockups/State Diagrams
 
+### Project Structure
+
+Overall System Diagram
+
+```bash
+├── main
+│   ├── components
+│   │   │   ├── Reviews
+│   │   │   │   ├── ListReviewPosts.tsx
+│   │   │   │   ├── ...
+│   │   ├── Header.tsx
+│   │   ├── Layout.tsx
+│   │   ├── ...
+│   ├── pages
+│   │   ├── index.tsx
+│   │   ├── _app.tsx
+│   │   ├── _document.tsx
+│   │   ├── api
+│   │   │   ├── auth
+│   │   │   ├── ...
+│   │   ├── ...
+│   ├── lib
+│   │   ├── mongodb.ts
+│   │   ├── ...
+│   ├── styles
+│   │   ├── global.css
+│   │   ├── header.module.css
+│   │   ├── layout.module.css
+│   │   ├── ...
+│   ├── public
+│   │   ├── assets
+│   │   ├── ...
+│   ├── ...
+└── .gitignore
+```
+
+
 ### Landing Page
 
 Our design language leans towards a simple yet tasteful color scheme and layout to create an unparalleled user experience. We want to be able to provide as much information as possible while being digestable for the user. Along with our purple brand, we offer a dark mode for those who enjoy browsing at night giving the user options and control over their experience.
 
 <p align="center">
-<img src="/documentation/images/Landing.png" alt="image of Nexus' landing page" width="750">
+<img src="/documentation/images/LandingDark.png" alt="image of Nexus' landing page">
 </p>
 &nbsp;
 
-### Reviews Page 
+### Courses Page 
 
-Our Reviews page features functionality that allows users to post, read, edit, and delete course reviews. We want to be able to show all the important information that user might want to see at a glance. There are future plans on allowing the user to sort by a specific metric.
+Our Courses page features functionality that allows users to post, read, edit, and delete course reviews. We want to be able to show all the important information that user might want to see at a glance. There are future plans on allowing the user to sort by a specific metric.
 
 <p align="center">
-<img src="/documentation/images/Reviews.png" alt="image of Nexus' reviews page" width="750">
+<img src="/documentation/images/CoursesDark.png" alt="image of Nexus' courses page">
 &nbsp;
  </p>
  &nbsp;
+ 
+ ### Events Page 
+
+Our Events page features upcoming events from organizations registered with Nexus. Here, users can see all events and their info all in one place.
+
+<p align="center">
+<img src="/documentation/images/EventsLight.png" alt="image of Nexus' events page">
+&nbsp;
+</p>
+&nbsp;
+
+### Organization Page 
+
+Our Organization page features organizations registered with Nexus. Upcoming functionality that will be implemented includes allowing users to become members of organizations and enroll in event notifications.
+
+<p align="center">
+<img src="/documentation/images/OrganizationsDark.png" alt="image of Nexus' organization page">
+&nbsp;
+</p>
+&nbsp;
 
 ### Login Sequence Diagram 
 
 The login sequence is structured to be smooth for the user so as to provide ease of use when first trying our app. They are directly sent to log in via Google OAuth and then once they complete the login sequence, will be redirected to their profile page. There they can view all their posts and navigate to any other page.
 
 <p align="center">
-<img src="/documentation/images/Login_Sequence_Diagram.jpg" alt="image of login sequence diagram" width="750">
+<img src="/documentation/images/Login_Sequence_Diagram.jpg" alt="image of login sequence diagram">
   </p>
 &nbsp;
 
@@ -173,49 +239,50 @@ The login sequence is structured to be smooth for the user so as to provide ease
 Users are able to create new posts via the `/reviews` page. Once they input all their information, it will be sent via a secured API and stored in our database. Our clever design allows for near instant, live updates to the page so users have a quick confirmation that their post can be seen by everyone. All data sent to the database is locked via Next-Auth api protection and fetched onto the frontend via SWR.
 
 <p align="center">
-<img src="/documentation/images/New_Post_Sequence_Diagram.jpg" alt="image of new post sequence diagram" width="750">
+<img src="/documentation/images/New_Post_Sequence_Diagram.jpg" alt="image of new post sequence diagram">
+  </p>
+&nbsp;
+
+### New Organization Sequence Diagram 
+
+When creating a new organization users must first apply to be an "Organizer" from the `/organizations` page. After approval their profile on the database is then updated to reflect this change. Once complete they are directed to a form where they can then create their new organization after filling in some information.
+
+<p align="center">
+<img src="/documentation/images/New_Org_Sequence_Diagram.jpg" alt="image of new organization sequence diagram">
+  </p>
+&nbsp;
+
+### New Event Sequence Diagram 
+
+Once a user has succesfully created an organization, they are able to create events for it by navigating to its respective page. They are greeted by a form where they can enter details about the event. The event is created and written to the database where it is then displayed on both the `/events` and organization's page.
+
+<p align="center">
+<img src="/documentation/images/New_Event_Sequence_Diagram.jpg" alt="image of new event sequence diagram">
+  </p>
+&nbsp;
+
+
+### Assigning Role Sequence Diagram 
+
+After the initial sign up, the user is prompted to request a role before they are able to leave reviews. At the moment there are only two options: "Professor" and "Student". Only students are able to leave reviews for courses. Once a role is selected the user's profile is updated on the database. Now when navigating to a specific course page their student role is verified and a form displayed allowing them to write a review.
+
+<p align="center">
+<img src="/documentation/images/Assigning_Role_Sequence_Diagram.jpg" alt="image of assigning role sequence diagram">
+  </p>
+&nbsp;
+
+### Searching for Course Sequence Diagram 
+
+At the top of the `/courses` page there is a search bar allowing users to filter courses based on a provided search string. When first visiting the `/courses` page a request is sent to the database for a list of all courses. These courses are then returned and then displayed as cards on the page. As the user types in the search bar the page is dynamically displays all courses matching the search query.
+
+<p align="center">
+<img src="/documentation/images/Searching_for_Course_Sequence_Diagram.jpg" alt="image of searching for course sequence diagram">
   </p>
 &nbsp;
 
 > More screenshots to come.
 
-### Frontend Structure
-
-Overall System Diagram
-
-```bash
-├── master
-│   ├── components
-│   │   ├── Header.js
-│   │   ├── Layout.js
-│   │   ├── ...
-│   ├── pages
-│   │   ├── index.js
-│   │   ├── _app.js
-│   │   ├── _document.js
-│   │   ├── api
-│   │   │   ├── auth
-│   │   │   ├── ...
-│   │   ├── ...
-│   ├── lib
-│   │   ├── mongodb.js
-│   │   ├── ...
-│   ├── styles
-│   │   ├── global.css
-│   │   ├── header.module.css
-│   │   ├── layout.module.css
-│   │   ├── ...
-│   ├── ...
-├── staging
-│   │   ├── pages
-│   │   ├── components
-│   │   ├── lib
-│   │   ├── styles
-│   ├── ...
-└── .gitignore
-```
-
-## Stack and Dependencies
+## Dependencies
 
 ### Notable Libraries and Packages
 

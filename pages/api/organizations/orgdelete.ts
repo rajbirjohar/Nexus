@@ -17,19 +17,17 @@ export default async function deleteOrganization(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     try {
-      const { organizationData: organizationId } = req.body
+      const { organizationData: id } = req.body
       const result = await db
         .collection('organizations')
-        .deleteOne({ _id: new mongodb.ObjectID(organizationId) })
+        .deleteOne({ organizationName: id })
       await db
         .collection('users')
         .updateOne(
-          { email: session.user.email },
+          { _id: new mongodb.ObjectId(session.user.id) },
           { $set: { orgRole: 'none', adminOfOrg: 'none' } }
         )
-      await db
-        .collection('events')
-        .deleteMany({ organizationId: organizationId })
+      await db.collection('events').deleteMany({ organizationName: id })
       res.status(200).json(result.deletedCount)
     } catch {
       res.status(500)

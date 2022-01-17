@@ -1,8 +1,18 @@
 .footer {
-  height: 100px;
+  height: 10rem;
+  width: 100wv;
   display: flex;
   background-color: var(--gray-100);
-  justify-content: center;
   align-items: center;
   margin-top: var(--big-gap);
+}
+
+.linkWrapper {
+  width: var(--main-content);
+  margin: 0 auto;
+  padding: var(--gap-quarter) var(--gap-med);
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 1.5rem;
 }

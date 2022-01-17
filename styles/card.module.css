@@ -14,6 +14,22 @@
   grid-gap: var(--gap-med);
 }
 
+.gridcard {
+  background-color: var(--gray-50);
+  border: 2px solid var(--gray-100);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  margin: 0;
+  box-shadow: var(--shadows-lg);
+  transition: all 150ms ease-in-out;
+}
+
+.gridcard:hover {
+  background-color: var(--gray-100);
+  transform: translateY(-0.25rem);
+  cursor: pointer;
+}
+
 .actions {
   width: 100%;
   display: flex;
@@ -35,7 +51,7 @@
   border: 2px solid var(--gray-100);
   border-radius: var(--radius);
   padding: var(--gap-med);
-  margin: var(--gap-half) 0;
+  margin: var(--gap) 0;
   box-shadow: var(--shadows-base);
 }
 
@@ -99,12 +115,12 @@
   cursor: pointer;
 }
 
-.orgheader:hover > .organizationName {
+.gridcard:hover > .orgheader > .organizationName {
   color: var(--purple-800);
   margin-right: var(--gap-quarter);
 }
 
-.orgheader:hover > .linkIcon {
+.gridcard:hover > .orgheader > .linkIcon {
   color: var(--purple-800);
 }
 
@@ -128,6 +144,13 @@
 }
 
 /* Courses card styles */
+
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-gap: var(--gap-med);
+}
+
 .coursecard {
   background-color: var(--gray-50);
   border: 2px solid var(--gray-100);
@@ -150,4 +173,15 @@
 }
 .coursecard:hover > .course {
   color: var(--purple-800);
+}
+
+/* Event card */
+
+.author{
+  font-weight: 600;
+}
+
+.date,
+.author {
+  color: var(--gray-500);
 }

@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import Layout from '@/components/Layout'
 import ListReviewPosts from '@/components/Reviews/ListProfilePosts'
 import styles from '@/styles/profile.module.css'
+import ListUserOrganizations from '@/components/Organizations/ListUserOrganizations'
 
 export default function Profile() {
   const router = useRouter()
@@ -57,7 +58,7 @@ export default function Profile() {
 
     if (response.status === 200) {
       toast.success("You've set your role.")
-      router.push('/profile')
+      Router.reload()
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -157,8 +158,17 @@ export default function Profile() {
           alt="Profile Image"
         />
       </div>
-      <h2>Your Reviews</h2>
-      <ListReviewPosts />
+      {session && (
+        <>
+          <h2>Your Organizations</h2>
+          <ListUserOrganizations />
+          <h2>Your Reviews</h2>
+          <ListReviewPosts />
+          <blockquote className={styles.quote}>
+            Rage, rage against the dying of the light.
+          </blockquote>
+        </>
+      )}
     </Layout>
   )
 }

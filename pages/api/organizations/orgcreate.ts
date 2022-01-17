@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
-// import { connectToDatabase } from '@/util/connectToDb'
+const mongodb = require('mongodb')
 
 // createOrganization()
 // This endpoint takes data from our OrganizationPostForm()
@@ -21,6 +21,7 @@ export default async function createOrganization(
   if (session) {
     const {
       organizationData: {
+        organizerId,
         organizer,
         email,
         _organizationName,
@@ -28,27 +29,37 @@ export default async function createOrganization(
         _organizationDescription,
       },
     } = req.body
-    await db.collection('organizations').insertOne({
-      organizer: organizer,
-      email: email,
-      organizationName: _organizationName,
-      organizationTagline: _organizationTagline,
-      organizationDescription: _organizationDescription,
-      superMembersList: [
-        {
-          name: organizer,
+      const nameTaken = await db
+        .collection('organizations')
+        .find({ organizationName: _organizationName })
+        .count()
+      if (nameTaken > 0) {
+        res.status(422).json({ error: 'Event already has a name that exists.' })
+      } else {
+        const organization = await db.collection('organizations').insertOne({
+          organizerId: new mongodb.ObjectId(organizerId),
+          organizer: organizer,
           email: email,
-        },
-      ],
-      membersList: [],
-    })
-    await db.collection('users').updateOne(
-      {
-        email: session.user.email,
-      },
-      { $set: { adminOfOrg: _organizationName } }
-    )
-    res.status(200).json({ message: 'Successfully posted organization.' })
+          organizationName: _organizationName,
+          organizationTagline: _organizationTagline,
+          organizationDescription: _organizationDescription,
+          superMembersList: [
+            {
+              adminId: new mongodb.ObjectId(organizerId),
+              admin: organizer,
+              email: email,
+            },
+          ],
+          membersList: [],
+        })
+        await db.collection('users').updateOne(
+          {
+            _id: new mongodb.ObjectId(session.user.id),
+          },
+          { $set: { adminOfOrg: organization.insertedId } }
+        )
+        res.status(200).json({ message: 'Successfully posted organization.' })
+      }
   } else {
     // Not Signed in
     res.status(401).json({

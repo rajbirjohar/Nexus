@@ -17,10 +17,13 @@ import styles from '@/styles/card.module.css'
 // Purpose: To display all data within a single review as a card
 
 export default function ReviewPostCard({
-  reviewee,
+  creator,
+  creatorEmail,
+  creatorId,
   reviewPost,
   reviewProfessor,
   course,
+  courseId,
   taken,
   difficulty,
   timestamp,
@@ -36,7 +39,7 @@ export default function ReviewPostCard({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ reviewPostData: course, reviewPostId }),
+        body: JSON.stringify({ reviewPostData: courseId, reviewPostId }),
       })
       await res.json()
       if (res.status === 200) {
@@ -65,10 +68,9 @@ export default function ReviewPostCard({
       </p>
       <p className={styles.authorlabel}>
         <strong>Author: </strong>
-        {anonymous === true ? <>Anonymous</> : <>{reviewee}</>} about{' '}
-        {timestamp}
+        {anonymous === true ? <>Anonymous</> : <>{creator}</>} about {timestamp}
       </p>
-      {session && session.user.name === reviewee && (
+      {session && session.user.id === creatorId && (
         <div className={styles.actions}>
           {/* <button className={styles.modify}>Modify</button> */}
           <button onClick={deleteReviewPost} className={styles.deleteaction}>

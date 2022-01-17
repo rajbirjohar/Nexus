@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '@/lib/mongodb'
-import { getSession } from 'next-auth/react'
 
 // fetchEvents()
 // This endpoint will fetch all of our events
@@ -21,7 +20,7 @@ export default async function fetchEvents(
     .find({
       eventEndDate: { $gte: new Date() },
     })
-    .sort({ createdAt: -1 })
+    .sort({ eventStartDate: 1 })
     .toArray()
   return res.status(200).json({ events })
 }

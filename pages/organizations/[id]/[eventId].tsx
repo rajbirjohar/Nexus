@@ -1,15 +1,10 @@
 import Head from 'next/head'
-import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
-import EventForm from '@/components/Events/EventForm'
 import clientPromise from '@/lib/mongodb'
+import styles from '@/styles/events.module.css'
 const mongodb = require('mongodb')
 
 const Event = ({ event }) => {
-  const router = useRouter()
-  const { id } = router.query
-  const { data: session, status } = useSession()
   return (
     <Layout>
       {event.map((event) => (
@@ -20,8 +15,12 @@ const Event = ({ event }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <h1>{event.eventName}</h1>
-          <h3>Details</h3>
-          <h4>{event.eventDetails}</h4>
+          <h4 className={styles.author}>By {event.organizationName}</h4>
+          <span className={styles.date}>
+            {new Date(event.eventStartDate).toLocaleDateString()} -{' '}
+            {new Date(event.eventEndDate).toLocaleDateString()}
+          </span>
+          <h3>{event.eventDetails}</h3>
         </>
       ))}
     </Layout>
@@ -34,12 +33,21 @@ const Event = ({ event }) => {
 // this data does not change often so we don't have to revalidate it
 // But the dynamic pages that are following it are updated frequently
 export async function getServerSideProps(context) {
-  const { id } = context.query
+  const { eventId } = context.query
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const event = await db
     .collection('events')
-    .find({ _id: new mongodb.ObjectID(id) })
+    .find({ _id: new mongodb.ObjectId(eventId) })
     .toArray()
+  const exists = await db
+    .collection('events')
+    .countDocuments({ _id: new mongodb.ObjectId(eventId) })
+  if (exists < 1) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       event: JSON.parse(JSON.stringify(event)),

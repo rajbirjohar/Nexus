@@ -9,12 +9,11 @@ import OrganizationsEditForm from '@/components/Organizations/OrganizationsEditF
 import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
 import clientPromise from '@/lib/mongodb'
 import formstyles from '@/styles/form.module.css'
-const mongodb = require('mongodb')
 
 const Organization = ({ organization, superMembers }) => {
   const router = useRouter()
   const { id } = router.query
-  const { data: session, status } = useSession()
+  const { data: session } = useSession()
   const [deleteOrg, setDeleteOrg] = useState({
     _organization: '',
     _organizationConfirmation: '',
@@ -23,16 +22,18 @@ const Organization = ({ organization, superMembers }) => {
   const [displayEdit, setDisplayEdit] = useState(false)
 
   const handleSubmit = async (event) => {
-    console.log(organization.organizationName)
     event.preventDefault()
+    const orgName = organization
+      .map((organization) => organization.organizationName)
+      .toString()
     if (
       deleteOrg._organization === '' ||
       deleteOrg._organizationConfirmation === ''
     ) {
-      toast.error('Please fill out your organization Name.')
+      toast.error('Please fill out your Organization Name.')
     } else if (
-      deleteOrg._organization === session.user.adminOfOrg &&
-      deleteOrg._organizationConfirmation === session.user.adminOfOrg
+      deleteOrg._organization === orgName &&
+      deleteOrg._organizationConfirmation === orgName
     ) {
       deleteOrganization(deleteOrg)
     } else {
@@ -80,23 +81,23 @@ const Organization = ({ organization, superMembers }) => {
           <p>{organization.organizationDescription}</p>
           <h3>Admins</h3>
           {superMembers.map((superMember) => (
-            <li key={superMember.name}>{superMember.name}</li>
+            <li key={superMember.admin}>{superMember.admin}</li>
           ))}
           {session &&
             session.user.adminOfOrg &&
-            session.user.adminOfOrg === organization.organizationName && (
+            session.user.adminOfOrg === organization._id && (
               <>
                 <EventForm
                   organizationName={organization.organizationName}
-                  organizationId={id}
+                  organizationId={organization._id}
                 />
               </>
             )}
           <h3>Events</h3>
-          <ListEventsPerOrg organization={organization._id} />
+          <ListEventsPerOrg organizationId={organization._id} />
           {/* Checks if user is logged in and the user name matches organizer
         Thus, only the logged in user can access the delete function */}
-          <h3>Dangerous Actions</h3>
+
           {session &&
             session.user.adminOfOrg &&
             session.user.adminOfOrg === organization.organizationName && (
@@ -186,21 +187,31 @@ export async function getServerSideProps(context) {
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const organization = await db
     .collection('organizations')
-    .find({ _id: new mongodb.ObjectID(id) })
+    .find({ organizationName: id })
     .toArray()
   const superMembers = await db
     .collection('organizations')
     .aggregate([
-      { $match: { _id: new mongodb.ObjectID(id) } },
+      { $match: { organizationName: id } },
       { $unwind: '$superMembersList' },
       {
         $project: {
-          name: '$superMembersList.name',
+          admin: '$superMembersList.admin',
           email: '$superMembersList.email',
         },
       },
     ])
     .toArray()
+
+  const exists = await db
+    .collection('organizations')
+    .countDocuments({ organizationName: id })
+  if (exists < 1) {
+    return {
+      notFound: true,
+    }
+  }
+
   return {
     props: {
       organization: JSON.parse(JSON.stringify(organization)),
