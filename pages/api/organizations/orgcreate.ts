@@ -2,6 +2,19 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
 const mongodb = require('mongodb')
+const cloudinary = require('cloudinary').v2
+
+const {
+  hostname: cloud_name,
+  username: api_key,
+  password: api_secret,
+} = new URL(process.env.CLOUDINARY_URL)
+
+cloudinary.config({
+  cloud_name,
+  api_key,
+  api_secret,
+})
 
 // createOrganization()
 // This endpoint takes data from our OrganizationPostForm()
@@ -27,8 +40,11 @@ export default async function createOrganization(
         _organizationName,
         _organizationTagline,
         _organizationDescription,
+        _organizationImage,
       },
     } = req.body
+    const cloudinaryRes = await cloudinary.uploader.upload(_organizationImage)
+
       const nameTaken = await db
         .collection('organizations')
         .find({ organizationName: _organizationName })
@@ -51,7 +67,10 @@ export default async function createOrganization(
             },
           ],
           membersList: [],
+          organizationImageURL: cloudinaryRes.secure_url,
+          imagePublicId: cloudinaryRes.public_id,
         })
+        console.log(cloudinaryRes.secure_url)
         await db.collection('users').updateOne(
           {
             _id: new mongodb.ObjectId(session.user.id),

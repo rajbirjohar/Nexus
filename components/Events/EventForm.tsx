@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import ImageDropzone from './ImageDropzone'
+import ImageDropzone from '../ImageDropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
