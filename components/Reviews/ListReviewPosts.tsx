@@ -3,14 +3,28 @@ import Image from 'next/image'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
+import NotFound from '../notFound'
 import TimeAgo from 'react-timeago'
+import ErrorFetch from '../ErrorFetch'
 import Loader from '@/components/Skeleton'
-import styles from '@/styles/form.module.css'
+import cardstyles from '@/styles/card.module.css'
+import formstyles from '@/styles/form.module.css'
+import { motion, LayoutGroup } from 'framer-motion'
 
 // Component: ListReviewPosts({course})
 // Params: course
 // Purpose: To list the review posts specific to
 // the course on that route. This component live updates every second
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+}
 
 export default function ListReviewPosts({ courseId }) {
   const { data, error } = useSWR(`/api/reviewposts/${courseId}`, fetcher, {
@@ -18,20 +32,7 @@ export default function ListReviewPosts({ courseId }) {
   })
   const [searchValue, setSearchValue] = useState('')
   if (error) {
-    return (
-      <div className={styles.serverdown}>
-        <p>
-          Oops. Looks like the reviews are not being fetched right now. If this
-          persists, please let us know.
-        </p>
-        <Image
-          src={'/assets/server.svg'}
-          height={500}
-          width={500}
-          alt="Server Down Image"
-        />
-      </div>
-    )
+    return <ErrorFetch placeholder="reviews" />
   }
   if (!data) {
     return <Loader />
@@ -47,26 +48,20 @@ export default function ListReviewPosts({ courseId }) {
   return (
     <div>
       {data.reviewPosts.length === 0 ? (
-        <div className={styles.noreviews}>
+        <div className={formstyles.notFound}>
           <p>Be the first one to write a review!</p>
-
-          <Image
-            src={'/assets/post2.svg'}
-            height={300}
-            width={300}
-            alt="Post Image"
-          />
         </div>
       ) : (
-        <div className={styles.searchWrapper}>
+        <div className={formstyles.searchWrapper}>
           <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search by quarter, professor or review"
-            className={styles.search}
+            placeholder="Quarter, professor or review"
+            className={formstyles.search}
           />
-          <svg className={styles.searchIcon}>
+          <svg className={formstyles.searchIcon}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -84,31 +79,34 @@ export default function ListReviewPosts({ courseId }) {
         </div>
       )}
       {!filteredReviews.length && data.reviewPosts.length !== 0 && (
-        <>
-          <p>
-            No reviews found!
-            <br />
-            <cite>— Robert</cite>
-          </p>
-        </>
+        <NotFound placeholder="review" />
       )}
-      {filteredReviews.map((post) => (
-        <ReviewPostCard
-          key={post._id}
-          reviewPostId={post._id}
-          creator={post.creator}
-          creatorEmail={post.creatorEmail}
-          creatorId={post.creatorId}
-          courseId={post.courseId}
-          course={post.course}
-          reviewPost={post.reviewPost}
-          reviewProfessor={post.reviewProfessor}
-          taken={post.taken}
-          difficulty={post.difficulty}
-          anonymous={post.anonymous}
-          timestamp={<TimeAgo date={post.createdAt} />}
-        />
-      ))}
+      <LayoutGroup>
+        <motion.div
+          variants={list}
+          initial="hidden"
+          animate="show"
+          className={cardstyles.gridtall}
+        >
+          {filteredReviews.map((post) => (
+            <ReviewPostCard
+              key={post._id}
+              reviewPostId={post._id}
+              creator={post.creator}
+              creatorEmail={post.creatorEmail}
+              creatorId={post.creatorId}
+              courseId={post.courseId}
+              course={post.course}
+              reviewPost={post.reviewPost}
+              reviewProfessor={post.reviewProfessor}
+              taken={post.taken}
+              difficulty={post.difficulty}
+              anonymous={post.anonymous}
+              timestamp={<TimeAgo date={post.createdAt} />}
+            />
+          ))}
+        </motion.div>
+      </LayoutGroup>
     </div>
   )
 }

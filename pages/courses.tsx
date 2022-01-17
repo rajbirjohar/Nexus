@@ -1,12 +1,27 @@
 import React, { useState } from 'react'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import clientPromise from '@/lib/mongodb'
 import Layout from '@/components/Layout'
+import { LottieWrapper } from '@/components/LottieWrapper'
+import CourseCard from '@/components/Courses/CourseCard'
+import NotFound from '@/components/notFound'
+import { GreenTip } from '@/components/Tips'
 import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
-import { GetStaticProps } from 'next'
-import CourseCard from '@/components/Courses/CourseCard'
+import formstyles from '@/styles/form.module.css'
+import { motion } from 'framer-motion'
+import animationData from '@/lotties/studentonbooks.json'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+}
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
@@ -21,29 +36,33 @@ export default function CoursesPage({ courses }) {
       <section>
         <div className={styles.hero}>
           <div className={styles.content}>
-            <h1>Courses</h1>
-            <p>
-              Check out any course below. Each course will come with a list of
-              reviews that other people have written from their experiences as a
-              student. Feel free to write your own for future readers.
-            </p>
+            <div className={styles.text}>
+              <h1>Courses</h1>
+              <p>
+                Each course will come with a list of reviews that other people
+                have written from their experiences as a student.
+              </p>
+              <GreenTip header="Write A Review">
+                Your contribution will help thousands of potential students who
+                are looking into taking a course you took. Write a review and
+                share your experience!
+              </GreenTip>
+            </div>
+            <div className={styles.animationWrapper}>
+              <LottieWrapper animationData={animationData} />
+            </div>
           </div>
-          <Image
-            src={'/assets/teaching.svg'}
-            width={300}
-            height={300}
-            alt="Professor teaching"
-          />
         </div>
-        <div className={styles.searchWrapper}>
+        <div className={formstyles.searchWrapper}>
           <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search courses"
-            className={styles.search}
+            placeholder='Search courses ex. "SCOTTY101"'
+            className={formstyles.search}
           />
-          <svg className={styles.searchIcon}>
+          <svg className={formstyles.searchIcon}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -60,21 +79,17 @@ export default function CoursesPage({ courses }) {
           </svg>
         </div>
         {!filteredCourses.length && (
-          <div className={styles.notFound}>
-            <h3>Woah There.</h3>
-            <p>
-              What!? That&#39;s crazy. It seems this class does not yet exist.
-              Contact us if you would like to see this class added.
-            </p>
-            <Image
-              src={'/assets/void.svg'}
-              width={300}
-              height={300}
-              alt="Nothing Found Image"
-            />
-          </div>
+          <>
+            <NotFound placeholder="class" />
+          </>
         )}
-        <div className={cardstyles.courseGrid}>
+
+        <motion.div
+          variants={list}
+          initial="hidden"
+          animate="show"
+          className={cardstyles.gridshort}
+        >
           {searchValue.length > 1 &&
             filteredCourses.map((course) => (
               <CourseCard
@@ -83,15 +98,16 @@ export default function CoursesPage({ courses }) {
                 courseName={course.subjectCourse}
               />
             ))}
-        </div>
+        </motion.div>
         <h4>Go ahead and search for a course.</h4>
-
-        <p>Scraped with hard work and enginuity by Isaac.</p>
+        <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>
       </section>
     </Layout>
   )
 }
-
+// We use getStaticProps here so we are able to generate all the data
+// before build time and serve it to the client instantaneously
+// which is then cached by the server
 export const getStaticProps: GetStaticProps = async (context) => {
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGODB_DB)

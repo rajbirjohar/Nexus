@@ -1,58 +1,110 @@
 /* Global card styles */
-.card {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
-  border-radius: var(--radius);
-  padding: var(--gap-med);
-  margin: var(--gap-med) 0;
-  box-shadow: var(--shadows-lg);
-}
-
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  grid-gap: var(--gap-med);
+  gap: var(--gap-med);
 }
 
-.gridcard {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
+.gridtall {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-med);
+}
+
+.gridshort {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: var(--gap-med);
+}
+
+.notifgrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-med);
+  margin-bottom: var(--gap-med);
+}
+
+.card,
+.reviewcard,
+.coursecard {
+  background-color: var(--card);
   border-radius: var(--radius);
   padding: var(--gap-med);
-  margin: 0;
-  box-shadow: var(--shadows-lg);
+  box-shadow: var(--shadows);
+}
+
+.card:hover > .eventName,
+.card:hover > .organizationName {
+  color: var(--teal-800);
+}
+
+.coursecard,
+.card {
   transition: all 150ms ease-in-out;
 }
 
-.gridcard:hover {
-  background-color: var(--gray-100);
+.coursecard:hover,
+.card:hover {
   transform: translateY(-0.25rem);
   cursor: pointer;
 }
 
-.actions {
-  width: 100%;
+.author {
+  margin: 0;
+}
+
+.author,
+.date {
+  color: var(--gray-400);
+}
+
+.greencard {
+  padding: var(--gap-half) var(--gap-med);
+  border-radius: var(--radius);
+  background-color: var(--teal-100);
+}
+
+.defaultcard {
+  padding: var(--gap-half) var(--gap-med);
+  border-radius: var(--radius);
+  background-color: var(--gray-100);
+}
+
+.defaultnotif,
+.greennotif {
   display: flex;
-  justify-content: flex-end;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap-med);
+  padding: var(--gap-half) var(--gap-med);
+  border-radius: var(--radius);
 }
 
-.deleteaction {
-  color: var(--red-900);
-  background: var(--red-100);
+.defaultnotif > button,
+.greennotif > button {
+  margin-top: var(--gap-half);
+  margin-right: -5px;
 }
 
-.deleteaction:hover {
-  background-color: var(--red-200);
+.defaultnotif {
+  background-color: var(--gray-100);
+}
+
+.greennotif {
+  background-color: var(--teal-100);
+}
+
+.notifmessage {
+  flex: 1;
 }
 
 /* Dummy card styles */
 .dummycard {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
+  background-color: var(--card);
   border-radius: var(--radius);
   padding: var(--gap-med);
   margin: var(--gap) 0;
-  box-shadow: var(--shadows-base);
+  box-shadow: var(--shadows);
 }
 
 .dummyauthor {
@@ -66,7 +118,7 @@
   height: 25px;
   animation: pulse 2s infinite;
   border-radius: var(--radius-sm);
-  background-color: var(--gray-200);
+  background-color: var(--gray-100);
 }
 
 .dummytitle {
@@ -78,13 +130,13 @@
 
 @keyframes pulse {
   0% {
-    background-color: var(--gray-200);
+    background-color: var(--gray-50);
   }
   50% {
-    background-color: var(--gray-300);
+    background-color: var(--gray-100);
   }
   100% {
-    background-color: var(--gray-200);
+    background-color: var(--gray-50);
   }
 }
 
@@ -101,10 +153,6 @@
   margin: 0;
 }
 
-.authorlabel {
-  color: var(--gray-500);
-}
-
 /* Organization card styles */
 .orgheader {
   display: flex;
@@ -116,12 +164,12 @@
 }
 
 .gridcard:hover > .orgheader > .organizationName {
-  color: var(--purple-800);
+  color: var(--teal-800);
   margin-right: var(--gap-quarter);
 }
 
 .gridcard:hover > .orgheader > .linkIcon {
-  color: var(--purple-800);
+  color: var(--teal-800);
 }
 
 .organizationName {
@@ -131,7 +179,7 @@
 
 .organizationName,
 .linkIcon {
-  color: var(--purple-500);
+  color: var(--teal-500);
   transition: all 150ms ease-in-out;
 }
 
@@ -139,49 +187,33 @@
   margin-left: var(--gap-quarter);
 }
 
-.organizer {
-  color: var(--gray-500);
-}
-
 /* Courses card styles */
-
-.courseGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-gap: var(--gap-med);
-}
-
-.coursecard {
-  background-color: var(--gray-50);
-  border: 2px solid var(--gray-100);
-  border-radius: var(--radius);
-  padding: var(--gap-med);
-  box-shadow: var(--shadows-lg);
-  transition: all 150ms ease-in-out;
-}
-
-.coursecard:hover {
-  background-color: var(--gray-100);
-  transform: translateY(-0.25rem);
-  cursor: pointer;
-}
-
 .course {
   margin: 0;
-  color: var(--purple-500);
+  color: var(--teal-500);
   transition: color 150ms ease-in-out;
 }
 .coursecard:hover > .course {
-  color: var(--purple-800);
+  color: var(--teal-800);
 }
 
 /* Event card */
 
-.author{
-  font-weight: 600;
+.eventName {
+  color: var(--teal-500);
+  margin: 0;
+  transition: all 150ms ease-in-out;
 }
+.expired {
+  background-color: var(--rose-100);
+  color: var(--rose-800);
+  border-radius: var(--radius-sm);
+  padding: var(--gap-quarter);
+  margin-top: var(--gap-med);
+  width: max-content;
+}
+/* Comment card */
 
-.date,
-.author {
-  color: var(--gray-500);
+.comment p {
+  word-wrap: break-word;
 }

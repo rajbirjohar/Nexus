@@ -2,34 +2,17 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/pages/*": [
-        "pages/*"
-      ],
-      "@/public/*": [
-        "public/*"
-      ],
-      "@/components/*": [
-        "components/*"
-      ],
-      "@/api/*": [
-        "api/*"
-      ],
-      "@/lib/*": [
-        "lib/*"
-      ],
-      "@/util/*": [
-        "util/*"
-      ],
-      "@/styles/*": [
-        "styles/*"
-      ]
+      "@/pages/*": ["pages/*"],
+      "@/public/*": ["public/*"],
+      "@/components/*": ["components/*"],
+      "@/api/*": ["api/*"],
+      "@/lib/*": ["lib/*"],
+      "@/util/*": ["util/*"],
+      "@/styles/*": ["styles/*"],
+      "@/lotties/*": ["lotties/*"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -53,7 +36,5 @@
     "pages/index.js",
     "next.config.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

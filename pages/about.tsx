@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import Layout from '@/components/Layout'
-import Image from 'next/image'
-import styles from '@/styles/about.module.css'
 
 export default function aboutPage() {
   return (
@@ -13,14 +11,8 @@ export default function aboutPage() {
       </Head>
       <section>
         <h1>About Us</h1>
-        <Image
-          src={'/assets/dev.svg'}
-          height={300}
-          width={300}
-          alt="Developer Image"
-        />
         <p>
-          Founded <strong>October 2021.</strong>
+          Founded <strong>October 2021 🧑‍💻.</strong>
         </p>
         <p>
           Developed at the <strong>University of California, Riverside.</strong>
@@ -37,7 +29,7 @@ export default function aboutPage() {
           events, Nexus is <i>where information gathers</i>.
         </p>
         <p>
-          Written with love by,
+          Written with ❤️, ☕️, and 🧠 by,
           <br />
           <a
             rel="noopener noreferrer"
@@ -46,7 +38,7 @@ export default function aboutPage() {
           >
             Rajbir Johar
           </a>
-          , Isaac Curiel, Brian Coffey, Robert Rivera, and Florian Catalan
+          , Isaac Curiel, Brian Coffey, Robert Rivera, and Florian Catalan.
         </p>
         <p>
           Special thanks to,

@@ -1,18 +1,34 @@
 .footer {
-  height: 10rem;
+  padding: 0 var(--gap-med);
   width: 100wv;
   display: flex;
-  background-color: var(--gray-100);
-  align-items: center;
-  margin-top: var(--big-gap);
+  align-items: flex-start;
+  background-color: var(--card);
+  /* Stretches to bottom of page */
+  box-shadow: 0 50vh 0 50vh var(--card);
 }
 
 .linkWrapper {
+  border-top: 2px solid var(--gray-100);
   width: var(--main-content);
   margin: 0 auto;
-  padding: var(--gap-quarter) var(--gap-med);
+  padding: var(--small-gap) 0;
   display: flex;
-  justify-content: flex-start;
+  gap: var(--gap-double);
+}
+
+.links {
+  display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: var(--gap);
+}
+
+.links > h4 {
+  margin: 0;
+}
+
+@media (max-width: 668px) {
+  .linkWrapper {
+    flex-direction: column;
+  }
 }

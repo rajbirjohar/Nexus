@@ -1,6 +1,5 @@
-/* module.exports = {
-  experimental: {
-    scrollRestoration: true,
+module.exports = {
+  images: {
+    domains: ['res.cloudinary.com'],
   },
 }
-*/

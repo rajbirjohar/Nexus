@@ -1,4 +1,19 @@
-.title {
-  padding-bottom: var(--big-gap);
-  line-height: 1.5;
+.hero {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.animationWrapper {
+  min-width: 500px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+@media (max-width: 668px) {
+  .animationWrapper {
+    min-width: 0px;
+    max-width: 320px;
+  }
 }

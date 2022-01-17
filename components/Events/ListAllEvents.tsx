@@ -4,8 +4,21 @@ import useSWR from 'swr'
 import Loader from '../Skeleton'
 import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
+import NotFound from '../notFound'
+import ErrorFetch from '../ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
+import { motion, LayoutGroup } from 'framer-motion'
+
+const list = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+}
 
 export default function ListAllEvents() {
   const { data, error } = useSWR('/api/events/eventfetch', Fetcher, {
@@ -13,23 +26,39 @@ export default function ListAllEvents() {
   })
   const [searchValue, setSearchValue] = useState('')
   if (error) {
-    return (
-      <div className={formstyles.serverdown}>
-        <p>
-          Oops. Looks like the reviews are not being fetched right now. If this
-          persists, please let us know.
-        </p>
-        <Image
-          src={'/assets/server.svg'}
-          height={500}
-          width={500}
-          alt="Server Down Image"
-        />
-      </div>
-    )
+    return <ErrorFetch placeholder="events" />
   }
   if (!data) {
-    return <Loader />
+    return (
+      <>
+        <div className={formstyles.searchWrapper}>
+          <input
+            autoComplete="off"
+            aria-label="Disabled Searchbar"
+            type="text"
+            disabled
+            placeholder="Search by name, club, or details"
+            className={formstyles.search}
+          />
+          <svg className={formstyles.searchIcon}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
+          </svg>
+        </div>
+        <Loader />
+      </>
+    )
   }
   const filteredEvents = Object(data.events).filter(
     (event) =>
@@ -42,23 +71,17 @@ export default function ListAllEvents() {
   return (
     <div>
       {data.events.length === 0 ? (
-        <div className={formstyles.noreviews}>
-          <p>Create an event!</p>
-
-          <Image
-            src={'/assets/post2.svg'}
-            height={300}
-            width={300}
-            alt="Post Image"
-          />
+        <div className={formstyles.notFound}>
+          <p>No events today!</p>
         </div>
       ) : (
         <div className={formstyles.searchWrapper}>
           <input
+            autoComplete="off"
             aria-label="Enabled Searchbar"
             type="text"
             onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search by name, club, or details."
+            placeholder="Search by name, club, or details"
             className={formstyles.search}
           />
           <svg className={formstyles.searchIcon}>
@@ -78,16 +101,16 @@ export default function ListAllEvents() {
           </svg>
         </div>
       )}
-      <div className={cardstyles.grid}>
-        {!filteredEvents.length && data.events.length !== 0 && (
-          <>
-            <p>
-              No events found!
-              <br />
-              <cite>— Robert</cite>
-            </p>
-          </>
-        )}
+
+      {!filteredEvents.length && data.events.length !== 0 && (
+        <NotFound placeholder="event" />
+      )}
+      <motion.div
+        variants={list}
+        initial="hidden"
+        animate="show"
+        className={cardstyles.grid}
+      >
         {filteredEvents.map((newEvent) => (
           <EventCard
             key={newEvent._id}
@@ -99,7 +122,7 @@ export default function ListAllEvents() {
             endDate={newEvent.eventEndDate}
           />
         ))}
-      </div>
+      </motion.div>
     </div>
   )
 }

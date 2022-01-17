@@ -1,49 +1,38 @@
 .hero {
   display: flex;
-  align-items: center;
-  margin-bottom: var(--gap-med);
+  flex-direction: column;
+  gap: var(--gap-med);
 }
+
 .content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-med);
+}
+
+.text {
   flex: 1;
-  margin-right: var(--gap-med);
 }
 
-.serverdown {
+.animationWrapper {
+  flex: 1;
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto;
+}
+
+.animationWrapper svg {
+  margin: auto;
+}
+
+.courseheader {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
   align-items: center;
 }
 
-.searchWrapper {
-  position: relative;
-  width: 100%;
-}
-
-.search {
-  border: 2px solid var(--purple-200) !important;
-  width: 100%;
-  padding: var(--gap);
-  font-size: 18px;
-  border-radius: var(--radius);
-  margin: var(--gap) 0;
-  background-color: var(--gray-100) !important;
-  color: var(--purple-700) !important;
-}
-.search::placeholder {
-  color: var(--purple-700) !important;
-}
-
-.searchIcon {
-  position: absolute;
-  top: 35px;
-  right: 15px;
-  color: var(--purple-400) !important;
-}
-
-.notFound {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.difficulty {
+  color: var(--gray-500);
 }
 
 @media (max-width: 868px) {
@@ -52,5 +41,14 @@
   }
   .content {
     margin-right: 0;
+  }
+}
+
+@media (max-width: 668px) {
+  .content {
+    flex-direction: column;
+  }
+  .courseheader span {
+    display: none;
   }
 }

@@ -1,11 +1,35 @@
 .hero {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  gap: var(--gap-med);
+}
+
+.banner {
+  width: 100% !important;
+  height: 300px;
+  position: relative !important;
+}
+
+.content {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--gap-med);
   margin-bottom: var(--gap-med);
 }
-.content {
+
+.text {
   flex: 1;
-  margin-right: var(--gap-med);
+}
+
+.animationWrapper {
+  flex: 1;
+  max-height: 100%;
+  max-width: 100%;
+  margin: auto 0;
+}
+
+.author {
+  margin: 0;
 }
 
 .date,
@@ -13,8 +37,12 @@
   color: var(--gray-500);
 }
 
+.author a {
+  font-weight: 700;
+}
+
 @media (max-width: 868px) {
-  .hero {
+  .content {
     flex-direction: column;
   }
   .content {

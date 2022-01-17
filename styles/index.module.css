@@ -1,65 +1,193 @@
+.endheroWrapper {
+  padding: 0;
+  margin: 0;
+  background-color: var(--card);
+}
+
 .hero,
-.heroreverse {
+.heroreverse,
+.endhero {
   margin: 0 auto;
-  max-width: var(--main-content);
   display: flex;
   align-items: center;
-  justify-content: space-around;
-  min-height: 75vh;
+  justify-content: space-evenly;
+  min-height: 70vh;
+  gap: var(--small-gap);
+  max-width: var(--main-content);
+  padding: 0 var(--gap-med);
+}
+
+.herocards {
+  display: flex;
+  gap: var(--gap-med);
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: var(--gap-double) var(--gap-med);
+  /* Display scrollbar only when needed */
+  overflow-x: auto;
+  justify-items: center !important;
+  height: 100%;
+}
+
+.card {
+  flex-shrink: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows);
+  min-height: 100%;
+}
+
+.lastcard {
+  flex: 1;
+  flex-shrink: 0;
+  min-height: 100%;
+}
+
+.cardTitle,
+.cardCaption {
+  text-align: center;
+}
+
+.heroprimary {
+  padding: var(--gap) var(--small-gap);
+  background-color: var(--teal-500);
+  color: var(--teal-50);
+  gap: var(--gap-quarter);
+}
+
+.heroprimary svg {
+  transform: scale(1.2);
+}
+
+.heroprimary:hover {
+  background-color: var(--teal-600);
+}
+
+.content,
+.animationWrapper {
+  flex: 1;
 }
 
 .animationWrapper {
-  max-width: 400px;
+  width: 100%;
+  height: 100%;
 }
 
-.heroImage {
-  display: flex;
-  flex: 1;
-  margin: 0 var(--gap-med);
-}
-
-.content {
-  flex: 1;
-  margin-left: var(--gap-med);
+.animationWrapperSmall {
+  margin: 0 auto;
+  padding: var(--gap-med);
+  width: 200px;
+  height: 200px;
 }
 
 .title {
-  font-size: 2.75rem;
+  font-size: 3.75rem;
   line-height: 1.2;
 }
 
 .title span,
 .sectiontitle {
-  color: var(--purple-500);
+  color: var(--teal-500);
 }
 
 .subtitle {
   color: var(--gray-400);
 }
 
-@media (max-width: 668px) {
-  .hero {
-    flex-direction: column-reverse;
-    justify-content: space-evenly;
-    align-items: center;
+.swipeIcon {
+  display: none;
+}
+
+/* Adds a fade mask on either side of the cards 
+box but still iffy on if I like it or not */
+/* @media (max-width: 868px) {
+  .herocards {
+    --gradient-size-start: calc(0% - env(safe-area-inset-left) - 10px);
+    --gradient-size-end: calc(7% - env(safe-area-inset-right) - 0px);
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--gradient-size-start),
+      #000 calc(100% - var(--gradient-size-end)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent 0,
+      #000 var(--gradient-size-start),
+      #000 calc(100% - var(--gradient-size-end)),
+      transparent 100%
+    );
   }
-  .heroreverse {
+} */
+
+@media (max-width: 768px) {
+  .hero {
     flex-direction: column;
+    align-items: center;
+    margin: var(--gap-quarter) auto;
+    gap: 0;
+  }
+  .centered {
+    text-align: center;
+  }
+  .heroreverse,
+  .endhero {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: 0;
+  }
+  .endhero {
+    padding-bottom: var(--small-gap);
+  }
+  .card {
+    min-width: 20rem;
+    max-width: 20rem;
+    min-height: 100%;
+  }
+  /* This is the dumbest sh*t ever.
+  I love CSS but I also hate CSS 
+  because of things like this. */
+  .herocards::after {
+    content: '';
+    min-width: 1px;
+  }
+  .title {
+    font-size: 3rem;
+  }
+  .heroprimary {
+    margin: 0 auto;
+  }
+  .swipeIcon {
+    display: flex;
+    fill: var(--teal-500);
+    transform: scale(1.2);
     justify-content: center;
     align-items: center;
-    padding-right: 0;
+    margin: var(--gap-med) auto 0 auto;
   }
-  .animationWrapper {
-    flex: 0;
-    max-width: 320px;
-  }
-  .content {
-    margin-left: 0;
-  }
-  .heroImage {
-    margin: 0;
+  .swipeIcon svg {
+    min-width: 20px;
+    max-width: 20px;
+    min-height: 20px;
+    max-height: 20px;
   }
 }
 
-@media (max-width: 668px) {
+/* Hide scrollbar on all touch devices  */
+
+@media (hover: none) {
+  .herocards {
+    -ms-overflow-style: none !important; /* Internet Explorer 10+ */
+    scrollbar-width: none !important; /* Firefox */
+  }
+  .herocards::-webkit-scrollbar {
+    display: none !important; /* Safari and Chrome */
+  }
 }
