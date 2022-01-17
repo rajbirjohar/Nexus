@@ -15,7 +15,7 @@ interface Event {
   _eventDetails: string
   _eventStartDate: string
   _eventEndDate: string
-  _image: string
+  _eventImage: string
 }
 
 export default function EventForm({
@@ -33,7 +33,7 @@ export default function EventForm({
     _eventDetails: '',
     _eventStartDate: '',
     _eventEndDate: '',
-    _image: '',
+    _eventImage: '',
   }
 
   const sendData = async (newEventData) => {
@@ -47,6 +47,8 @@ export default function EventForm({
     const data = await response.json()
     if (response.status === 200) {
       toast.success('Your event has been posted!')
+    } else if (response.status === 413) {
+      toast.error('Image is too big or wrong format.')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists'
@@ -85,12 +87,13 @@ export default function EventForm({
           } else if (new Date(values._eventEndDate) < new Date()) {
             errors._eventEndDate = 'End date has passed'
           }
-          if (!values._image) {
-            errors._image = 'Required'
+          if (!values._eventImage) {
+            errors._eventImage = 'Required'
           }
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
+          console.log(values._eventImage)
           sendData(values)
           resetForm({
             values: {
@@ -102,7 +105,7 @@ export default function EventForm({
               _eventDetails: '',
               _eventStartDate: '',
               _eventEndDate: '',
-              _image: '',
+              _eventImage: '',
             },
           })
           setSubmitting(false)
@@ -119,7 +122,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               name="_eventName"
               type="text"
               placeholder="Scotty's Birthday"
@@ -133,7 +136,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               name="_eventDetails"
               component="textarea"
               rows="3"
@@ -152,7 +155,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="datetime-local"
               name="_eventStartDate"
             />
@@ -165,7 +168,7 @@ export default function EventForm({
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="datetime-local"
               name="_eventEndDate"
             />
@@ -173,11 +176,11 @@ export default function EventForm({
               <label htmlFor="_eventImage">
                 <strong>Event Banner:</strong>
               </label>
-              <ErrorMessage name="_image">
+              <ErrorMessage name="_eventImage">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <ImageDropzone setFieldValue={setFieldValue} />
+            <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
             <span className={styles.actions}>
               <button
                 className={styles.primary}

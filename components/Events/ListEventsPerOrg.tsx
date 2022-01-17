@@ -33,7 +33,7 @@ export default function ListEventsPerOrg({ organizationId }) {
       animate="show"
       className={cardstyles.grid}
     >
-      {data.events.length === 0 && <p>No events have been made.</p>}
+      {data.events.length === 0 && <p>No events today!</p>}
       {data.events.map((newEvent) => (
         <EventCard
           key={newEvent._id}

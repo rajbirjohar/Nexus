@@ -1,7 +1,15 @@
 import { useSession } from 'next-auth/react'
+import React, { useState, useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
+import CommentEditForm from './CommentEditForm'
+import { motion, AnimatePresence } from 'framer-motion'
+
+const listItems = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+}
 
 const Comment = ({
   organizationId,
@@ -13,6 +21,7 @@ const Comment = ({
   date,
 }) => {
   const { data: session } = useSession()
+  const [isEdit, setIsEdit] = useState(false)
   const isCreator =
     session &&
     session.user.creatorOfOrg &&
@@ -47,18 +56,44 @@ const Comment = ({
   return (
     <div className={cardstyles.comment}>
       <div>
-        <p>{comment}</p>
+        {isEdit ? (
+          <CommentEditForm
+            eventId={eventId}
+            oldComment={comment}
+            onHandleChange={setIsEdit}
+            commentId={commentId}
+            authorId={authorId}
+          />
+        ) : (
+          <p>{comment}</p>
+        )}
         <span className={cardstyles.author}>
           {author} about {date}
         </span>{' '}
-        {(session && isAdmin) || (session && session.user.id === authorId) ? (
+        {session && session.user.id === authorId && (
           <>
+            {' '}
             /{' '}
-            <span onClick={handleSubmit} className={formstyles.deletecomment}>
-              Delete
-            </span>
+            <span
+              onClick={() => {
+                setIsEdit(!isEdit)
+              }}
+              className={formstyles.editcomment}
+            >
+              Edit
+            </span>{' '}
           </>
-        ) : null}
+        )}
+        {((session && isAdmin) ||
+          (session && session.user.id === authorId)) && (
+            <>
+              {' '}
+              /{' '}
+              <span onClick={handleSubmit} className={formstyles.deletecomment}>
+                Delete
+              </span>
+            </>
+          )}
       </div>
     </div>
   )

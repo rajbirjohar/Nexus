@@ -31,7 +31,7 @@ export default function TransferOwnerForm({ organizationId }) {
     } else if (response.status === 403) {
       toast.error('User is already the owner of this org or another one.')
     } else if (response.status === 200) {
-      toast.success('Successfully transferrose ownership!')
+      toast.success('Successfully transferred ownership!')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -90,7 +90,7 @@ export default function TransferOwnerForm({ organizationId }) {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="email"
               name="_email"
               placeholder="scotty001@ucr.edu"
@@ -105,7 +105,7 @@ export default function TransferOwnerForm({ organizationId }) {
               </ErrorMessage>
             </div>
             <Field
-              autocomplete="off"
+              autoComplete="off"
               type="email"
               name="_confirmEmail"
               placeholder="scotty001@ucr.edu"
