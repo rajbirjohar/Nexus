@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
-import ImageDropzone from '../ImageDropzone' 
+import ImageDropzone from '../ImageDropzone'
 
 // length of description
 const maxLength = 1000
@@ -90,6 +90,21 @@ export default function OrganizationsForm() {
         {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
+              <label htmlFor="_organizationImage">
+                <strong>
+                  Profile Thumbnail: <br />
+                  <span className={styles.subtitle}>For highest quality, use a square photo</span>
+                </strong>
+              </label>
+              <ErrorMessage name="_organizationImage">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <ImageDropzone
+              setFieldValue={setFieldValue}
+              name="_organizationImage"
+            />
+            <div className={styles.inputheader}>
               <label htmlFor="_organizationName">
                 <strong>Organization Name:</strong>
               </label>
@@ -140,15 +155,6 @@ export default function OrganizationsForm() {
             <span className={styles.maxlength}>
               {maxLength - values._organizationDescription.length}/{maxLength}
             </span>
-            <div className={styles.inputheader}>
-              <label htmlFor="_organizationImage">
-                <strong>Organization Image:</strong>
-              </label>
-              <ErrorMessage name="_organizationImage">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <ImageDropzone setFieldValue={setFieldValue} name="_organizationImage" />
             <span className={styles.actions}>
               <button
                 className={styles.primary}

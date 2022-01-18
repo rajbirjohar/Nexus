@@ -34,13 +34,19 @@ export default function OrganizationCard({
     // listing all details for that specific organization
     <Link href={`/organizations/${organizationName}`} passHref>
       <motion.div variants={listItems} className={cardstyles.card}>
-        <div className={cardstyles.orgheader}> 
+        <div className={cardstyles.orgheader}>
           {organizationImage && (
-          <Image src={organizationImage} width={50} height={50} alt="Thumbnail" />
+            <Image
+              src={organizationImage}
+              width={50}
+              height={50}
+              className={cardstyles.rounded}
+              alt="Thumbnail"
+            />
           )}
           <h3 className={cardstyles.organizationName}>{organizationName}</h3>
         </div>
-        
+
         <h4 className={`${cardstyles.organizationTagline} ${'clamp-2'}`}>
           {organizationTagline}
         </h4>

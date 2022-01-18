@@ -34,7 +34,9 @@ export default async function deleteOrganization(
       const {
         organizationData: { organizationId, imagePublicId },
       } = req.body
-      const image = await cloudinary.uploader.destroy(imagePublicId)
+      if (imagePublicId) {
+        const image = await cloudinary.uploader.destroy(imagePublicId)
+      }
       // First reset the creator's role so they can make a new org
       await db
         .collection('users')

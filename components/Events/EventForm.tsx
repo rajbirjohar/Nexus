@@ -114,6 +114,18 @@ export default function EventForm({
         {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
+              <label htmlFor="_eventImage">
+                <strong>Event Banner:</strong>
+                <span className={styles.subtitle}>
+                  For highest quality, use a rectangular photo
+                </span>
+              </label>
+              <ErrorMessage name="_eventImage">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
+            <div className={styles.inputheader}>
               <label htmlFor="_eventName">
                 <strong>Event Name:</strong>
               </label>
@@ -172,15 +184,7 @@ export default function EventForm({
               type="datetime-local"
               name="_eventEndDate"
             />
-            <div className={styles.inputheader}>
-              <label htmlFor="_eventImage">
-                <strong>Event Banner:</strong>
-              </label>
-              <ErrorMessage name="_eventImage">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
+
             <span className={styles.actions}>
               <button
                 className={styles.primary}
