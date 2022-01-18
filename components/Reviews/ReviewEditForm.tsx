@@ -59,7 +59,7 @@ export default function ReviewEditForm({
         'Uh oh. Something happened. Please contact us if this persists.'
       )
     }
-    return data.reviewPostData
+    return data.newReviewPostData
   }
   return (
     <motion.div
