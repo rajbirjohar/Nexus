@@ -14,21 +14,21 @@ export default async function createComment(
     const {
       newCommentData: { eventId, _newComment, commentId, authorId },
     } = req.body
-    console.log(req.body);
     await db.collection('events').updateOne(
-      {"comments.commentId": new mongodb.ObjectId(commentId)},
+      { 'comments.commentId': new mongodb.ObjectId(commentId) },
       {
         $set: {
-          "comments.$.comment": _newComment,
-          "comments.$.createdAt": new Date(),
-        }
+          'comments.$.comment': _newComment,
+          'comments.$.createdAt': new Date(),
+        },
       }
-      )
+    )
+    res.status(200).json({ message: 'Successfully edited comment' })
   } else {
     // Not Signed in
     res.status(401).json({
       error:
-      'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
+        'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
     })
   }
 }
