@@ -4,10 +4,13 @@
   gap: var(--gap-med);
 }
 
+.rounded {
+  border-radius: 50%;
+}
+
 .content {
   display: flex;
   align-items: flex-start;
-  gap: var(--gap-med);
 }
 
 .text {
@@ -23,8 +26,12 @@
 
 .organizationHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: var(--gap-med);
+}
+
+.organizationHeader h1{
+  margin: 0;
 }
 
 .memberslist {

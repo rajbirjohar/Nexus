@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Head from 'next/head'
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import Layout from '@/components/Layout'
@@ -136,6 +137,15 @@ const Organization = ({ organization, superMembers, members }) => {
             <link rel="icon" href="/favicon.ico" />
           </Head>
           <div className={styles.organizationHeader}>
+            {organization.organizationImageURL && (
+              <Image
+                src={organization.organizationImageURL}
+                width={75}
+                height={75}
+                className={styles.rounded}
+                alt="Thumbnail"
+              />
+            )}{' '}
             <h1>{organization.organizationName}</h1>
             <div>
               {session && isNotMember && (
