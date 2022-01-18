@@ -25,7 +25,9 @@ export default async function deleteEvent(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     const { eventData: eventId, imagePublicId } = req.body
-    const image = await cloudinary.uploader.destroy(imagePublicId)
+    if (imagePublicId) {
+      const image = await cloudinary.uploader.destroy(imagePublicId)
+    }
     const result = await db.collection('events').deleteOne({
       _id: new mongodb.ObjectId(eventId),
     })

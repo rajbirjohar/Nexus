@@ -209,6 +209,7 @@ const Organization = ({ organization, superMembers, members }) => {
                     <DangerousActions
                       organizationId={organization._id}
                       organizationName={organization.organizationName}
+                      imagePublicId={organization.imagePublicId}
                     />
                   </>
                 </Section>

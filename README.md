@@ -16,8 +16,10 @@
 1. [Overview](#overview)  
 2. [Usage](#usage)  
 3. [How To Run](#how-to-run)  
-4. [Diagrams](#diagrams)  
-5. [Dependencies](#dependencies)  
+4. [Dependencies](#dependencies)  
+5. [Challenges](#challenges)  
+6. [Diagrams](#diagrams)  
+
 
 ## Overview
 
@@ -39,12 +41,13 @@
 - [x] Authentication
 - [x] Review Posts
 - [x] Event Posts
+- [x] Images Banners
 - [x] Org Profiles
 - [x] User Profiles
 - [x] Search
 - [x] Dark Mode
-- [ ] Roles
-- [ ] Sort
+- [x] Roles
+- [x] Sort
 
 ### About
 
@@ -151,6 +154,27 @@ If you want to learn more about MongoDB, visit the following pages:
 
 - [MongoDB Atlas](https://mongodb.com/atlas)
 - [MongoDB Documentation](https://docs.mongodb.com/)
+
+## Dependencies
+
+### Notable Libraries and Packages
+
+- Next-Auth
+- SWR
+- Formik
+- CSS Modules
+- Framer Motion
+- react-hot-toast
+- Lottie
+- react-dropzone
+
+## Challenges
+
+### Frontend
+
+### Backend
+
+### UI/UX
 
 ## Diagrams
 
@@ -288,14 +312,3 @@ At the top of the `/courses` page there is a search bar allowing users to filter
 &nbsp;
 
 > More screenshots to come.
-
-## Dependencies
-
-### Notable Libraries and Packages
-
-- Next-Auth
-- SWR
-- CSS Modules
-- Framer Motion
-- react-hot-toast
-- Lottie

@@ -154,9 +154,14 @@
 }
 
 /* Organization card styles */
+.rounded {
+  border-radius: 50%;
+}
+
 .orgheader {
   display: flex;
   align-items: center;
+  gap: var(--gap-half);
 }
 
 .orgheader:hover {

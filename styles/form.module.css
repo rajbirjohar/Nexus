@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.subtitle {
+  color: var(--gray-500);
+}
+
 .primary {
   margin: var(--gap-half) 0;
   background-color: var(--teal-500);
@@ -106,6 +110,15 @@ make the button taller */
 }
 
 .deletecomment:hover {
+  cursor: pointer;
+}
+
+.editcomment {
+  color: var(--teal-500);
+  font-weight: 600;
+}
+
+.editcomment:hover {
   cursor: pointer;
 }
 

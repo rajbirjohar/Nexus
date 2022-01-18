@@ -6,7 +6,7 @@ import TransferOwnerForm from './TransferOwnerForm'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import formstyles from '@/styles/form.module.css'
 
-export default function DangerousActions({ organizationId, organizationName }) {
+export default function DangerousActions({ organizationId, organizationName, imagePublicId }) {
   const allTabs = [
     {
       icon: '🍅',
@@ -28,6 +28,7 @@ export default function DangerousActions({ organizationId, organizationName }) {
         <DeleteOrganization
           organizationId={organizationId}
           organizationName={organizationName}
+          imagePublicId={imagePublicId}
         />
       ),
     },
