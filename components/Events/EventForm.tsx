@@ -59,10 +59,9 @@ export default function EventForm({
   return (
     <>
       <p>
-        You can create new events using the form below. The date input requires
-        a 12 hour time as well. Once you submit this form, your event will show
-        up on the Events page and will automatically hide once the end date has
-        been reached.
+        You can create new events using the form below. Once you submit this
+        form, your event will show up on the Events page and will automatically
+        hide once the end date has been reached.
       </p>
       <Formik
         validateOnBlur={false}
@@ -114,10 +113,13 @@ export default function EventForm({
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
               <label htmlFor="_eventImage">
-                <strong>Event Banner:</strong>
-                <span className={styles.subtitle}>
-                  For highest quality, use a rectangular photo
-                </span>
+                <strong>
+                  Event Banner:
+                  <br />
+                  <span className={styles.subtitle}>
+                    For highest quality, use a rectangular photo
+                  </span>
+                </strong>
               </label>
               <ErrorMessage name="_eventImage">
                 {(message) => <span className={styles.error}>{message}</span>}
@@ -157,33 +159,42 @@ export default function EventForm({
             <span className={styles.maxlength}>
               {maxLength - values._eventDetails.length}/{maxLength}
             </span>
-            <div className={styles.inputheader}>
-              <label htmlFor="_eventStartDate">
-                <strong>Event Start Date:</strong>
-              </label>
-              <ErrorMessage name="_eventStartDate">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
+            <div className={styles.datewrapper}>
+              <div className={styles.dateinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_eventStartDate">
+                    <strong>Event Start Date:</strong>
+                  </label>
+                  <ErrorMessage name="_eventStartDate">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="datetime-local"
+                  name="_eventStartDate"
+                />
+              </div>
+              <div className={styles.dateinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_eventEndDate">
+                    <strong>Event End Date:</strong>
+                  </label>
+                  <ErrorMessage name="_eventEndDate">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="datetime-local"
+                  name="_eventEndDate"
+                />
+              </div>
             </div>
-            <Field
-              autoComplete="off"
-              type="datetime-local"
-              name="_eventStartDate"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_eventEndDate">
-                <strong>Event End Date:</strong>
-              </label>
-              <ErrorMessage name="_eventEndDate">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="datetime-local"
-              name="_eventEndDate"
-            />
-
             <span className={styles.actions}>
               <button
                 className={styles.primary}
