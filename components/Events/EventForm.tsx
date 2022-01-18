@@ -86,9 +86,9 @@ export default function EventForm({
           } else if (new Date(values._eventEndDate) < new Date()) {
             errors._eventEndDate = 'End date has passed'
           }
-          if (!values._eventImage) {
-            errors._eventImage = 'Required'
-          }
+          // if (!values._eventImage) {
+          //   errors._eventImage = 'Required'
+          // }
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -114,7 +114,8 @@ export default function EventForm({
             <div className={styles.inputheader}>
               <label htmlFor="_eventImage">
                 <strong>
-                  Event Banner:
+                  Event Banner:{' '}
+                  <span className={styles.subtitle}>(Optional)</span>
                   <br />
                   <span className={styles.subtitle}>
                     For highest quality, use a rectangular photo
