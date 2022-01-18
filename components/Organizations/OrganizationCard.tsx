@@ -4,15 +4,6 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
 
-// Component: OrganizationCard({
-// organizer,
-// organizationName,
-// organizationDescription,
-// organizationId,})
-// Params: organizer, organizationName, organizationDescription, organizationId
-// Purpose: Display each organization as an individual "card"
-// See ListOrganizations component
-
 const listItems = {
   hidden: { opacity: 0 },
   show: {
