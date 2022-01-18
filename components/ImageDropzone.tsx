@@ -1,5 +1,8 @@
+// To disable the warning for next/image for the thumbnail
+// since next/image is broken when it comes to aspect ratio
+/* eslint @next/next/no-img-element: 0 */
+
 import React, { useEffect, useState } from 'react'
-import Image from 'next/image'
 import { useDropzone } from 'react-dropzone'
 import formstyles from '@/styles/form.module.css'
 
@@ -69,7 +72,7 @@ export default function ImageDropzone(props) {
             />
           </svg>
         </button>
-        <img src={file.preview} className={formstyles.img} />
+        <img src={file.preview} className={formstyles.img} alt="Thumbnail" />
       </div>
     </div>
   ))
