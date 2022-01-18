@@ -65,10 +65,18 @@ const Comment = ({
             authorId={authorId}
           />
         ) : (
-          <p>{comment}</p>
+          <motion.p
+            layout="position"
+            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, x: -5 }}
+            exit={{ opacity: 0, x: 5 }}
+            transition={{ duration: 0.15 }}
+          >
+            {comment}
+          </motion.p>
         )}
         <span className={cardstyles.author}>
-          {author} about {date}
+          {author} {date}
         </span>{' '}
         {session && session.user.id === authorId && (
           <>
@@ -86,14 +94,14 @@ const Comment = ({
         )}
         {((session && isAdmin) ||
           (session && session.user.id === authorId)) && (
-            <>
-              {' '}
-              /{' '}
-              <span onClick={handleSubmit} className={formstyles.deletecomment}>
-                Delete
-              </span>
-            </>
-          )}
+          <>
+            {' '}
+            /{' '}
+            <span onClick={handleSubmit} className={formstyles.deletecomment}>
+              Delete
+            </span>
+          </>
+        )}
       </div>
     </div>
   )

@@ -9,103 +9,105 @@ import { motion } from 'framer-motion'
 const maxLength = 200
 
 interface Comment {
-    eventId: string
-    authorId: string
-    _newComment: string
-    commentId: string
+  eventId: string
+  authorId: string
+  _newComment: string
+  commentId: string
 }
 
 export default function CommentEditForm({
-    eventId,
-    oldComment,
-    onHandleChange,
-    commentId,
-    authorId,
+  eventId,
+  oldComment,
+  onHandleChange,
+  commentId,
+  authorId,
 }) {
-    // default values for comment Object
-    const { data: session } = useSession()
-    const initialValues: Comment = {
-        authorId: session.user.id,
-        eventId: eventId,
-        _newComment: oldComment,
-        commentId: commentId,
-    }
+  // default values for comment Object
+  const { data: session } = useSession()
+  const initialValues: Comment = {
+    authorId: session.user.id,
+    eventId: eventId,
+    _newComment: oldComment,
+    commentId: commentId,
+  }
 
-    const sendData = async (newCommentData) => {
-        const response = await fetch(`/api/events/comments/commentedit`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ newCommentData: newCommentData }),
-        })
-        const data = await response.json()
-        if (response.status === 200) {
-            toast.success('Your comment has been edited!')
-        } else {
-            toast.error('Uh oh. Something happened. Please contact us if this persists.')
-        }
-        return data.reviewPostData
+  const sendData = async (newCommentData) => {
+    const response = await fetch(`/api/events/comments/commentedit`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ newCommentData: newCommentData }),
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+      toast.success('Your comment has been edited!')
+    } else {
+      toast.error(
+        'Uh oh. Something happened. Please contact us if this persists.'
+      )
     }
-    return (
-        <motion.div
-            layout="position"
-            animate={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -5 }}
-            exit={{ opacity: 0, x: 5 }}
-            transition={{ duration: 0.15 }}
-        >
-        <Formik
-            validateOnBlur={false}
-            initialValues={initialValues}
-            validate={(values: Comment) => {
-                let errors: FormikErrors<Comment> = {}
-                if (!values._newComment) {
-                    errors._newComment = 'Required'
-                }
-                if (values._newComment === oldComment) {
-                    errors._newComment = 'You made no changes'
-                }
-                return errors
-            }}
-            onSubmit={(values, { setSubmitting }) => {
-                sendData(values)
-                !onHandleChange()
-                setSubmitting(false)
-            }}
-        >
-            {({ values, handleSubmit, isSubmitting }) => (
-                <Form onSubmit={handleSubmit}>
-                    <div className={styles.inputheader}>
-                        <label htmlFor="_newComment">
-                            <strong>Comment:</strong>
-                        </label>
-                        <ErrorMessage name="_newComment">
-                            {(message) => <span className={styles.error}>{message}</span>}
-                        </ErrorMessage>
-                    </div>
-                    <Field
-                        autoComplete="off"
-                        name="_newComment"
-                        placeholder='"Show your interest!"'
-                        rows="3"
-                        maxLength={maxLength}
-                    />
-                    <div className={styles.commentactions}>
-                    <span className={styles.maxlength}>
-                        {maxLength - values._newComment.length}/{maxLength}
-                    </span>
-                        <button
-                            className={styles.primary}
-                            type="submit"
-                            disabled={isSubmitting}
-                        >
-                            Edit Comment!
-                        </button>
-                    </div>
-                </Form>
-            )}
-        </Formik>
-        </motion.div>
-    )
+    return data.newCommentData
+  }
+  return (
+    <motion.div
+      layout="position"
+      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, x: -5 }}
+      exit={{ opacity: 0, x: 5 }}
+      transition={{ duration: 0.15 }}
+    >
+      <Formik
+        validateOnBlur={false}
+        initialValues={initialValues}
+        validate={(values: Comment) => {
+          let errors: FormikErrors<Comment> = {}
+          if (!values._newComment) {
+            errors._newComment = 'Required'
+          }
+          if (values._newComment === oldComment) {
+            errors._newComment = 'You made no changes'
+          }
+          return errors
+        }}
+        onSubmit={(values, { setSubmitting }) => {
+          sendData(values)
+          !onHandleChange()
+          setSubmitting(false)
+        }}
+      >
+        {({ values, handleSubmit, isSubmitting }) => (
+          <Form onSubmit={handleSubmit}>
+            <div className={styles.inputheader}>
+              <label htmlFor="_newComment">
+                <strong>Comment:</strong>
+              </label>
+              <ErrorMessage name="_newComment">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              name="_newComment"
+              placeholder='"Show your interest!"'
+              rows="3"
+              maxLength={maxLength}
+            />
+            <div className={styles.commentactions}>
+              <span className={styles.maxlength}>
+                {maxLength - values._newComment.length}/{maxLength}
+              </span>
+              <button
+                className={styles.primary}
+                type="submit"
+                disabled={isSubmitting}
+              >
+                Edit Comment!
+              </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </motion.div>
+  )
 }
