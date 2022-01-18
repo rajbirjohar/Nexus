@@ -66,7 +66,6 @@ export default async function createOrganization(
         organizationImageURL: cloudinaryRes.secure_url,
         imagePublicId: cloudinaryRes.public_id,
       })
-      console.log(cloudinaryRes.secure_url)
       await db.collection('users').updateOne(
         {
           _id: new mongodb.ObjectId(session.user.id),

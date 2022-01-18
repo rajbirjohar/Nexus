@@ -13,7 +13,6 @@ export default function SetRoleForm({ userId }) {
     userId: userId,
     _role: '',
   }
-  console.log(initialValues)
   const sendData = async (userRoleData) => {
     const response = await fetch('/api/users/setrole', {
       method: 'PATCH',

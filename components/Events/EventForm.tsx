@@ -93,7 +93,6 @@ export default function EventForm({
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log(values._eventImage)
           sendData(values)
           resetForm({
             values: {
