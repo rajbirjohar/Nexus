@@ -27,6 +27,14 @@
 .organizationHeader {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: var(--gap-med);
+}
+
+.organizationInner{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--gap-med);
 }
 
