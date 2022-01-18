@@ -12,6 +12,7 @@ import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import { motion } from 'framer-motion'
 import animationData from '@/lotties/studentonbooks.json'
+import ListMostRecent from '@/components/Reviews/ListMostRecent'
 
 const list = {
   hidden: { opacity: 0 },
@@ -99,7 +100,8 @@ export default function CoursesPage({ courses }) {
               />
             ))}
         </motion.div>
-        <h4>Go ahead and search for a course.</h4>
+        <h4>Check out the most recent reviews!</h4>
+        <ListMostRecent />
         <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>
       </section>
     </Layout>
