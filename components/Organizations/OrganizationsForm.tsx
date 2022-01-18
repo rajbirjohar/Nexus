@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
+import ImageDropzone from '../ImageDropzone'
 
 // length of description
 const maxLength = 1000
@@ -16,6 +17,7 @@ interface Organization {
   _organizationName: string
   _organizationTagline: string
   _organizationDescription: string
+  _organizationImage: string
 }
 
 // Component: OrganizationPostForm()
@@ -31,6 +33,7 @@ export default function OrganizationsForm() {
     _organizationName: '',
     _organizationTagline: '',
     _organizationDescription: '',
+    _organizationImage: '',
   }
 
   const sendData = async (organizationData) => {
@@ -47,6 +50,8 @@ export default function OrganizationsForm() {
     } else if (response.status === 200) {
       toast.success("You've created your organization!")
       Router.reload()
+    } else if (response.status === 413) {
+      toast.error('Image is too big or wrong format.')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -72,6 +77,9 @@ export default function OrganizationsForm() {
           if (!values._organizationDescription) {
             errors._organizationDescription = 'Required'
           }
+          if (!values._organizationImage) {
+            errors._organizationImage = 'Required'
+          }
           return errors
         }}
         onSubmit={(values, { setSubmitting }) => {
@@ -79,8 +87,23 @@ export default function OrganizationsForm() {
           setSubmitting(false)
         }}
       >
-        {({ values, handleSubmit, isSubmitting }) => (
+        {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
+            <div className={styles.inputheader}>
+              <label htmlFor="_organizationImage">
+                <strong>
+                  Profile Thumbnail: <br />
+                  <span className={styles.subtitle}>For highest quality, use a square photo</span>
+                </strong>
+              </label>
+              <ErrorMessage name="_organizationImage">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <ImageDropzone
+              setFieldValue={setFieldValue}
+              name="_organizationImage"
+            />
             <div className={styles.inputheader}>
               <label htmlFor="_organizationName">
                 <strong>Organization Name:</strong>
@@ -129,10 +152,10 @@ export default function OrganizationsForm() {
               placeholder="A very cool description"
               maxLength={maxLength}
             />
-            <span className={styles.commentactions}>
-              <span className={styles.maxlength}>
-                {maxLength - values._organizationDescription.length}/{maxLength}
-              </span>
+            <span className={styles.maxlength}>
+              {maxLength - values._organizationDescription.length}/{maxLength}
+            </span>
+            <span className={styles.actions}>
               <button
                 className={styles.primary}
                 type="submit"

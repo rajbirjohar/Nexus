@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import ImageDropzone from './ImageDropzone'
+import ImageDropzone from '../ImageDropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
@@ -93,7 +93,6 @@ export default function EventForm({
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log(values._eventImage)
           sendData(values)
           resetForm({
             values: {
@@ -113,6 +112,18 @@ export default function EventForm({
       >
         {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventImage">
+                <strong>Event Banner:</strong>
+                <span className={styles.subtitle}>
+                  For highest quality, use a rectangular photo
+                </span>
+              </label>
+              <ErrorMessage name="_eventImage">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
             <div className={styles.inputheader}>
               <label htmlFor="_eventName">
                 <strong>Event Name:</strong>
@@ -172,15 +183,7 @@ export default function EventForm({
               type="datetime-local"
               name="_eventEndDate"
             />
-            <div className={styles.inputheader}>
-              <label htmlFor="_eventImage">
-                <strong>Event Banner:</strong>
-              </label>
-              <ErrorMessage name="_eventImage">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
+
             <span className={styles.actions}>
               <button
                 className={styles.primary}

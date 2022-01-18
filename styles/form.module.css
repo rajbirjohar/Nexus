@@ -5,6 +5,10 @@
   align-items: center;
 }
 
+.subtitle {
+  color: var(--gray-500);
+}
+
 .primary {
   margin: var(--gap-half) 0;
   background-color: var(--teal-500);

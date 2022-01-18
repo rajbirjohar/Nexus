@@ -2,7 +2,21 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { getSession } from 'next-auth/react'
 // import { connectToDatabase } from '@/util/connectToDb'
 import clientPromise from '@/lib/mongodb'
+import { v2 as cloudinary } from 'cloudinary'
+
 const mongodb = require('mongodb')
+
+const {
+  hostname: cloud_name,
+  username: api_key,
+  password: api_secret,
+} = new URL(process.env.CLOUDINARY_URL)
+
+cloudinary.config({
+  cloud_name,
+  api_key,
+  api_secret,
+})
 
 // deleteOrganization
 // This endpoint takes the unique ID of the organization,
@@ -18,8 +32,11 @@ export default async function deleteOrganization(
   if (session) {
     try {
       const {
-        organizationData: { organizationId },
+        organizationData: { organizationId, imagePublicId },
       } = req.body
+      if (imagePublicId) {
+        const image = await cloudinary.uploader.destroy(imagePublicId)
+      }
       // First reset the creator's role so they can make a new org
       await db
         .collection('users')

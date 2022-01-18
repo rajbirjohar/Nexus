@@ -151,6 +151,7 @@ export default function ListOrganizations() {
             organizationId={organization._id}
             organizationName={organization.organizationName}
             organizationTagline={organization.organizationTagline}
+            organizationImage={organization.organizationImageURL}
           />
         ))}
       </motion.div>
