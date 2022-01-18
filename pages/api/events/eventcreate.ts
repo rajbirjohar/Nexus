@@ -37,7 +37,13 @@ export default async function createEvent(
         _eventImage,
       },
     } = req.body
-    const cloudinaryRes = await cloudinary.uploader.upload(_eventImage)
+    // Since we only need secure_url and public_id, set as null
+    // so if there is no event image submitted, it won't throw an
+    // "undefined error"
+    let cloudinaryRes = { secure_url: null, public_id: null }
+    if (_eventImage) {
+      cloudinaryRes = await cloudinary.uploader.upload(_eventImage)
+    }
     await db.collection('events').insertOne({
       eventCreator: eventCreator,
       email: email,
