@@ -59,9 +59,10 @@ export default function EventForm({
   return (
     <>
       <p>
-        You can create new events using the form below. Once you submit this
-        form, your event will show up on the Events page and will automatically
-        hide once the end date has been reached.
+        Want to spread the word about your awesome new event? Here is the place
+        to do it. Members who are part of your club will have your events
+        curated for them. Events will automatically hide from the Events page
+        once the end date has been reached.
       </p>
       <Formik
         validateOnBlur={false}

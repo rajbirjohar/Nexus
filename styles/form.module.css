@@ -328,5 +328,6 @@ make the button taller */
   }
   .datewrapper {
     flex-direction: column;
+    gap: 0;
   }
 }
