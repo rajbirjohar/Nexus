@@ -109,6 +109,15 @@ make the button taller */
   cursor: pointer;
 }
 
+.editcomment {
+  color: var(--teal-500);
+  font-weight: 600;
+}
+
+.editcomment:hover {
+  cursor: pointer;
+}
+
 .tabs {
   width: 100%;
   display: flex;
