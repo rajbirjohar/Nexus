@@ -34,7 +34,7 @@
 }
 
 .card:hover > .eventName,
-.card:hover > .organizationName {
+.card:hover > .orgheader > .organizationName {
   color: var(--teal-800);
 }
 

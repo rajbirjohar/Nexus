@@ -12,6 +12,7 @@ import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import { motion } from 'framer-motion'
 import animationData from '@/lotties/studentonbooks.json'
+import ListMostRecent from '@/components/Reviews/ListMostRecent'
 
 const list = {
   hidden: { opacity: 0 },
@@ -78,12 +79,17 @@ export default function CoursesPage({ courses }) {
             </svg>
           </svg>
         </div>
+        {!searchValue.length && (
+          <>
+            <h4>Check out the newest reviews.</h4>
+            <ListMostRecent />
+          </>
+        )}
         {!filteredCourses.length && (
           <>
             <NotFound placeholder="class" />
           </>
         )}
-
         <motion.div
           variants={list}
           initial="hidden"
