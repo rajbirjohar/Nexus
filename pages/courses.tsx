@@ -79,12 +79,17 @@ export default function CoursesPage({ courses }) {
             </svg>
           </svg>
         </div>
+        {!searchValue.length && (
+          <>
+            <h4>Check out the newest reviews.</h4>
+            <ListMostRecent />
+          </>
+        )}
         {!filteredCourses.length && (
           <>
             <NotFound placeholder="class" />
           </>
         )}
-
         <motion.div
           variants={list}
           initial="hidden"
@@ -100,8 +105,7 @@ export default function CoursesPage({ courses }) {
               />
             ))}
         </motion.div>
-        <h4>Check out the most recent reviews!</h4>
-        <ListMostRecent />
+        <h4>Go ahead and search for a course.</h4>
         <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>
       </section>
     </Layout>

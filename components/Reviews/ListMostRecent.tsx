@@ -1,7 +1,7 @@
 import useSWR from 'swr'
 import Link from 'next/link'
 import fetcher from '@/lib/fetcher'
-import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
+import RecentReviewPostCard from '@/components/Reviews/RecentReviewPostCard'
 import TimeAgo from 'react-timeago'
 import ErrorFetch from '../ErrorFetch'
 import Loader from '@/components/Skeleton'
@@ -41,7 +41,7 @@ export default function ListMostRecent() {
           className={cardstyles.gridtall}
         >
           {data.reviewPosts.map((post) => (
-            <ReviewPostCard
+            <RecentReviewPostCard
               key={post._id}
               reviewPostId={post._id}
               creator={post.creator}
