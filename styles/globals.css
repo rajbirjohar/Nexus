@@ -9,7 +9,7 @@
   --gap-med: 1.5rem;
   --small-gap: 4rem;
   --big-gap: 8rem;
-  --main-content: 72rem;
+  --main-content: 65rem;
   --radius-sm: 5px;
   --radius: 12px;
   --radius-lg: 25px;
@@ -238,6 +238,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: var(--gap-quarter);
+  margin: 0 auto;
 }
 
 button {
