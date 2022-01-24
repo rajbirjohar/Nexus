@@ -13,7 +13,7 @@
   justify-content: space-evenly;
   min-height: 70vh;
   gap: var(--small-gap);
-  max-width: var(--main-content);
+  max-width: 72rem;
   padding: 0 var(--gap-med);
 }
 

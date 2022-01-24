@@ -26,14 +26,12 @@ const deleteTextWrapper = {
 const deleteText = {
   closed: {
     opacity: 0,
-    x: -5,
     transition: {
       duration: 0.15,
     },
   },
   open: {
     opacity: 1,
-    x: 0,
     transition: {
       delay: 0.15,
     },
@@ -114,10 +112,10 @@ export default function ReviewPostCard({
         ) : (
           <motion.div
             layout="position"
-            animate={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -5 }}
-            exit={{ opacity: 0, x: 5 }}
-            transition={{ duration: 0.15 }}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15, type: 'tween' }}
           >
             <p>
               <strong>Review:</strong> <br />
