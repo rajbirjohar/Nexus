@@ -52,10 +52,10 @@ export default function CommentEditForm({
   return (
     <motion.div
       layout="position"
-      animate={{ opacity: 1, x: 0 }}
-      initial={{ opacity: 0, x: -5 }}
-      exit={{ opacity: 0, x: 5 }}
-      transition={{ duration: 0.15 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.15, type: 'tween' }}
     >
       <Formik
         validateOnBlur={false}

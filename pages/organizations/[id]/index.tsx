@@ -47,7 +47,6 @@ const button = {
     rotate: 0,
     transition: {
       duration: 0.05,
-      delay: 0,
       ease: 'easeOut',
     },
   },
@@ -55,7 +54,6 @@ const button = {
     rotate: 45,
     transition: {
       duration: 0.05,
-      delay: 0,
       ease: 'easeIn',
     },
   },
