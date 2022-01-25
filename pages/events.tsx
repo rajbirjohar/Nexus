@@ -15,13 +15,11 @@ export default function EventsPage() {
   const { data: session } = useSession()
   const allTabs = [
     {
-      icon: '🍅',
       label: 'All Events',
       id: 'allevents',
       component: <ListAllEvents />,
     },
     {
-      icon: '🥬',
       label: 'Member Events',
       id: 'memberevents',
       component: <ListUserEvents />,
@@ -35,6 +33,7 @@ export default function EventsPage() {
     <Layout>
       <Head>
         <title>Nexus | Events</title>
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <section>
         <div className={styles.hero}>
@@ -61,7 +60,7 @@ export default function EventsPage() {
         {session ? (
           <>
             <LayoutGroup>
-              <div className={formstyles.tabs}>
+              <nav className={formstyles.tabs}>
                 {initialTabs.map((item) => (
                   <motion.button
                     key={item.label}
@@ -81,7 +80,7 @@ export default function EventsPage() {
                     ) : null}
                   </motion.button>
                 ))}
-              </div>
+              </nav>
             </LayoutGroup>
             <section>
               <AnimatePresence exitBeforeEnter>

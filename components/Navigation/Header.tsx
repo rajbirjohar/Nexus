@@ -6,13 +6,8 @@ import { useWindowSize } from 'hooks/useWindowSize'
 import styles from '@/styles/header.module.css'
 import formstyles from '@/styles/form.module.css'
 import MobileHeader from './MobileHeader'
-
-// Component: Header
-// Params: none
-// Purpose: To render the navigation bar, both on desktop and mobile screens
-// When editing, ensure to update both nav bars with the same links
-
-// Determines the size of the window using the useWindowSize hook
+import Image from 'next/image'
+import myImg from 'public/NexusLogo.svg'
 
 interface Size {
   width: number | undefined
@@ -31,8 +26,6 @@ export default function Header() {
 
   return (
     <>
-      {/* If the window width is greater than 868 pixels,
-      display the desktop navigation bar */}
       {size.width > 668 ? (
         <nav
           className={
@@ -40,7 +33,18 @@ export default function Header() {
           }
         >
           <div className={styles.innernav}>
-            <ThemeChanger />
+            <Link href="/">
+              <a className={styles.logo}>
+                <Image
+                  src={myImg}
+                  alt="Nexus Logo"
+                  width={30}
+                  height={30}
+                  className={styles.navlogo}
+                />
+                <span>Nexus</span>
+              </a>
+            </Link>
             <ul className={styles.navlist}>
               <Link href="/">Home</Link>
               <Link href="/courses">Courses</Link>
@@ -64,97 +68,12 @@ export default function Header() {
                   </button>
                 </li>
               )}
+              <ThemeChanger />
             </ul>
           </div>
         </nav>
       ) : (
         <MobileHeader />
-        // <nav
-        //   className={
-        //     scroll
-        //       ? `${styles.mobilenavigation} ${styles.mobileshadow}`
-        //       : `${styles.mobilenavigation}`
-        //   }
-        // >
-        //   <div className={styles.hamburger} onClick={() => setOpen(!open)}>
-        //     <span
-        //       className={
-        //         open ? `${styles.inner} ${styles.onclick}` : `${styles.inner}`
-        //       }
-        //     ></span>
-        //     <span
-        //       className={
-        //         open ? `${styles.inner} ${styles.onclick2}` : `${styles.inner}`
-        //       }
-        //     ></span>
-        //   </div>
-        //   <AnimatePresence exitBeforeEnter>
-        //     <motion.ul
-        //       animate={open ? 'open' : 'closed'}
-        //       variants={list}
-        //       exit="closed"
-        //       initial={false}
-        //       className={styles.notopen}
-        //     >
-        //       <MobileLink
-        //         path="/"
-        //         title="Home"
-        //         onClick={() => setOpen(!open)}
-        //       />
-        //       <MobileLink
-        //         path="/courses"
-        //         title="Courses"
-        //         onClick={() => setOpen(!open)}
-        //       />
-        //       <MobileLink
-        //         path="/events"
-        //         title="Events"
-        //         onClick={() => setOpen(!open)}
-        //       />
-        //       <MobileLink
-        //         path="/organizations"
-        //         title="Organizations"
-        //         onClick={() => setOpen(!open)}
-        //       />
-
-        //       {session ? (
-        //         <>
-        //           <MobileLink
-        //             path="/profile"
-        //             title="Profile"
-        //             onClick={() => setOpen(!open)}
-        //           />
-        //           <motion.button
-        //             variants={listItems}
-        //             className={styles.logout}
-        //             onClick={() =>
-        //               signOut({
-        //                 callbackUrl: `${window.location.origin}`,
-        //               })
-        //             }
-        //           >
-        //             Sign out
-        //           </motion.button>
-        //         </>
-        //       ) : (
-        //         <motion.button
-        //           variants={listItems}
-        //           className={formstyles.primarylogin}
-        //           onClick={() =>
-        //             signIn('google', {
-        //               callbackUrl: `${window.location.origin}/profile`,
-        //             })
-        //           }
-        //         >
-        //           Sign in
-        //         </motion.button>
-        //       )}
-        //       <motion.li variants={listItems}>
-        //         <ThemeChanger />
-        //       </motion.li>
-        //     </motion.ul>
-        //   </AnimatePresence>
-        // </nav>
       )}
     </>
   )

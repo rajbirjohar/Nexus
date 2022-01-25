@@ -42,8 +42,7 @@ export default function Profile() {
     <Layout>
       <Head>
         <title>Nexus | Profile</title>
-        {/* Change this icon when we have a logo */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       {session && session.user.role && session.user.role.includes('none') && (
         <SetRoleForm userId={session.user.id} />
@@ -67,7 +66,7 @@ export default function Profile() {
           )}
           <p>
             Here you can view all your posts and organizations in one place.
-            Happy posting 🎉!
+            Happy posting.
           </p>
         </div>
       </div>
@@ -77,48 +76,45 @@ export default function Profile() {
           <LayoutGroup>
             <ListNotifications />
           </LayoutGroup>
-          <motion.div>
-            <nav>
-              <div className={formstyles.tabs}>
-                {initialTabs.map((item) => (
-                  <motion.button
-                    key={item.label}
-                    className={
-                      item.id === selectedTab.id
-                        ? `${formstyles.active} ${formstyles.tab}`
-                        : ` ${formstyles.tab}`
-                    }
-                    onClick={() => setSelectedTab(item)}
-                  >
-                    {item.label}
-                    {item.id === selectedTab.id ? (
-                      <motion.div
-                        className={formstyles.underline}
-                        layoutId="profile"
-                        initial={false}
-                      />
-                    ) : null}
-                  </motion.button>
-                ))}
-              </div>
-            </nav>
-            <section>
-              <AnimatePresence exitBeforeEnter>
-                <motion.div
-                  key={selectedTab ? selectedTab.label : 'empty'}
-                  animate={{ opacity: 1, x: 0 }}
-                  initial={{ opacity: 0, x: -5 }}
-                  exit={{ opacity: 0, x: 5 }}
-                  transition={{ duration: 0.15 }}
+          <LayoutGroup>
+            <nav className={formstyles.tabs}>
+              {initialTabs.map((item) => (
+                <motion.button
+                  key={item.label}
+                  className={
+                    item.id === selectedTab.id
+                      ? `${formstyles.active} ${formstyles.tab}`
+                      : ` ${formstyles.tab}`
+                  }
+                  onClick={() => setSelectedTab(item)}
                 >
-                  <h2>{selectedTab.label}</h2>
-                  {selectedTab
-                    ? selectedTab.component
-                    : 'Nothing to see here 😋.'}
-                </motion.div>
-              </AnimatePresence>
-            </section>
-          </motion.div>
+                  {item.label}
+                  {item.id === selectedTab.id ? (
+                    <motion.div
+                      className={formstyles.underline}
+                      layoutId="profile"
+                    />
+                  ) : null}
+                </motion.button>
+              ))}
+            </nav>
+          </LayoutGroup>
+          <section>
+            <AnimatePresence exitBeforeEnter>
+              <motion.div
+                key={selectedTab ? selectedTab.label : 'empty'}
+                animate={{ opacity: 1 }}
+                initial={{ opacity: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15, type: 'tween' }}
+              >
+                <h2>{selectedTab.label}</h2>
+                {selectedTab
+                  ? selectedTab.component
+                  : 'Nothing to see here 😋.'}
+              </motion.div>
+            </AnimatePresence>
+          </section>
         </>
       )}
     </Layout>

@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MenuButton } from './MenuButton'
 import styles from '@/styles/header.module.css'
 import formstyles from '@/styles/form.module.css'
+import Image from 'next/image'
+import myImg from 'public/NexusLogo.svg'
 
 const list = {
   closed: {
@@ -75,79 +77,86 @@ export default function MobileHeader() {
         scroll ? `${styles.mobilenav} ${styles.shadow}` : `${styles.mobilenav}`
       }
     >
-      <MenuButton
-        isOpen={isOpen}
-        onClick={() => setIsOpen(!isOpen)}
-        strokeWidth="4"
-        color="var(--gray-900)"
-        lineProps={{ strokeLinecap: 'round' }}
-        transition={{ type: 'tween', duration: 0.4 }}
-        width="24"
-        height="15"
-        className={styles.hamburger}
-      />
-      <AnimatePresence>
-        {isOpen && (
-          <motion.ul
-            className={styles.mobilenavlist}
-            variants={list}
-            initial="closed"
-            animate="open"
-            exit="closed"
-          >
-            <NavLink
-              title="Home"
-              path="/"
-              setIsOpen={setIsOpen}
-              isOpen={isOpen}
-            />
-            <NavLink
-              title="Courses"
-              path="/courses"
-              setIsOpen={setIsOpen}
-              isOpen={isOpen}
-            />
-            <NavLink
-              title="Events"
-              path="/events"
-              setIsOpen={setIsOpen}
-              isOpen={isOpen}
-            />
-            <NavLink
-              title="Organizations"
-              path="/organizations"
-              setIsOpen={setIsOpen}
-              isOpen={isOpen}
-            />
-            {session ? (
-              <>
-                <NavLink
-                  title="Profile"
-                  path="/profile"
-                  setIsOpen={setIsOpen}
-                  isOpen={isOpen}
-                />
+      <div className={styles.innernav}>
+        <Link href="/">
+          <a className={styles.mobilelogo}>
+            <Image src={myImg} alt="Nexus Logo" width={30} height={30} />
+          </a>
+        </Link>
+        <MenuButton
+          isOpen={isOpen}
+          onClick={() => setIsOpen(!isOpen)}
+          strokeWidth="4"
+          color="var(--gray-900)"
+          lineProps={{ strokeLinecap: 'round' }}
+          transition={{ type: 'tween', duration: 0.4 }}
+          width="24"
+          height="15"
+          className={styles.hamburger}
+        />
+        <AnimatePresence>
+          {isOpen && (
+            <motion.ul
+              className={styles.mobilenavlist}
+              variants={list}
+              initial="closed"
+              animate="open"
+              exit="closed"
+            >
+              <NavLink
+                title="Home"
+                path="/"
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+              />
+              <NavLink
+                title="Courses"
+                path="/courses"
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+              />
+              <NavLink
+                title="Events"
+                path="/events"
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+              />
+              <NavLink
+                title="Organizations"
+                path="/organizations"
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+              />
+              {session ? (
+                <>
+                  <NavLink
+                    title="Profile"
+                    path="/profile"
+                    setIsOpen={setIsOpen}
+                    isOpen={isOpen}
+                  />
+                  <motion.li variants={listItem}>
+                    <button onClick={() => signOut()}>Sign out</button>
+                  </motion.li>
+                </>
+              ) : (
+                // Else display the mobile navigation bar
                 <motion.li variants={listItem}>
-                  <button onClick={() => signOut()}>Sign out</button>
+                  <button
+                    className={formstyles.primary}
+                    onClick={() => signIn('google')}
+                  >
+                    Sign in
+                  </button>
                 </motion.li>
-              </>
-            ) : (
-              // Else display the mobile navigation bar
+              )}
               <motion.li variants={listItem}>
-                <button
-                  className={formstyles.primary}
-                  onClick={() => signIn('google')}
-                >
-                  Sign in
-                </button>
+                <ThemeChanger />
               </motion.li>
-            )}
-            <motion.li variants={listItem}>
-              <ThemeChanger />
-            </motion.li>
-          </motion.ul>
-        )}
-      </AnimatePresence>
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
     </nav>
   )
 }
