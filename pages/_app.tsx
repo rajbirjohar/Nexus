@@ -24,13 +24,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           toastOptions={{
             success: {
               style: {
-                background: 'var(--teal-100)',
+                background: 'var(--gray-50)',
                 color: 'var(--teal-800)',
               },
             },
             error: {
               style: {
-                background: 'var(--rose-100)',
+                background: 'var(--gray-50)',
                 color: 'var(--rose-800)',
               },
             },

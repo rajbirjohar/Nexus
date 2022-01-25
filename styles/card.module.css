@@ -13,7 +13,7 @@
 
 .gridshort {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--gap-med);
 }
 
@@ -60,6 +60,7 @@
 
 .greencard {
   padding: var(--gap-half) var(--gap-med);
+  margin-bottom: var(--gap-med);
   border-radius: var(--radius);
   background-color: var(--teal-100);
 }

@@ -13,14 +13,14 @@
   justify-content: space-evenly;
   min-height: 70vh;
   gap: var(--small-gap);
-  max-width: 72rem;
+  max-width: 75rem;
   padding: 0 var(--gap-med);
 }
 
 .herocards {
   display: flex;
   gap: var(--gap-med);
-  max-width: 72rem;
+  max-width: 75rem;
   margin: 0 auto;
   padding: var(--gap-double) var(--gap-med);
   /* Display scrollbar only when needed */

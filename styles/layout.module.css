@@ -1,3 +1,10 @@
+.herolayout {
+  margin: 6rem auto 0 auto;
+  min-height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .layout {
   margin: 6rem auto var(--small-gap) auto;
   min-height: 75vh;
@@ -7,9 +14,28 @@
   padding: 0 var(--gap-med);
 }
 
-.herolayout {
-  margin: 6rem auto 0 auto;
-  min-height: 75vh;
-  display: flex;
-  flex-direction: column;
+.page {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--gap-med);
+}
+
+.sidebar {
+  position: sticky;
+  top: 6rem;
+  background-color: var(--card);
+  box-shadow: var(--shadows);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  height: 40rem;
+}
+
+@media (max-width: 968px) {
+  .page {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .sidebar {
+    display: none;
+  }
 }
