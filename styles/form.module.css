@@ -318,6 +318,7 @@ make the button taller */
   .commentactions {
     flex-direction: column;
   }
+
   .datewrapper {
     flex-direction: column;
     gap: 0;
