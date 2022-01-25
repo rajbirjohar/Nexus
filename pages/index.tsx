@@ -33,11 +33,10 @@ export default function Home() {
       <Head>
         <title>Nexus</title>
         {/* Change this icon when we have a logo */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <section className={`${styles.hero} ${styles.centered}`}>
         <div className={styles.content}>
-          <h3 className={styles.subtitle}>Nexus @ UCR</h3>
           <h1 className={styles.title}>
             Centralize the decentralized.
             <br /> <span>Where information gathers</span>.

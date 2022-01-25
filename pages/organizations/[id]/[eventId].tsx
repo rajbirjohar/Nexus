@@ -108,7 +108,7 @@ const Event = ({ event }) => {
           <Head>
             <title>Nexus | {event.eventName}</title>
             {/* Change this icon when we have a logo */}
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="icon" href="/NexusLogo.svg" />
           </Head>
           <AnimatePresence exitBeforeEnter>
             {isEdit ? (
