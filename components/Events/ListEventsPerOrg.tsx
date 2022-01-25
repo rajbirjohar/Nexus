@@ -1,5 +1,5 @@
 import useSWR from 'swr'
-import Loader from '../Skeleton'
+import Loader from '../Layout/Skeleton'
 import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
 import cardstyles from '@/styles/card.module.css'

@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import NextNProgress from 'nextjs-progressbar'
-import Header from '@/components/Navigation/Header'
-import Footer from '@/components/Footer'
+import Header from '@/components/Layout/Navigation/Header'
+import Footer from '@/components/Layout/Footer'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'react-hot-toast'
@@ -24,13 +24,13 @@ function App({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           toastOptions={{
             success: {
               style: {
-                background: 'var(--teal-100)',
+                background: 'var(--gray-50)',
                 color: 'var(--teal-800)',
               },
             },
             error: {
               style: {
-                background: 'var(--rose-100)',
+                background: 'var(--gray-50)',
                 color: 'var(--rose-800)',
               },
             },

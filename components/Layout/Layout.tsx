@@ -1,12 +1,12 @@
 import styles from '@/styles/layout.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
+import Page from './Page'
 
-// Component: Layout({children})
-// Params: children
-// Purpose: To wrap all pages within a consistent main html tag
-// in order to ensure that every page has the same width, padding, margin
+interface Props {
+  children: React.ReactNode | React.ReactNode[]
+}
 
-export default function Layout({ children }) {
+export default function Layout({ children }: Props) {
   return (
     <motion.main
       initial={{ opacity: 0 }}

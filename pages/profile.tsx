@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import Layout from '@/components/Layout'
+import Page from '@/components/Layout/Page'
 import ListUserPosts from '@/components/Profile/ListUserPosts'
 import ListUserOrganizations from '@/components/Profile/ListUserOrganizations'
 import ListNotifications from '@/components/Profile/ListNotifications'
@@ -39,11 +39,7 @@ export default function Profile() {
   const [selectedTab, setSelectedTab] = useState(initialTabs[0])
 
   return (
-    <Layout>
-      <Head>
-        <title>Nexus | Profile</title>
-        <link rel="icon" href="/NexusLogo.svg" />
-      </Head>
+    <Page title="Profile" tip={null}>
       {session && session.user.role && session.user.role.includes('none') && (
         <SetRoleForm userId={session.user.id} />
       )}
@@ -117,6 +113,6 @@ export default function Profile() {
           </section>
         </>
       )}
-    </Layout>
+    </Page>
   )
 }

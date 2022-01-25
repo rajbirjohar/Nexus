@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import Layout from '@/components/Layout'
+import Page from '@/components/Layout/Page'
 import clientPromise from '@/lib/mongodb'
 import styles from '@/styles/events.module.css'
 import formstyles from '@/styles/form.module.css'
@@ -102,7 +102,7 @@ const Event = ({ event }) => {
     }
   }
   return (
-    <Layout>
+    <Page title={`${event.map((event) => event.eventName)}`} tip={null}>
       {event.map((event) => (
         <>
           <Head>
@@ -245,7 +245,7 @@ const Event = ({ event }) => {
           />
         </>
       ))}
-    </Layout>
+    </Page>
   )
 }
 

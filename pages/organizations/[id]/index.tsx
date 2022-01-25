@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import Layout from '@/components/Layout'
+import Page from '@/components/Layout/Page'
 import EventForm from '@/components/Events/EventForm'
 import OrganizationsEditForm from '@/components/Organizations/OrganizationsEditForm'
 import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
@@ -127,7 +127,12 @@ const Organization = ({ organization, superMembers, members }) => {
   const isNotMember = !isAdmin && !isMember
 
   return (
-    <Layout>
+    <Page
+      title={`${organization.map((organization) => {
+        organization.organizationName
+      })}`}
+      tip={null}
+    >
       {organization.map((organization) => (
         <>
           <Head>
@@ -231,7 +236,7 @@ const Organization = ({ organization, superMembers, members }) => {
           <ListEventsPerOrg organizationId={organization._id} />
         </>
       ))}
-    </Layout>
+    </Page>
   )
 }
 

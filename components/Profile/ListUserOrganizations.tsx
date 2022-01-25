@@ -2,7 +2,7 @@ import Link from 'next/link'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
-import Loader from '@/components/Skeleton'
+import Loader from '@/components/Layout/Skeleton'
 import styles from '@/styles/organizations.module.css'
 import cardstyles from '@/styles/card.module.css'
 import ErrorFetch from '../ErrorFetch'
@@ -18,7 +18,7 @@ const list = {
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.25,
+      staggerChildren: 0.05,
     },
   },
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import ThemeChanger from '../Theme'
+import ThemeChanger from '../../Theme'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useScrollBlock } from 'hooks/useScrollBlock'
 import { motion, AnimatePresence } from 'framer-motion'

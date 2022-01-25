@@ -3,7 +3,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import Layout from '@/components/Layout'
+import Page from '@/components/Layout/Page'
 import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
@@ -70,14 +70,9 @@ const CourseReviews = ({ course, averageRating }) => {
     .map((averageRating) => averageRating.average)
     .toString()
   return (
-    <Layout>
+    <Page title={`${course.map((course) => course.subjectCourse)}`} tip={null}>
       {course.map((course) => (
         <>
-          <Head>
-            <title>Nexus | {course.subjectCourse}</title>
-            {/* Change this icon when we have a logo */}
-            <link rel="icon" href="/NexusLogo.svg" />
-          </Head>
           <Link href="/courses" passHref>
             <a className={formstyles.linkwrap}>
               <svg
@@ -160,7 +155,7 @@ const CourseReviews = ({ course, averageRating }) => {
         </>
       ))}
       <ListReviewPosts courseId={id} />
-    </Layout>
+    </Page>
   )
 }
 
