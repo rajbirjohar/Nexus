@@ -51,7 +51,6 @@
   display: flex;
   justify-content: flex-end;
   gap: var(--gap);
-  margin-top: var(--gap-half);
 }
 
 .commentactions {
@@ -123,6 +122,15 @@ make the button taller */
 }
 
 .deletecomment:hover {
+  cursor: pointer;
+}
+
+.editcomment {
+  color: var(--teal-500);
+  font-weight: 600;
+}
+
+.editcomment:hover {
   cursor: pointer;
 }
 
@@ -318,7 +326,6 @@ make the button taller */
   .commentactions {
     flex-direction: column;
   }
-
   .datewrapper {
     flex-direction: column;
     gap: 0;

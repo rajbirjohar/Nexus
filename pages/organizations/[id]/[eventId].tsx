@@ -41,6 +41,7 @@ const deleteText = {
     x: 0,
     transition: {
       delay: 0.15,
+      type: 'tween',
     },
   },
 }

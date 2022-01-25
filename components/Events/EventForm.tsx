@@ -1,6 +1,6 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import ImageDropzone from './ImageDropzone'
+import ImageDropzone from '../ImageDropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
@@ -59,10 +59,10 @@ export default function EventForm({
   return (
     <>
       <p>
-        You can create new events using the form below. The date input requires
-        a 12 hour time as well. Once you submit this form, your event will show
-        up on the Events page and will automatically hide once the end date has
-        been reached.
+        Want to spread the word about your awesome new event? Here is the place
+        to do it. Members who are part of your club will have your events
+        curated for them. Events will automatically hide from the Events page
+        once the end date has been reached.
       </p>
       <Formik
         validateOnBlur={false}
@@ -87,13 +87,12 @@ export default function EventForm({
           } else if (new Date(values._eventEndDate) < new Date()) {
             errors._eventEndDate = 'End date has passed'
           }
-          if (!values._eventImage) {
-            errors._eventImage = 'Required'
-          }
+          // if (!values._eventImage) {
+          //   errors._eventImage = 'Required'
+          // }
           return errors
         }}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log(values._eventImage)
           sendData(values)
           resetForm({
             values: {
@@ -113,6 +112,22 @@ export default function EventForm({
       >
         {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
+            <div className={styles.inputheader}>
+              <label htmlFor="_eventImage">
+                <strong>
+                  Event Banner:{' '}
+                  <span className={styles.subtitle}>(Optional)</span>
+                  <br />
+                  <span className={styles.subtitle}>
+                    For highest quality, use a rectangular photo
+                  </span>
+                </strong>
+              </label>
+              <ErrorMessage name="_eventImage">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
             <div className={styles.inputheader}>
               <label htmlFor="_eventName">
                 <strong>Event Name:</strong>
@@ -146,41 +161,42 @@ export default function EventForm({
             <span className={styles.maxlength}>
               {maxLength - values._eventDetails.length}/{maxLength}
             </span>
-            <div className={styles.inputheader}>
-              <label htmlFor="_eventStartDate">
-                <strong>Event Start Date:</strong>
-              </label>
-              <ErrorMessage name="_eventStartDate">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
+            <div className={styles.datewrapper}>
+              <div className={styles.dateinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_eventStartDate">
+                    <strong>Event Start Date:</strong>
+                  </label>
+                  <ErrorMessage name="_eventStartDate">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="datetime-local"
+                  name="_eventStartDate"
+                />
+              </div>
+              <div className={styles.dateinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_eventEndDate">
+                    <strong>Event End Date:</strong>
+                  </label>
+                  <ErrorMessage name="_eventEndDate">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="datetime-local"
+                  name="_eventEndDate"
+                />
+              </div>
             </div>
-            <Field
-              autoComplete="off"
-              type="datetime-local"
-              name="_eventStartDate"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_eventEndDate">
-                <strong>Event End Date:</strong>
-              </label>
-              <ErrorMessage name="_eventEndDate">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="datetime-local"
-              name="_eventEndDate"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_eventImage">
-                <strong>Event Banner:</strong>
-              </label>
-              <ErrorMessage name="_eventImage">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
             <span className={styles.actions}>
               <button
                 className={styles.primary}

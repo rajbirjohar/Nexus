@@ -20,7 +20,7 @@
 
 .innernav {
   display: flex;
-  width: var(--main-content);
+  width: 72rem;
   margin: 0 auto;
   align-items: center;
   justify-content: space-between;

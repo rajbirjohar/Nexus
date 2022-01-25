@@ -8,17 +8,20 @@ interface Organization {
   organizationId: string
   _organization: string
   _confirmOrganization: string
+  imagePublicId: string
 }
 
 export default function DeleteOrganization({
   organizationId,
   organizationName,
+  imagePublicId,
 }) {
   const router = useRouter()
   const initialValues: Organization = {
     organizationId: organizationId,
     _organization: '',
     _confirmOrganization: '',
+    imagePublicId: imagePublicId,
   }
 
   const sendData = async (organizationData) => {
@@ -86,6 +89,7 @@ export default function DeleteOrganization({
               organizationId: organizationId,
               _organization: '',
               _confirmOrganization: '',
+              imagePublicId: '',
             },
           })
           setSubmitting(false)

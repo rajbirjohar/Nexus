@@ -6,7 +6,11 @@ import TransferOwnerForm from './TransferOwnerForm'
 import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import formstyles from '@/styles/form.module.css'
 
-export default function DangerousActions({ organizationId, organizationName }) {
+export default function DangerousActions({
+  organizationId,
+  organizationName,
+  imagePublicId,
+}) {
   const allTabs = [
     {
       icon: '🍅',
@@ -28,6 +32,7 @@ export default function DangerousActions({ organizationId, organizationName }) {
         <DeleteOrganization
           organizationId={organizationId}
           organizationName={organizationName}
+          imagePublicId={imagePublicId}
         />
       ),
     },
@@ -65,10 +70,10 @@ export default function DangerousActions({ organizationId, organizationName }) {
         <AnimatePresence exitBeforeEnter>
           <motion.div
             key={selectedTab ? selectedTab.label : 'empty'}
-            animate={{ opacity: 1, x: 0 }}
-            initial={{ opacity: 0, x: -5 }}
-            exit={{ opacity: 0, x: 5 }}
-            transition={{ duration: 0.15 }}
+            animate={{ opacity: 1 }}
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15, type: 'tween' }}
           >
             {selectedTab ? selectedTab.component : 'Nothing to see here 😋.'}
           </motion.div>

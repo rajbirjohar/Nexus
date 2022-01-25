@@ -59,15 +59,15 @@ export default function ReviewEditForm({
         'Uh oh. Something happened. Please contact us if this persists.'
       )
     }
-    return data.reviewPostData
+    return data.newReviewPostData
   }
   return (
     <motion.div
       layout="position"
-      animate={{ opacity: 1, x: 0 }}
-      initial={{ opacity: 0, x: -5 }}
-      exit={{ opacity: 0, x: 5 }}
-      transition={{ duration: 0.15 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.15, type: 'tween' }}
     >
       <Formik
         validateOnBlur={false}
@@ -93,6 +93,8 @@ export default function ReviewEditForm({
             errors._newReviewPost = 'You made no changes'
             errors._newReviewProfessor = 'You made no changes'
             errors._newTaken = 'You made no changes'
+            errors._newAnonymous = 'You made no changes'
+            errors._difficulty = 'You made no changes'
           }
           return errors
         }}
@@ -151,14 +153,27 @@ export default function ReviewEditForm({
               name="_newTaken"
               placeholder='"Winter 1907"'
             />
-            <label className={styles.checkedWrapper}>
-              <Field autoComplete="off" type="checkbox" name="_newAnonymous" />
-              <strong>Anonymous?</strong>
-            </label>
-            <label htmlFor="_difficulty">
-              <br />
-              <strong>Difficulty: {values._difficulty}</strong>
-            </label>
+            <div className={styles.inputheader}>
+              <label className={styles.checkedWrapper}>
+                <Field
+                  autoComplete="off"
+                  type="checkbox"
+                  name="_newAnonymous"
+                />
+                <strong>Anonymous?</strong>
+              </label>
+              <ErrorMessage name="_newAnonymous">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <div className={styles.inputheader}>
+              <label htmlFor="_difficulty">
+                <strong>Difficulty: {values._difficulty}</strong>
+              </label>
+              <ErrorMessage name="_newTaken">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
             <Slider />
             <span className={styles.actions}>
               <button

@@ -34,7 +34,7 @@
 }
 
 .card:hover > .eventName,
-.card:hover > .organizationName {
+.card:hover > .orgheader > .organizationName {
   color: var(--teal-800);
 }
 
@@ -154,9 +154,14 @@
 }
 
 /* Organization card styles */
+.rounded {
+  border-radius: 50%;
+}
+
 .orgheader {
   display: flex;
   align-items: center;
+  gap: var(--gap-half);
 }
 
 .orgheader:hover {

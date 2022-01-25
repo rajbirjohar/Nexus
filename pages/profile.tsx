@@ -95,6 +95,7 @@ export default function Profile() {
                       <motion.div
                         className={formstyles.underline}
                         layoutId="profile"
+                        initial={false}
                       />
                     ) : null}
                   </motion.button>

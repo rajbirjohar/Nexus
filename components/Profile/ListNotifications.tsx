@@ -26,13 +26,7 @@ export default function ListNotifications() {
     return <ErrorFetch placeholder="notifications" />
   }
   if (!data) {
-    return (
-      <div className={cardstyles.notifgrid}>
-        <div className={cardstyles.defaultnotif}>
-          <p>Fetching Notifications...</p>
-        </div>
-      </div>
-    )
+    return <div className={cardstyles.notifgrid}></div>
   }
   return (
     <motion.div
@@ -42,11 +36,7 @@ export default function ListNotifications() {
       layout="position"
       className={cardstyles.notifgrid}
     >
-      {data.notifications.length === 0 ? (
-        <div className={cardstyles.defaultnotif}>
-          <p>Zero new notifications 😄.</p>
-        </div>
-      ) : (
+      {data.notifications.length === 0 ? null : (
         <>
           {data.notifications.map((notif) => (
             <NotificationCard
