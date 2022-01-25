@@ -37,7 +37,6 @@ export default function Home() {
       </Head>
       <section className={`${styles.hero} ${styles.centered}`}>
         <div className={styles.content}>
-          <h3 className={styles.subtitle}>Nexus @ UCR</h3>
           <h1 className={styles.title}>
             Centralize the decentralized.
             <br /> <span>Where information gathers</span>.
