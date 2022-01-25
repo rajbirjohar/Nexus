@@ -9,6 +9,7 @@ export default function Disclaimers() {
     <Layout>
       <Head>
         <title>Nexus | Disclaimers</title>
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <h1>DISCLAIMERS</h1>
       <h3>Last updated November 19, 2021</h3>

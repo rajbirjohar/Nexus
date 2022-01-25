@@ -35,6 +35,7 @@ export default function EventsPage() {
     <Layout>
       <Head>
         <title>Nexus | Events</title>
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <section>
         <div className={styles.hero}>

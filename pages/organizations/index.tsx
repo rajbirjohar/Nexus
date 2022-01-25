@@ -33,7 +33,7 @@ export default function OrganizationsPage() {
       <Head>
         <title>Nexus | Organizations</title>
         {/* Change this icon when we have a logo */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <section>
         <div className={styles.hero}>

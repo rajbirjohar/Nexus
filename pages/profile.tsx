@@ -43,7 +43,7 @@ export default function Profile() {
       <Head>
         <title>Nexus | Profile</title>
         {/* Change this icon when we have a logo */}
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       {session && session.user.role && session.user.role.includes('none') && (
         <SetRoleForm userId={session.user.id} />
