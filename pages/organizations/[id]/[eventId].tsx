@@ -12,7 +12,7 @@ import CommentsForm from '@/components/Events/CommentsForm'
 import ListComments from '@/components/Events/ListComments'
 import cardstyles from '@/styles/card.module.css'
 import toast from 'react-hot-toast'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import EventEditForm from '@/components/Events/EventEditForm'
 const mongodb = require('mongodb')
 

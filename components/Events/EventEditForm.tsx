@@ -1,7 +1,7 @@
 import React from 'react'
 import toast from 'react-hot-toast'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import ImageDropzone from './ImageDropzone'
+import ImageDropzone from '../ImageDropzone'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
 import { motion } from 'framer-motion'
@@ -65,9 +65,9 @@ export default function EventEditForm({
   return (
     <motion.div
       layout="position"
-      animate={{ opacity: 1, x: 0 }}
-      initial={{ opacity: 0, x: -5 }}
-      exit={{ opacity: 0, x: 5 }}
+      animate={{ opacity: 1 }}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
       transition={{ duration: 0.15 }}
     >
       <Formik
