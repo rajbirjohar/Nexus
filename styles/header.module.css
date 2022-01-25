@@ -42,9 +42,11 @@
 .hamburger {
   z-index: 999;
 }
-
+.mobilelogo {
+  margin-top: var(--gap-quarter);
+}
 .hamburger {
-  margin-right: var(--gap-half);
+  margin-right: var(--gap);
 }
 
 .navlist {
