@@ -26,6 +26,13 @@
   justify-content: space-between;
 }
 
+.navlogo {
+  display: flex;
+  justify-content: flex-start;
+  margin: 0 auto;
+  width: 72rem;
+}
+
 .hamburger {
   z-index: 999;
   margin-right: 1rem;

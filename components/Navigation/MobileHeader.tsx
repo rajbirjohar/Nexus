@@ -7,6 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MenuButton } from './MenuButton'
 import styles from '@/styles/header.module.css'
 import formstyles from '@/styles/form.module.css'
+import Image from 'next/image'
+import myImg from 'public/NexusLogo.svg'
 
 const list = {
   closed: {
@@ -75,6 +77,18 @@ export default function MobileHeader() {
         scroll ? `${styles.mobilenav} ${styles.shadow}` : `${styles.mobilenav}`
       }
     >
+      <div className={styles.innernav}>
+      <Link href="/">
+        <a>
+          <Image
+            src={myImg}
+            alt="Nexus Logo"
+            width={50}
+            height={50}
+            className={styles.navlogo}
+          />
+        </a>
+      </Link>      
       <MenuButton
         isOpen={isOpen}
         onClick={() => setIsOpen(!isOpen)}
@@ -148,6 +162,7 @@ export default function MobileHeader() {
           </motion.ul>
         )}
       </AnimatePresence>
+      </div>
     </nav>
   )
 }

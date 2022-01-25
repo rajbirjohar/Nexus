@@ -6,6 +6,8 @@ import { useWindowSize } from 'hooks/useWindowSize'
 import styles from '@/styles/header.module.css'
 import formstyles from '@/styles/form.module.css'
 import MobileHeader from './MobileHeader'
+import Image from 'next/image'
+import myImg from 'public/NexusLogo.svg'
 
 // Component: Header
 // Params: none
@@ -40,7 +42,17 @@ export default function Header() {
           }
         >
           <div className={styles.innernav}>
-            <ThemeChanger />
+            <Link href="/">
+              <a>
+                <Image
+                  src={myImg}
+                  alt="Nexus Logo"
+                  width={50}
+                  height={50}
+                  className={styles.navlogo}
+                />
+              </a>
+            </Link>
             <ul className={styles.navlist}>
               <Link href="/">Home</Link>
               <Link href="/courses">Courses</Link>
@@ -64,6 +76,7 @@ export default function Header() {
                   </button>
                 </li>
               )}
+              <ThemeChanger />
             </ul>
           </div>
         </nav>
