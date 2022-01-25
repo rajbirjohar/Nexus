@@ -34,8 +34,11 @@ export default function EventEditForm({
     eventId: eventId,
     _newEventName: _oldEventName,
     _newEventDetails: _oldEventDetails,
-    _newEventStartDate: _oldEventStartDate,
-    _newEventEndDate: _oldEventEndDate,
+    // Time = :(
+    _newEventStartDate: new Date(_oldEventStartDate)
+      .toISOString()
+      .substring(0, 16),
+    _newEventEndDate: new Date(_oldEventEndDate).toISOString().substring(0, 16),
     _newEventImage: null,
     _oldEventImage: _oldEventImage,
     _oldImagePublicId: _oldImagePublicId,
@@ -118,6 +121,20 @@ export default function EventEditForm({
         {/* NOTE: No animation for edit form */}
         {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
+            <label htmlFor="_newEventImage">
+              <strong>
+                Event Banner:{' '}
+                <span className={styles.subtitle}>(Optional)</span>
+                <br />
+                <span className={styles.subtitle}>
+                  For highest quality, use a rectangular photo
+                </span>
+              </strong>
+            </label>
+            <ImageDropzone
+              setFieldValue={setFieldValue}
+              name="_newEventImage"
+            />
             <div className={styles.inputheader}>
               <label htmlFor="_newEventName">
                 <strong>Event Name:</strong>
@@ -151,44 +168,42 @@ export default function EventEditForm({
             <span className={styles.maxlength}>
               {maxLength - values._newEventDetails.length}/{maxLength}
             </span>
-            <div className={styles.inputheader}>
-              <label htmlFor="_newEventStartDate">
-                <strong>Event Start Date:</strong>
-              </label>
-              <ErrorMessage name="_newEventStartDate">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
+            <div className={styles.datewrapper}>
+              <div className={styles.dateinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newEventStartDate">
+                    <strong>Event Start Date:</strong>
+                  </label>
+                  <ErrorMessage name="_newEventStartDate">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="datetime-local"
+                  name="_newEventStartDate"
+                />
+              </div>
+              <div className={styles.dateinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newEventEndDate">
+                    <strong>Event End Date:</strong>
+                  </label>
+                  <ErrorMessage name="_newEventEndDate">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="datetime-local"
+                  name="_newEventEndDate"
+                />
+              </div>
             </div>
-            <Field
-              autoComplete="off"
-              type="datetime-local"
-              name="_newEventStartDate"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_newEventEndDate">
-                <strong>Event End Date:</strong>
-              </label>
-              <ErrorMessage name="_newEventEndDate">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="datetime-local"
-              name="_newEventEndDate"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_newEventImage">
-                <strong>Event Banner:</strong>
-              </label>
-              {/* <ErrorMessage name="_newEventImage">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage> */}
-            </div>
-            <ImageDropzone
-              setFieldValue={setFieldValue}
-              name="_newEventImage"
-            />
             <span className={styles.actions}>
               <button
                 className={styles.primary}

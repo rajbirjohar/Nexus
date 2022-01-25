@@ -5,6 +5,23 @@
   align-items: center;
 }
 
+.subtitle {
+  color: var(--gray-500);
+}
+
+.datewrapper {
+  display: flex;
+  gap: var(--gap);
+}
+
+.dateinput {
+  flex: 1;
+}
+
+.dateinput input {
+  width: 100%;
+}
+
 .primary {
   margin: var(--gap-half) 0;
   background-color: var(--teal-500);
@@ -300,5 +317,9 @@ make the button taller */
   }
   .commentactions {
     flex-direction: column;
+  }
+  .datewrapper {
+    flex-direction: column;
+    gap: 0;
   }
 }
