@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Layout from '../components/Layout'
+import Layout from '../components/Layout/Layout'
 import { LottieWrapper } from '@/components/LottieWrapper'
 import styles from '@/styles/404.module.css'
 import emptyAnimationData from '@/lotties/404-1.json'

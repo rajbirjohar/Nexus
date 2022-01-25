@@ -4,7 +4,7 @@ import fetcher from '@/lib/fetcher'
 import RecentReviewPostCard from '@/components/Reviews/RecentReviewPostCard'
 import TimeAgo from 'react-timeago'
 import ErrorFetch from '../ErrorFetch'
-import Loader from '@/components/Skeleton'
+import Loader from '@/components/Layout/Skeleton'
 import cardstyles from '@/styles/card.module.css'
 import { motion, LayoutGroup } from 'framer-motion'
 

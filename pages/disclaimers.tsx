@@ -1,8 +1,5 @@
 import Head from 'next/head'
-import Link from 'next/link'
-import Image from 'next/image'
-import Layout from '../components/Layout'
-import styles from '@/styles/404.module.css'
+import Layout from '../components/Layout/Layout'
 
 export default function Disclaimers() {
   return (
