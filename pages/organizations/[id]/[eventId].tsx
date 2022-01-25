@@ -13,6 +13,7 @@ import ListComments from '@/components/Events/ListComments'
 import cardstyles from '@/styles/card.module.css'
 import toast from 'react-hot-toast'
 import { motion, AnimatePresence } from 'framer-motion'
+import EventEditForm from '@/components/Events/EventEditForm'
 const mongodb = require('mongodb')
 
 const deleteTextWrapper = {
@@ -61,6 +62,7 @@ const Event = ({ event }) => {
       session.user.adminOfOrg &&
       session.user.adminOfOrg.includes(orgId))
   const [isDelete, setIsDelete] = useState(false)
+  const [isEdit, setIsEdit] = useState(false)
   const wrapperRef = useRef(null)
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, false)
@@ -108,44 +110,71 @@ const Event = ({ event }) => {
             {/* Change this icon when we have a logo */}
             <link rel="icon" href="/favicon.ico" />
           </Head>
-          {/* Might want to add some placeholder instead
-          This using the ? optional chaining is only meant
-          for events created before banner implementation */}
-          {event?.eventImageURL && (
-            <div className={styles.banner}>
-              <Image
-                src={event.eventImageURL}
-                layout="fill"
-                objectFit="cover"
-                alt="Banner"
+          <AnimatePresence exitBeforeEnter>
+            {isEdit ? (
+              <EventEditForm
+                eventId={eventId}
+                _oldEventName={event.eventName}
+                _oldEventDetails={event.eventDetails}
+                _oldEventStartDate={event.eventStartDate}
+                _oldEventEndDate={event.eventEndDate}
+                _oldEventImage={event.eventImageURL}
+                _oldImagePublicId={event.imagePublicId}
+                onHandleChange={setIsEdit}
               />
-            </div>
-          )}
-          <h1>{event.eventName}</h1>
-          <h4 className={styles.author}>
-            By{' '}
-            <Link href={`/organizations/${event.organizationName}`} passHref>
-              <a>{event.organizationName}</a>
-            </Link>
-          </h4>
-          {new Date(event.eventEndDate) < new Date() && (
-            <p className={cardstyles.expired}>This event has expired.</p>
-          )}
-          <h3>Event Details</h3>
-          <span className={styles.date}>
-            {new Date(event.eventStartDate).toLocaleString('en-US', {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-              timeZone: 'GMT',
-            })}{' '}
-            until{' '}
-            {new Date(event.eventEndDate).toLocaleString('en-US', {
-              dateStyle: 'medium',
-              timeStyle: 'short',
-              timeZone: 'GMT',
-            })}
-          </span>
-          <p>{event.eventDetails}</p>
+            ) : (
+              <>
+                {/* Might want to add some placeholder instead
+                This using the ? optional chaining is only meant
+                for events created before banner implementation */}
+                <motion.div
+                  layout="position"
+                  animate={{ opacity: 1, x: 0 }}
+                  initial={{ opacity: 0, x: -5 }}
+                  exit={{ opacity: 0, x: 5 }}
+                  transition={{ duration: 0.15 }}
+                ></motion.div>
+                {event?.eventImageURL && (
+                  <div className={styles.banner}>
+                    <Image
+                      src={event.eventImageURL}
+                      layout="fill"
+                      objectFit="cover"
+                      alt="Banner"
+                    />
+                  </div>
+                )}
+                <h1>{event.eventName}</h1>
+                <h4 className={styles.author}>
+                  By{' '}
+                  <Link
+                    href={`/organizations/${event.organizationName}`}
+                    passHref
+                  >
+                    <a>{event.organizationName}</a>
+                  </Link>
+                </h4>
+                {new Date(event.eventEndDate) < new Date() && (
+                  <p className={cardstyles.expired}>This event has expired.</p>
+                )}
+                <h3>Event Details</h3>
+                <span className={styles.date}>
+                  {new Date(event.eventStartDate).toLocaleString('en-US', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                    timeZone: 'GMT',
+                  })}{' '}
+                  until{' '}
+                  {new Date(event.eventEndDate).toLocaleString('en-US', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                    timeZone: 'GMT',
+                  })}
+                </span>
+                <p>{event.eventDetails}</p>
+              </>
+            )}
+          </AnimatePresence>
           {session && isAdmin && (
             <div className={formstyles.actions}>
               <motion.button
@@ -180,6 +209,27 @@ const Event = ({ event }) => {
                   )}
                 </AnimatePresence>
               </motion.button>
+
+              <button
+                onClick={() => {
+                  setIsEdit(!isEdit)
+                }}
+                className={formstyles.editicon}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                  />
+                </svg>
+              </button>
             </div>
           )}
 
