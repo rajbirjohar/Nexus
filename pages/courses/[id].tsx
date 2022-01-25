@@ -76,7 +76,7 @@ const CourseReviews = ({ course, averageRating }) => {
           <Head>
             <title>Nexus | {course.subjectCourse}</title>
             {/* Change this icon when we have a logo */}
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="icon" href="/NexusLogo.svg" />
           </Head>
           <Link href="/courses" passHref>
             <a className={formstyles.linkwrap}>

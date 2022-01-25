@@ -33,6 +33,7 @@ export default function CoursesPage({ courses }) {
     <Layout>
       <Head>
         <title>Nexus | Courses</title>
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <section>
         <div className={styles.hero}>

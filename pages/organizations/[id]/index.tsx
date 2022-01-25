@@ -133,7 +133,7 @@ const Organization = ({ organization, superMembers, members }) => {
           <Head>
             <title>Nexus | {organization.organizationName}</title>
             {/* Change this icon when we have a logo */}
-            <link rel="icon" href="/favicon.ico" />
+            <link rel="icon" href="/NexusLogo.svg" />
           </Head>
           <div className={styles.organizationHeader}>
             <div className={styles.organizationInner}>

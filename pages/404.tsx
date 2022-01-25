@@ -10,6 +10,7 @@ export default function Custom404() {
     <Layout>
       <Head>
         <title>Nexus | 404</title>
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <section className={styles.hero}>
         <h1>Hmm... how did you get here?</h1>

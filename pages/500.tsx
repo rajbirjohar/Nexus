@@ -10,6 +10,7 @@ export default function Custom500() {
     <Layout>
       <Head>
         <title>Nexus | 500</title>
+        <link rel="icon" href="/NexusLogo.svg" />
       </Head>
       <h1>Hmm... how did you get here?</h1>
       <p>
