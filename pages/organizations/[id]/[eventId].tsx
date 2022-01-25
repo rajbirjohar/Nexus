@@ -118,6 +118,7 @@ const Event = ({ event }) => {
                 _oldEventStartDate={event.eventStartDate}
                 _oldEventEndDate={event.eventEndDate}
                 _oldEventImage={event.eventImageURL}
+                _oldImagePublicId={event.imagePublicId}
                 onHandleChange={setIsEdit}
               />
             ) : (

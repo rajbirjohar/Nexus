@@ -14,7 +14,9 @@ interface Event {
   _newEventDetails: string
   _newEventStartDate: string
   _newEventEndDate: string
-  _newEventImage: string
+  _newEventImage: string | null
+  _oldEventImage: string
+  _oldImagePublicId: string
 }
 
 export default function EventEditForm({
@@ -24,6 +26,7 @@ export default function EventEditForm({
   _oldEventStartDate,
   _oldEventEndDate,
   _oldEventImage,
+  _oldImagePublicId,
   onHandleChange,
 }) {
   const { data: session } = useSession()
@@ -33,7 +36,9 @@ export default function EventEditForm({
     _newEventDetails: _oldEventDetails,
     _newEventStartDate: _oldEventStartDate,
     _newEventEndDate: _oldEventEndDate,
-    _newEventImage: _oldEventImage,
+    _newEventImage: null,
+    _oldEventImage: _oldEventImage,
+    _oldImagePublicId: _oldImagePublicId,
   }
 
   const sendData = async (newEventData) => {
@@ -86,21 +91,21 @@ export default function EventEditForm({
           } else if (new Date(values._newEventEndDate) < new Date()) {
             errors._newEventEndDate = 'End date has passed'
           }
-          if (!values._newEventImage) {
-            errors._newEventImage = 'Required'
-          }
+          // if (!values._newEventImage) {
+          //   errors._newEventImage = 'Required'
+          // }
           if (
             values._newEventName === _oldEventName &&
             values._newEventDetails === _oldEventDetails &&
             values._newEventStartDate === _oldEventStartDate &&
-            values._newEventEndDate === _oldEventEndDate &&
-            values._newEventImage === _oldEventImage
+            values._newEventEndDate === _oldEventEndDate
+            // values._newEventImage === _oldEventImage
           ) {
             errors._newEventName = 'You made no changes'
             errors._newEventDetails = 'You made no changes'
             errors._newEventStartDate = 'You made no changes'
             errors._newEventEndDate = 'You made no changes'
-            errors._newEventImage = 'You made no changes'
+            // errors._newEventImage = 'You made no changes'
           }
           return errors
         }}
@@ -176,9 +181,9 @@ export default function EventEditForm({
               <label htmlFor="_newEventImage">
                 <strong>Event Banner:</strong>
               </label>
-              <ErrorMessage name="_newEventImage">
+              {/* <ErrorMessage name="_newEventImage">
                 {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
+              </ErrorMessage> */}
             </div>
             <ImageDropzone
               setFieldValue={setFieldValue}
