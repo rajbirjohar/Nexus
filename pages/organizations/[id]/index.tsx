@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import Page from '@/components/Layout/Page'
 import EventForm from '@/components/Events/EventForm'
-import OrganizationsEditForm from '@/components/Organizations/OrganizationsEditForm'
 import ListEventsPerOrg from '@/components/Events/ListEventsPerOrg'
 import clientPromise from '@/lib/mongodb'
 import styles from '@/styles/organizations.module.css'
@@ -14,50 +13,6 @@ import AddAdminForm from '@/components/Organizations/AddAdminForm'
 import AddMemberForm from '@/components/Organizations/AddMemberForm'
 import RemoveMemberForm from '@/components/Organizations/RemoveMemberForm'
 import DangerousActions from '@/components/Organizations/DangerousActions'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
-
-const list = {
-  closed: {
-    height: '0',
-    transition: {
-      when: 'afterChildren',
-    },
-  },
-  open: {
-    height: 'auto',
-  },
-}
-
-const listItems = {
-  closed: {
-    opacity: 0,
-    y: -5,
-    transition: {
-      duration: 0.15,
-    },
-  },
-  open: {
-    opacity: 1,
-    y: 0,
-  },
-}
-
-const button = {
-  closed: {
-    rotate: 0,
-    transition: {
-      duration: 0.05,
-      ease: 'easeOut',
-    },
-  },
-  open: {
-    rotate: 45,
-    transition: {
-      duration: 0.05,
-      ease: 'easeIn',
-    },
-  },
-}
 
 const Section = ({ header, children }) => {
   const [open, setOpen] = useState(false)
@@ -65,13 +20,7 @@ const Section = ({ header, children }) => {
     <>
       <div className={formstyles.revealheader}>
         <h2>{header}</h2>
-        <motion.button
-          initial="closed"
-          variants={button}
-          animate={open ? 'open' : 'closed'}
-          className={formstyles.reveal}
-          onClick={() => setOpen(!open)}
-        >
+        <button className={formstyles.reveal} onClick={() => setOpen(!open)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -85,20 +34,10 @@ const Section = ({ header, children }) => {
               d="M12 4v16m8-8H4"
             />
           </svg>
-        </motion.button>
+        </button>
       </div>
-      <AnimatePresence exitBeforeEnter>
-        {open ? (
-          <motion.div
-            animate={open ? 'open' : 'closed'}
-            variants={list}
-            exit="closed"
-            initial="closed"
-          >
-            <motion.div variants={listItems}>{children}</motion.div>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+
+      {open ? children : null}
     </>
   )
 }
@@ -184,54 +123,47 @@ const Organization = ({ organization, superMembers, members }) => {
               </ul>
             </>
           )}
-          <LayoutGroup>
-            {session && isAdmin && (
-              <>
-                <Section header="Members">
-                  <>
-                    {members.length === 0 && (
-                      <p>No one has joined your organization yet 😭.</p>
-                    )}
-                    {members.map((member) => (
-                      <motion.li variants={listItems} key={member.memberId}>
-                        <strong>{member.member}</strong> / {member.email}
-                      </motion.li>
-                    ))}
-                  </>
-                </Section>
-                <Section header="Create Event">
-                  <EventForm
-                    creator={session.user.name}
-                    email={session.user.email}
-                    organizationName={organization.organizationName}
-                    organizationId={organization._id}
-                  />
-                </Section>
-                <Section header="Add Admin">
-                  <AddAdminForm organizationId={organization._id} />
-                </Section>
-              </>
-            )}
-            {session && isCreator && (
-              <>
-                <Section header="Dangerous Actions">
-                  <>
-                    <p>
-                      Only the organization owner can view and perform these
-                      actions. Please read through each warning before
-                      proceeding. It&#39;s very tedious to manually change the
-                      database 😅.
-                    </p>
-                    <DangerousActions
-                      organizationId={organization._id}
-                      organizationName={organization.organizationName}
-                      imagePublicId={organization.imagePublicId}
-                    />
-                  </>
-                </Section>
-              </>
-            )}
-          </LayoutGroup>
+
+          {session && isAdmin && (
+            <>
+              <Section header="Members">
+                {members.length === 0 && (
+                  <p>No one has joined your organization yet 😭.</p>
+                )}
+                {members.map((member) => (
+                  <li key={member.memberId}>
+                    <strong>{member.member}</strong> / {member.email}
+                  </li>
+                ))}
+              </Section>
+              <Section header="Create Event">
+                <EventForm
+                  creator={session.user.name}
+                  email={session.user.email}
+                  organizationName={organization.organizationName}
+                  organizationId={organization._id}
+                />
+              </Section>
+              <Section header="Add Admin">
+                <AddAdminForm organizationId={organization._id} />
+              </Section>
+            </>
+          )}
+          {session && isCreator && (
+            <Section header="Dangerous Actions">
+              <p>
+                Only the organization owner can view and perform these actions.
+                Please read through each warning before proceeding. It&#39;s
+                very tedious to manually change the database 😅.
+              </p>
+              <DangerousActions
+                organizationId={organization._id}
+                organizationName={organization.organizationName}
+                imagePublicId={organization.imagePublicId}
+              />
+            </Section>
+          )}
+
           <h2>Events</h2>
           <ListEventsPerOrg organizationId={organization._id} />
         </>

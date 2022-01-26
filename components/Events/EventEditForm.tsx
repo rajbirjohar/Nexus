@@ -4,7 +4,6 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import ImageDropzone from '../ImageDropzone'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
-import { motion } from 'framer-motion'
 
 const maxLength = 750
 
@@ -63,159 +62,143 @@ export default function EventEditForm({
     return data.eventData
   }
   return (
-    <motion.div
-      layout="position"
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.15 }}
+    <Formik
+      validateOnBlur={false}
+      initialValues={initialValues}
+      validate={(values: Event) => {
+        let errors: FormikErrors<Event> = {}
+        if (!values._newEventName) {
+          errors._newEventName = 'Required'
+        }
+        if (!values._newEventDetails) {
+          errors._newEventDetails = 'Required'
+        }
+        if (!values._newEventStartDate) {
+          errors._newEventStartDate = 'Required'
+        }
+        if (!values._newEventEndDate) {
+          errors._newEventEndDate = 'Required'
+        } else if (
+          new Date(values._newEventEndDate) <
+          new Date(values._newEventStartDate)
+        ) {
+          errors._newEventEndDate = 'End date is before start date'
+        } else if (new Date(values._newEventEndDate) < new Date()) {
+          errors._newEventEndDate = 'End date has passed'
+        }
+        // if (!values._newEventImage) {
+        //   errors._newEventImage = 'Required'
+        // }
+        if (
+          values._newEventName === _oldEventName &&
+          values._newEventDetails === _oldEventDetails &&
+          values._newEventStartDate === _oldEventStartDate &&
+          values._newEventEndDate === _oldEventEndDate
+          // values._newEventImage === _oldEventImage
+        ) {
+          errors._newEventName = 'You made no changes'
+          errors._newEventDetails = 'You made no changes'
+          errors._newEventStartDate = 'You made no changes'
+          errors._newEventEndDate = 'You made no changes'
+          // errors._newEventImage = 'You made no changes'
+        }
+        return errors
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        sendData(values)
+        !onHandleChange()
+        setSubmitting(false)
+      }}
     >
-      <Formik
-        validateOnBlur={false}
-        initialValues={initialValues}
-        validate={(values: Event) => {
-          let errors: FormikErrors<Event> = {}
-          if (!values._newEventName) {
-            errors._newEventName = 'Required'
-          }
-          if (!values._newEventDetails) {
-            errors._newEventDetails = 'Required'
-          }
-          if (!values._newEventStartDate) {
-            errors._newEventStartDate = 'Required'
-          }
-          if (!values._newEventEndDate) {
-            errors._newEventEndDate = 'Required'
-          } else if (
-            new Date(values._newEventEndDate) <
-            new Date(values._newEventStartDate)
-          ) {
-            errors._newEventEndDate = 'End date is before start date'
-          } else if (new Date(values._newEventEndDate) < new Date()) {
-            errors._newEventEndDate = 'End date has passed'
-          }
-          // if (!values._newEventImage) {
-          //   errors._newEventImage = 'Required'
-          // }
-          if (
-            values._newEventName === _oldEventName &&
-            values._newEventDetails === _oldEventDetails &&
-            values._newEventStartDate === _oldEventStartDate &&
-            values._newEventEndDate === _oldEventEndDate
-            // values._newEventImage === _oldEventImage
-          ) {
-            errors._newEventName = 'You made no changes'
-            errors._newEventDetails = 'You made no changes'
-            errors._newEventStartDate = 'You made no changes'
-            errors._newEventEndDate = 'You made no changes'
-            // errors._newEventImage = 'You made no changes'
-          }
-          return errors
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          sendData(values)
-          !onHandleChange()
-          setSubmitting(false)
-        }}
-      >
-        {/* NOTE: No animation for edit form */}
-        {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
-          <Form onSubmit={handleSubmit}>
-            <label htmlFor="_newEventImage">
-              <strong>
-                Event Banner:{' '}
-                <span className={styles.subtitle}>(Optional)</span>
-                <br />
-                <span className={styles.subtitle}>
-                  For highest quality, use a rectangular photo
-                </span>
-              </strong>
+      {/* NOTE: No animation for edit form */}
+      {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
+        <Form onSubmit={handleSubmit}>
+          <label htmlFor="_newEventImage">
+            <strong>
+              Event Banner: <span className={styles.subtitle}>(Optional)</span>
+              <br />
+              <span className={styles.subtitle}>
+                For highest quality, use a rectangular photo
+              </span>
+            </strong>
+          </label>
+          <ImageDropzone setFieldValue={setFieldValue} name="_newEventImage" />
+          <div className={styles.inputheader}>
+            <label htmlFor="_newEventName">
+              <strong>Event Name:</strong>
             </label>
-            <ImageDropzone
-              setFieldValue={setFieldValue}
-              name="_newEventImage"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_newEventName">
-                <strong>Event Name:</strong>
-              </label>
-              <ErrorMessage name="_newEventName">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newEventName"
-              type="text"
-              placeholder="Scotty's Birthday"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_newEventDetails">
-                <strong>Event Details:</strong>
-              </label>
-              <ErrorMessage name="_newEventDetails">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newEventDetails"
-              component="textarea"
-              rows="3"
-              placeholder="Scotty's Birthday Details"
-              maxLength={maxLength}
-            />
-            <span className={styles.maxlength}>
-              {maxLength - values._newEventDetails.length}/{maxLength}
-            </span>
-            <div className={styles.datewrapper}>
-              <div className={styles.dateinput}>
-                <div className={styles.inputheader}>
-                  <label htmlFor="_newEventStartDate">
-                    <strong>Event Start Date:</strong>
-                  </label>
-                  <ErrorMessage name="_newEventStartDate">
-                    {(message) => (
-                      <span className={styles.error}>{message}</span>
-                    )}
-                  </ErrorMessage>
-                </div>
-                <Field
-                  autoComplete="off"
-                  type="datetime-local"
-                  name="_newEventStartDate"
-                />
+            <ErrorMessage name="_newEventName">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Field
+            autoComplete="off"
+            name="_newEventName"
+            type="text"
+            placeholder="Scotty's Birthday"
+          />
+          <div className={styles.inputheader}>
+            <label htmlFor="_newEventDetails">
+              <strong>Event Details:</strong>
+            </label>
+            <ErrorMessage name="_newEventDetails">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Field
+            autoComplete="off"
+            name="_newEventDetails"
+            component="textarea"
+            rows="3"
+            placeholder="Scotty's Birthday Details"
+            maxLength={maxLength}
+          />
+          <span className={styles.maxlength}>
+            {maxLength - values._newEventDetails.length}/{maxLength}
+          </span>
+          <div className={styles.datewrapper}>
+            <div className={styles.dateinput}>
+              <div className={styles.inputheader}>
+                <label htmlFor="_newEventStartDate">
+                  <strong>Event Start Date:</strong>
+                </label>
+                <ErrorMessage name="_newEventStartDate">
+                  {(message) => <span className={styles.error}>{message}</span>}
+                </ErrorMessage>
               </div>
-              <div className={styles.dateinput}>
-                <div className={styles.inputheader}>
-                  <label htmlFor="_newEventEndDate">
-                    <strong>Event End Date:</strong>
-                  </label>
-                  <ErrorMessage name="_newEventEndDate">
-                    {(message) => (
-                      <span className={styles.error}>{message}</span>
-                    )}
-                  </ErrorMessage>
-                </div>
-                <Field
-                  autoComplete="off"
-                  type="datetime-local"
-                  name="_newEventEndDate"
-                />
-              </div>
+              <Field
+                autoComplete="off"
+                type="datetime-local"
+                name="_newEventStartDate"
+              />
             </div>
-            <span className={styles.actions}>
-              <button
-                className={styles.primary}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Edit Event!
-              </button>
-            </span>
-          </Form>
-        )}
-      </Formik>
-    </motion.div>
+            <div className={styles.dateinput}>
+              <div className={styles.inputheader}>
+                <label htmlFor="_newEventEndDate">
+                  <strong>Event End Date:</strong>
+                </label>
+                <ErrorMessage name="_newEventEndDate">
+                  {(message) => <span className={styles.error}>{message}</span>}
+                </ErrorMessage>
+              </div>
+              <Field
+                autoComplete="off"
+                type="datetime-local"
+                name="_newEventEndDate"
+              />
+            </div>
+          </div>
+          <span className={styles.actions}>
+            <button
+              className={styles.primary}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Edit Event!
+            </button>
+          </span>
+        </Form>
+      )}
+    </Formik>
   )
 }

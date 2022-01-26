@@ -3,7 +3,7 @@ import { useState } from 'react'
 import DeleteOrganization from './DeleteOrganization'
 import RemoveAdminForm from './RemoveAdminForm'
 import TransferOwnerForm from './TransferOwnerForm'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import formstyles from '@/styles/form.module.css'
 
 export default function DangerousActions({

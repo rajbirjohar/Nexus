@@ -3,40 +3,7 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion, AnimatePresence } from 'framer-motion'
 import ReviewEditForm from './ReviewEditForm'
-
-const listItems = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-}
-
-const deleteTextWrapper = {
-  closed: {
-    width: '0',
-    transition: {
-      when: 'afterChildren',
-    },
-  },
-  open: {
-    width: 'auto',
-  },
-}
-
-const deleteText = {
-  closed: {
-    opacity: 0,
-    transition: {
-      duration: 0.15,
-    },
-  },
-  open: {
-    opacity: 1,
-    transition: {
-      delay: 0.15,
-    },
-  },
-}
 
 export default function ReviewPostCard({
   creator,
@@ -93,51 +60,45 @@ export default function ReviewPostCard({
   }
 
   return (
-    <motion.div variants={listItems} className={cardstyles.reviewcard} layout>
-      <motion.div layout="position" className={cardstyles.reviewheader}>
+    <div className={cardstyles.reviewcard}>
+      <div className={cardstyles.reviewheader}>
         <h3 className={cardstyles.coursetitle}>{course}</h3>
         <h3 className={cardstyles.difficulty}>{difficulty}</h3>
-      </motion.div>
-      <AnimatePresence exitBeforeEnter>
-        {isEdit ? (
-          <ReviewEditForm
-            reviewPostId={reviewPostId}
-            oldReviewPost={reviewPost}
-            oldReviewProfessor={reviewProfessor}
-            oldTaken={taken}
-            oldDifficulty={difficulty}
-            oldAnonymous={anonymous}
-            onHandleChange={setIsEdit}
-          />
-        ) : (
-          <motion.div
-            layout="position"
-            animate={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15, type: 'tween' }}
-          >
-            <p>
-              <strong>Review:</strong> <br />
-              <i>&quot;{reviewPost}&quot;</i>
-            </p>
-            <p>
-              <strong>Professor:</strong> {reviewProfessor}
-            </p>
-            <p>
-              <strong>Taken:</strong> {taken}
-            </p>
-            <p className={cardstyles.author}>
-              <strong>Author: </strong>
-              {anonymous === true ? <>Anonymous</> : <>{creator}</>} about{' '}
-              {timestamp}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      </div>
+
+      {isEdit ? (
+        <ReviewEditForm
+          reviewPostId={reviewPostId}
+          oldReviewPost={reviewPost}
+          oldReviewProfessor={reviewProfessor}
+          oldTaken={taken}
+          oldDifficulty={difficulty}
+          oldAnonymous={anonymous}
+          onHandleChange={setIsEdit}
+        />
+      ) : (
+        <div>
+          <p>
+            <strong>Review:</strong> <br />
+            <i>&quot;{reviewPost}&quot;</i>
+          </p>
+          <p>
+            <strong>Professor:</strong> {reviewProfessor}
+          </p>
+          <p>
+            <strong>Taken:</strong> {taken}
+          </p>
+          <p className={cardstyles.author}>
+            <strong>Author: </strong>
+            {anonymous === true ? <>Anonymous</> : <>{creator}</>} about{' '}
+            {timestamp}
+          </p>
+        </div>
+      )}
+
       {session && session.user.id === creatorId && (
-        <motion.span layout className={formstyles.actions}>
-          <motion.button
+        <span className={formstyles.actions}>
+          <button
             onClick={confirmDelete}
             className={formstyles.deleteicon}
             ref={wrapperRef}
@@ -155,19 +116,13 @@ export default function ReviewPostCard({
                 d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
               />
             </svg>
-            <AnimatePresence exitBeforeEnter>
-              {isDelete && (
-                <motion.span
-                  variants={deleteTextWrapper}
-                  animate={isDelete ? 'open' : 'closed'}
-                  initial="closed"
-                  exit="closed"
-                >
-                  <motion.span variants={deleteText}>Confirm</motion.span>
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.button>
+
+            {isDelete && (
+              <span>
+                <span>Confirm</span>
+              </span>
+            )}
+          </button>
 
           <button
             onClick={() => {
@@ -189,8 +144,8 @@ export default function ReviewPostCard({
               />
             </svg>
           </button>
-        </motion.span>
+        </span>
       )}
-    </motion.div>
+    </div>
   )
 }

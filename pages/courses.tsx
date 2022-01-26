@@ -10,19 +10,8 @@ import { GreenTip } from '@/components/Layout/Tips'
 import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion } from 'framer-motion'
 import animationData from '@/lotties/studentonbooks.json'
 import ListMostRecent from '@/components/Reviews/ListMostRecent'
-
-const list = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
@@ -90,12 +79,7 @@ export default function CoursesPage({ courses }) {
           <NotFound placeholder="class" />
         </>
       )}
-      <motion.div
-        variants={list}
-        initial="hidden"
-        animate="show"
-        className={cardstyles.gridshort}
-      >
+      <div className={cardstyles.gridshort}>
         {searchValue.length > 1 &&
           filteredCourses.map((course) => (
             <CourseCard
@@ -104,7 +88,7 @@ export default function CoursesPage({ courses }) {
               courseName={course.subjectCourse}
             />
           ))}
-      </motion.div>
+      </div>
       <h4>Go ahead and search for a course.</h4>
       <p>Scraped with hard work, enginuity, and a crazy script by Isaac.</p>
     </Page>

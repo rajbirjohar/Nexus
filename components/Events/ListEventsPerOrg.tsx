@@ -4,17 +4,6 @@ import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
 import cardstyles from '@/styles/card.module.css'
 import ErrorFetch from '../ErrorFetch'
-import { motion } from 'framer-motion'
-
-const list = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
 
 export default function ListEventsPerOrg({ organizationId }) {
   const { data, error } = useSWR(`/api/events/${organizationId}`, Fetcher, {
@@ -27,12 +16,7 @@ export default function ListEventsPerOrg({ organizationId }) {
     return <Loader />
   }
   return (
-    <motion.div
-      variants={list}
-      initial="hidden"
-      animate="show"
-      className={cardstyles.grid}
-    >
+    <div className={cardstyles.grid}>
       {data.events.length === 0 && <p>No events today!</p>}
       {data.events.map((newEvent) => (
         <EventCard
@@ -45,6 +29,6 @@ export default function ListEventsPerOrg({ organizationId }) {
           endDate={newEvent.eventEndDate}
         />
       ))}
-    </motion.div>
+    </div>
   )
 }

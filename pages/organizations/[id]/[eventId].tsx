@@ -12,39 +12,8 @@ import CommentsForm from '@/components/Events/CommentsForm'
 import ListComments from '@/components/Events/ListComments'
 import cardstyles from '@/styles/card.module.css'
 import toast from 'react-hot-toast'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import EventEditForm from '@/components/Events/EventEditForm'
 const mongodb = require('mongodb')
-
-const deleteTextWrapper = {
-  closed: {
-    width: '0',
-    transition: {
-      when: 'afterChildren',
-    },
-  },
-  open: {
-    width: 'auto',
-  },
-}
-
-const deleteText = {
-  closed: {
-    opacity: 0,
-    x: -5,
-    transition: {
-      duration: 0.15,
-    },
-  },
-  open: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      delay: 0.15,
-      type: 'tween',
-    },
-  },
-}
 
 const Event = ({ event }) => {
   const { data: session } = useSession()
@@ -104,81 +73,64 @@ const Event = ({ event }) => {
   return (
     <Page title={`${event.map((event) => event.eventName)}`} tip={null}>
       {event.map((event) => (
-        <>
-          <Head>
-            <title>Nexus | {event.eventName}</title>
-            {/* Change this icon when we have a logo */}
-            <link rel="icon" href="/NexusLogo.svg" />
-          </Head>
-          <AnimatePresence exitBeforeEnter>
-            {isEdit ? (
-              <EventEditForm
-                eventId={eventId}
-                _oldEventName={event.eventName}
-                _oldEventDetails={event.eventDetails}
-                _oldEventStartDate={event.eventStartDate}
-                _oldEventEndDate={event.eventEndDate}
-                _oldEventImage={event.eventImageURL}
-                _oldImagePublicId={event.imagePublicId}
-                onHandleChange={setIsEdit}
-              />
-            ) : (
-              <>
-                {/* Might want to add some placeholder instead
-                This using the ? optional chaining is only meant
-                for events created before banner implementation */}
-                <motion.div
-                  layout="position"
-                  animate={{ opacity: 1, x: 0 }}
-                  initial={{ opacity: 0, x: -5 }}
-                  exit={{ opacity: 0, x: 5 }}
-                  transition={{ duration: 0.15 }}
-                ></motion.div>
-                {event?.eventImageURL && (
-                  <div className={styles.banner}>
-                    <Image
-                      src={event.eventImageURL}
-                      layout="fill"
-                      objectFit="cover"
-                      alt="Banner"
-                    />
-                  </div>
-                )}
-                <h1>{event.eventName}</h1>
-                <h4 className={styles.author}>
-                  By{' '}
-                  <Link
-                    href={`/organizations/${event.organizationName}`}
-                    passHref
-                  >
-                    <a>{event.organizationName}</a>
-                  </Link>
-                </h4>
-                {new Date(event.eventEndDate) < new Date() && (
-                  <p className={cardstyles.expired}>This event has expired.</p>
-                )}
-                <h3>Event Details</h3>
-                <span className={styles.date}>
-                  {new Date(event.eventStartDate).toLocaleString('en-US', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: 'GMT',
-                  })}{' '}
-                  until{' '}
-                  {new Date(event.eventEndDate).toLocaleString('en-US', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: 'GMT',
-                  })}
-                </span>
-                <p>{event.eventDetails}</p>
-              </>
-            )}
-          </AnimatePresence>
+        <section>
+          {isEdit ? (
+            <EventEditForm
+              eventId={eventId}
+              _oldEventName={event.eventName}
+              _oldEventDetails={event.eventDetails}
+              _oldEventStartDate={event.eventStartDate}
+              _oldEventEndDate={event.eventEndDate}
+              _oldEventImage={event.eventImageURL}
+              _oldImagePublicId={event.imagePublicId}
+              onHandleChange={setIsEdit}
+            />
+          ) : (
+            <div>
+              {event?.eventImageURL && (
+                <div className={styles.banner}>
+                  <Image
+                    src={event.eventImageURL}
+                    layout="fill"
+                    objectFit="cover"
+                    alt="Banner"
+                  />
+                </div>
+              )}
+              <h1>{event.eventName}</h1>
+              <h4 className={styles.author}>
+                By{' '}
+                <Link
+                  href={`/organizations/${event.organizationName}`}
+                  passHref
+                >
+                  <a>{event.organizationName}</a>
+                </Link>
+              </h4>
+              {new Date(event.eventEndDate) < new Date() && (
+                <p className={cardstyles.expired}>This event has expired.</p>
+              )}
+              <h3>Event Details</h3>
+              <span className={styles.date}>
+                {new Date(event.eventStartDate).toLocaleString('en-US', {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                  timeZone: 'GMT',
+                })}{' '}
+                until{' '}
+                {new Date(event.eventEndDate).toLocaleString('en-US', {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                  timeZone: 'GMT',
+                })}
+              </span>
+              <p>{event.eventDetails}</p>
+            </div>
+          )}
+
           {session && isAdmin && (
-            <div className={formstyles.actions}>
-              <motion.button
-                // onClick={deleteReviewPost}
+            <span className={formstyles.actions}>
+              <button
                 onClick={() => confirmDelete(event._id, event.imagePublicId)}
                 className={formstyles.deleteicon}
                 ref={wrapperRef}
@@ -196,19 +148,8 @@ const Event = ({ event }) => {
                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                   />
                 </svg>
-                <AnimatePresence exitBeforeEnter>
-                  {isDelete && (
-                    <motion.span
-                      variants={deleteTextWrapper}
-                      animate={isDelete ? 'open' : 'closed'}
-                      initial="closed"
-                      exit="closed"
-                    >
-                      <motion.span variants={deleteText}>Confirm</motion.span>
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </motion.button>
+                {isDelete && <span>Confirm</span>}
+              </button>
 
               <button
                 onClick={() => {
@@ -230,7 +171,7 @@ const Event = ({ event }) => {
                   />
                 </svg>
               </button>
-            </div>
+            </span>
           )}
 
           <h3>Comments</h3>
@@ -243,7 +184,7 @@ const Event = ({ event }) => {
             eventId={event._id}
             organizationId={event.organizationId}
           />
-        </>
+        </section>
       ))}
     </Page>
   )

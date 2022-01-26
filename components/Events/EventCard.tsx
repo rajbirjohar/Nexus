@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import cardstyles from '@/styles/card.module.css'
 
 const listItems = {
@@ -22,7 +21,7 @@ export default function EventCard({
 }) {
   return (
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
-      <motion.div variants={listItems} id={eventId} className={cardstyles.card}>
+      <div id={eventId} className={cardstyles.card}>
         {new Date(endDate) < new Date() && (
           <span className={cardstyles.expired}>Expired</span>
         )}
@@ -45,7 +44,7 @@ export default function EventCard({
             timeZone: 'GMT',
           })}
         </span>
-      </motion.div>
+      </div>
     </Link>
   )
 }

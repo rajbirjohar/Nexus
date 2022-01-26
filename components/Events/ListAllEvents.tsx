@@ -8,17 +8,6 @@ import NotFound from '../notFound'
 import ErrorFetch from '../ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
-import { motion, LayoutGroup } from 'framer-motion'
-
-const list = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
 
 export default function ListAllEvents() {
   const { data, error } = useSWR('/api/events/eventfetch', Fetcher, {
@@ -105,12 +94,7 @@ export default function ListAllEvents() {
       {!filteredEvents.length && data.events.length !== 0 && (
         <NotFound placeholder="event" />
       )}
-      <motion.div
-        variants={list}
-        initial="hidden"
-        animate="show"
-        className={cardstyles.grid}
-      >
+      <div className={cardstyles.grid}>
         {filteredEvents.map((newEvent) => (
           <EventCard
             key={newEvent._id}
@@ -122,7 +106,7 @@ export default function ListAllEvents() {
             endDate={newEvent.eventEndDate}
           />
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }

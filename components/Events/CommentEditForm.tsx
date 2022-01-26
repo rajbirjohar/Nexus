@@ -3,7 +3,6 @@ import toast from 'react-hot-toast'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
-import { motion } from 'framer-motion'
 
 // Max length for review
 const maxLength = 200
@@ -50,64 +49,56 @@ export default function CommentEditForm({
     return data.newCommentData
   }
   return (
-    <motion.div
-      layout="position"
-      animate={{ opacity: 1 }}
-      initial={{ opacity: 0 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.15, type: 'tween' }}
+    <Formik
+      validateOnBlur={false}
+      initialValues={initialValues}
+      validate={(values: Comment) => {
+        let errors: FormikErrors<Comment> = {}
+        if (!values._newComment) {
+          errors._newComment = 'Required'
+        }
+        if (values._newComment === oldComment) {
+          errors._newComment = 'You made no changes'
+        }
+        return errors
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        sendData(values)
+        !onHandleChange()
+        setSubmitting(false)
+      }}
     >
-      <Formik
-        validateOnBlur={false}
-        initialValues={initialValues}
-        validate={(values: Comment) => {
-          let errors: FormikErrors<Comment> = {}
-          if (!values._newComment) {
-            errors._newComment = 'Required'
-          }
-          if (values._newComment === oldComment) {
-            errors._newComment = 'You made no changes'
-          }
-          return errors
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          sendData(values)
-          !onHandleChange()
-          setSubmitting(false)
-        }}
-      >
-        {({ values, handleSubmit, isSubmitting }) => (
-          <Form onSubmit={handleSubmit}>
-            <div className={styles.inputheader}>
-              <label htmlFor="_newComment">
-                <strong>Comment:</strong>
-              </label>
-              <ErrorMessage name="_newComment">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newComment"
-              placeholder='"Show your interest!"'
-              rows="3"
-              maxLength={maxLength}
-            />
-            <div className={styles.commentactions}>
-              <span className={styles.maxlength}>
-                {maxLength - values._newComment.length}/{maxLength}
-              </span>
-              <button
-                className={styles.primary}
-                type="submit"
-                disabled={isSubmitting}
-              >
-                Edit Comment!
-              </button>
-            </div>
-          </Form>
-        )}
-      </Formik>
-    </motion.div>
+      {({ values, handleSubmit, isSubmitting }) => (
+        <Form onSubmit={handleSubmit}>
+          <div className={styles.inputheader}>
+            <label htmlFor="_newComment">
+              <strong>Comment:</strong>
+            </label>
+            <ErrorMessage name="_newComment">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Field
+            autoComplete="off"
+            name="_newComment"
+            placeholder='"Show your interest!"'
+            rows="3"
+            maxLength={maxLength}
+          />
+          <div className={styles.commentactions}>
+            <span className={styles.maxlength}>
+              {maxLength - values._newComment.length}/{maxLength}
+            </span>
+            <button
+              className={styles.primary}
+              type="submit"
+              disabled={isSubmitting}
+            >
+              Edit Comment!
+            </button>
+          </div>
+        </Form>
+      )}
+    </Formik>
   )
 }

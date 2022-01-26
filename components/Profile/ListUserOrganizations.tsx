@@ -6,22 +6,6 @@ import Loader from '@/components/Layout/Skeleton'
 import styles from '@/styles/organizations.module.css'
 import cardstyles from '@/styles/card.module.css'
 import ErrorFetch from '../ErrorFetch'
-import { motion } from 'framer-motion'
-
-// Component: ListOrganizations()
-// Params: None
-// Purpose: To list all OrganizationCard({key, organizationId, organizationName, organizationDescription, organizer})
-// components via mapping from useSWR hook at orgfetch api
-
-const list = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
 
 export default function ListUserOrganizations() {
   const { data, error } = useSWR('/api/users/userorgfetch', fetcher, {
@@ -36,12 +20,7 @@ export default function ListUserOrganizations() {
   return (
     <div>
       <h3 className={styles.subtitle}>Created</h3>
-      <motion.div
-        variants={list}
-        initial="hidden"
-        animate="show"
-        className={cardstyles.grid}
-      >
+      <div className={cardstyles.grid}>
         {data.creatorOrganization.length === 0 && (
           <Link href="/organizations" passHref>
             <a>Create your first organization!</a>
@@ -56,14 +35,9 @@ export default function ListUserOrganizations() {
             organizationImage={organization.organizationImageURL}
           />
         ))}
-      </motion.div>
+      </div>
       <h3 className={styles.subtitle}>Admined</h3>
-      <motion.div
-        variants={list}
-        initial="hidden"
-        animate="show"
-        className={cardstyles.grid}
-      >
+      <div className={cardstyles.grid}>
         {data.adminOrganizations.length === 0 && (
           <p>
             You are not an Admin of any organization. If this is a mistake,
@@ -79,14 +53,9 @@ export default function ListUserOrganizations() {
             organizationImage={organization.organizationImageURL}
           />
         ))}
-      </motion.div>
+      </div>
       <h3 className={styles.subtitle}>Joined</h3>
-      <motion.div
-        variants={list}
-        initial="hidden"
-        animate="show"
-        className={cardstyles.grid}
-      >
+      <div className={cardstyles.grid}>
         {data.memberOrganizations.length === 0 && (
           <Link href="/organizations" passHref>
             <a>Join your first organization!</a>
@@ -101,7 +70,7 @@ export default function ListUserOrganizations() {
             organizationImage={organization.organizationImageURL}
           />
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }

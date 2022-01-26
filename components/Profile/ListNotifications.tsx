@@ -4,19 +4,6 @@ import { NotificationCard } from './NotificationCard'
 import TimeAgo from 'react-timeago'
 import ErrorFetch from '../ErrorFetch'
 import cardstyles from '@/styles/card.module.css'
-import { motion, LayoutGroup } from 'framer-motion'
-
-const list = {
-  hidden: {
-    opacity: 1,
-  },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-}
 
 export default function ListNotifications() {
   const { data, error } = useSWR('/api/users/notificationfetch', fetcher, {
@@ -29,13 +16,7 @@ export default function ListNotifications() {
     return <div className={cardstyles.notifgrid}></div>
   }
   return (
-    <motion.div
-      variants={list}
-      initial="hidden"
-      animate="show"
-      layout="position"
-      className={cardstyles.notifgrid}
-    >
+    <div className={cardstyles.notifgrid}>
       {data.notifications.length === 0 ? null : (
         <>
           {data.notifications.map((notif) => (
@@ -49,6 +30,6 @@ export default function ListNotifications() {
           ))}
         </>
       )}
-    </motion.div>
+    </div>
   )
 }

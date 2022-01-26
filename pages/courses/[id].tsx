@@ -9,57 +9,6 @@ import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 import styles from '@/styles/courses.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const list = {
-  closed: {
-    height: '0',
-    transition: {
-      when: 'afterChildren',
-    },
-  },
-  open: {
-    height: 'auto',
-  },
-}
-
-const listItems = {
-  closed: {
-    opacity: 0,
-    y: -5,
-    transition: {
-      duration: 0.15,
-    },
-  },
-  open: {
-    opacity: 1,
-    y: 0,
-  },
-}
-
-const button = {
-  closed: {
-    rotate: 0,
-    transition: {
-      duration: 0.05,
-      delay: 0,
-      ease: 'easeOut',
-    },
-  },
-  open: {
-    rotate: 45,
-    transition: {
-      duration: 0.05,
-      delay: 0,
-      ease: 'easeIn',
-    },
-  },
-}
-
-// Page: CourseReviews({course})
-// Params: course
-// Purpose: Dynamically display all the reviews pertaining to the
-// specific course that that the user has selected
 
 const CourseReviews = ({ course, averageRating }) => {
   const router = useRouter()
@@ -113,10 +62,7 @@ const CourseReviews = ({ course, averageRating }) => {
               <>
                 <div className={formstyles.revealheader}>
                   <h2>Write Review</h2>
-                  <motion.button
-                    initial="closed"
-                    variants={button}
-                    animate={open ? 'open' : 'closed'}
+                  <button
                     className={formstyles.revealprimary}
                     onClick={() => setOpen(!open)}
                   >
@@ -131,25 +77,14 @@ const CourseReviews = ({ course, averageRating }) => {
                         clipRule="evenodd"
                       />
                     </svg>
-                  </motion.button>
+                  </button>
                 </div>
-                <AnimatePresence exitBeforeEnter>
-                  {open && (
-                    <motion.div
-                      animate={open ? 'open' : 'closed'}
-                      variants={list}
-                      exit="closed"
-                      initial="closed"
-                    >
-                      <motion.div variants={listItems}>
-                        <ReviewPostForm
-                          course={course.subjectCourse}
-                          courseId={course._id}
-                        />
-                      </motion.div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {open && (
+                  <ReviewPostForm
+                    course={course.subjectCourse}
+                    courseId={course._id}
+                  />
+                )}
               </>
             )}
         </>
