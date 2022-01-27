@@ -108,7 +108,6 @@ const Organization = ({ organization, superMembers, members }) => {
                   </li>
                 ))}
               </Dropdown>
-
               <Dropdown heading="Create Event">
                 <EventForm
                   creator={session.user.name}

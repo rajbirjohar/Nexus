@@ -190,7 +190,7 @@ export default function EventEditForm({
           </div>
           <span className={styles.actions}>
             <button
-              className={styles.primary}
+              className={styles.secondary}
               type="submit"
               disabled={isSubmitting}
             >

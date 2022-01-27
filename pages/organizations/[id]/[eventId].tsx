@@ -17,7 +17,34 @@ import { EditIcon, TrashIcon } from '@/components/Icons'
 const mongodb = require('mongodb')
 import { AnimatePresence, motion } from 'framer-motion'
 
-const Event = ({ event }) => {
+const deleteTextWrapper = {
+  closed: {
+    width: '0',
+    transition: {
+      when: 'afterChildren',
+    },
+  },
+  open: {
+    width: 'auto',
+  },
+}
+
+const deleteText = {
+  closed: {
+    opacity: 0,
+    transition: {
+      duration: 0.15,
+    },
+  },
+  open: {
+    opacity: 1,
+    transition: {
+      delay: 0.15,
+    },
+  },
+}
+
+export default function Event({ event }) {
   const { data: session } = useSession()
   const router = useRouter()
   const { eventId } = router.query
@@ -141,7 +168,18 @@ const Event = ({ event }) => {
                 ref={wrapperRef}
               >
                 <TrashIcon />
-                {isDelete && <span>Confirm</span>}
+                <AnimatePresence exitBeforeEnter>
+                  {isDelete && (
+                    <motion.span
+                      variants={deleteTextWrapper}
+                      animate={isDelete ? 'open' : 'closed'}
+                      initial="closed"
+                      exit="closed"
+                    >
+                      <motion.span variants={deleteText}>Confirm</motion.span>
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </button>
 
               <button
@@ -199,5 +237,3 @@ export async function getServerSideProps(context) {
     },
   }
 }
-
-export default Event

@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import CommentEditForm from './CommentEditForm'
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Comment = ({
   organizationId,

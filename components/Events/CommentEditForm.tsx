@@ -90,7 +90,7 @@ export default function CommentEditForm({
               {maxLength - values._newComment.length}/{maxLength}
             </span>
             <button
-              className={styles.primary}
+              className={styles.secondary}
               type="submit"
               disabled={isSubmitting}
             >

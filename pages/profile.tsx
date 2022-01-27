@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
@@ -26,31 +25,12 @@ export default function Profile() {
       {session && session.user.role && session.user.role.includes('none') && (
         <SetRoleForm userId={session.user.id} />
       )}
-      <div className={styles.hero}>
-        <div className={styles.content}>
-          <h1>Profile</h1>
-          {status === 'loading' && (
-            <>
-              <p>
-                <strong>Loading your profile...</strong>
-              </p>
-            </>
-          )}
-          {session && (
-            <>
-              <p>
-                <strong>Hello {session.user.name}!</strong>
-              </p>
-            </>
-          )}
-          <p>
-            Here you can view all your posts and organizations in one place.
-            Happy posting.
-          </p>
-        </div>
-      </div>
+
+      {status === 'loading' && <h1>Loading</h1>}
       {session && (
         <>
+          <h1>Hello {session.user.name}</h1>
+          <h3>Have an awesome day.</h3>
           <ListNotifications />
           <Tabs
             tabs={[

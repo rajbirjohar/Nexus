@@ -66,26 +66,27 @@ export default function ListReviewPosts({ courseId }) {
       {!filteredReviews.length && data.reviewPosts.length !== 0 && (
         <NotFound placeholder="review" />
       )}
-
-      <div className={cardstyles.gridtall}>
-        {filteredReviews.map((post) => (
-          <ReviewPostCard
-            key={post._id}
-            reviewPostId={post._id}
-            creator={post.creator}
-            creatorEmail={post.creatorEmail}
-            creatorId={post.creatorId}
-            courseId={post.courseId}
-            course={post.course}
-            reviewPost={post.reviewPost}
-            reviewProfessor={post.reviewProfessor}
-            taken={post.taken}
-            difficulty={post.difficulty}
-            anonymous={post.anonymous}
-            timestamp={<TimeAgo date={post.createdAt} />}
-          />
-        ))}
-      </div>
+      <LayoutGroup>
+        <motion.div layout="position" className={cardstyles.gridtall}>
+          {filteredReviews.map((post) => (
+            <ReviewPostCard
+              key={post._id}
+              reviewPostId={post._id}
+              creator={post.creator}
+              creatorEmail={post.creatorEmail}
+              creatorId={post.creatorId}
+              courseId={post.courseId}
+              course={post.course}
+              reviewPost={post.reviewPost}
+              reviewProfessor={post.reviewProfessor}
+              taken={post.taken}
+              difficulty={post.difficulty}
+              anonymous={post.anonymous}
+              timestamp={<TimeAgo date={post.createdAt} />}
+            />
+          ))}
+        </motion.div>
+      </LayoutGroup>
     </div>
   )
 }

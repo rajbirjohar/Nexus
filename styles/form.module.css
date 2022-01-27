@@ -44,6 +44,13 @@
   width: max-content;
 }
 
+.secondary {
+  margin: var(--gap-half) 0;
+  background-color: var(--teal-200);
+  color: var(--teal-800);
+  width: max-content;
+}
+
 .primarylogin {
   margin: var(--gap-half) 0;
   background-color: var(--teal-500);
@@ -54,6 +61,10 @@
 .primarylogin:hover,
 .primary:hover {
   background-color: var(--teal-600);
+}
+
+.secondary:hover {
+  background-color: var(--teal-300);
 }
 
 .error {
@@ -334,10 +345,6 @@ make the button taller */
 }
 
 @media (max-width: 668px) {
-  .primary,
-  .lucky {
-    width: 100%;
-  }
   .commentactions {
     flex-direction: column;
   }

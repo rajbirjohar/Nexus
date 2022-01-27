@@ -20,11 +20,12 @@ export default function Tabs({ tabs, layoutId }) {
           >
             {item.label}
             {item.id === selectedTab.id ? (
-              <motion.div layout={layoutId} className={styles.underline} />
+              <motion.div className={styles.underline} layoutId={layoutId} />
             ) : null}
           </motion.button>
         ))}
       </nav>
+
       <section>
         <AnimatePresence exitBeforeEnter>
           <motion.div

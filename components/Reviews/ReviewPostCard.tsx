@@ -7,9 +7,31 @@ import ReviewEditForm from './ReviewEditForm'
 import { AnimatePresence, motion } from 'framer-motion'
 import { EditIcon, TrashIcon } from '../Icons'
 
-const cardAnim = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
+const deleteTextWrapper = {
+  closed: {
+    width: '0',
+    transition: {
+      when: 'afterChildren',
+    },
+  },
+  open: {
+    width: 'auto',
+  },
+}
+
+const deleteText = {
+  closed: {
+    opacity: 0,
+    transition: {
+      duration: 0.15,
+    },
+  },
+  open: {
+    opacity: 1,
+    transition: {
+      delay: 0.15,
+    },
+  },
 }
 
 export default function ReviewPostCard({
@@ -67,49 +89,64 @@ export default function ReviewPostCard({
   }
 
   return (
-    <div className={cardstyles.reviewcard}>
-      <div className={cardstyles.reviewheader}>
+    <motion.div layout className={cardstyles.reviewcard}>
+      <motion.div layout="position" className={cardstyles.reviewheader}>
         <h3 className={cardstyles.coursetitle}>{course}</h3>
         <h3 className={cardstyles.difficulty}>{difficulty}</h3>
-      </div>
-      {isEdit ? (
-        <ReviewEditForm
-          reviewPostId={reviewPostId}
-          oldReviewPost={reviewPost}
-          oldReviewProfessor={reviewProfessor}
-          oldTaken={taken}
-          oldDifficulty={difficulty}
-          oldAnonymous={anonymous}
-          onHandleChange={setIsEdit}
-        />
-      ) : (
-        <div>
-          <p>
-            <strong>Review:</strong> <br />
-            <i>&quot;{reviewPost}&quot;</i>
-          </p>
-          <p>
-            <strong>Professor:</strong> {reviewProfessor}
-          </p>
-          <p>
-            <strong>Taken:</strong> {taken}
-          </p>
-          <p className={cardstyles.author}>
-            <strong>Author: </strong>
-            {anonymous === true ? <>Anonymous</> : <>{creator}</>} about{' '}
-            {timestamp}
-          </p>
-        </div>
-      )}
+      </motion.div>
+      <AnimatePresence exitBeforeEnter>
+        {isEdit ? (
+          <motion.div layout="position">
+            <ReviewEditForm
+              reviewPostId={reviewPostId}
+              oldReviewPost={reviewPost}
+              oldReviewProfessor={reviewProfessor}
+              oldTaken={taken}
+              oldDifficulty={difficulty}
+              oldAnonymous={anonymous}
+              onHandleChange={setIsEdit}
+            />
+          </motion.div>
+        ) : (
+          <motion.div layout="position">
+            <p>
+              <strong>Review:</strong> <br />
+              <i>&quot;{reviewPost}&quot;</i>
+            </p>
+            <p>
+              <strong>Professor:</strong> {reviewProfessor}
+            </p>
+            <p>
+              <strong>Taken:</strong> {taken}
+            </p>
+            <p className={cardstyles.author}>
+              <strong>Author: </strong>
+              {anonymous === true ? <>Anonymous</> : <>{creator}</>} about{' '}
+              {timestamp}
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
       {session && session.user.id === creatorId && (
-        <span className={formstyles.actions}>
+        <motion.span layout="position" className={formstyles.actions}>
           <button
             onClick={confirmDelete}
             className={formstyles.deleteicon}
             ref={wrapperRef}
           >
             <TrashIcon />
-            {isDelete && <span>Confirm</span>}
+            <AnimatePresence exitBeforeEnter>
+              {isDelete && (
+                <motion.span
+                  variants={deleteTextWrapper}
+                  animate={isDelete ? 'open' : 'closed'}
+                  initial="closed"
+                  exit="closed"
+                >
+                  <motion.span variants={deleteText}>Confirm</motion.span>
+                </motion.span>
+              )}
+            </AnimatePresence>
           </button>
 
           <button
@@ -120,8 +157,8 @@ export default function ReviewPostCard({
           >
             <EditIcon />
           </button>
-        </span>
+        </motion.span>
       )}
-    </div>
+    </motion.div>
   )
 }
