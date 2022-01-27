@@ -4,12 +4,7 @@ import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import CommentEditForm from './CommentEditForm'
-import { motion, AnimatePresence } from 'framer-motion'
-
-const listItems = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-}
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Comment = ({
   organizationId,
@@ -55,29 +50,19 @@ const Comment = ({
   }
   return (
     <div className={cardstyles.comment}>
-      <div>
-        {isEdit ? (
-          <CommentEditForm
-            eventId={eventId}
-            oldComment={comment}
-            onHandleChange={setIsEdit}
-            commentId={commentId}
-            authorId={authorId}
-          />
-        ) : (
-          <motion.p
-            layout="position"
-            animate={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-          >
-            {comment}
-          </motion.p>
-        )}
-        <span className={cardstyles.author}>
-          {author} {date}
-        </span>{' '}
+      {isEdit ? (
+        <CommentEditForm
+          eventId={eventId}
+          oldComment={comment}
+          onHandleChange={setIsEdit}
+          commentId={commentId}
+          authorId={authorId}
+        />
+      ) : (
+        <p>{comment}</p>
+      )}
+      <span className={cardstyles.author}>
+        {author} {date}
         {session && session.user.id === authorId && (
           <>
             {' '}
@@ -102,7 +87,7 @@ const Comment = ({
             </span>
           </>
         )}
-      </div>
+      </span>
     </div>
   )
 }

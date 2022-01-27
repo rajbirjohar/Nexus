@@ -3,13 +3,9 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion, AnimatePresence } from 'framer-motion'
 import ReviewEditForm from './ReviewEditForm'
-
-const listItems = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-}
+import { AnimatePresence, motion } from 'framer-motion'
+import { EditIcon, TrashIcon } from '../Icons'
 
 const deleteTextWrapper = {
   closed: {
@@ -93,30 +89,26 @@ export default function ReviewPostCard({
   }
 
   return (
-    <motion.div variants={listItems} className={cardstyles.reviewcard} layout>
+    <motion.div layout className={cardstyles.reviewcard}>
       <motion.div layout="position" className={cardstyles.reviewheader}>
         <h3 className={cardstyles.coursetitle}>{course}</h3>
         <h3 className={cardstyles.difficulty}>{difficulty}</h3>
       </motion.div>
       <AnimatePresence exitBeforeEnter>
         {isEdit ? (
-          <ReviewEditForm
-            reviewPostId={reviewPostId}
-            oldReviewPost={reviewPost}
-            oldReviewProfessor={reviewProfessor}
-            oldTaken={taken}
-            oldDifficulty={difficulty}
-            oldAnonymous={anonymous}
-            onHandleChange={setIsEdit}
-          />
+          <motion.div layout="position">
+            <ReviewEditForm
+              reviewPostId={reviewPostId}
+              oldReviewPost={reviewPost}
+              oldReviewProfessor={reviewProfessor}
+              oldTaken={taken}
+              oldDifficulty={difficulty}
+              oldAnonymous={anonymous}
+              onHandleChange={setIsEdit}
+            />
+          </motion.div>
         ) : (
-          <motion.div
-            layout="position"
-            animate={{ opacity: 1 }}
-            initial={{ opacity: 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15, type: 'tween' }}
-          >
+          <motion.div layout="position">
             <p>
               <strong>Review:</strong> <br />
               <i>&quot;{reviewPost}&quot;</i>
@@ -136,25 +128,13 @@ export default function ReviewPostCard({
         )}
       </AnimatePresence>
       {session && session.user.id === creatorId && (
-        <motion.span layout className={formstyles.actions}>
-          <motion.button
+        <motion.span layout="position" className={formstyles.actions}>
+          <button
             onClick={confirmDelete}
             className={formstyles.deleteicon}
             ref={wrapperRef}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-              />
-            </svg>
+            <TrashIcon />
             <AnimatePresence exitBeforeEnter>
               {isDelete && (
                 <motion.span
@@ -167,7 +147,7 @@ export default function ReviewPostCard({
                 </motion.span>
               )}
             </AnimatePresence>
-          </motion.button>
+          </button>
 
           <button
             onClick={() => {
@@ -175,19 +155,7 @@ export default function ReviewPostCard({
             }}
             className={formstyles.editicon}
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-              />
-            </svg>
+            <EditIcon />
           </button>
         </motion.span>
       )}

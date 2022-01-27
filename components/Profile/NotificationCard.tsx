@@ -1,17 +1,6 @@
 import toast from 'react-hot-toast'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion } from 'framer-motion'
-
-const listItems = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      duration: 0.15,
-    },
-  },
-}
 
 export const NotificationCard = ({ notifId, type, message, createdAt }) => {
   const deleteNotif = async (event) => {
@@ -32,9 +21,7 @@ export const NotificationCard = ({ notifId, type, message, createdAt }) => {
     }
   }
   return (
-    <motion.div
-      variants={listItems}
-      layout="position"
+    <div
       className={
         type === 'success'
           ? `${cardstyles.greennotif}`
@@ -63,6 +50,6 @@ export const NotificationCard = ({ notifId, type, message, createdAt }) => {
           />
         </svg>
       </button>
-    </motion.div>
+    </div>
   )
 }

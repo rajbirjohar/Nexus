@@ -44,7 +44,7 @@ export default function TransferOwnerForm({ organizationId }) {
       <h3>Transfer Owner</h3>
       <p>
         This action is irreversible unless the new owner transfer the
-        organization back to you. Please ensure this is what you want to do 🤔.
+        organization back to you. Please ensure this is what you want to do.
       </p>
       <Formik
         validateOnBlur={false}

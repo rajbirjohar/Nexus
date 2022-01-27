@@ -14,6 +14,7 @@ export default async function removeAdmin(
     const {
       adminData: { organizationId, _email },
     } = req.body
+    console.log(req.body)
     const isCreator = await db
       .collection('organizations')
       .find({

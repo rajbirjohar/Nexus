@@ -2,6 +2,7 @@ import Head from 'next/head'
 import Layout from '@/components/Layout/Layout'
 import Sidebar from '@/components/Layout/Sidebar'
 import styles from '@/styles/layout.module.css'
+import { motion } from 'framer-motion'
 
 interface Props {
   title: string

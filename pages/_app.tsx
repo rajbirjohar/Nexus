@@ -5,6 +5,7 @@ import Footer from '@/components/Layout/Footer'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider } from 'next-themes'
 import { Toaster } from 'react-hot-toast'
+import { motion, LayoutGroup } from 'framer-motion'
 
 import '../styles/globals.css'
 

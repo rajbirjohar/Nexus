@@ -1,18 +1,7 @@
 import React from 'react'
 import cardstyles from '@/styles/card.module.css'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
 import Image from 'next/image'
-
-const listItems = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      duration: 0.15,
-    },
-  },
-}
 
 export default function OrganizationCard({
   organizationName,
@@ -21,10 +10,8 @@ export default function OrganizationCard({
   organizationImage,
 }) {
   return (
-    // Link is used to route each card to a dynamic page
-    // listing all details for that specific organization
     <Link href={`/organizations/${organizationName}`} passHref>
-      <motion.div variants={listItems} className={cardstyles.card}>
+      <div className={cardstyles.card}>
         <div className={cardstyles.orgheader}>
           {organizationImage && (
             <Image
@@ -37,11 +24,10 @@ export default function OrganizationCard({
           )}
           <h3 className={cardstyles.organizationName}>{organizationName}</h3>
         </div>
-
         <h4 className={`${cardstyles.organizationTagline} ${'clamp-2'}`}>
           {organizationTagline}
         </h4>
-      </motion.div>
+      </div>
     </Link>
   )
 }

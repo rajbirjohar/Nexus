@@ -3,25 +3,10 @@ import Link from 'next/link'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import TimeAgo from 'react-timeago'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 import Loader from '@/components/Layout/Skeleton'
 import cardstyles from '@/styles/card.module.css'
-import { motion, LayoutGroup } from 'framer-motion'
-
-// Component: ListProfilePosts()
-// Params: none
-// Purpose: To list the review posts specific to
-// the logged in user. This component live updates every second
-
-const list = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
+import { LayoutGroup, motion } from 'framer-motion'
 
 export default function ListUserPosts() {
   const { data, error } = useSWR('/api/users/userreviewfetch', fetcher, {
@@ -39,12 +24,7 @@ export default function ListUserPosts() {
         <Link href="/courses">Write your first review!</Link>
       )}
       <LayoutGroup>
-        <motion.div
-          variants={list}
-          initial="hidden"
-          animate="show"
-          className={cardstyles.gridtall}
-        >
+        <motion.div layout="position" className={cardstyles.gridtall}>
           {data.reviewPosts.map((post) => (
             <ReviewPostCard
               key={post._id}

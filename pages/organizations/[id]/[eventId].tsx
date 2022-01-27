@@ -12,9 +12,10 @@ import CommentsForm from '@/components/Events/CommentsForm'
 import ListComments from '@/components/Events/ListComments'
 import cardstyles from '@/styles/card.module.css'
 import toast from 'react-hot-toast'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import EventEditForm from '@/components/Events/EventEditForm'
+import { EditIcon, TrashIcon } from '@/components/Icons'
 const mongodb = require('mongodb')
+import { AnimatePresence, motion } from 'framer-motion'
 
 const deleteTextWrapper = {
   closed: {
@@ -31,22 +32,19 @@ const deleteTextWrapper = {
 const deleteText = {
   closed: {
     opacity: 0,
-    x: -5,
     transition: {
       duration: 0.15,
     },
   },
   open: {
     opacity: 1,
-    x: 0,
     transition: {
       delay: 0.15,
-      type: 'tween',
     },
   },
 }
 
-const Event = ({ event }) => {
+export default function Event({ event }) {
   const { data: session } = useSession()
   const router = useRouter()
   const { eventId } = router.query
@@ -105,35 +103,22 @@ const Event = ({ event }) => {
     <Page title={`${event.map((event) => event.eventName)}`} tip={null}>
       {event.map((event) => (
         <>
-          <Head>
-            <title>Nexus | {event.eventName}</title>
-            {/* Change this icon when we have a logo */}
-            <link rel="icon" href="/NexusLogo.svg" />
-          </Head>
           <AnimatePresence exitBeforeEnter>
             {isEdit ? (
-              <EventEditForm
-                eventId={eventId}
-                _oldEventName={event.eventName}
-                _oldEventDetails={event.eventDetails}
-                _oldEventStartDate={event.eventStartDate}
-                _oldEventEndDate={event.eventEndDate}
-                _oldEventImage={event.eventImageURL}
-                _oldImagePublicId={event.imagePublicId}
-                onHandleChange={setIsEdit}
-              />
+              <motion.div layout="position">
+                <EventEditForm
+                  eventId={eventId}
+                  _oldEventName={event.eventName}
+                  _oldEventDetails={event.eventDetails}
+                  _oldEventStartDate={event.eventStartDate}
+                  _oldEventEndDate={event.eventEndDate}
+                  _oldEventImage={event.eventImageURL}
+                  _oldImagePublicId={event.imagePublicId}
+                  onHandleChange={setIsEdit}
+                />
+              </motion.div>
             ) : (
-              <>
-                {/* Might want to add some placeholder instead
-                This using the ? optional chaining is only meant
-                for events created before banner implementation */}
-                <motion.div
-                  layout="position"
-                  animate={{ opacity: 1, x: 0 }}
-                  initial={{ opacity: 0, x: -5 }}
-                  exit={{ opacity: 0, x: 5 }}
-                  transition={{ duration: 0.15 }}
-                ></motion.div>
+              <motion.div layout="position">
                 {event?.eventImageURL && (
                   <div className={styles.banner}>
                     <Image
@@ -172,30 +157,17 @@ const Event = ({ event }) => {
                   })}
                 </span>
                 <p>{event.eventDetails}</p>
-              </>
+              </motion.div>
             )}
           </AnimatePresence>
           {session && isAdmin && (
-            <div className={formstyles.actions}>
-              <motion.button
-                // onClick={deleteReviewPost}
+            <motion.span layout="position" className={formstyles.actions}>
+              <button
                 onClick={() => confirmDelete(event._id, event.imagePublicId)}
                 className={formstyles.deleteicon}
                 ref={wrapperRef}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
+                <TrashIcon />
                 <AnimatePresence exitBeforeEnter>
                   {isDelete && (
                     <motion.span
@@ -208,7 +180,7 @@ const Event = ({ event }) => {
                     </motion.span>
                   )}
                 </AnimatePresence>
-              </motion.button>
+              </button>
 
               <button
                 onClick={() => {
@@ -216,33 +188,22 @@ const Event = ({ event }) => {
                 }}
                 className={formstyles.editicon}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                  />
-                </svg>
+                <EditIcon />
               </button>
-            </div>
+            </motion.span>
           )}
-
-          <h3>Comments</h3>
-          {session ? (
-            <CommentsForm eventId={event._id} />
-          ) : (
-            <p>Sign in to comment.</p>
-          )}
-          <ListComments
-            eventId={event._id}
-            organizationId={event.organizationId}
-          />
+          <motion.div layout="position">
+            <h3>Comments</h3>
+            {session ? (
+              <CommentsForm eventId={event._id} />
+            ) : (
+              <p>Sign in to comment.</p>
+            )}
+            <ListComments
+              eventId={event._id}
+              organizationId={event.organizationId}
+            />
+          </motion.div>
         </>
       ))}
     </Page>
@@ -276,5 +237,3 @@ export async function getServerSideProps(context) {
     },
   }
 }
-
-export default Event

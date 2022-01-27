@@ -5,18 +5,14 @@ import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import NotFound from '../notFound'
 import TimeAgo from 'react-timeago'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 import Loader from '@/components/Layout/Skeleton'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion, LayoutGroup } from 'framer-motion'
+import { LayoutGroup, motion } from 'framer-motion'
+import { SearchIcon } from '../Icons'
 
-// Component: ListReviewPosts({course})
-// Params: course
-// Purpose: To list the review posts specific to
-// the course on that route. This component live updates every second
-
-const list = {
+const listAnim = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -62,32 +58,16 @@ export default function ListReviewPosts({ courseId }) {
             className={formstyles.search}
           />
           <svg className={formstyles.searchIcon}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <SearchIcon />
           </svg>
         </div>
       )}
+
       {!filteredReviews.length && data.reviewPosts.length !== 0 && (
         <NotFound placeholder="review" />
       )}
       <LayoutGroup>
-        <motion.div
-          variants={list}
-          initial="hidden"
-          animate="show"
-          className={cardstyles.gridtall}
-        >
+        <motion.div layout="position" className={cardstyles.gridtall}>
           {filteredReviews.map((post) => (
             <ReviewPostCard
               key={post._id}

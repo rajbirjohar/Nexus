@@ -9,20 +9,7 @@ import ListOrganizations from '@/components/Organizations/ListOrganizations'
 import { GreenTip } from '@/components/Layout/Tips'
 import styles from '@/styles/organizations.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion, AnimatePresence } from 'framer-motion'
 import animationData from '@/lotties/group.json'
-
-const list = {
-  closed: {
-    height: '0',
-    transition: {
-      when: 'afterChildren',
-    },
-  },
-  open: {
-    height: 'auto',
-  },
-}
 
 export default function OrganizationsPage() {
   const { data: session } = useSession()
@@ -67,20 +54,11 @@ export default function OrganizationsPage() {
                 Apply for Organizer
               </button>
             </span>
-            <AnimatePresence exitBeforeEnter>
-              {displayWarning && (
-                <motion.div
-                  animate={displayWarning ? 'open' : 'closed'}
-                  variants={list}
-                  exit="closed"
-                  initial="closed"
-                  layout
-                  className={formstyles.warningWrapper}
-                >
-                  <CreatorRoleForm userId={session.user.id} />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {displayWarning && (
+              <div className={formstyles.warningWrapper}>
+                <CreatorRoleForm userId={session.user.id} />
+              </div>
+            )}
           </>
         )}
       {session &&

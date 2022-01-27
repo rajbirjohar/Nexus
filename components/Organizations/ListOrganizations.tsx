@@ -5,26 +5,9 @@ import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
 import Loader from '@/components/Layout/Skeleton'
 import NotFound from '../notFound'
-import ErrorFetch from '../ErrorFetch'
-import styles from '@/styles/organizations.module.css'
+import ErrorFetch from '../Layout/ErrorFetch'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
-import { motion, LayoutGroup } from 'framer-motion'
-
-const list = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
-
-// Component: ListOrganizations()
-// Params: None
-// Purpose: To list all OrganizationCard({key, organizationId, organizationName, organizationDescription, organizer})
-// components via mapping from useSWR hook at orgfetch api
 
 export default function ListOrganizations() {
   const { data, error } = useSWR('/api/organizations/orgfetch', fetcher, {
@@ -139,12 +122,7 @@ export default function ListOrganizations() {
       {!filteredOrgs.length && data.organizations.length !== 0 && (
         <NotFound placeholder="organization" />
       )}
-      <motion.div
-        variants={list}
-        initial="hidden"
-        animate="show"
-        className={cardstyles.grid}
-      >
+      <div className={cardstyles.grid}>
         {filteredOrgs.map((organization) => (
           <OrganizationCard
             key={organization._id}
@@ -154,7 +132,7 @@ export default function ListOrganizations() {
             organizationImage={organization.organizationImageURL}
           />
         ))}
-      </motion.div>
+      </div>
     </div>
   )
 }
