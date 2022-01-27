@@ -30,7 +30,16 @@
   height: 40rem;
 }
 
-@media (max-width: 968px) {
+.sidetitle {
+  color: var(--teal-500);
+  cursor: pointer;
+}
+
+.sidetitle:hover {
+  color: var(--teal-600);
+}
+
+@media (max-width: 868px) {
   .page {
     grid-template-columns: 1fr;
   }
