@@ -31,14 +31,14 @@
   gap: var(--gap-med);
 }
 
-.organizationInner{
+.organizationInner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--gap-med);
 }
 
-.organizationHeader h1{
+.organizationHeader h1 {
   margin: 0;
 }
 
@@ -51,6 +51,18 @@
 
 .subtitle {
   color: var(--gray-500);
+}
+
+.dangeractions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-med);
+}
+
+.danger {
+  border: 2px solid var(--rose-100);
+  border-radius: var(--radius-sm);
+  padding: var(--gap);
 }
 
 @media (max-width: 868px) {

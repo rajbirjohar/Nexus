@@ -79,6 +79,14 @@ const Organization = ({ organization, superMembers, members }) => {
                   organizationName={organization.organizationName}
                 />
               )}
+              {session && isCreator && (
+                <Link
+                  href={`/organizations/${organization.organizationName}/settings`}
+                  passHref
+                >
+                  <button>Settings</button>
+                </Link>
+              )}
             </div>
           </div>
           <h4>{organization.organizationTagline}</h4>
@@ -120,14 +128,6 @@ const Organization = ({ organization, superMembers, members }) => {
                 <AddAdminForm organizationId={organization._id} />
               </Dropdown>
             </>
-          )}
-          {session && isCreator && (
-            <Link
-              href={`/organizations/${organization.organizationName}/settings`}
-              passHref
-            >
-              <a>Organization Settings</a>
-            </Link>
           )}
 
           <h2>Events</h2>
