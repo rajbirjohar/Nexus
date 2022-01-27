@@ -44,7 +44,7 @@ export default function Settings({ organization }) {
             Please read through each warning before proceeding.
           </p>
           {organization.map((organization) => (
-            <section className={styles.dangeractions}>
+            <section key={organization._id} className={styles.dangeractions}>
               <div className={styles.danger}>
                 <RemoveAdminForm organizationId={organization._id} />
               </div>
