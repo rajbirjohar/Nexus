@@ -41,8 +41,10 @@ export default async function editEvent(
       secure_url: _oldEventImage,
       public_id: _oldImagePublicId,
     }
-    if (_newEventImage) {
+    if (_oldEventImage) {
       const image = await cloudinary.uploader.destroy(_oldImagePublicId)
+    }
+    if (_newEventImage) {
       cloudinaryRes = await cloudinary.uploader.upload(_newEventImage)
     }
     // const cloudinaryRes = await cloudinary.uploader.upload(_newEventImage)
