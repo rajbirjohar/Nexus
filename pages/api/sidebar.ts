@@ -18,7 +18,7 @@ export default async function fetchDiscoverSidebar(
       },
       {
         $sample: {
-          size: 3,
+          size: 5,
         },
       },
     ])

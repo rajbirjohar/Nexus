@@ -6,10 +6,14 @@ import clientPromise from '@/lib/mongodb'
 import DeleteOrganization from '@/components/Organizations/DeleteOrganization'
 import TransferOwnerForm from '@/components/Organizations/TransferOwnerForm'
 import RemoveAdminForm from '@/components/Organizations/RemoveAdminForm'
-import useEffect from 'react'
+import styles from '@/styles/organizations.module.css'
+import formstyles from '@/styles/form.module.css'
+import { LeftChevronIcon } from '@/components/Icons'
+import Link from 'next/link'
 
 export default function Settings({ organization }) {
   const router = useRouter()
+  const { id } = router.query
   const { data: session, status } = useSession({
     required: true,
     onUnauthenticated() {
@@ -26,8 +30,13 @@ export default function Settings({ organization }) {
 
   return (
     <Page title="Settings" tip={null}>
+      <Link href={`/organizations/${id}`} passHref>
+        <a className={formstyles.linkwrap}>
+          <LeftChevronIcon />
+          Go back to Organization
+        </a>
+      </Link>
       <h1>Settings</h1>
-
       {session && isCreator ? (
         <section>
           <p>
@@ -35,15 +44,21 @@ export default function Settings({ organization }) {
             Please read through each warning before proceeding.
           </p>
           {organization.map((organization) => (
-            <>
-              <RemoveAdminForm organizationId={organization._id} />
-              <TransferOwnerForm organizationId={organization._id} />
-              <DeleteOrganization
-                organizationId={organization._id}
-                organizationName={organization.organizationName}
-                imagePublicId={organization.imagePublicId}
-              />
-            </>
+            <section className={styles.dangeractions}>
+              <div className={styles.danger}>
+                <RemoveAdminForm organizationId={organization._id} />
+              </div>
+              <div className={styles.danger}>
+                <TransferOwnerForm organizationId={organization._id} />
+              </div>
+              <div className={styles.danger}>
+                <DeleteOrganization
+                  organizationId={organization._id}
+                  organizationName={organization.organizationName}
+                  imagePublicId={organization.imagePublicId}
+                />
+              </div>
+            </section>
           ))}
         </section>
       ) : (

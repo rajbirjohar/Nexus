@@ -27,12 +27,17 @@
   box-shadow: var(--shadows);
   border-radius: var(--radius);
   padding: var(--gap-med);
-  height: 40rem;
+  min-height: 30rem;
+}
+
+.sidebar h3{
+  margin: 0;
 }
 
 .sidetitle {
   color: var(--teal-500);
   cursor: pointer;
+  margin-bottom: -1rem;
 }
 
 .sidetitle:hover {
