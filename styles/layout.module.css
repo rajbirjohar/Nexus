@@ -33,7 +33,6 @@
 @media (max-width: 968px) {
   .page {
     grid-template-columns: 1fr;
-    gap: 0;
   }
   .sidebar {
     display: none;

@@ -2,7 +2,7 @@ import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import { NotificationCard } from './NotificationCard'
 import TimeAgo from 'react-timeago'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 import cardstyles from '@/styles/card.module.css'
 
 export default function ListNotifications() {

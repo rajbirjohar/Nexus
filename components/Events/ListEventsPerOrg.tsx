@@ -3,7 +3,7 @@ import Loader from '../Layout/Skeleton'
 import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
 import cardstyles from '@/styles/card.module.css'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 
 export default function ListEventsPerOrg({ organizationId }) {
   const { data, error } = useSWR(`/api/events/${organizationId}`, Fetcher, {

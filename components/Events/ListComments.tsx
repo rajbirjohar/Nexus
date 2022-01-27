@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 import Comment from './Comment'
 import TimeAgo from 'react-timeago'
 

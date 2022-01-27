@@ -5,7 +5,7 @@ import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
 import Loader from '@/components/Layout/Skeleton'
 import NotFound from '../notFound'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 

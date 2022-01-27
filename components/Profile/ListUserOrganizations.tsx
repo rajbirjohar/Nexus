@@ -5,7 +5,7 @@ import OrganizationCard from '@/components/Organizations/OrganizationCard'
 import Loader from '@/components/Layout/Skeleton'
 import styles from '@/styles/organizations.module.css'
 import cardstyles from '@/styles/card.module.css'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 
 export default function ListUserOrganizations() {
   const { data, error } = useSWR('/api/users/userorgfetch', fetcher, {

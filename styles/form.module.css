@@ -1,4 +1,19 @@
 /* Global form styles */
+.heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.heading h2 {
+  transition: color var(--transition);
+}
+
+.heading:hover > h2 {
+  color: var(--teal-500);
+}
+
 .inputheader {
   display: flex;
   justify-content: space-between;
@@ -102,18 +117,18 @@ make the button taller */
 .delete,
 .deleteicon,
 .deleteNotif {
-  color: var(--rose-800);
-  background: var(--rose-50);
-}
-
-.editicon:hover {
-  background-color: var(--teal-300);
+  color: var(--rose-50);
+  background: var(--rose-500);
 }
 
 .delete:hover,
 .deleteicon:hover,
 .deleteNotif:hover {
-  background-color: var(--rose-100);
+  background-color: var(--rose-600);
+}
+
+.editicon:hover {
+  background-color: var(--teal-300);
 }
 
 .deletecomment {

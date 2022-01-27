@@ -5,10 +5,22 @@ import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
 import NotFound from '../notFound'
 import TimeAgo from 'react-timeago'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 import Loader from '@/components/Layout/Skeleton'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
+import { LayoutGroup, motion } from 'framer-motion'
+import { SearchIcon } from '../Icons'
+
+const listAnim = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+}
 
 export default function ListReviewPosts({ courseId }) {
   const { data, error } = useSWR(`/api/reviewposts/${courseId}`, fetcher, {
@@ -46,25 +58,15 @@ export default function ListReviewPosts({ courseId }) {
             className={formstyles.search}
           />
           <svg className={formstyles.searchIcon}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            <SearchIcon />
           </svg>
         </div>
       )}
+
       {!filteredReviews.length && data.reviewPosts.length !== 0 && (
         <NotFound placeholder="review" />
       )}
+
       <div className={cardstyles.gridtall}>
         {filteredReviews.map((post) => (
           <ReviewPostCard

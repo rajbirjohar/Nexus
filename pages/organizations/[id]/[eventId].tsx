@@ -13,7 +13,9 @@ import ListComments from '@/components/Events/ListComments'
 import cardstyles from '@/styles/card.module.css'
 import toast from 'react-hot-toast'
 import EventEditForm from '@/components/Events/EventEditForm'
+import { EditIcon, TrashIcon } from '@/components/Icons'
 const mongodb = require('mongodb')
+import { AnimatePresence, motion } from 'framer-motion'
 
 const Event = ({ event }) => {
   const { data: session } = useSession()
@@ -73,81 +75,72 @@ const Event = ({ event }) => {
   return (
     <Page title={`${event.map((event) => event.eventName)}`} tip={null}>
       {event.map((event) => (
-        <section>
-          {isEdit ? (
-            <EventEditForm
-              eventId={eventId}
-              _oldEventName={event.eventName}
-              _oldEventDetails={event.eventDetails}
-              _oldEventStartDate={event.eventStartDate}
-              _oldEventEndDate={event.eventEndDate}
-              _oldEventImage={event.eventImageURL}
-              _oldImagePublicId={event.imagePublicId}
-              onHandleChange={setIsEdit}
-            />
-          ) : (
-            <div>
-              {event?.eventImageURL && (
-                <div className={styles.banner}>
-                  <Image
-                    src={event.eventImageURL}
-                    layout="fill"
-                    objectFit="cover"
-                    alt="Banner"
-                  />
-                </div>
-              )}
-              <h1>{event.eventName}</h1>
-              <h4 className={styles.author}>
-                By{' '}
-                <Link
-                  href={`/organizations/${event.organizationName}`}
-                  passHref
-                >
-                  <a>{event.organizationName}</a>
-                </Link>
-              </h4>
-              {new Date(event.eventEndDate) < new Date() && (
-                <p className={cardstyles.expired}>This event has expired.</p>
-              )}
-              <h3>Event Details</h3>
-              <span className={styles.date}>
-                {new Date(event.eventStartDate).toLocaleString('en-US', {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
-                  timeZone: 'GMT',
-                })}{' '}
-                until{' '}
-                {new Date(event.eventEndDate).toLocaleString('en-US', {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
-                  timeZone: 'GMT',
-                })}
-              </span>
-              <p>{event.eventDetails}</p>
-            </div>
-          )}
-
+        <>
+          <AnimatePresence exitBeforeEnter>
+            {isEdit ? (
+              <motion.div layout="position">
+                <EventEditForm
+                  eventId={eventId}
+                  _oldEventName={event.eventName}
+                  _oldEventDetails={event.eventDetails}
+                  _oldEventStartDate={event.eventStartDate}
+                  _oldEventEndDate={event.eventEndDate}
+                  _oldEventImage={event.eventImageURL}
+                  _oldImagePublicId={event.imagePublicId}
+                  onHandleChange={setIsEdit}
+                />
+              </motion.div>
+            ) : (
+              <motion.div layout="position">
+                {event?.eventImageURL && (
+                  <div className={styles.banner}>
+                    <Image
+                      src={event.eventImageURL}
+                      layout="fill"
+                      objectFit="cover"
+                      alt="Banner"
+                    />
+                  </div>
+                )}
+                <h1>{event.eventName}</h1>
+                <h4 className={styles.author}>
+                  By{' '}
+                  <Link
+                    href={`/organizations/${event.organizationName}`}
+                    passHref
+                  >
+                    <a>{event.organizationName}</a>
+                  </Link>
+                </h4>
+                {new Date(event.eventEndDate) < new Date() && (
+                  <p className={cardstyles.expired}>This event has expired.</p>
+                )}
+                <h3>Event Details</h3>
+                <span className={styles.date}>
+                  {new Date(event.eventStartDate).toLocaleString('en-US', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                    timeZone: 'GMT',
+                  })}{' '}
+                  until{' '}
+                  {new Date(event.eventEndDate).toLocaleString('en-US', {
+                    dateStyle: 'medium',
+                    timeStyle: 'short',
+                    timeZone: 'GMT',
+                  })}
+                </span>
+                <p>{event.eventDetails}</p>
+              </motion.div>
+            )}
+          </AnimatePresence>
           {session && isAdmin && (
-            <span className={formstyles.actions}>
+            <motion.span layout="position" className={formstyles.actions}>
               <button
                 onClick={() => confirmDelete(event._id, event.imagePublicId)}
                 className={formstyles.deleteicon}
                 ref={wrapperRef}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                  />
-                </svg>
+                <TrashIcon />
                 {isDelete && <span>Confirm</span>}
               </button>
 
@@ -157,34 +150,23 @@ const Event = ({ event }) => {
                 }}
                 className={formstyles.editicon}
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                  />
-                </svg>
+                <EditIcon />
               </button>
-            </span>
+            </motion.span>
           )}
-
-          <h3>Comments</h3>
-          {session ? (
-            <CommentsForm eventId={event._id} />
-          ) : (
-            <p>Sign in to comment.</p>
-          )}
-          <ListComments
-            eventId={event._id}
-            organizationId={event.organizationId}
-          />
-        </section>
+          <motion.div layout="position">
+            <h3>Comments</h3>
+            {session ? (
+              <CommentsForm eventId={event._id} />
+            ) : (
+              <p>Sign in to comment.</p>
+            )}
+            <ListComments
+              eventId={event._id}
+              organizationId={event.organizationId}
+            />
+          </motion.div>
+        </>
       ))}
     </Page>
   )

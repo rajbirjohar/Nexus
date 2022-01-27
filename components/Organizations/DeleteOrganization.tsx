@@ -43,12 +43,13 @@ export default function DeleteOrganization({
     }
   }
   return (
-    <div>
+    <section>
       <h3>Delete Organization</h3>
       <p>
         <strong>
           You understand that deleting this organization will delete all posts,
-          members, and admins from Nexus never to be seen again 🤯.
+          members, and admins from Nexus never to be seen again. Proceed with
+          caution.
         </strong>
       </p>
       <p>
@@ -139,6 +140,6 @@ export default function DeleteOrganization({
           </Form>
         )}
       </Formik>
-    </div>
+    </section>
   )
 }

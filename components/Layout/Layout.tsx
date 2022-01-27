@@ -1,4 +1,5 @@
 import styles from '@/styles/layout.module.css'
+import { motion } from 'framer-motion'
 
 interface Props {
   children: React.ReactNode | React.ReactNode[]

@@ -5,7 +5,7 @@ import Loader from '../Layout/Skeleton'
 import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
 import NotFound from '../notFound'
-import ErrorFetch from '../ErrorFetch'
+import ErrorFetch from '../Layout/ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
 

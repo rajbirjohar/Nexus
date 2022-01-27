@@ -1,33 +1,16 @@
 import React, { useState } from 'react'
-import Head from 'next/head'
 import { useSession } from 'next-auth/react'
 import ListAllEvents from '@/components/Events/ListAllEvents'
 import Page from '@/components/Layout/Page'
 import styles from '@/styles/events.module.css'
-import formstyles from '@/styles/form.module.css'
 import ListUserEvents from '@/components/Events/ListUserEvents'
 import { LottieWrapper } from '@/components/LottieWrapper'
 import { GreenTip } from '@/components/Layout/Tips'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
 import animationData from '@/lotties/teamblue.json'
+import Tabs from '@/components/Layout/Tabs'
 
 export default function EventsPage() {
   const { data: session } = useSession()
-  const allTabs = [
-    {
-      label: 'All Events',
-      id: 'allevents',
-      component: <ListAllEvents />,
-    },
-    {
-      label: 'Member Events',
-      id: 'memberevents',
-      component: <ListUserEvents />,
-    },
-  ]
-  const [allevents, memberevents] = allTabs
-  const initialTabs = [allevents, memberevents]
-  const [selectedTab, setSelectedTab] = useState(initialTabs[0])
 
   return (
     <Page
@@ -57,47 +40,21 @@ export default function EventsPage() {
       </div>
 
       {session ? (
-        <>
-          <LayoutGroup>
-            <nav className={formstyles.tabs}>
-              {initialTabs.map((item) => (
-                <motion.button
-                  key={item.label}
-                  className={
-                    item.id === selectedTab.id
-                      ? `${formstyles.active} ${formstyles.tab}`
-                      : ` ${formstyles.tab}`
-                  }
-                  onClick={() => setSelectedTab(item)}
-                >
-                  {item.label}
-                  {item.id === selectedTab.id ? (
-                    <motion.div
-                      className={formstyles.underline}
-                      layoutId="events"
-                    />
-                  ) : null}
-                </motion.button>
-              ))}
-            </nav>
-          </LayoutGroup>
-          <section>
-            <AnimatePresence exitBeforeEnter>
-              <motion.div
-                key={selectedTab ? selectedTab.label : 'empty'}
-                animate={{ opacity: 1 }}
-                initial={{ opacity: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15, type: 'tween' }}
-              >
-                <h2>{selectedTab.label}</h2>
-                {selectedTab
-                  ? selectedTab.component
-                  : 'Nothing to see here 😋.'}
-              </motion.div>
-            </AnimatePresence>
-          </section>
-        </>
+        <Tabs
+          tabs={[
+            {
+              label: 'All Events',
+              id: 'allevents',
+              component: <ListAllEvents />,
+            },
+            {
+              label: 'Member Events',
+              id: 'memberevents',
+              component: <ListUserEvents />,
+            },
+          ]}
+          layoutId="events"
+        />
       ) : (
         <>
           <h2>All Events</h2>

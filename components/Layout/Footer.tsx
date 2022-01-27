@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import styles from '@/styles/footer.module.css'
+import { motion } from 'framer-motion'
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <motion.footer className={styles.footer} layout="position">
       <div className={styles.linkWrapper}>
         <div className={styles.links}>
           <h4>Discover</h4>
@@ -34,6 +35,6 @@ export default function Footer() {
           <li>🧠, ☕️, ❤️</li>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   )
 }

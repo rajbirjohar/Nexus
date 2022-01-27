@@ -41,7 +41,7 @@ export default function RemoveAdminForm({ organizationId }) {
       <p>
         This person will no longer have access to admin roles for this
         organization. You or another admin will have to re-add them if you
-        change your mind 🤭.
+        change your mind.
       </p>
       <Formik
         validateOnBlur={false}
