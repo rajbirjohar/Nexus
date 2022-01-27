@@ -5,6 +5,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import formstyles from '@/styles/form.module.css'
+import { motion, AnimatePresence } from 'framer-motion'
 
 export default function ImageDropzone(props) {
   const { setFieldValue, name } = props
@@ -90,6 +91,7 @@ export default function ImageDropzone(props) {
           <span className={formstyles.error}>{error}</span>
         </p>
       </div>
+
       <aside className={formstyles.thumbsContainer}>{thumbs}</aside>
     </div>
   )
