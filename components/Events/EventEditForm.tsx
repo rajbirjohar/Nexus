@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import ImageDropzone from '../ImageDropzone'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
+import Tiptap from '../Tiptap'
 
 const maxLength = 750
 
@@ -145,17 +146,21 @@ export default function EventEditForm({
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Field
+          {/* <Field
             autoComplete="off"
             name="_newEventDetails"
             component="textarea"
             rows="3"
             placeholder="Scotty's Birthday Details"
             maxLength={maxLength}
+          /> */}
+          <Tiptap
+            setFieldValue={setFieldValue}
+            isSubmitting={isSubmitting}
+            name="_newEventDetails"
+            // Initially, we set it to the old details in initialValues
+            oldEventDetails={values._newEventDetails}
           />
-          <span className={styles.maxlength}>
-            {maxLength - values._newEventDetails.length}/{maxLength}
-          </span>
           <div className={styles.datewrapper}>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
