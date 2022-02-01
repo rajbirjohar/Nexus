@@ -6,6 +6,7 @@ import clientPromise from '@/lib/mongodb'
 import DeleteOrganization from '@/components/Organizations/DeleteOrganization'
 import TransferOwnerForm from '@/components/Organizations/TransferOwnerForm'
 import RemoveAdminForm from '@/components/Organizations/RemoveAdminForm'
+import OrganizationEditForm from '@/components/Organizations/OrganizationEditForm'
 import styles from '@/styles/organizations.module.css'
 import formstyles from '@/styles/form.module.css'
 import { LeftChevronIcon } from '@/components/Icons'
@@ -45,6 +46,16 @@ export default function Settings({ organization }) {
           </p>
           {organization.map((organization) => (
             <section key={organization._id} className={styles.dangeractions}>
+              <div className={styles.danger}>
+                <OrganizationEditForm
+                  organizationId={organization._id}
+                  _oldOrganizationName={organization.organizationName}
+                  _oldOrganizationTagline={organization.organizationTagline}
+                  _oldOrganizationDescription={organization.organizationDescription}
+                  _oldOrganizationImage={organization.organizationImageURL}
+                  _oldImagePublicId={organization.imagePublicId}
+                />
+              </div>
               <div className={styles.danger}>
                 <RemoveAdminForm organizationId={organization._id} />
               </div>
