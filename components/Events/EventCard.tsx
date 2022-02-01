@@ -19,6 +19,8 @@ export default function EventCard({
   startDate,
   endDate,
 }) {
+  // To remove all markdown tags from the details sections
+  let strippedEventDetails = eventDetails.replace(/(<([^>]+)>)/gi, ' ')
   return (
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
       <div id={eventId} className={cardstyles.card}>
@@ -30,7 +32,7 @@ export default function EventCard({
           <strong>By {organizationName}</strong>
         </p>
 
-        <p className="clamp-2">{eventDetails}</p>
+        <p className="clamp-2">{strippedEventDetails}</p>
         <span className={cardstyles.date}>
           {new Date(startDate).toLocaleString('en-US', {
             dateStyle: 'short',

@@ -8,6 +8,9 @@
   },
   "dependencies": {
     "@next-auth/mongodb-adapter": "^0.0.2-next.281",
+    "@tiptap/extension-character-count": "^2.0.0-beta.24",
+    "@tiptap/react": "^2.0.0-beta.107",
+    "@tiptap/starter-kit": "^2.0.0-beta.180",
     "@types/mongodb": "^4.0.7",
     "boring-avatars": "^1.6.1",
     "cloudinary": "^1.27.1",

@@ -19,6 +19,7 @@ export default function Sidebar() {
       </aside>
     )
   }
+
   return (
     <aside className={styles.sidebar}>
       <h3>Discover</h3>
@@ -31,7 +32,7 @@ export default function Sidebar() {
             <h4 className={styles.sidetitle}>{discover.eventName}</h4>
           </Link>
           <p className={`${styles.sidedetails} ${'clamp-2'}`}>
-            {discover.eventDetails}
+            {discover.eventDetails.replace(/(<([^>]+)>)/gi, ' ')}
           </p>
         </li>
       ))}

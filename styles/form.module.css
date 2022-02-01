@@ -345,6 +345,12 @@ make the button taller */
   max-height: 20px;
 }
 
+.menubar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-quarter);
+}
+
 @media (max-width: 668px) {
   .commentactions {
     flex-direction: column;

@@ -156,7 +156,12 @@ export default function Event({ event }) {
                     timeZone: 'GMT',
                   })}
                 </span>
-                <p>{event.eventDetails}</p>
+                <div
+                  // I don't know how to feel about using this
+                  // but apparently it is the most recommended way
+                  // of displaying raw html
+                  dangerouslySetInnerHTML={{ __html: `${event.eventDetails}` }}
+                />
               </motion.div>
             )}
           </AnimatePresence>

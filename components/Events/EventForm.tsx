@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import ImageDropzone from '../ImageDropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
+import Tiptap from '../Tiptap'
 
 const maxLength = 750
 
@@ -143,17 +144,19 @@ export default function EventForm({
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Field
+          {/* <Field
             autoComplete="off"
             name="_eventDetails"
             component="textarea"
             rows="3"
             placeholder="Scotty's Birthday Details"
             maxLength={maxLength}
+          /> */}
+          <Tiptap
+            setFieldValue={setFieldValue}
+            isSubmitting={isSubmitting}
+            name="_eventDetails"
           />
-          <span className={styles.maxlength}>
-            {maxLength - values._eventDetails.length}/{maxLength}
-          </span>
           <div className={styles.datewrapper}>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>

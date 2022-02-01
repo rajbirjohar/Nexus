@@ -267,7 +267,8 @@ textarea {
 
 input,
 select,
-textarea {
+textarea,
+.ProseMirror {
   color: var(--gray-800);
   line-height: 1.6;
   border: 2px solid var(--gray-100);
@@ -280,7 +281,8 @@ textarea {
 }
 
 input[type='text'],
-textarea {
+textarea,
+.ProseMirror {
   background-color: var(--gray-100);
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -297,9 +299,20 @@ input[type='text']:disabled::placeholder {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+.ProseMirror:focus {
   outline: none !important;
   border: 2px solid var(--teal-300);
+}
+
+.is-active:hover {
+  background-color: var(--teal-900);
+  color: var(--teal-50);
+}
+
+.is-active {
+  background-color: var(--teal-900);
+  color: var(--teal-50);
 }
 
 input[type='range'] {
