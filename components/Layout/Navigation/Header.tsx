@@ -7,7 +7,7 @@ import styles from '@/styles/header.module.css'
 import formstyles from '@/styles/form.module.css'
 import MobileHeader from './MobileHeader'
 import Image from 'next/image'
-import myImg from 'public/NexusLogo.svg'
+import logo from 'public/NexusLogo.svg'
 
 interface Size {
   width: number | undefined
@@ -36,7 +36,7 @@ export default function Header() {
             <Link href="/">
               <a className={styles.logo}>
                 <Image
-                  src={myImg}
+                  src={logo}
                   alt="Nexus Logo"
                   width={30}
                   height={30}

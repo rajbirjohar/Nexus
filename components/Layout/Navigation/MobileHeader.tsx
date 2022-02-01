@@ -8,7 +8,7 @@ import { MenuButton } from './MenuButton'
 import styles from '@/styles/header.module.css'
 import formstyles from '@/styles/form.module.css'
 import Image from 'next/image'
-import myImg from 'public/NexusLogo.svg'
+import logo from 'public/NexusLogo.svg'
 
 const list = {
   closed: {
@@ -80,7 +80,7 @@ export default function MobileHeader() {
       <div className={styles.innernav}>
         <Link href="/">
           <a className={styles.mobilelogo}>
-            <Image src={myImg} alt="Nexus Logo" width={30} height={30} />
+            <Image src={logo} alt="Nexus Logo" width={30} height={30} />
           </a>
         </Link>
         <MenuButton

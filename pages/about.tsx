@@ -29,7 +29,7 @@ export default function aboutPage() {
           events, Nexus is <i>where information gathers</i>.
         </p>
         <p>
-          Written with ❤️, ☕️, and 🧠 by,
+          Written with 💻, ☕️, 🧠, and ❤️
           <br />
           <a
             rel="noopener noreferrer"

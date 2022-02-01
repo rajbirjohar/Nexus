@@ -67,7 +67,7 @@ export default function ListReviewPosts({ courseId }) {
         <NotFound placeholder="review" />
       )}
       <LayoutGroup>
-        <motion.div layout="position" className={cardstyles.gridtall}>
+        <motion.div layout layoutId="listcards" className={cardstyles.gridtall}>
           {filteredReviews.map((post) => (
             <ReviewPostCard
               key={post._id}
