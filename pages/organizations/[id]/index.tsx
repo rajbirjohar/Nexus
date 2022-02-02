@@ -96,7 +96,7 @@ const Organization = ({ organization, superMembers, members }) => {
               <h2>Admins</h2>
               <ul className={styles.memberslist}>
                 {superMembers.map((superMember) => (
-                  <li key={superMember.adminId}>
+                  <li className={styles.members} key={superMember.adminId}>
                     <strong>{superMember.admin} </strong> / {superMember.email}
                   </li>
                 ))}
@@ -111,7 +111,7 @@ const Organization = ({ organization, superMembers, members }) => {
                   <p>No one has joined your organization yet 😭.</p>
                 )}
                 {members.map((member) => (
-                  <li key={member.memberId}>
+                  <li className={styles.members} key={member.memberId}>
                     <strong>{member.member}</strong> / {member.email}
                   </li>
                 ))}

@@ -158,12 +158,12 @@ li {
   color: var(--gray-600);
 }
 
-li {
+/* li {
   list-style: none;
   list-style-type: none;
   padding: 0;
   margin: 0;
-}
+} */
 
 h1 {
   font-size: 2.5rem;
@@ -184,7 +184,7 @@ h4 {
 
 hr {
   border: none;
-  border-bottom: 2px solid var(--gray-900);
+  border-bottom: 2px solid var(--gray-200);
 }
 
 blockquote {
@@ -288,6 +288,10 @@ textarea,
   -moz-appearance: none;
   appearance: none;
   transition: all var(--transition);
+}
+
+.ProseMirror {
+  line-height: 1.125rem;
 }
 
 input[type='text']:disabled {
