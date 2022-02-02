@@ -64,7 +64,12 @@
   border-radius: var(--radius-sm);
   padding: var(--gap);
 }
-
+.members {
+  list-style: none;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
 @media (max-width: 868px) {
   .content {
     flex-direction: column;
