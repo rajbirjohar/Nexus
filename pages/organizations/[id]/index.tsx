@@ -45,7 +45,7 @@ const Organization = ({ organization, superMembers, members }) => {
       tip={null}
     >
       {organization.map((organization) => (
-        <>
+        <section key={organization._id}>
           <div className={styles.organizationHeader}>
             <div className={styles.organizationInner}>
               {organization.organizationImageURL && (
@@ -131,10 +131,9 @@ const Organization = ({ organization, superMembers, members }) => {
               </Dropdown>
             </>
           )}
-
           <h2>Events</h2>
           <ListEventsPerOrg organizationId={organization._id} />
-        </>
+        </section>
       ))}
     </Page>
   )

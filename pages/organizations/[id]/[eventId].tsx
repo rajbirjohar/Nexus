@@ -102,7 +102,7 @@ export default function Event({ event }) {
   return (
     <Page title={`${event.map((event) => event.eventName)}`} tip={null}>
       {event.map((event) => (
-        <>
+        <section key={event._id}>
           <AnimatePresence exitBeforeEnter>
             {isEdit ? (
               <motion.div layout="position">
@@ -209,7 +209,7 @@ export default function Event({ event }) {
               organizationId={event.organizationId}
             />
           </motion.div>
-        </>
+        </section>
       ))}
     </Page>
   )
