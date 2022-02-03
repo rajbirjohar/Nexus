@@ -120,12 +120,19 @@ const MenuBar = ({ editor }) => {
 }
 
 const Tiptap = (props) => {
-  const { setFieldValue, isSubmitting, name, oldEventDetails } = props
+  const {
+    setFieldValue,
+    isSubmitting,
+    name,
+    oldEventDetails,
+    oldOrganizationDescription,
+  } = props
   let rawHtml =
     oldEventDetails ||
+    oldOrganizationDescription ||
     `
   <h3>
-    Hi there,
+    Hi there, 
   </h3>
    <p>
    What do you want to share with the world today?
@@ -153,7 +160,7 @@ const Tiptap = (props) => {
         <EditorContent editor={editor} name={name} />
       </div>
       <span className={styles.maxlength}>
-        {editor.storage.characterCount.characters()}/{limit} characters
+        {editor.storage.characterCount.characters()}/{limit}
       </span>
     </div>
   )

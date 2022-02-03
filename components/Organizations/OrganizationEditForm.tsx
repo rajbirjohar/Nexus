@@ -2,6 +2,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import ImageDropzone from '../ImageDropzone'
 import styles from '@/styles/form.module.css'
 import toast from 'react-hot-toast'
+import Tiptap from '../Tiptap'
 
 const maxLength = 1000
 const tagLineLength = 250
@@ -143,16 +144,20 @@ export default function OrganizationEditForm({
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Field
+          {/*<Field
             autoComplete="off"
             component="textarea"
             name="_newOrganizationDescription"
             placeholder="A very cool description"
             maxLength={maxLength}
+          />*/}
+          <Tiptap
+            setFieldValue={setFieldValue}
+            isSubmitting={isSubmitting}
+            name="_newOrganizationDescription"
+            // Initially, we set it to the old details in initialValues
+            oldOrganizationDescription={values._newOrganizationDescription}
           />
-          <span className={styles.maxlength}>
-            {maxLength - values._newOrganizationDescription.length}/{maxLength}
-          </span>
           <span className={styles.actions}>
             <button
               className={styles.secondary}
