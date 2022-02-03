@@ -290,10 +290,6 @@ textarea,
   transition: all var(--transition);
 }
 
-.ProseMirror {
-  line-height: 1.125rem;
-}
-
 input[type='text']:disabled {
   border-color: var(--gray-200) !important;
 }

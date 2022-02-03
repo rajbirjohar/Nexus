@@ -39,18 +39,13 @@ const Organization = ({ organization, superMembers, members }) => {
 
   return (
     <Page
-      title={`${organization.map((organization) => {
-        organization.organizationName
-      })}`}
+      title={`${organization.map(
+        (organization) => organization.organizationName
+      )}`}
       tip={null}
     >
       {organization.map((organization) => (
         <>
-          <Head>
-            <title>Nexus | {organization.organizationName}</title>
-            {/* Change this icon when we have a logo */}
-            <link rel="icon" href="/NexusLogo.svg" />
-          </Head>
           <div className={styles.organizationHeader}>
             <div className={styles.organizationInner}>
               {organization.organizationImageURL && (
@@ -90,7 +85,14 @@ const Organization = ({ organization, superMembers, members }) => {
             </div>
           </div>
           <h4>{organization.organizationTagline}</h4>
-          <p>{organization.organizationDescription}</p>
+          <div
+            // I don't know how to feel about using this
+            // but apparently it is the most recommended way
+            // of displaying raw html
+            dangerouslySetInnerHTML={{
+              __html: `${organization.organizationDescription}`,
+            }}
+          />
           {((session && isAdmin) || (session && isMember)) && (
             <>
               <h2>Admins</h2>
