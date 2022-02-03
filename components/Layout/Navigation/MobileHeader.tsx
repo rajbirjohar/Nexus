@@ -46,6 +46,7 @@ const listItem = {
 
 const NavLink = ({ title, path, setIsOpen, isOpen }) => {
   const [blockScroll, allowScroll] = useScrollBlock()
+
   const openNav = () => {
     setIsOpen(!isOpen)
     if (!isOpen) {
@@ -54,6 +55,7 @@ const NavLink = ({ title, path, setIsOpen, isOpen }) => {
       allowScroll()
     }
   }
+
   return (
     <motion.li variants={listItem} onClick={openNav}>
       <Link href={path}>{title}</Link>
@@ -69,7 +71,7 @@ export default function MobileHeader() {
     window.addEventListener('scroll', () => {
       setScroll(window.scrollY > 10)
     })
-  }, [])
+  })
 
   return (
     <nav
@@ -140,7 +142,6 @@ export default function MobileHeader() {
                   </motion.li>
                 </>
               ) : (
-                // Else display the mobile navigation bar
                 <motion.li variants={listItem}>
                   <button
                     className={formstyles.primary}

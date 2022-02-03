@@ -46,16 +46,17 @@ export default function Settings({ organization }) {
           </p>
           {organization.map((organization) => (
             <section key={organization._id} className={styles.dangeractions}>
-              <div className={styles.danger}>
-                <OrganizationEditForm
-                  organizationId={organization._id}
-                  _oldOrganizationName={organization.organizationName}
-                  _oldOrganizationTagline={organization.organizationTagline}
-                  _oldOrganizationDescription={organization.organizationDescription}
-                  _oldOrganizationImage={organization.organizationImageURL}
-                  _oldImagePublicId={organization.imagePublicId}
-                />
-              </div>
+              <OrganizationEditForm
+                organizationId={organization._id}
+                _oldOrganizationName={organization.organizationName}
+                _oldOrganizationTagline={organization.organizationTagline}
+                _oldOrganizationDescription={
+                  organization.organizationDescription
+                }
+                _oldOrganizationImage={organization.organizationImageURL}
+                _oldImagePublicId={organization.imagePublicId}
+              />
+
               <div className={styles.danger}>
                 <RemoveAdminForm organizationId={organization._id} />
               </div>
