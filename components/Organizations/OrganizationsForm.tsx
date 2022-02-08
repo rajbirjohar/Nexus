@@ -18,6 +18,8 @@ interface Organization {
   _organizationTagline: string
   _organizationDescription: string
   _organizationImage: string
+  _organizationWebsite: string
+  _organizationInstagram: string
 }
 
 // Component: OrganizationPostForm()
@@ -34,6 +36,8 @@ export default function OrganizationsForm() {
     _organizationTagline: '',
     _organizationDescription: '',
     _organizationImage: '',
+    _organizationWebsite: '',
+    _organizationInstagram: '',
   }
 
   const sendData = async (organizationData) => {
@@ -155,6 +159,38 @@ export default function OrganizationsForm() {
             <span className={styles.maxlength}>
               {maxLength - values._organizationDescription.length}/{maxLength}
             </span>
+            <div className={styles.inputheader}>
+              <label htmlFor="_organizationWebsite">
+                <strong>Organization Website:
+                  <span className={styles.subtitle}> (Optional)</span>
+                </strong>
+              </label>
+              <ErrorMessage name="_organizationWebsite">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              type="text"
+              name="_organizationWebsite"
+              placeholder="https://scottysclub.org/"
+            />
+            <div className={styles.inputheader}>
+              <label htmlFor="_organizationInstagram">
+                <strong>Organization Instagram:
+                  <span className={styles.subtitle}> (Optional)</span>
+                </strong>
+              </label>
+              <ErrorMessage name="_organizationInstagram">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              type="text"
+              name="_organizationInstagram"
+              placeholder="https://www.instagram.com/highlandersatscottys/"
+            />
             <span className={styles.actions}>
               <button
                 className={styles.primary}

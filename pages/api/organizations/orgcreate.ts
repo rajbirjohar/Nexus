@@ -33,6 +33,8 @@ export default async function createOrganization(
         _organizationTagline,
         _organizationDescription,
         _organizationImage,
+        _organizationWebsite,
+        _organizationInstagram,
       },
     } = req.body
     const cloudinaryRes = await cloudinary.uploader.upload(_organizationImage, {
@@ -55,6 +57,8 @@ export default async function createOrganization(
         organizationName: _organizationName,
         organizationTagline: _organizationTagline,
         organizationDescription: _organizationDescription,
+        organizationWebsite: _organizationWebsite,
+        organizationInstagram: _organizationInstagram,
         superMembersList: [
           {
             adminId: new mongodb.ObjectId(organizerId),

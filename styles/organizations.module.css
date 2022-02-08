@@ -31,6 +31,17 @@
   gap: var(--gap-med);
 }
 
+.socialHeader {
+  display: flex;
+  flex-direction: row;
+}
+
+.socialItem {
+  transform: scale(0.7);
+  text-align: center;
+  width: 3rem;
+}
+
 .organizationInner {
   display: flex;
   align-items: center;

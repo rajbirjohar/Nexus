@@ -15,6 +15,8 @@ import {
 } from '@/components/Organizations/RemoveMemberForm'
 import Dropdown from '@/components/Layout/Dropdown'
 import Link from 'next/link'
+import { WebsiteIcon, InstagramIcon } from '@/components/Icons'
+import formstyles from '@/styles/form.module.css'
 
 const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
@@ -85,6 +87,19 @@ const Organization = ({ organization, superMembers, members }) => {
                 </Link>
               )}
             </div>
+          </div>
+          <br/>
+          <div className={styles.socialHeader}>
+            <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationWebsite}>
+              <svg className={formstyles.webicon}>
+                <WebsiteIcon />
+              </svg>
+            </a>
+            <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationInstagram}>
+              <svg className={formstyles.webicon}>
+                <InstagramIcon />
+              </svg>
+            </a>
           </div>
           <h4>{organization.organizationTagline}</h4>
           <div

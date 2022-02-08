@@ -53,6 +53,8 @@ export default function Settings({ organization }) {
                 _oldOrganizationDescription={
                   organization.organizationDescription
                 }
+                _oldOrganizationInstagram={organization.organizationInstagram}
+                _oldOrganizationWebsite={organization.organizationWebsite}
                 _oldOrganizationImage={organization.organizationImageURL}
                 _oldImagePublicId={organization.imagePublicId}
               />

@@ -12,6 +12,8 @@ interface Organization {
   _newOrganizationName: string
   _newOrganizationTagline: string
   _newOrganizationDescription: string
+  _newOrganizationWebsite: string
+  _newOrganizationInstagram: string
   _newOrganizationImage: string | null
   _oldOrganizationImage: string
   _oldImagePublicId: string
@@ -22,6 +24,8 @@ export default function OrganizationEditForm({
   _oldOrganizationName,
   _oldOrganizationTagline,
   _oldOrganizationDescription,
+  _oldOrganizationWebsite,
+  _oldOrganizationInstagram,
   _oldOrganizationImage,
   _oldImagePublicId,
 }) {
@@ -30,6 +34,8 @@ export default function OrganizationEditForm({
     _newOrganizationName: _oldOrganizationName,
     _newOrganizationTagline: _oldOrganizationTagline,
     _newOrganizationDescription: _oldOrganizationDescription,
+    _newOrganizationWebsite: _oldOrganizationWebsite,
+    _newOrganizationInstagram: _oldOrganizationInstagram,
     _newOrganizationImage: null,
     _oldOrganizationImage: _oldOrganizationImage,
     _oldImagePublicId: _oldImagePublicId,
@@ -79,11 +85,15 @@ export default function OrganizationEditForm({
             values._newOrganizationTagline === _oldOrganizationTagline &&
             values._newOrganizationDescription ===
               _oldOrganizationDescription &&
+            values._newOrganizationWebsite === _oldOrganizationWebsite &&
+            values._newOrganizationInstagram === _oldOrganizationInstagram &&
             !values._newOrganizationImage
           ) {
             errors._newOrganizationName = 'You made no changes'
             errors._newOrganizationTagline = 'You made no changes'
             errors._newOrganizationDescription = 'You made no changes'
+            errors._newOrganizationWebsite = 'You made no changes'
+            errors._newOrganizationInstagram = 'You made no changes'
           }
           return errors
         }}
@@ -164,6 +174,41 @@ export default function OrganizationEditForm({
               name="_newOrganizationDescription"
               // Initially, we set it to the old details in initialValues
               oldOrganizationDescription={values._newOrganizationDescription}
+            />
+            <div className={styles.inputheader}>
+              <label htmlFor="_newOrganizationWebsite">
+                <strong>Organization Website:
+                  {/* <span className={styles.subtitle}> (Optional)</span> */}
+                </strong>
+              </label>
+              <ErrorMessage name="_newOrganizationWebsite">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              name="_newOrganizationWebsite"
+              type="text"
+              placeholder="https://scottysclub.org/"
+              maxLength={50}
+            />
+
+            <div className={styles.inputheader}>
+              <label htmlFor="_newOrganizationInstagram">
+                <strong>Organization Instagram:
+                  {/* <span className={styles.subtitle}> (Optional)</span> */}
+                </strong>
+              </label>
+              <ErrorMessage name="_newOrganizationInstagram">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              name="_newOrganizationInstagram"
+              type="text"
+              placeholder="https://www.instagram.com/highlandersatscottys/"
+              maxLength={100}
             />
             <span className={styles.actions}>
               <button
