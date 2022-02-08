@@ -26,10 +26,8 @@ export default function RecentReviewPostCard({
         <h3 className={cardstyles.difficulty}>{difficulty}</h3>
       </span>
       <div>
-        <p>
-          <strong>Review:</strong> <br />
-          <i>&quot;{reviewPost}&quot;</i>
-        </p>
+        <strong>Review:</strong> <br />
+        <div dangerouslySetInnerHTML={{ __html: `${reviewPost}` }} />
         <p>
           <strong>Professor:</strong> {reviewProfessor}
         </p>
