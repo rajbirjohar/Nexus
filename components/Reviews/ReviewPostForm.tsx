@@ -4,6 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import useSlider from './Slider'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
+import Tiptap from '../Tiptap'
 
 // Max length for review
 const maxLength = 750
@@ -92,7 +93,7 @@ export default function ReviewPostForm({ course, courseId }) {
         setSubmitting(false)
       }}
     >
-      {({ values, handleSubmit, isSubmitting }) => (
+      {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
             <label htmlFor="_reviewPost">
@@ -102,17 +103,21 @@ export default function ReviewPostForm({ course, courseId }) {
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Field
+          {/*<Field
             autoComplete="off"
             component="textarea"
             name="_reviewPost"
             placeholder='"I love this class!"'
             rows="3"
             maxLength={maxLength}
+          /> */}
+          <Tiptap
+            setFieldValue={setFieldValue}
+            isSubmitting={isSubmitting}
+            name="_reviewPost"
+            // Initially, we set it to the old details in initialValues
+            oldEventDetails={values._reviewPost}
           />
-          <span className={styles.maxlength}>
-            {maxLength - values._reviewPost.length}/{maxLength}
-          </span>
           <div className={styles.inputheader}>
             <label htmlFor="_reviewProfessor">
               <strong>Professor:</strong>

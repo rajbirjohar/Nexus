@@ -109,10 +109,8 @@ export default function ReviewPostCard({
           </motion.div>
         ) : (
           <motion.div layout="position">
-            <p>
-              <strong>Review:</strong> <br />
-              <i>&quot;{reviewPost}&quot;</i>
-            </p>
+            <strong>Review:</strong> <br />
+            <div dangerouslySetInnerHTML={{ __html: `${reviewPost}` }} />
             <p>
               <strong>Professor:</strong> {reviewProfessor}
             </p>
