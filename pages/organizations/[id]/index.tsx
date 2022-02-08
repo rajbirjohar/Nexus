@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-import Head from 'next/head'
+import React from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
@@ -10,7 +9,10 @@ import clientPromise from '@/lib/mongodb'
 import styles from '@/styles/organizations.module.css'
 import AddAdminForm from '@/components/Organizations/AddAdminForm'
 import AddMemberForm from '@/components/Organizations/AddMemberForm'
-import RemoveMemberForm from '@/components/Organizations/RemoveMemberForm'
+import {
+  RemoveMemberForm,
+  RemoveMemberAdminForm,
+} from '@/components/Organizations/RemoveMemberForm'
 import Dropdown from '@/components/Layout/Dropdown'
 import Link from 'next/link'
 
@@ -114,7 +116,12 @@ const Organization = ({ organization, superMembers, members }) => {
                 )}
                 {members.map((member) => (
                   <li className={styles.members} key={member.memberId}>
-                    <strong>{member.member}</strong> / {member.email}
+                    <strong>{member.member}</strong> / {member.email} /{' '}
+                    <RemoveMemberAdminForm
+                      memberId={member.memberId}
+                      organizationId={organization._id}
+                      organizationName={organization.organizationName}
+                    />
                   </li>
                 ))}
               </Dropdown>
