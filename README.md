@@ -189,13 +189,13 @@ This project has definitely tested our abilities as developers and forced us to 
 
 I'd say the biggest issue we encountered on the frontend would probably be the animations. The difference between a good app and a great app in my opinion is how it feels in the user's hands. It should feel natural, almost as if it were an extension of their own body. And acheiving that required a great sense of attention to detail and how different objects on the screen interact with each other and the user. This also includes how colors and shadows shift and ensuring that there is no resistance when using the app.
 
-- Rajbir
+> &mdash; <cite>Rajbir Johar</cite>
 
 ### Backend
 
 This was the first time I realized that maybe not all the stuff taught in my theoretical CS classes was unapplicable. Structuring my backend forced me to think about how data is related to each other in order to reduce the amount of redundancies produced. This in turn helped me with fetching the right data in the fastest way possible to provide to the user.
 
-- Rajbir
+> &mdash; <cite>Rajbir Johar</cite>
 
 ## Diagrams
 
