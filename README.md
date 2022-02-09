@@ -41,6 +41,7 @@
 - [x] Authentication
 - [x] Review Posts
 - [x] Event Posts
+- [x] Rich Text Editor
 - [x] Images Banners
 - [x] Org Profiles
 - [x] User Profiles
@@ -160,21 +161,41 @@ If you want to learn more about MongoDB, visit the following pages:
 ### Notable Libraries and Packages
 
 - Next-Auth
+    - Main library used for authentication.
+    - Used in conjunction with Google OAuth.
+    - Only extracts a user's name, email, and google image (for privacy) 
+- TipTap 
+    - Powers our Rich Text Editor.
+    - Incredibly versatile and powerful.
 - SWR
+    - Allows for revalidating data fetching so all data is up to date.
 - Formik
+    - How our forms are made.
 - CSS Modules
 - Framer Motion
+    - What is behind most of our layout animations for an incredibly smooth interface.
 - react-hot-toast
+    - Notifies the user with a cute toast.
 - Lottie
+    - Makes our landing page special with animated images.
 - react-dropzone
+    - Allows users to submit images.
 
 ## Challenges
 
+This project has definitely tested our abilities as developers and forced us to learn and embrace challenges. Below we explain all of the major obstacles we've encountered while building this one-of-a-kind app.
+
 ### Frontend
+
+I'd say the biggest issue we encountered on the frontend would probably be the animations. The difference between a good app and a great app in my opinion is how it feels in the user's hands. It should feel natural, almost as if it were an extension of their own body. And acheiving that required a great sense of attention to detail and how different objects on the screen interact with each other and the user. This also includes how colors and shadows shift and ensuring that there is no resistance when using the app.
+
+- Rajbir
 
 ### Backend
 
-### UI/UX
+This was the first time I realized that maybe not all the stuff taught in my theoretical CS classes was unapplicable. Structuring my backend forced me to think about how data is related to each other in order to reduce the amount of redundancies produced. This in turn helped me with fetching the right data in the fastest way possible to provide to the user.
+
+- Rajbir
 
 ## Diagrams
 
