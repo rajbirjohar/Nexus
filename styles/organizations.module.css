@@ -34,10 +34,19 @@
 .socialHeader {
   display: flex;
   flex-direction: row;
+  margin-bottom: -20px;
+  margin-top: 10px;
+  /* background-color: var(--teal-200);
+  color: var(--teal-800) */
+}
+
+.test {
+  background-color: sandybrown;
+  margin-top: 0px;
 }
 
 .socialItem {
-  transform: scale(0.7);
+  transform: scale(0.5);
   text-align: center;
   width: 3rem;
 }

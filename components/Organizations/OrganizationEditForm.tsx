@@ -14,6 +14,10 @@ interface Organization {
   _newOrganizationDescription: string
   _newOrganizationWebsite: string
   _newOrganizationInstagram: string
+  _newOrganizationFacebook: string
+  _newOrganizationTwitter: string
+  _newOrganizationSlack: string
+  _newOrganizationDiscord: string
   _newOrganizationImage: string | null
   _oldOrganizationImage: string
   _oldImagePublicId: string
@@ -26,6 +30,10 @@ export default function OrganizationEditForm({
   _oldOrganizationDescription,
   _oldOrganizationWebsite,
   _oldOrganizationInstagram,
+  _oldOrganizationFacebook,
+  _oldOrganizationTwitter,
+  _oldOrganizationSlack,
+  _oldOrganizationDiscord,
   _oldOrganizationImage,
   _oldImagePublicId,
 }) {
@@ -36,6 +44,10 @@ export default function OrganizationEditForm({
     _newOrganizationDescription: _oldOrganizationDescription,
     _newOrganizationWebsite: _oldOrganizationWebsite,
     _newOrganizationInstagram: _oldOrganizationInstagram,
+    _newOrganizationFacebook: _oldOrganizationFacebook,
+    _newOrganizationTwitter: _oldOrganizationTwitter,
+    _newOrganizationSlack: _oldOrganizationSlack,
+    _newOrganizationDiscord: _oldOrganizationDiscord,
     _newOrganizationImage: null,
     _oldOrganizationImage: _oldOrganizationImage,
     _oldImagePublicId: _oldImagePublicId,
@@ -87,6 +99,10 @@ export default function OrganizationEditForm({
               _oldOrganizationDescription &&
             values._newOrganizationWebsite === _oldOrganizationWebsite &&
             values._newOrganizationInstagram === _oldOrganizationInstagram &&
+            values._newOrganizationFacebook === _oldOrganizationFacebook &&
+            values._newOrganizationTwitter === _oldOrganizationTwitter &&
+            values._newOrganizationSlack === _oldOrganizationSlack &&
+            values._newOrganizationDiscord === _oldOrganizationDiscord &&
             !values._newOrganizationImage
           ) {
             errors._newOrganizationName = 'You made no changes'
@@ -94,6 +110,10 @@ export default function OrganizationEditForm({
             errors._newOrganizationDescription = 'You made no changes'
             errors._newOrganizationWebsite = 'You made no changes'
             errors._newOrganizationInstagram = 'You made no changes'
+            errors._newOrganizationFacebook = 'You made no changes'
+            errors._newOrganizationTwitter = 'You made no changes'
+            errors._newOrganizationSlack = 'You made no changes'
+            errors._newOrganizationDiscord = 'You made no changes'
           }
           return errors
         }}
@@ -210,6 +230,79 @@ export default function OrganizationEditForm({
               placeholder="https://www.instagram.com/highlandersatscottys/"
               maxLength={100}
             />
+
+            <div className={styles.inputheader}>
+              <label htmlFor="_newOrganizationFacebook">
+                <strong>Organization Facebook:
+                  {/* <span className={styles.subtitle}> (Optional)</span> */}
+                </strong>
+              </label>
+              <ErrorMessage name="_newOrganizationFacebook">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              name="_newOrganizationFacebook"
+              type="text"
+              placeholder="https://www.facebook.com/groups/highlandersatscottys/"
+              maxLength={100}
+            />
+
+            <div className={styles.inputheader}>
+              <label htmlFor="_newOrganizationTwitter">
+                <strong>Organization Twitter:
+                  {/* <span className={styles.subtitle}> (Optional)</span> */}
+                </strong>
+              </label>
+              <ErrorMessage name="_newOrganizationTwitter">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              name="_newOrganizationTwitter"
+              type="text"
+              placeholder="https://www.twitter.com/highlandersatscottys/"
+              maxLength={100}
+            />
+
+            <div className={styles.inputheader}>
+              <label htmlFor="_newOrganizationSlack">
+                <strong>Organization Slack:
+                  {/* <span className={styles.subtitle}> (Optional)</span> */}
+                </strong>
+              </label>
+              <ErrorMessage name="_newOrganizationSlack">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              name="_newOrganizationSlack"
+              type="text"
+              placeholder="https://www.scottysatucr.slack.com"
+              maxLength={100}
+            />
+
+            <div className={styles.inputheader}>
+              <label htmlFor="_newOrganizationDiscord">
+                <strong>Organization Discord:
+                  {/* <span className={styles.subtitle}> (Optional)</span> */}
+                </strong>
+              </label>
+              <ErrorMessage name="_newOrganizationDiscord">
+                {(message) => <span className={styles.error}>{message}</span>}
+              </ErrorMessage>
+            </div>
+            <Field
+              autoComplete="off"
+              name="_newOrganizationDiscord"
+              type="text"
+              placeholder="https://www.discord.gg/scottysclub/"
+              maxLength={100}
+            />
+
             <span className={styles.actions}>
               <button
                 className={styles.secondary}
