@@ -197,6 +197,12 @@ This was the first time I realized that maybe not all the stuff taught in my the
 
 > &mdash; <cite>Rajbir Johar</cite>
 
+### Plan & Design
+
+This is the first time where our group of software engineers took on the task to develop a fullstack web application. Prior to this, most large scale projects we completed had guidance, an objective, and little planning was needed. However, developing Nexus brought on a whole set of new experiences and challenges. When we first started with our idea, we had to decide on the main features we wanted to incorporate into the product. Along with feature planning, we needed to plan sprints and approximate how much time each feature would take. In addition, we removed and added features during development for a multitude of reasons. Sometimes some features were too complex, impacted performance, or became negligable. Thus, constant changes, new ideas, and maintaining the original idea of the project proved extremely challenging.
+
+> &mdash; <cite>Brian Coffey</cite>
+
 ## Diagrams
 
 > UI/UX Mockups/State Diagrams
