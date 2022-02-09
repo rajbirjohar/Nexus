@@ -36,8 +36,9 @@
   flex-direction: row;
   margin-bottom: -20px;
   margin-top: 10px;
-  /* background-color: var(--teal-200);
-  color: var(--teal-800) */
+  background-color: var(--gray-100);
+  width: max-content;
+  border-radius: 15px 15px 15px 15px;
 }
 
 .test {
@@ -49,6 +50,10 @@
   transform: scale(0.5);
   text-align: center;
   width: 3rem;
+}
+
+.socialItem:hover {
+  color: var(--teal-800);
 }
 
 .organizationInner {
