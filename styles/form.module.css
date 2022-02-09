@@ -121,6 +121,12 @@ make the button taller */
   color: var(--teal-800);
 }
 
+.webicon {
+  display: block;
+  width: 100%;
+  height: 50px;
+}
+
 .deleteNotif {
   padding: var(--gap-half);
 }

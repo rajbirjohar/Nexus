@@ -15,6 +15,8 @@ import {
 } from '@/components/Organizations/RemoveMemberForm'
 import Dropdown from '@/components/Layout/Dropdown'
 import Link from 'next/link'
+import { WebsiteIcon, InstagramIcon, FacebookIcon, TwitterIcon, SlackIcon, DiscordIcon } from '@/components/Icons'
+import formstyles from '@/styles/form.module.css'
 
 const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
@@ -86,6 +88,57 @@ const Organization = ({ organization, superMembers, members }) => {
               )}
             </div>
           </div>
+          {}
+          <div className={styles.socialHeader}>
+            {organization.organizationWebsite && (
+                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationWebsite}>
+                  <svg className={formstyles.webicon}>
+                    <WebsiteIcon />
+                  </svg>
+                </a>
+            )}
+
+            {organization.organizationInstagram && (
+                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationInstagram}>
+                  <svg className={formstyles.webicon}>
+                    <InstagramIcon />
+                  </svg>
+                </a>
+            )}
+
+            {organization.organizationFacebook && (
+                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationFacebook}>
+                  <svg className={formstyles.webicon}>
+                    <FacebookIcon />
+                  </svg>
+                </a>
+            )}
+
+            {organization.organizationTwitter && (
+                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationTwitter}>
+                  <svg className={formstyles.webicon}>
+                    <TwitterIcon />
+                  </svg>
+                </a>
+            )}
+
+            {organization.organizationSlack && (
+                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationSlack}>
+                  <svg className={formstyles.webicon}>
+                    <SlackIcon />
+                  </svg>
+                </a>
+            )}
+
+            {organization.organizationDiscord && (
+                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationDiscord}>
+                  <svg className={formstyles.webicon}>
+                    <DiscordIcon />
+                  </svg>
+                </a>
+            )}
+          </div>
+
           <h4>{organization.organizationTagline}</h4>
           <div
             // I don't know how to feel about using this

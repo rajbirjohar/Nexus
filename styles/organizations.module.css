@@ -31,6 +31,31 @@
   gap: var(--gap-med);
 }
 
+.socialHeader {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: -20px;
+  margin-top: 10px;
+  background-color: var(--gray-100);
+  width: max-content;
+  border-radius: 15px 15px 15px 15px;
+}
+
+.test {
+  background-color: sandybrown;
+  margin-top: 0px;
+}
+
+.socialItem {
+  transform: scale(0.5);
+  text-align: center;
+  width: 3rem;
+}
+
+.socialItem:hover {
+  color: var(--teal-800);
+}
+
 .organizationInner {
   display: flex;
   align-items: center;
