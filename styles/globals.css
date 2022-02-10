@@ -270,7 +270,7 @@ select,
 textarea,
 .ProseMirror {
   color: var(--gray-800);
-  line-height: 1.6;
+  line-height: 1.25;
   border: 2px solid var(--gray-100);
   padding: var(--gap) var(--gap);
   font-size: 1.125rem;
@@ -278,6 +278,10 @@ textarea,
   margin: var(--gap-half) 0;
   background-color: var(--gray-100) !important;
   resize: none !important;
+}
+
+.ProseMirror{
+  line-height: 1.5;
 }
 
 input[type='text'],
@@ -392,84 +396,6 @@ input[type='checkbox'] {
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   overflow: hidden;
-}
-
-.ReactTags__tagInput {
-  margin-bottom: var(--gap-half);
-  display: flex;
-}
-
-.ReactTags__clearAll {
-  cursor: pointer;
-  background: var(--rose-500);
-  color: var(--rose-50);
-  height: max-content;
-}
-
-.ReactTags__clearAll:hover {
-  background: var(--rose-600);
-}
-
-/* Styles for selected tags */
-.ReactTags__selected {
-  display: flex;
-  gap: var(--gap-half);
-}
-
-.ReactTags__selected span.ReactTags__tag {
-  background: var(--teal-300);
-  color: var(--teal-900);
-  display: flex;
-  align-items: center;
-  padding: var(--gap-half);
-  border-radius: var(--radius);
-  width: max-content;
-  gap: var(--gap-half);
-}
-.ReactTags__selected a.ReactTags__remove {
-  color: var(--rose-900);
-  background-color: var(--rose-500);
-  cursor: pointer;
-}
-
-/* Styles for suggestions */
-.ReactTags__suggestions {
-  position: absolute;
-}
-.ReactTags__suggestions ul {
-  list-style-type: none;
-  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);
-  background: white;
-  width: 200px;
-}
-.ReactTags__suggestions li {
-  border-bottom: 1px solid #ddd;
-  padding: 5px 10px;
-  margin: 0;
-}
-.ReactTags__suggestions li mark {
-  text-decoration: underline;
-  background: none;
-  font-weight: 600;
-}
-.ReactTags__suggestions ul li.ReactTags__activeSuggestion {
-  background: #b7cfe0;
-  cursor: pointer;
-}
-
-.ReactTags__remove {
-  cursor: pointer;
-  color: var(--rose-900);
-  background-color: var(--teal-300);
-  border-radius: 10px;
-  height: 30px;
-  width: 30px;
-  max-height: max-content;
-}
-
-.ReactTags__remove:hover {
-  color: var(--rose-50);
-  background-color: var(--rose-400);
 }
 
 @media print {

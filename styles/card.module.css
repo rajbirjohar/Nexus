@@ -64,6 +64,10 @@
   flex-wrap: wrap;
 }
 
+.taginput {
+  flex-basis: 1/2;
+}
+
 .tag {
   background: var(--teal-300);
   color: var(--teal-900);
@@ -73,6 +77,45 @@
   border-radius: var(--radius);
   width: max-content;
   gap: var(--gap-half);
+}
+
+.removetag {
+  cursor: pointer;
+  color: var(--rose-900);
+  background-color: var(--teal-300);
+  border-radius: 10px;
+  height: 30px;
+  width: 30px;
+  max-height: max-content;
+}
+
+.suggestions {
+  position: absolute;
+}
+.suggestions ul {
+  list-style-type: none;
+  box-shadow: var(--shadows);
+  background: var(--card);
+  border-radius: var(--radius);
+  width: 300px;
+}
+.suggestions li {
+  padding: var(--gap-half);
+  margin: 0;
+  cursor: pointer;
+}
+
+.suggestions li mark {
+  text-decoration: underline;
+  background: none;
+  font-weight: 600;
+  color: var(--teal-900);
+  cursor: pointer;
+}
+
+.activesuggestion {
+  color: var(--teal-700);
+  cursor: pointer;
 }
 
 .greencard {
