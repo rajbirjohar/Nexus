@@ -79,7 +79,7 @@ Hey there, I'm Isaac! Some of my interests include stationery, mainly fountain p
 ### Florian Catalan
 <img align="left" src="/documentation/images/florian.png" alt="image of Florian Catalan" width="75" height="75">
 
-Hello, I'm Florian. 4th year CS major at UCR and you can find more from me at my [Github](https://github.com/floriancat). I enjoy playing video games, watching movies/shows designing, and editing in my free time. 
+Hello, I'm Florian. 4th year CS major at UCR and you can find more from me at my [LinkedIn](https://www.linkedin.com/in/floriancatalan/). I enjoy playing video games, watching movies/shows, designing, and editing in my free time. Career prospects in UX/UI.
 
 <br/>
 
@@ -201,6 +201,10 @@ One obstacle was visualizing the user experience to effectively deliver the need
 
 > &mdash; <cite>Robert Rivera</cite>
 
+NextJS and Typescript being the bases of our stack for this web app was both exciting and daunting as Nexus would be the first time I would be working with either of these tools. It was definitely an uphill battle learning the language of these tools, but I enjoyed piecing it together and developing in the Nexus environment.
+
+> &mdash; <cite>Florian Catalan</cite>
+
 ### Backend
 
 This was the first time I realized that maybe not all the stuff taught in my theoretical CS classes was unapplicable. Structuring my backend forced me to think about how data is related to each other in order to reduce the amount of redundancies produced. This in turn helped me with fetching the right data in the fastest way possible to provide to the user.
@@ -216,6 +220,10 @@ This is the first time where our group of software engineers took on the task to
 In order to contribute to Nexus, you need to be a UCR student or faculty member. Therefore, Nexus will deal with sensitive information. Security is our top priority because we want all our users to feel secure while using Nexus. We believe our multi-factor authentication will give users confidence in our infrastructure.
 
 > &mdash; <cite>Robert Rivera</cite>
+
+Inital design mockups and ideas would be scrapped and replaced with implementations that better fit the vision of Nexus. This planning process reinforced the idea of not getting too attached to your own designs. Others may have designs of their own that also accomplish the same goals as yours all while innovating in ways that may have never crossed your mind. 
+
+> &mdash; <cite>Florian Catalan</cite>
 
 ## Diagrams
 
