@@ -18,6 +18,7 @@ export default function EventCard({
   eventDetails,
   startDate,
   endDate,
+  eventTags,
 }) {
   // To remove all markdown tags from the details sections
   let strippedEventDetails = eventDetails.replace(/(<([^>]+)>)/gi, ' ')
@@ -31,8 +32,6 @@ export default function EventCard({
         <p className={cardstyles.author}>
           <strong>By {organizationName}</strong>
         </p>
-
-        <p className="clamp-2">{strippedEventDetails}</p>
         <span className={cardstyles.date}>
           {new Date(startDate).toLocaleString('en-US', {
             dateStyle: 'short',
@@ -46,6 +45,17 @@ export default function EventCard({
             timeZone: 'GMT',
           })}
         </span>
+        <p className="clamp-2">{strippedEventDetails}</p>
+
+        {eventTags && (
+          <div className={cardstyles.tagwrapper}>
+            {eventTags.map((tag) => (
+              <span key={tag.id} className={cardstyles.tag}>
+                {tag.text}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
     </Link>
   )

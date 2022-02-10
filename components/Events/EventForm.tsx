@@ -4,6 +4,7 @@ import ImageDropzone from '../ImageDropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 import Tiptap from '../Tiptap'
+import Tags from '../Tags'
 
 const maxLength = 750
 
@@ -17,6 +18,7 @@ interface Event {
   _eventStartDate: string
   _eventEndDate: string
   _eventImage: string
+  _eventTags: []
 }
 
 export default function EventForm({
@@ -35,6 +37,7 @@ export default function EventForm({
     _eventStartDate: '',
     _eventEndDate: '',
     _eventImage: '',
+    _eventTags: [],
   }
 
   const sendData = async (newEventData) => {
@@ -81,6 +84,9 @@ export default function EventForm({
         } else if (new Date(values._eventEndDate) < new Date()) {
           errors._eventEndDate = 'End date has passed'
         }
+        if (values._eventTags.length > 5) {
+          errors._eventTags = 'Too many tags'
+        }
         // if (!values._eventImage) {
         //   errors._eventImage = 'Required'
         // }
@@ -99,6 +105,7 @@ export default function EventForm({
             _eventStartDate: '',
             _eventEndDate: '',
             _eventImage: '',
+            _eventTags: [],
           },
         })
         setSubmitting(false)
@@ -144,14 +151,6 @@ export default function EventForm({
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          {/* <Field
-            autoComplete="off"
-            name="_eventDetails"
-            component="textarea"
-            rows="3"
-            placeholder="Scotty's Birthday Details"
-            maxLength={maxLength}
-          /> */}
           <Tiptap
             setFieldValue={setFieldValue}
             isSubmitting={isSubmitting}
@@ -189,6 +188,19 @@ export default function EventForm({
               />
             </div>
           </div>
+          <div className={styles.inputheader}>
+            <label htmlFor="_eventTags">
+              <strong>Tags:</strong>
+            </label>
+            <ErrorMessage name="_eventTags">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Tags
+            setFieldValue={setFieldValue}
+            isSubmitting={isSubmitting}
+            name="_eventTags"
+          />
           <span className={styles.actions}>
             <button
               className={styles.primary}

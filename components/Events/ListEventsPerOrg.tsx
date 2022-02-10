@@ -27,6 +27,7 @@ export default function ListEventsPerOrg({ organizationId }) {
           eventId={newEvent._id}
           startDate={newEvent.eventStartDate}
           endDate={newEvent.eventEndDate}
+          eventTags={newEvent.eventTags}
         />
       ))}
     </div>

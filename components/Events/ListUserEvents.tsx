@@ -105,6 +105,7 @@ export default function ListUserEvents() {
             eventId={newEvent._id}
             startDate={newEvent.eventStartDate}
             endDate={newEvent.eventEndDate}
+            eventTags={newEvent.eventTags}
           />
         ))}
       </div>

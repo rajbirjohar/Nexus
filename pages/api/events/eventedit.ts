@@ -35,6 +35,7 @@ export default async function editEvent(
         _newEventStartDate,
         _newEventEndDate,
         _newEventImage,
+        _newEventTags,
       },
     } = req.body
     let cloudinaryRes = {
@@ -56,6 +57,7 @@ export default async function editEvent(
           eventDetails: _newEventDetails,
           eventStartDate: new Date(_newEventStartDate),
           eventEndDate: new Date(_newEventEndDate),
+          eventTags: _newEventTags,
           eventImageURL: cloudinaryRes.secure_url,
           imagePublicId: cloudinaryRes.public_id,
           createdAt: new Date(),
