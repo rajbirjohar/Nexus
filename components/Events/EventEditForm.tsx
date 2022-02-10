@@ -5,6 +5,7 @@ import ImageDropzone from '../ImageDropzone'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
 import Tiptap from '../Tiptap'
+import Tags from '../Tags'
 
 const maxLength = 750
 
@@ -17,6 +18,7 @@ interface Event {
   _newEventImage: string | null
   _oldEventImage: string
   _oldImagePublicId: string
+  _newEventTags: []
 }
 
 export default function EventEditForm({
@@ -27,6 +29,7 @@ export default function EventEditForm({
   _oldEventEndDate,
   _oldEventImage,
   _oldImagePublicId,
+  _oldEventTags,
   onHandleChange,
 }) {
   const { data: session } = useSession()
@@ -42,6 +45,7 @@ export default function EventEditForm({
     _newEventImage: null,
     _oldEventImage: _oldEventImage,
     _oldImagePublicId: _oldImagePublicId,
+    _newEventTags: _oldEventTags,
   }
 
   const sendData = async (newEventData) => {
@@ -102,6 +106,9 @@ export default function EventEditForm({
           errors._newEventStartDate = 'You made no changes'
           errors._newEventEndDate = 'You made no changes'
           // errors._newEventImage = 'You made no changes'
+        }
+        if (values._newEventTags.length > 5) {
+          errors._newEventTags = 'Too many tags'
         }
         return errors
       }}
@@ -193,6 +200,20 @@ export default function EventEditForm({
               />
             </div>
           </div>
+          <div className={styles.inputheader}>
+            <label htmlFor="_newEventTags">
+              <strong>Tags:</strong>
+            </label>
+            <ErrorMessage name="_newEventTags">
+              {(message) => <span className={styles.error}>{message}</span>}
+            </ErrorMessage>
+          </div>
+          <Tags
+            setFieldValue={setFieldValue}
+            isSubmitting={isSubmitting}
+            name="_newEventTags"
+            oldEventTags={_oldEventTags}
+          />
           <span className={styles.actions}>
             <button
               className={styles.secondary}

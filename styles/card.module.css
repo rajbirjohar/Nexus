@@ -58,6 +58,23 @@
   color: var(--gray-400);
 }
 
+.tagwrapper {
+  display: flex;
+  gap: var(--gap-half);
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: var(--teal-300);
+  color: var(--teal-900);
+  display: flex;
+  align-items: center;
+  padding: var(--gap-half);
+  border-radius: var(--radius);
+  width: max-content;
+  gap: var(--gap-half);
+}
+
 .greencard {
   padding: var(--gap-half) var(--gap-med);
   margin-bottom: var(--gap-med);

@@ -49,13 +49,20 @@ export default function ListAllEvents() {
       </>
     )
   }
+
   const filteredEvents = Object(data.events).filter(
     (event) =>
       event.eventName.toLowerCase().includes(searchValue.toLowerCase()) ||
       event.organizationName
         .toLowerCase()
         .includes(searchValue.toLowerCase()) ||
-      event.eventDetails.toLowerCase().includes(searchValue.toLowerCase())
+      event.eventDetails.toLowerCase().includes(searchValue.toLowerCase()) ||
+      // Can only search one tag at a time for now
+      // Uses .some() because we want to return a truth OR false
+      // If we used a second filter, it would always return true
+      event.eventTags.some((tag) =>
+        tag.text.toLowerCase().includes(searchValue.toLowerCase())
+      )
   )
   return (
     <div>
@@ -104,6 +111,7 @@ export default function ListAllEvents() {
             eventId={newEvent._id}
             startDate={newEvent.eventStartDate}
             endDate={newEvent.eventEndDate}
+            eventTags={newEvent.eventTags}
           />
         ))}
       </div>

@@ -114,6 +114,7 @@ export default function Event({ event }) {
                   _oldEventEndDate={event.eventEndDate}
                   _oldEventImage={event.eventImageURL}
                   _oldImagePublicId={event.imagePublicId}
+                  _oldEventTags={event.eventTags}
                   onHandleChange={setIsEdit}
                 />
               </motion.div>
@@ -162,6 +163,15 @@ export default function Event({ event }) {
                   // of displaying raw html
                   dangerouslySetInnerHTML={{ __html: `${event.eventDetails}` }}
                 />
+                {event.eventTags && (
+                  <div className={cardstyles.tagwrapper}>
+                    {event.eventTags.map((tag) => (
+                      <span key={tag.id} className={cardstyles.tag}>
+                        {tag.text}
+                      </span>
+                    ))}
+                  </div>
+                )}
               </motion.div>
             )}
           </AnimatePresence>

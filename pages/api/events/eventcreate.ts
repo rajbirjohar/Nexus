@@ -35,6 +35,7 @@ export default async function createEvent(
         _eventStartDate,
         _eventEndDate,
         _eventImage,
+        _eventTags,
       },
     } = req.body
     // Since we only need secure_url and public_id, set as null
@@ -53,6 +54,7 @@ export default async function createEvent(
       eventDetails: _eventDetails,
       eventStartDate: new Date(_eventStartDate),
       eventEndDate: new Date(_eventEndDate),
+      eventTags: _eventTags,
       eventImageURL: cloudinaryRes.secure_url,
       imagePublicId: cloudinaryRes.public_id,
       createdAt: new Date(),
