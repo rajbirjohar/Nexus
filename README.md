@@ -181,6 +181,12 @@ If you want to learn more about MongoDB, visit the following pages:
 - react-dropzone
     - Allows users to submit images.
 
+### Python Script
+
+- Allows us to collect all the courses offered at UCR over the past 5 quarters. 
+- Works by submitting requests to the UCR registration website which returns a JSON response of course data that we parse, format, and upload to our database.
+- Uses the Python Requests and JSON libraries.
+
 ## Challenges
 
 This project has definitely tested our abilities as developers and forced us to learn and embrace challenges. Below we explain all of the major obstacles we've encountered while building this one-of-a-kind app.
