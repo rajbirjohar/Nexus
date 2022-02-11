@@ -173,7 +173,7 @@ export default function ReviewEditForm({
           <Slider />
           <span className={styles.actions}>
             <button
-              className={styles.primary}
+              className={styles.secondary}
               type="submit"
               disabled={isSubmitting}
             >

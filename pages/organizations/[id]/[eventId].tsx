@@ -130,8 +130,8 @@ export default function Event({ event }) {
                     />
                   </div>
                 )}
-                <h1>{event.eventName}</h1>
-                <h4 className={styles.author}>
+                <h1 className={styles.title}>{event.eventName}</h1>
+                <h3 className={styles.author}>
                   By{' '}
                   <Link
                     href={`/organizations/${event.organizationName}`}
@@ -139,24 +139,25 @@ export default function Event({ event }) {
                   >
                     <a>{event.organizationName}</a>
                   </Link>
-                </h4>
+                </h3>
                 {new Date(event.eventEndDate) < new Date() && (
                   <p className={cardstyles.expired}>This event has expired.</p>
                 )}
-                <h3>Event Details</h3>
                 <span className={styles.date}>
                   {new Date(event.eventStartDate).toLocaleString('en-US', {
                     dateStyle: 'medium',
                     timeStyle: 'short',
                     timeZone: 'GMT',
                   })}{' '}
-                  until{' '}
+                  -{' '}
                   {new Date(event.eventEndDate).toLocaleString('en-US', {
                     dateStyle: 'medium',
                     timeStyle: 'short',
                     timeZone: 'GMT',
                   })}
                 </span>
+                <h3>Event Details</h3>
+                <hr />
                 <div
                   // I don't know how to feel about using this
                   // but apparently it is the most recommended way
