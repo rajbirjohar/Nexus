@@ -41,11 +41,6 @@ export default function SetRoleForm({ userId }) {
           <br />
           You won&#39;t be able to change this after you submit.
         </strong>
-        <br />
-        Please enter <strong>&#34;student&#34;</strong> if you are a student.
-        <br />
-        Please enter <strong>&#34;professor&#34;</strong> if you are a
-        professor.
       </p>
       <Formik
         validateOnBlur={false}
@@ -77,13 +72,11 @@ export default function SetRoleForm({ userId }) {
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <Field
-              autoComplete="off"
-              type="text"
-              name="_role"
-              placeholder="Role"
-              maxLength={10}
-            />
+            <Field as="select" name="_role">
+              <option value="none">Select a role</option>
+              <option value="student">Student</option>
+              <option value="professor">Professor</option>
+            </Field>
             <span className={styles.actions}>
               <button
                 className={styles.primary}
