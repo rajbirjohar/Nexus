@@ -9,15 +9,15 @@ const Dropdown = ({ heading, children }) => {
       height: '0',
       transition: {
         when: 'afterChildren',
-        duration: 0.3,
         ease: [0.04, 0.62, 0.23, 0.98],
       },
     },
     open: {
       height: 'auto',
       transition: {
-        duration: 0.2,
-        ease: [0.04, 0.62, 0.23, 0.98],
+        when: 'beforeChildren',
+        ease: 'easeInOut',
+        duration: 0.1,
       },
     },
   }
@@ -27,14 +27,12 @@ const Dropdown = ({ heading, children }) => {
       opacity: 0,
       transition: {
         delay: 0,
-        duration: 0.1,
       },
     },
     open: {
       opacity: 1,
       transition: {
         delay: 0,
-        duration: 0.2,
       },
     },
   }

@@ -30,7 +30,7 @@ const CourseReviews = ({ course, averageRating }) => {
             </a>
           </Link>
           <div className={styles.courseheader}>
-            <h1>{course.subjectCourse}</h1>
+            <h1 className={styles.title}>{course.subjectCourse}</h1>
             <h1 className={styles.difficulty}>
               <span>Average:</span> {rating}
             </h1>

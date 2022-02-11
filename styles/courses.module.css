@@ -4,6 +4,11 @@
   gap: var(--gap-med);
 }
 
+.title,
+.difficulty {
+  margin-bottom: 0;
+}
+
 .content {
   display: flex;
   align-items: flex-start;
