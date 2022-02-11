@@ -72,7 +72,7 @@ export default function SetRoleForm({ userId }) {
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <Field as="select" name="_role">
+            <Field as="select" name="_role" className={styles.dropdown}>
               <option value="none">Select a role</option>
               <option value="student">Student</option>
               <option value="professor">Professor</option>
