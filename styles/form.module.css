@@ -357,6 +357,21 @@ make the button taller */
   gap: var(--gap-quarter);
 }
 
+.dropdown {
+  -webkit-appearance: none; /* Firefox */
+  -moz-appearance: none; /* Safari and Chrome */
+  appearance: none;
+  border: 2px solid var(--teal-700);
+  border-radius: var(--radius);
+  padding-right: 30px;
+  /* Stroke and fill = teal-500 hex code (#14b8a6). Need to encode so replace # with %23*/
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' stroke='%2314b8a6' fill='%2314b8a6' class='bi bi-chevron-down' viewBox='0 0 16 16'><path fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/></svg>");
+  background-size: 15px;
+  /* background-position: calc(100% - 10px) center; */
+  background-position: right 10px top 50%;
+  background-repeat: no-repeat;
+}
+
 @media (max-width: 668px) {
   .commentactions {
     flex-direction: column;
