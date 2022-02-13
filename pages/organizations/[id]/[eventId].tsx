@@ -165,11 +165,13 @@ export default function Event({ event }) {
                   dangerouslySetInnerHTML={{ __html: `${event.eventDetails}` }}
                 />
                 {event.eventTags && (
-                  <div className={cardstyles.tagwrapper}>
+                  <div className={styles.tagwrapper}>
                     {event.eventTags.map((tag) => (
-                      <span key={tag.id} className={cardstyles.tag}>
-                        {tag.text}
-                      </span>
+                      <Link href={`/events/tags/${tag.id}`}>
+                        <span key={tag.id} className={styles.tag}>
+                          {tag.text}
+                        </span>
+                      </Link>
                     ))}
                   </div>
                 )}

@@ -21,6 +21,29 @@
   flex: 1;
 }
 
+.tagwrapper {
+  display: flex;
+  gap: var(--gap-half);
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: var(--teal-100);
+  color: var(--teal-900);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gap-quarter);
+  border-radius: var(--radius-sm);
+  width: max-content;
+  gap: var(--gap-quarter);
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.tag:hover {
+  background-color: var(--teal-200);
+}
+
 .animationWrapper {
   flex: 1;
   max-height: 100%;
