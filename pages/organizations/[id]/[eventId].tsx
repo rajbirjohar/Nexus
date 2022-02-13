@@ -167,10 +167,8 @@ export default function Event({ event }) {
                 {event.eventTags && (
                   <div className={styles.tagwrapper}>
                     {event.eventTags.map((tag) => (
-                      <Link href={`/events/tags/${tag.id}`}>
-                        <span key={tag.id} className={styles.tag}>
-                          {tag.text}
-                        </span>
+                      <Link key={tag.id} href={`/events/tags/${tag.id}`}>
+                        <span className={styles.tag}>{tag.text}</span>
                       </Link>
                     ))}
                   </div>
