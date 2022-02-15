@@ -211,6 +211,14 @@ This was the first time I realized that maybe not all the stuff taught in my the
 
 > &mdash; <cite>Rajbir Johar</cite>
 
+During the development of the Python script something changed with the requests we were submitting and we were no longer receiving any data in the repsonse. Since this was my first experience with this particular library lots of debugging and documentation reading ensued. While it was a relatively simple fix in the end, it took some time to figure out what was wrong and the script had to be rewritten which caused a slight delay in adding all courses to the site.
+
+> &mdash; <cite>Isaac Curiel</cite>
+
+Dealing with images always proves to be a challenge, and this time was no exception. While we had experience from previous projects with image uploads, this time was a bit different since we were using Formik for user input, and I had trouble accessing and then passing the image data to the backend for upload.
+
+> &mdash; <cite>Isaac Curiel</cite>
+
 ### Plan & Design
 
 This is the first time where our group of software engineers took on the task to develop a fullstack web application. Prior to this, most large scale projects we completed had guidance, an objective, and little planning was needed. However, developing Nexus brought on a whole set of new experiences and challenges. When we first started with our idea, we had to decide on the main features we wanted to incorporate into the product. Along with feature planning, we needed to plan sprints and approximate how much time each feature would take. In addition, we removed and added features during development for a multitude of reasons. Sometimes some features were too complex, impacted performance, or became negligable. Thus, constant changes, new ideas, and maintaining the original idea of the project proved extremely challenging.
