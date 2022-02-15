@@ -18,7 +18,7 @@ interface Event {
   _newEventImage: string | null
   _oldEventImage: string
   _oldImagePublicId: string
-  _newEventTags: []
+  _newEventTags: [{ id: string; text: string }]
 }
 
 export default function EventEditForm({
@@ -107,8 +107,13 @@ export default function EventEditForm({
           errors._newEventEndDate = 'You made no changes'
           // errors._newEventImage = 'You made no changes'
         }
-        if (values._newEventTags.length > 5) {
+        if (values._newEventTags.length > 10) {
           errors._newEventTags = 'Too many tags'
+        } else if (
+          values._newEventTags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
+            .length > 0
+        ) {
+          errors._newEventTags = 'Alphanumeric characters only'
         }
         return errors
       }}
