@@ -6,8 +6,6 @@ import styles from '@/styles/form.module.css'
 import Tiptap from '../Tiptap'
 import Tags from '../Tags'
 
-const maxLength = 750
-
 interface Event {
   creator: string
   email: string
@@ -18,7 +16,7 @@ interface Event {
   _eventStartDate: string
   _eventEndDate: string
   _eventImage: string
-  _eventTags: []
+  _eventTags: [{ id: string; text: string }]
 }
 
 export default function EventForm({
@@ -37,7 +35,7 @@ export default function EventForm({
     _eventStartDate: '',
     _eventEndDate: '',
     _eventImage: '',
-    _eventTags: [],
+    _eventTags: [{ id: '', text: '' }],
   }
 
   const sendData = async (newEventData) => {
@@ -84,12 +82,14 @@ export default function EventForm({
         } else if (new Date(values._eventEndDate) < new Date()) {
           errors._eventEndDate = 'End date has passed'
         }
-        if (values._eventTags.length > 5) {
+        if (values._eventTags.length > 10) {
           errors._eventTags = 'Too many tags'
+        } else if (
+          values._eventTags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
+            .length > 0
+        ) {
+          errors._eventTags = 'Alphanumeric characters only'
         }
-        // if (!values._eventImage) {
-        //   errors._eventImage = 'Required'
-        // }
         return errors
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
@@ -105,7 +105,7 @@ export default function EventForm({
             _eventStartDate: '',
             _eventEndDate: '',
             _eventImage: '',
-            _eventTags: [],
+            _eventTags: [{ id: '', text: '' }],
           },
         })
         setSubmitting(false)

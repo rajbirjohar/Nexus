@@ -34,6 +34,7 @@ const delimiters = [KeyCodes.enter]
 
 export default function Tags(props) {
   const { setFieldValue, isSubmitting, name, oldEventTags } = props
+  // default value should be existing tags if they exist, otherwise, empty array
   const [tags, setTags] = useState(oldEventTags ? oldEventTags : [])
 
   // Update the values.count on Formik every time setTags
@@ -47,6 +48,7 @@ export default function Tags(props) {
 
   const handleDelete = (i) => {
     setTags(tags.filter((tag, index) => index !== i))
+    setFieldValue(name, tags)
   }
 
   const handleAddition = (tag) => {
@@ -58,11 +60,11 @@ export default function Tags(props) {
     console.log('The tag at index ' + index + ' was clicked')
   }
 
-  useEffect(() => {
-    if (isSubmitting) {
-      setFieldValue(name, tags)
-    }
-  })
+  // useEffect(() => {
+  //   if (isSubmitting) {
+  //     setTags([])
+  //   }
+  // })
 
   return (
     <div>
@@ -88,7 +90,7 @@ export default function Tags(props) {
           tag: `${cardstyles.tag}`,
           remove: `${cardstyles.removetag}`,
           suggestions: `${cardstyles.suggestions}`,
-          activeSuggestion: `${cardstyles.activesuggestion}`
+          activeSuggestion: `${cardstyles.activesuggestion}`,
         }}
       />
     </div>
