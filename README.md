@@ -197,7 +197,7 @@ I'd say the biggest issue we encountered on the frontend would probably be the a
 
 > &mdash; <cite>Rajbir Johar</cite>
 
-One obstacle was visualizing the user experience to effectively deliver the needs to all our users. Another challenge was developing an intuitive navigation system to create a flawless experience. It was important to think about the overall impression we wanted our users to have before making important decisions.Our primary goal for Nexus is to become a central part of our users’ day-to-day lives. 
+One obstacle was visualizing the user experience to effectively deliver the needs to all our users. Another challenge was developing an intuitive navigation system to create a flawless experience. It was important to think about the overall impression we wanted our users to have before making important decisions. Our primary goal for Nexus is to become a central part of our users’ day-to-day lives. 
 
 > &mdash; <cite>Robert Rivera</cite>
 
