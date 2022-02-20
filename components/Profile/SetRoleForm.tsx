@@ -2,6 +2,7 @@ import Router from 'next/router'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
+import { useRouter } from 'next/router';
 
 interface Role {
   userId: string
@@ -13,6 +14,7 @@ export default function SetRoleForm({ userId }) {
     userId: userId,
     _role: '',
   }
+  const router = useRouter()
   const sendData = async (userRoleData) => {
     const response = await fetch('/api/users/setrole', {
       method: 'PATCH',
@@ -25,7 +27,7 @@ export default function SetRoleForm({ userId }) {
 
     if (response.status === 200) {
       toast.success("You've set your role!")
-      Router.reload()
+      router.replace(router.asPath);
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

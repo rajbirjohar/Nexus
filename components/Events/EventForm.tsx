@@ -153,7 +153,6 @@ export default function EventForm({
           </div>
           <Tiptap
             setFieldValue={setFieldValue}
-            isSubmitting={isSubmitting}
             name="_eventDetails"
           />
           <div className={styles.datewrapper}>

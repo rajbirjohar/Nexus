@@ -24,7 +24,7 @@ export default function AddMemberForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You joined ${organizationName}!`)
-      Router.reload()
+      router.replace(router.asPath);
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'

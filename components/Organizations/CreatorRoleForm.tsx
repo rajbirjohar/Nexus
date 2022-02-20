@@ -3,6 +3,7 @@ import Router from 'next/router'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
+import { useRouter } from 'next/router'
 
 interface Agreement {
   userId: string
@@ -10,6 +11,7 @@ interface Agreement {
 }
 
 export default function CreatorRoleForm({ userId }) {
+  const router = useRouter()
   const initialValues: Agreement = {
     userId: userId,
     _orgRole: '',
@@ -25,7 +27,7 @@ export default function CreatorRoleForm({ userId }) {
     const data = await response.json()
     if (response.status === 200) {
       toast.success("You've set your role!")
-      Router.reload()
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

@@ -3,11 +3,9 @@ import toast from 'react-hot-toast'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import ImageDropzone from '../ImageDropzone'
 import styles from '@/styles/form.module.css'
-import { useSession } from 'next-auth/react'
 import Tiptap from '../Tiptap'
 import Tags from '../Tags'
-
-const maxLength = 750
+import { useRouter } from 'next/router'
 
 interface Event {
   eventId: string
@@ -32,7 +30,7 @@ export default function EventEditForm({
   _oldEventTags,
   onHandleChange,
 }) {
-  const { data: session } = useSession()
+  const router = useRouter()
   const initialValues: Event = {
     eventId: eventId,
     _newEventName: _oldEventName,
@@ -59,6 +57,7 @@ export default function EventEditForm({
     const data = await response.json()
     if (response.status === 200) {
       toast.success('Your event has been edited!')
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -91,21 +90,16 @@ export default function EventEditForm({
         } else if (new Date(values._newEventEndDate) < new Date()) {
           errors._newEventEndDate = 'End date has passed'
         }
-        // if (!values._newEventImage) {
-        //   errors._newEventImage = 'Required'
-        // }
         if (
           values._newEventName === _oldEventName &&
           values._newEventDetails === _oldEventDetails &&
           values._newEventStartDate === _oldEventStartDate &&
           values._newEventEndDate === _oldEventEndDate
-          // values._newEventImage === _oldEventImage
         ) {
           errors._newEventName = 'You made no changes'
           errors._newEventDetails = 'You made no changes'
           errors._newEventStartDate = 'You made no changes'
           errors._newEventEndDate = 'You made no changes'
-          // errors._newEventImage = 'You made no changes'
         }
         if (values._newEventTags.length > 10) {
           errors._newEventTags = 'Too many tags'
@@ -123,7 +117,6 @@ export default function EventEditForm({
         setSubmitting(false)
       }}
     >
-      {/* NOTE: No animation for edit form */}
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <label htmlFor="_newEventImage">
@@ -158,14 +151,6 @@ export default function EventEditForm({
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          {/* <Field
-            autoComplete="off"
-            name="_newEventDetails"
-            component="textarea"
-            rows="3"
-            placeholder="Scotty's Birthday Details"
-            maxLength={maxLength}
-          /> */}
           <Tiptap
             setFieldValue={setFieldValue}
             isSubmitting={isSubmitting}
@@ -215,7 +200,6 @@ export default function EventEditForm({
           </div>
           <Tags
             setFieldValue={setFieldValue}
-            isSubmitting={isSubmitting}
             name="_newEventTags"
             oldEventTags={_oldEventTags}
           />

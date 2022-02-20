@@ -33,7 +33,7 @@ const KeyCodes = {
 const delimiters = [KeyCodes.enter]
 
 export default function Tags(props) {
-  const { setFieldValue, isSubmitting, name, oldEventTags } = props
+  const { setFieldValue, name, oldEventTags } = props
   // default value should be existing tags if they exist, otherwise, empty array
   const [tags, setTags] = useState(oldEventTags ? oldEventTags : [])
 
@@ -52,6 +52,13 @@ export default function Tags(props) {
   }
 
   const handleAddition = (tag) => {
+    // convert to lowercase
+    tag = Object.fromEntries(
+      Object.entries(tag).map(([key, value]) => [
+        key,
+        value.toString().toLowerCase(),
+      ])
+    )
     setTags([...tags, tag])
     setFieldValue(name, tags)
   }
@@ -59,12 +66,6 @@ export default function Tags(props) {
   const handleTagClick = (index) => {
     console.log('The tag at index ' + index + ' was clicked')
   }
-
-  // useEffect(() => {
-  //   if (isSubmitting) {
-  //     setTags([])
-  //   }
-  // })
 
   return (
     <div>

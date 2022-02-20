@@ -1,6 +1,7 @@
 import Router from 'next/router'
 import toast from 'react-hot-toast'
 import formstyles from '@/styles/form.module.css'
+import { useRouter } from 'next/router';
 
 export function RemoveMemberForm({
   memberId,
@@ -8,6 +9,7 @@ export function RemoveMemberForm({
   organizationName,
 }) {
   const member = { memberId, organizationName, organizationId }
+  const router = useRouter()
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)
@@ -23,7 +25,7 @@ export function RemoveMemberForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You left ${organizationName}.`)
-      Router.reload()
+      router.replace(router.asPath);
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'
@@ -47,6 +49,7 @@ export function RemoveMemberAdminForm({
   organizationName,
 }) {
   const member = { memberId, organizationName, organizationId }
+  const router = useRouter()
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)
@@ -62,7 +65,7 @@ export function RemoveMemberAdminForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You removed this member.`)
-      Router.reload()
+      router.replace(router.asPath);
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'
