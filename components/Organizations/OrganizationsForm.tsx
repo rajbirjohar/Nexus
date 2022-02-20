@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 import ImageDropzone from '../ImageDropzone'
+import { useRouter } from 'next/router';
 
 // length of description
 const maxLength = 1000
@@ -31,7 +32,7 @@ interface Organization {
 
 export default function OrganizationsForm() {
   const { data: session } = useSession()
-
+  const router = useRouter()
   const initialValues: Organization = {
     organizerId: session.user.id,
     organizer: session.user.name,
@@ -61,7 +62,7 @@ export default function OrganizationsForm() {
       toast.error('This name is taken. Please choose a different one.')
     } else if (response.status === 200) {
       toast.success("You've created your organization!")
-      Router.reload()
+      router.replace(router.asPath);
     } else if (response.status === 413) {
       toast.error('Image is too big or wrong format.')
     } else {

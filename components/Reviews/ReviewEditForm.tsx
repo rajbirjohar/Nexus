@@ -107,24 +107,13 @@ export default function ReviewEditForm({
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          {/* <Field
-            autoComplete="off"
-            component="textarea"
-            name="_newReviewPost"
-            placeholder='"I love this class!"'
-            rows="3"
-            maxLength={maxLength}
-          /> */}
           <Tiptap
             setFieldValue={setFieldValue}
             isSubmitting={isSubmitting}
             name="_newReviewPost"
             // Initially, we set it to the old details in initialValues
-            oldEventDetails={values._newReviewPost}
+            oldReviewPost={values._newReviewPost}
           />
-          <span className={styles.maxlength}>
-            {maxLength - values._newReviewPost.length}/{maxLength}
-          </span>
           <div className={styles.inputheader}>
             <label htmlFor="_newReviewProfessor">
               <strong>Professor:</strong>
