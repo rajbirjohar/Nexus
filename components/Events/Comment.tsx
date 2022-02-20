@@ -5,6 +5,7 @@ import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import CommentEditForm from './CommentEditForm'
 import { AnimatePresence, motion } from 'framer-motion'
+import { EditIcon, TrashIcon } from '../Icons'
 
 const Comment = ({
   organizationId,
@@ -50,6 +51,31 @@ const Comment = ({
   }
   return (
     <div className={cardstyles.comment}>
+      <span className={cardstyles.commentheader}>
+        <span className={cardstyles.commentauthorwrapper}>
+          <span className={cardstyles.commentauthor}>{author}</span>{' '}
+          <span className={cardstyles.commentdate}>{date}</span>
+        </span>
+
+        <span className={cardstyles.commentbuttons}>
+          {((session && isAdmin) ||
+            (session && session.user.id === authorId)) && (
+            <button onClick={handleSubmit} className={cardstyles.deleteicon}>
+              <TrashIcon />
+            </button>
+          )}
+          {session && session.user.id === authorId && (
+            <button
+              onClick={() => {
+                setIsEdit(!isEdit)
+              }}
+              className={cardstyles.editicon}
+            >
+              <EditIcon />
+            </button>
+          )}
+        </span>
+      </span>
       {isEdit ? (
         <CommentEditForm
           eventId={eventId}
@@ -61,33 +87,6 @@ const Comment = ({
       ) : (
         <p>{comment}</p>
       )}
-      <span className={cardstyles.author}>
-        {author} {date}
-        {session && session.user.id === authorId && (
-          <>
-            {' '}
-            /{' '}
-            <span
-              onClick={() => {
-                setIsEdit(!isEdit)
-              }}
-              className={formstyles.editcomment}
-            >
-              Edit
-            </span>{' '}
-          </>
-        )}
-        {((session && isAdmin) ||
-          (session && session.user.id === authorId)) && (
-          <>
-            {' '}
-            /{' '}
-            <span onClick={handleSubmit} className={formstyles.deletecomment}>
-              Delete
-            </span>
-          </>
-        )}
-      </span>
     </div>
   )
 }

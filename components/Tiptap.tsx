@@ -170,21 +170,30 @@ const Tiptap = (props) => {
    What do you want to share with the world today?
    </p>
 `
+
   const editor = useEditor({
     extensions: [StarterKit, CharacterCount.configure({ limit }), Underline],
     content: rawHtml,
   })
+
   // Cannot update a component while rendering another component without a useEffect
   useEffect(() => {
-    // TOFIX: Needs a double click because it won't register the submit the first time around
-    if (isSubmitting) {
-      rawHtml = editor.getHTML()
-      setFieldValue(name, rawHtml)
+    // editor will be null for a split second on render
+    if (editor) {
+      // every time a change happens
+      editor.on('update', ({ editor }) => {
+        // set the new field value so we don't have to double click in order for
+        // isSubmitting prop to record the new value
+        rawHtml = editor.getHTML()
+        setFieldValue(name, rawHtml)
+      })
     }
-  }, [isSubmitting])
+  }, [editor])
+
   if (!editor) {
     return null
   }
+
   return (
     <div>
       <MenuBar editor={editor} />

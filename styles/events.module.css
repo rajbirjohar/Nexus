@@ -25,6 +25,7 @@
   display: flex;
   gap: var(--gap-half);
   flex-wrap: wrap;
+  margin-bottom: var(--gap);
 }
 
 .tag {

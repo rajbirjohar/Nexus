@@ -193,6 +193,68 @@
   width: 100%;
 }
 
+.comments {
+  margin-top: var(--gap);
+}
+
+.commentheader {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.commentauthor {
+  font-weight: 700;
+}
+
+.commentdate {
+  color: var(--gray-500);
+}
+
+.commentbuttons {
+  display: flex;
+  gap: var(--gap-half);
+}
+
+.deleteicon {
+  color: var(--rose-50);
+  background: var(--rose-500);
+}
+
+.deleteicon:hover {
+  background-color: var(--rose-600);
+}
+
+.editicon,
+.deleteicon {
+  padding: 0.5rem;
+  height: max-content;
+}
+/* So the delete text "Confirm" does not slightly
+make the button taller */
+.deleteicon span {
+  line-height: 1;
+}
+
+.editicon,
+.deleteNotif {
+  border-radius: var(--radius-round);
+}
+
+.deleteicon {
+  border-radius: var(--radius-lg);
+}
+
+.editicon {
+  background-color: var(--teal-200);
+  color: var(--teal-800);
+}
+
+.editicon:hover {
+  background-color: var(--teal-300);
+}
+
 @keyframes pulse {
   0% {
     background-color: var(--gray-50);
@@ -286,4 +348,5 @@
 
 .comment p {
   word-wrap: break-word;
+  margin-top: 0;
 }
