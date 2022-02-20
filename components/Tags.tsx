@@ -84,7 +84,7 @@ export default function Tags(props) {
         autocomplete={false}
         autofocus={false}
         classNames={{
-          // tags: ,
+          // tags: `${cardstyles.tagwrapper}`,
           tagInput: `${cardstyles.taginputwrapper}`,
           tagInputField: `${cardstyles.taginput}`,
           selected: `${cardstyles.tagwrapper}`,

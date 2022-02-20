@@ -80,10 +80,10 @@
 }
 
 .commentactions {
-  width: 100%;
   display: flex;
+  width: 100%;
   justify-content: space-between;
-  gap: var(--gap);
+  gap: var(--gap-half);
 }
 
 .lucky {
@@ -146,24 +146,6 @@ make the button taller */
 
 .editicon:hover {
   background-color: var(--teal-300);
-}
-
-.deletecomment {
-  color: var(--rose-500);
-  font-weight: 600;
-}
-
-.deletecomment:hover {
-  cursor: pointer;
-}
-
-.editcomment {
-  color: var(--teal-500);
-  font-weight: 600;
-}
-
-.editcomment:hover {
-  cursor: pointer;
 }
 
 .tabs {
