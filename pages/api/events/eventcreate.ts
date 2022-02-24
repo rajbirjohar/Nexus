@@ -41,6 +41,8 @@ export default async function createEvent(
     // Since we only need secure_url and public_id, set as null
     // so if there is no event image submitted, it won't throw an
     // "undefined error"
+    console.log(_eventStartDate)
+
     let cloudinaryRes = { secure_url: null, public_id: null }
     if (_eventImage) {
       cloudinaryRes = await cloudinary.uploader.upload(_eventImage)
@@ -52,8 +54,8 @@ export default async function createEvent(
       organizationName: organizationName,
       eventName: _eventName,
       eventDetails: _eventDetails,
-      eventStartDate: new Date(_eventStartDate),
-      eventEndDate: new Date(_eventEndDate),
+      eventStartDate: _eventStartDate,
+      eventEndDate: _eventEndDate,
       eventTags: _eventTags,
       eventImageURL: cloudinaryRes.secure_url,
       imagePublicId: cloudinaryRes.public_id,
