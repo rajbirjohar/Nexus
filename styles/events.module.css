@@ -89,7 +89,7 @@
 .actions {
   display: flex;
   justify-content: flex-end;
-  gap: var(--gap);
+  gap: var(--gap-half);
 }
 
 @media (max-width: 868px) {
