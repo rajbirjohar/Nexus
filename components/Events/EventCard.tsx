@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import Link from 'next/link'
 import styles from './card.module.css'
 
@@ -13,24 +14,16 @@ export default function EventCard({
   // To remove all markdown tags from the details sections
   const strippedEventDetails = eventDetails.replace(/(<([^>]+)>)/gi, ' ')
   const [startMonth, startDay, startYear, startHour] = [
-    new Date(startDate).toLocaleString('en-US', { month: 'short' }),
-    new Date(startDate).getDate(),
-    new Date(startDate).getFullYear(),
-    new Date(startDate).toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    }),
+    format(new Date(startDate), 'MMM'),
+    format(new Date(startDate), 'd'),
+    format(new Date(startDate), 'yyyy'),
+    format(new Date(startDate), 'hh:mm aaa'),
   ]
   const [endMonth, endDay, endYear, endHour] = [
-    new Date(endDate).toLocaleString('default', { month: 'short' }),
-    new Date(endDate).getDate(),
-    new Date(endDate).getFullYear(),
-    new Date(endDate).toLocaleString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    }),
+    format(new Date(endDate), 'MMM'),
+    format(new Date(endDate), 'd'),
+    format(new Date(endDate), 'yyyy'),
+    format(new Date(endDate), 'hh:mm aaa'),
   ]
   return (
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
@@ -45,14 +38,14 @@ export default function EventCard({
         <time className={styles.date}>
           {/* Always display start month day and time */}
           {startMonth} {startDay} {/* Display year if year != current year */}
-          {startYear != new Date().getFullYear() && <>{startYear}</>} @{' '}
+          {startYear != format(new Date(), 'yyyy') && <>{startYear}</>} @{' '}
           {startHour} -{' '}
           {/* Display end month and day if start month != end month */}
           {(startMonth != endMonth || startDay != endDay) && (
             <>
               {endMonth} {endDay}{' '}
               {/* Display end year if end year != current year */}
-              {endYear != new Date().getFullYear() && <>{startYear}</>} @{' '}
+              {endYear != format(new Date(), 'yyyy') && <>{startYear}</>} @{' '}
               {endHour}
             </>
           )}{' '}
