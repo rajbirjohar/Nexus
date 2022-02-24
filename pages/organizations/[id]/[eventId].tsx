@@ -47,6 +47,31 @@ export default function Event({ event }) {
   const router = useRouter()
   const { eventId } = router.query
   const orgId = event.map((event) => event.organizationId).toString()
+
+  const start = event.map((event) => event.eventStartDate)
+  const end = event.map((event) => event.eventEndDate)
+
+  const [startMonth, startDay, startYear, startHour] = [
+    new Date(start).toLocaleString('en-US', { month: 'short' }),
+    new Date(start).getDate(),
+    new Date(start).getFullYear(),
+    new Date(start).toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    }),
+  ]
+  const [endMonth, endDay, endYear, endHour] = [
+    new Date(end).toLocaleString('default', { month: 'short' }),
+    new Date(end).getDate(),
+    new Date(end).getFullYear(),
+    new Date(end).toLocaleString('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    }),
+  ]
+
   const isCreator =
     session &&
     session.user.creatorOfOrg &&
@@ -57,20 +82,26 @@ export default function Event({ event }) {
     (session &&
       session.user.adminOfOrg &&
       session.user.adminOfOrg.includes(orgId))
+
   const [isDelete, setIsDelete] = useState(false)
+
   const [isEdit, setIsEdit] = useState(false)
+
   const wrapperRef = useRef(null)
+
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, false)
     return () => {
       document.removeEventListener('click', handleClickOutside, false)
     }
   }, [])
+
   const handleClickOutside = (event) => {
     if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       setIsDelete(false)
     }
   }
+
   const confirmDelete = (eventId, imagePublicId) => {
     if (isDelete === true) {
       deleteEvent({ eventId, imagePublicId })
@@ -78,6 +109,7 @@ export default function Event({ event }) {
       setIsDelete(true)
     }
   }
+
   const organizationName = event.map((event) => event.organizationName)
   async function deleteEvent({ eventId, imagePublicId }) {
     const response = await fetch(`/api/events/eventdelete`, {
@@ -138,19 +170,28 @@ export default function Event({ event }) {
                   <a>{event.organizationName}</a>
                 </Link>
               </h3>
-              <span className={styles.date}>
-                {new Date(event.eventStartDate).toLocaleString('en-US', {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
-                  timeZone: 'GMT',
-                })}{' '}
-                -{' '}
-                {new Date(event.eventEndDate).toLocaleString('en-US', {
-                  dateStyle: 'medium',
-                  timeStyle: 'short',
-                  timeZone: 'GMT',
-                })}
-              </span>
+              <time className={styles.date}>
+                {/* Always display start month day and time */}
+                {startMonth} {startDay}
+                {/* Display year if year != current year */}
+                {startYear != new Date().getFullYear() && (
+                  <>{startYear}</>
+                )} @ {startHour} -{' '}
+                {/* Display end month and day if start month != end month */}
+                {(startMonth != endMonth || startDay != endDay) && (
+                  <>
+                    {endMonth} {endDay}
+                    {/* Display end year if end year != current year */}
+                    {endYear != new Date().getFullYear() && (
+                      <>{startYear}</>
+                    )} @ {endHour}
+                  </>
+                )}{' '}
+                {/* Display end time if start month === end month and start day === end day */}
+                {startMonth === endMonth && startDay === endDay && (
+                  <>{endHour}</>
+                )}
+              </time>
               <hr />
               <div
                 // I don't know how to feel about using this
