@@ -17,6 +17,7 @@ export default function Tabs({ tabs, layoutId }) {
                 : ` ${styles.tab}`
             }
             onClick={() => setSelectedTab(item)}
+            layoutId={layoutId}
           >
             {item.label}
             {item.id === selectedTab.id ? (
@@ -25,7 +26,6 @@ export default function Tabs({ tabs, layoutId }) {
           </motion.button>
         ))}
       </nav>
-
       <section>
         <AnimatePresence exitBeforeEnter>
           <motion.div

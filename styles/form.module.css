@@ -41,7 +41,7 @@
   display: flex;
   justify-content: flex-end;
   margin: var(--gap-half) 0;
-  gap: var(--gap);
+  gap: var(--gap-half);
 }
 
 .edit,

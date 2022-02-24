@@ -13,7 +13,7 @@ import {
   RemoveMemberForm,
   RemoveMemberAdminForm,
 } from '@/components/Organizations/RemoveMemberForm'
-import Dropdown from '@/components/Layout/Dropdown'
+import Accordion from '@/components/Layout/Accordion'
 import Link from 'next/link'
 import {
   WebsiteIcon,
@@ -24,6 +24,7 @@ import {
   DiscordIcon,
 } from '@/components/Icons'
 import formstyles from '@/styles/form.module.css'
+import Dropdown from '@/components/Layout/Dropdown'
 
 const Organization = ({ organization, superMembers, members }) => {
   const router = useRouter()
@@ -95,6 +96,17 @@ const Organization = ({ organization, superMembers, members }) => {
               )}
             </div>
           </div>
+
+          <h4 className={styles.tagline}>{organization.organizationTagline}</h4>
+          <div
+            // I don't know how to feel about using this
+            // but apparently it is the most recommended way
+            // of displaying raw html
+            dangerouslySetInnerHTML={{
+              __html: `${organization.organizationDescription}`,
+            }}
+          />
+
           <div className={styles.socials}>
             {organization.organizationWebsite && (
               <a
@@ -167,23 +179,16 @@ const Organization = ({ organization, superMembers, members }) => {
             )}
           </div>
 
-          <h4>{organization.organizationTagline}</h4>
-          <div
-            // I don't know how to feel about using this
-            // but apparently it is the most recommended way
-            // of displaying raw html
-            dangerouslySetInnerHTML={{
-              __html: `${organization.organizationDescription}`,
-            }}
-          />
-          <hr />
           {((session && isAdmin) || (session && isMember)) && (
             <>
               <h2>Admins</h2>
               <ul className={styles.memberslist}>
                 {superMembers.map((superMember) => (
                   <li className={styles.members} key={superMember.adminId}>
-                    <strong>{superMember.admin} </strong> / {superMember.email}
+                    <span>
+                      <strong>{superMember.admin} </strong> <br />{' '}
+                      {superMember.email}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -192,34 +197,36 @@ const Organization = ({ organization, superMembers, members }) => {
 
           {session && isAdmin && (
             <>
-              <Dropdown heading="Members">
+              <Accordion heading="Members">
                 {members.length === 0 && (
                   <p>No one has joined your organization yet 😭.</p>
                 )}
                 {members.map((member) => (
                   <li className={styles.members} key={member.memberId}>
                     <span>
-                      <strong>{member.member}</strong> / {member.email}
+                      <strong>{member.member}</strong> <br /> {member.email}
                     </span>
-                    <RemoveMemberAdminForm
-                      memberId={member.memberId}
-                      organizationId={organization._id}
-                      organizationName={organization.organizationName}
-                    />
+                    <Dropdown>
+                      <RemoveMemberAdminForm
+                        memberId={member.memberId}
+                        organizationId={organization._id}
+                        organizationName={organization.organizationName}
+                      />
+                    </Dropdown>
                   </li>
                 ))}
-              </Dropdown>
-              <Dropdown heading="Create Event">
+              </Accordion>
+              <Accordion heading="Create Event">
                 <EventForm
                   creator={session.user.name}
                   email={session.user.email}
                   organizationName={organization.organizationName}
                   organizationId={organization._id}
                 />
-              </Dropdown>
-              <Dropdown heading="Add Admin">
+              </Accordion>
+              <Accordion heading="Add Admin">
                 <AddAdminForm organizationId={organization._id} />
-              </Dropdown>
+              </Accordion>
             </>
           )}
           <h2>Events</h2>

@@ -4,6 +4,8 @@ import toast from 'react-hot-toast'
 import styles from './comment.module.css'
 import CommentEditForm from './CommentEditForm'
 import { EditIcon, TrashIcon } from '../../Icons'
+import Dropdown from '@/components/Layout/Dropdown'
+import useDropdownMenu from 'react-accessible-dropdown-menu-hook'
 
 const Comment = ({
   organizationId,
@@ -16,6 +18,7 @@ const Comment = ({
 }) => {
   const { data: session } = useSession()
   const [isEdit, setIsEdit] = useState(false)
+
   const isCreator =
     session &&
     session.user.creatorOfOrg &&
@@ -25,6 +28,7 @@ const Comment = ({
     (session &&
       session.user.adminOfOrg &&
       session.user.adminOfOrg.includes(organizationId))
+
   const deleteComment = { commentId, eventId }
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -50,8 +54,30 @@ const Comment = ({
   return (
     <div className={styles.comment}>
       <p className={styles.header}>
-        <span className={styles.author}>{author}</span>{' '}
-        <span className={styles.date}>{date}</span>
+        <span>
+          <span className={styles.author}>{author}</span>{' '}
+          <span className={styles.date}>{date}</span>
+        </span>
+        <Dropdown>
+          <>
+            {session && session.user.id === authorId && (
+              <button
+                onClick={() => {
+                  setIsEdit(!isEdit)
+                }}
+                className={styles.edit}
+              >
+                <EditIcon /> Edit
+              </button>
+            )}
+            {((session && isAdmin) ||
+              (session && session.user.id === authorId)) && (
+              <button onClick={handleSubmit} className={styles.delete}>
+                <TrashIcon /> Delete
+              </button>
+            )}
+          </>
+        </Dropdown>
       </p>
 
       {isEdit ? (
@@ -65,24 +91,6 @@ const Comment = ({
       ) : (
         <p>{comment}</p>
       )}
-      <div className={styles.actions}>
-        {((session && isAdmin) ||
-          (session && session.user.id === authorId)) && (
-          <button onClick={handleSubmit} className={styles.delete}>
-            <TrashIcon />
-          </button>
-        )}
-        {session && session.user.id === authorId && (
-          <button
-            onClick={() => {
-              setIsEdit(!isEdit)
-            }}
-            className={styles.edit}
-          >
-            <EditIcon />
-          </button>
-        )}
-      </div>
     </div>
   )
 }

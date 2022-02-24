@@ -7,8 +7,8 @@ import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 import styles from '@/styles/courses.module.css'
-import Dropdown from '@/components/Layout/Dropdown'
 import { LeftChevronIcon } from '@/components/Icons'
+import Accordion from '@/components/Layout/Accordion'
 
 const CourseReviews = ({ course, averageRating }) => {
   const router = useRouter()
@@ -49,12 +49,12 @@ const CourseReviews = ({ course, averageRating }) => {
           {session &&
             session.user.role &&
             session.user.role.includes('student') && (
-              <Dropdown heading={'Write Review'}>
+              <Accordion heading={'Write Review'}>
                 <ReviewPostForm
                   course={course.subjectCourse}
                   courseId={course._id}
                 />
-              </Dropdown>
+              </Accordion>
             )}
         </>
       ))}

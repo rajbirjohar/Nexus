@@ -78,8 +78,6 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: var(--gap-quarter);
-  border-bottom: 2px solid var(--gray-100);
 }
 
 .tab {
@@ -87,6 +85,7 @@
   position: relative;
   padding: var(--gap-half);
   transition: all var(--transition);
+  box-shadow: none !important;
 }
 
 .tab:hover {
@@ -101,7 +100,6 @@
 .active.tab:hover {
   background-color: transparent;
   color: var(--teal-500);
-  box-shadow: none;
   cursor: default;
 }
 
@@ -113,6 +111,37 @@
   height: 3px;
   background: var(--teal-500);
   border-radius: var(--radius);
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdownbutton {
+  background-color: transparent;
+  padding: var(--gap-half);
+  border-radius: var(--radius-sm);
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+.visible {
+  visibility: visible;
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-quarter);
+  position: absolute;
+  right: 0;
+  background-color: var(--card);
+  padding: var(--gap-half);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadows);
+  margin-top: var(--gap-quarter);
+  z-index: 999;
 }
 
 @media (max-width: 868px) {
