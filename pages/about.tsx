@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Layout from '@/components/Layout/Layout'
+import styles from '@/styles/about.module.css'
 
 export default function aboutPage() {
   return (
@@ -9,7 +10,7 @@ export default function aboutPage() {
         {/* Change this icon when we have a logo */}
         <link rel="icon" href="/NexusLogo.svg" />
       </Head>
-      <section>
+      <section className={styles.content}>
         <h1>About Us</h1>
         <p>
           Founded <strong>October 2021 🧑‍💻.</strong>
@@ -29,7 +30,11 @@ export default function aboutPage() {
           events, Nexus is <i>where information gathers</i>.
         </p>
         <p>
-          Written with 💻, ☕️, 🧠, and ❤️
+          Written with 💻, ☕️, 🧠, and ❤️ by,
+          <br />
+          Isaac Curiel,
+          <br />
+          Brian Coffey,
           <br />
           <a
             rel="noopener noreferrer"
@@ -38,14 +43,18 @@ export default function aboutPage() {
           >
             Rajbir Johar
           </a>
-          , Isaac Curiel, Brian Coffey, Robert Rivera, and Florian Catalan.
+          <br />
+          Robert Rivera,
+          <br />
+          and Florian Catalan.
         </p>
         <p>
           Special thanks to,
           <br />
-          Danial Beg for offering his apartment for us to code at, Matthew Lee
-          and Jason Lin for making brownies, Jason Lin for helping us with the
-          slider, and Audrey Kim for being our beta tester.
+          Danial Beg for offering his apartment for us to code at.
+          <br /> Matthew Lee and Jason Lin for making brownies.
+          <br /> Jason Lin for helping us with the slider.
+          <br /> and Audrey Kim for being our beta tester.
         </p>
       </section>
     </Layout>

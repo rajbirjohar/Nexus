@@ -37,14 +37,44 @@ export default function EventEditForm({
     _newEventName: _oldEventName,
     _newEventDetails: _oldEventDetails,
     // Time = :(
-    _newEventStartDate: new Date(_oldEventStartDate)
-      .toISOString()
-      .substring(0, 16),
-    _newEventEndDate: new Date(_oldEventEndDate).toISOString().substring(0, 16),
+    _newEventStartDate: toIsoString(new Date(_oldEventStartDate)).substring(
+      0,
+      16
+    ),
+    _newEventEndDate: toIsoString(new Date(_oldEventEndDate)).substring(0, 16),
     _newEventImage: null,
     _oldEventImage: _oldEventImage,
     _oldImagePublicId: _oldImagePublicId,
     _newEventTags: _oldEventTags,
+  }
+
+  // I control time
+  // Convert UTC time to ISO time but corrected for 
+  // local timezone offset
+  function toIsoString(date) {
+    const tzo = -date.getTimezoneOffset(),
+      dif = tzo >= 0 ? '+' : '-',
+      pad = function (num) {
+        return (num < 10 ? '0' : '') + num
+      }
+
+    return (
+      date.getFullYear() +
+      '-' +
+      pad(date.getMonth() + 1) +
+      '-' +
+      pad(date.getDate()) +
+      'T' +
+      pad(date.getHours()) +
+      ':' +
+      pad(date.getMinutes()) +
+      ':' +
+      pad(date.getSeconds()) +
+      dif +
+      pad(Math.floor(Math.abs(tzo) / 60)) +
+      ':' +
+      pad(Math.abs(tzo) % 60)
+    )
   }
 
   const sendData = async (newEventData) => {

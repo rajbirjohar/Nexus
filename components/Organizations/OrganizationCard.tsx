@@ -22,7 +22,7 @@ export default function OrganizationCard({
               alt="Thumbnail"
             />
           )}
-          <h3 className={`{styles.title} ${'clamp'}`}>{organizationName}</h3>
+          <h3 className={styles.title}>{organizationName}</h3>
         </div>
         <h4 className={`${styles.tagline} ${'clamp-2'}`}>
           {organizationTagline}
