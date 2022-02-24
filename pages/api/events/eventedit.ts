@@ -55,8 +55,8 @@ export default async function editEvent(
         $set: {
           eventName: _newEventName,
           eventDetails: _newEventDetails,
-          eventStartDate: new Date(_newEventStartDate),
-          eventEndDate: new Date(_newEventEndDate),
+          eventStartDate: _newEventStartDate,
+          eventEndDate: _newEventEndDate,
           eventTags: _newEventTags,
           eventImageURL: cloudinaryRes.secure_url,
           imagePublicId: cloudinaryRes.public_id,
