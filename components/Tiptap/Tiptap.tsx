@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import styles from '@/styles/form.module.css'
+import styles from './tiptap.module.css'
 import CharacterCount from '@tiptap/extension-character-count'
 import {
   CodeIcon,

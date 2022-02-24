@@ -1,21 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react'
-import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 import Page from '@/components/Layout/Page'
 import clientPromise from '@/lib/mongodb'
 import styles from '@/styles/events.module.css'
-import formstyles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
-import CommentsForm from '@/components/Events/CommentsForm'
-import ListComments from '@/components/Events/ListComments'
-import cardstyles from '@/styles/card.module.css'
+import CommentsForm from '@/components/Events/Comments/CommentsForm'
+import ListComments from '@/components/Events/Comments/ListComments'
 import toast from 'react-hot-toast'
 import EventEditForm from '@/components/Events/EventEditForm'
 import { EditIcon, TrashIcon } from '@/components/Icons'
 const mongodb = require('mongodb')
 import { AnimatePresence, motion } from 'framer-motion'
+import formstyles from '@/styles/form.module.css'
 
 const deleteTextWrapper = {
   closed: {
@@ -102,85 +100,81 @@ export default function Event({ event }) {
   return (
     <Page title={`${event.map((event) => event.eventName)}`} tip={null}>
       {event.map((event) => (
-        <section key={event._id}>
-          <AnimatePresence exitBeforeEnter>
-            {isEdit ? (
-              <motion.div layout="position">
-                <EventEditForm
-                  eventId={eventId}
-                  _oldEventName={event.eventName}
-                  _oldEventDetails={event.eventDetails}
-                  _oldEventStartDate={event.eventStartDate}
-                  _oldEventEndDate={event.eventEndDate}
-                  _oldEventImage={event.eventImageURL}
-                  _oldImagePublicId={event.imagePublicId}
-                  _oldEventTags={event.eventTags}
-                  onHandleChange={setIsEdit}
-                />
-              </motion.div>
-            ) : (
-              <motion.div layout="position">
-                {event?.eventImageURL && (
-                  <div className={styles.banner}>
-                    <Image
-                      src={event.eventImageURL}
-                      layout="fill"
-                      objectFit="cover"
-                      alt="Banner"
-                    />
-                  </div>
-                )}
-                <h1 className={styles.title}>{event.eventName}</h1>
-                <h3 className={styles.author}>
-                  By{' '}
-                  <Link
-                    href={`/organizations/${event.organizationName}`}
-                    passHref
-                  >
-                    <a>{event.organizationName}</a>
-                  </Link>
-                </h3>
-                {new Date(event.eventEndDate) < new Date() && (
-                  <p className={cardstyles.expired}>This event has expired.</p>
-                )}
-                <span className={styles.date}>
-                  {new Date(event.eventStartDate).toLocaleString('en-US', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: 'GMT',
-                  })}{' '}
-                  -{' '}
-                  {new Date(event.eventEndDate).toLocaleString('en-US', {
-                    dateStyle: 'medium',
-                    timeStyle: 'short',
-                    timeZone: 'GMT',
-                  })}
-                </span>
-                <h3>Event Details</h3>
-                <hr />
-                <div
-                  // I don't know how to feel about using this
-                  // but apparently it is the most recommended way
-                  // of displaying raw html
-                  dangerouslySetInnerHTML={{ __html: `${event.eventDetails}` }}
-                />
-                {event.eventTags && (
-                  <div className={styles.tagwrapper}>
-                    {event.eventTags.map((tag) => (
-                      <Link key={tag.id} href={`/events/tags/${tag.id}`}>
-                        <span className={styles.tag}>{tag.text}</span>
-                      </Link>
-                    ))}
-                  </div>
-                )}
-              </motion.div>
-            )}
-          </AnimatePresence>
+        <section key={event._id} className={styles.hero}>
+          {isEdit ? (
+            <EventEditForm
+              eventId={eventId}
+              _oldEventName={event.eventName}
+              _oldEventDetails={event.eventDetails}
+              _oldEventStartDate={event.eventStartDate}
+              _oldEventEndDate={event.eventEndDate}
+              _oldEventImage={event.eventImageURL}
+              _oldImagePublicId={event.imagePublicId}
+              _oldEventTags={event.eventTags}
+              onHandleChange={setIsEdit}
+            />
+          ) : (
+            <div>
+              {event?.eventImageURL && (
+                <div className={styles.banner}>
+                  <Image
+                    src={event.eventImageURL}
+                    layout="fill"
+                    objectFit="cover"
+                    alt="Banner"
+                  />
+                </div>
+              )}
+              {new Date(event.eventEndDate) < new Date() && (
+                <p className={styles.expired}>This event has expired.</p>
+              )}
+              <h1 className={styles.title}>{event.eventName}</h1>
+              <h3 className={styles.author}>
+                By{' '}
+                <Link
+                  href={`/organizations/${event.organizationName}`}
+                  passHref
+                >
+                  <a>{event.organizationName}</a>
+                </Link>
+              </h3>
+              <span className={styles.date}>
+                {new Date(event.eventStartDate).toLocaleString('en-US', {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                  timeZone: 'GMT',
+                })}{' '}
+                -{' '}
+                {new Date(event.eventEndDate).toLocaleString('en-US', {
+                  dateStyle: 'medium',
+                  timeStyle: 'short',
+                  timeZone: 'GMT',
+                })}
+              </span>
+              <hr />
+              <div
+                // I don't know how to feel about using this
+                // but apparently it is the most recommended way
+                // of displaying raw html
+                dangerouslySetInnerHTML={{ __html: `${event.eventDetails}` }}
+              />
+              {event.eventTags && (
+                <div className={styles.tagwrapper}>
+                  {event.eventTags.map((tag) => (
+                    <Link key={tag.id} href={`/events/tags/${tag.id}`}>
+                      <span className={styles.tag}>{tag.text}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {session && isAdmin && (
-            <motion.span layout="position" className={formstyles.actions}>
+            <div className={styles.actions}>
               <button
                 onClick={() => confirmDelete(event._id, event.imagePublicId)}
-                className={formstyles.deleteicon}
+                className={formstyles.delete}
                 ref={wrapperRef}
               >
                 <TrashIcon />
@@ -202,24 +196,22 @@ export default function Event({ event }) {
                 onClick={() => {
                   setIsEdit(!isEdit)
                 }}
-                className={formstyles.editicon}
+                className={formstyles.edit}
               >
                 <EditIcon />
               </button>
-            </motion.span>
+            </div>
           )}
-          <motion.div layout="position">
-            <h3>Comments</h3>
-            {session ? (
-              <CommentsForm eventId={event._id} />
-            ) : (
-              <p>Sign in to comment.</p>
-            )}
-            <ListComments
-              eventId={event._id}
-              organizationId={event.organizationId}
-            />
-          </motion.div>
+
+          {session ? (
+            <CommentsForm eventId={event._id} />
+          ) : (
+            <p className={styles.subtitle}>Sign in to comment.</p>
+          )}
+          <ListComments
+            eventId={event._id}
+            organizationId={event.organizationId}
+          />
         </section>
       ))}
     </Page>

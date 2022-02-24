@@ -1,5 +1,5 @@
 import React from 'react'
-import cardstyles from '@/styles/card.module.css'
+import styles from './card.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -11,20 +11,20 @@ export default function OrganizationCard({
 }) {
   return (
     <Link href={`/organizations/${organizationName}`} passHref>
-      <div className={cardstyles.card}>
-        <div className={cardstyles.orgheader}>
+      <div className={styles.card}>
+        <div className={styles.header}>
           {organizationImage && (
             <Image
               src={organizationImage}
               width={50}
               height={50}
-              className={cardstyles.rounded}
+              className={styles.thumbnail}
               alt="Thumbnail"
             />
           )}
-          <h3 className={cardstyles.organizationName}>{organizationName}</h3>
+          <h3 className={styles.title}>{organizationName}</h3>
         </div>
-        <h4 className={`${cardstyles.organizationTagline} ${'clamp-2'}`}>
+        <h4 className={`${styles.tagline} ${'clamp-2'}`}>
           {organizationTagline}
         </h4>
       </div>

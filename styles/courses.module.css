@@ -4,11 +4,6 @@
   gap: var(--gap-med);
 }
 
-.title,
-.difficulty {
-  margin-bottom: 0;
-}
-
 .content {
   display: flex;
   align-items: flex-start;
@@ -30,6 +25,11 @@
   margin: auto;
 }
 
+.title,
+.difficulty {
+  margin-bottom: 0;
+}
+
 .courseheader {
   display: flex;
   justify-content: space-between;
@@ -37,7 +37,19 @@
 }
 
 .difficulty {
-  color: var(--gray-500);
+  color: var(--gray-400);
+}
+
+.link {
+  display: flex;
+  align-items: center;
+}
+
+.link svg {
+  max-width: 20px;
+  min-width: 20px;
+  max-height: 20px;
+  min-height: 20px;
 }
 
 @media (max-width: 868px) {

@@ -1,7 +1,8 @@
 import Router from 'next/router'
 import toast from 'react-hot-toast'
 import formstyles from '@/styles/form.module.css'
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/router'
+import { TrashIcon } from '../Icons'
 
 export function RemoveMemberForm({
   memberId,
@@ -25,7 +26,7 @@ export function RemoveMemberForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You left ${organizationName}.`)
-      router.replace(router.asPath);
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'
@@ -65,7 +66,7 @@ export function RemoveMemberAdminForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You removed this member.`)
-      router.replace(router.asPath);
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'
@@ -73,8 +74,8 @@ export function RemoveMemberAdminForm({
     }
   }
   return (
-    <span onClick={handleSubmit} className={formstyles.deletecomment}>
-      Remove
-    </span>
+    <button onClick={handleSubmit} className={formstyles.deletemember}>
+      <TrashIcon />
+    </button>
   )
 }

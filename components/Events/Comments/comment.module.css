@@ -1,0 +1,95 @@
+.comments {
+  margin-top: var(--gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+.comment p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-half);
+  margin-bottom: 0;
+}
+
+.inputheader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inputheader span,
+.error {
+  color: var(--rose-500);
+}
+
+.error {
+  font-weight: 600;
+}
+
+.author {
+  font-weight: 600;
+  color: var(--gray-900);
+}
+
+.date,
+.maxlength {
+  color: var(--gray-400);
+}
+
+.actions {
+  display: flex;
+  gap: var(--gap-half);
+}
+
+.edit,
+.delete {
+  padding: var(--gap-quarter);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color var(--transition);
+}
+
+.edit:hover {
+  background-color: var(--teal-300);
+}
+
+.delete:hover {
+  background-color: var(--rose-300);
+}
+
+.edit svg,
+.delete svg {
+  max-width: 15px;
+  max-height: 15px;
+  min-width: 15px;
+  min-height: 15px;
+}
+
+.formactions {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.primary {
+  background-color: var(--teal-500);
+  color: var(--teal-50);
+}
+
+.primary:hover {
+  background-color: var(--teal-400);
+}
+
+.secondary {
+  background-color: var(--teal-300);
+}
+
+.secondary:hover {
+  background-color: var(--teal-200);
+}

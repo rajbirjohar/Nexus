@@ -51,6 +51,70 @@
   color: var(--teal-600);
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.header h2 {
+  transition: color var(--transition);
+}
+
+.header:hover > h2 {
+  color: var(--teal-500);
+}
+
+.primary {
+  background-color: var(--teal-500);
+  color: var(--teal-50);
+  border-radius: var(--radius-round);
+  padding: 0.6rem;
+}
+
+.tabs {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-quarter);
+  border-bottom: 2px solid var(--gray-100);
+}
+
+.tab {
+  background: transparent;
+  position: relative;
+  padding: var(--gap-half);
+  transition: all var(--transition);
+}
+
+.tab:hover {
+  background-color: var(--gray-100);
+}
+
+.active {
+  background-color: transparent;
+  color: var(--teal-500);
+}
+
+.active.tab:hover {
+  background-color: transparent;
+  color: var(--teal-500);
+  box-shadow: none;
+  cursor: default;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--teal-500);
+  border-radius: var(--radius);
+}
+
 @media (max-width: 868px) {
   .page {
     grid-template-columns: 1fr;

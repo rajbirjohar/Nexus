@@ -1,0 +1,22 @@
+.card {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows);
+  transition: transform var(--transition);
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-0.25rem);
+}
+
+.card:hover > .title {
+  color: var(--teal-800);
+}
+
+.title {
+  color: var(--teal-500);
+  transition: color var(--transition);
+  margin: 0;
+}

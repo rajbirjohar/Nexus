@@ -1,0 +1,9 @@
+.menubar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--gap-quarter);
+}
+
+.maxlength {
+  color: var(--gray-400);
+}

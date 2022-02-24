@@ -57,7 +57,6 @@ export default function EventsPage() {
         />
       ) : (
         <>
-          <h2>All Events</h2>
           <ListAllEvents />
         </>
       )}

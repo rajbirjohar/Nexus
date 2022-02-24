@@ -7,9 +7,7 @@ import clientPromise from '@/lib/mongodb'
 import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
 import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
 import styles from '@/styles/courses.module.css'
-import formstyles from '@/styles/form.module.css'
 import Dropdown from '@/components/Layout/Dropdown'
-import { motion } from 'framer-motion'
 import { LeftChevronIcon } from '@/components/Icons'
 
 const CourseReviews = ({ course, averageRating }) => {
@@ -24,7 +22,7 @@ const CourseReviews = ({ course, averageRating }) => {
       {course.map((course) => (
         <>
           <Link href="/courses" passHref>
-            <a className={formstyles.linkwrap}>
+            <a className={styles.link}>
               <LeftChevronIcon />
               Go back to courses
             </a>

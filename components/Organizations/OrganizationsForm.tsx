@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
-import ImageDropzone from '../ImageDropzone'
+import ImageDropzone from '../Dropzone/Dropzone'
 import { useRouter } from 'next/router';
 
 // length of description

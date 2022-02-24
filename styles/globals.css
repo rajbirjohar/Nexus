@@ -9,7 +9,7 @@
   --gap-med: 1.5rem;
   --small-gap: 4rem;
   --big-gap: 8rem;
-  --main-content: 80rem;
+  --main-content: 70rem;
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 25px;
@@ -37,7 +37,7 @@
   --gray-200: #e5e7eb;
   --gray-300: #d1d5db;
   --gray-400: #9ca3af;
-  --gray-500: #6b7280;
+  --gray-400: #6b7280;
   --gray-600: #4b5563;
   --gray-700: #374151;
   --gray-800: #1e2631;
@@ -74,7 +74,7 @@
   --gray-200: #374151;
   --gray-300: #4b5563;
   --gray-400: #6b7280;
-  --gray-500: #9ca3af;
+  --gray-400: #9ca3af;
   --gray-600: #d1d5db;
   --gray-700: #e5e7eb;
   --gray-800: #f3f4f6;
@@ -154,8 +154,10 @@ h6 {
 
 p,
 li {
-  font-size: 1.125rem;
+  font-size: 1rem;
   color: var(--gray-600);
+  font-weight: 450;
+  line-height: 1.6;
 }
 
 /* li {
@@ -273,14 +275,14 @@ textarea,
   line-height: 1.25;
   border: 2px solid var(--gray-100);
   padding: var(--gap) var(--gap);
-  font-size: 1.125rem;
+  font-size: 1rem;
   border-radius: var(--radius);
   margin: var(--gap-half) 0;
   background-color: var(--gray-100) !important;
   resize: none !important;
 }
 
-.ProseMirror{
+.ProseMirror {
   line-height: 1.5;
 }
 
@@ -405,7 +407,7 @@ input[type='checkbox'] {
     --gray-200: #e5e7eb;
     --gray-300: #d1d5db;
     --gray-400: #9ca3af;
-    --gray-500: #6b7280;
+    --gray-400: #6b7280;
     --gray-600: #4b5563;
     --gray-700: #374151;
     --gray-800: #1e2631;

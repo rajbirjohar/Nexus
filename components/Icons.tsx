@@ -74,6 +74,22 @@ export const LeftChevronIcon = () => (
   </svg>
 )
 
+export const RightArrowIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M13 7l5 5m0 0l-5 5m5-5H6"
+    />
+  </svg>
+)
+
 export const WebsiteIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -81,46 +97,43 @@ export const WebsiteIcon = () => (
     viewBox="2.1 2.4 19.8 19.8"
     fill="none"
     stroke="currentColor"
-    width='100%'
-    height='100%'
+    width="100%"
+    height="100%"
   >
     <path
-      strokeLinecap="round" 
-      strokeLinejoin="round" 
+      strokeLinecap="round"
+      strokeLinejoin="round"
       strokeWidth="2"
       d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
     />
   </svg>
 )
 
-// export const WebsiteIcon = () => (
-//   <svg 
-//     xmlns="http://www.w3.org/2000/svg" 
-//     width='100%' 
-//     height='100%'
-//     fill="currentColor" 
-//     viewBox="0 0.5 16 16"
-//   >
-//     <path 
-//       fillRule="evenodd"
-//       d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z"
-//     />
-//     <path 
-//       fillRule="evenodd"
-//       d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z"
-//     />
-//   </svg>
-// )
+export const PhotoIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke="currentColor"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="2"
+      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+    />
+  </svg>
+)
 
 export const InstagramIcon = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width='100%' 
-    height='100%'
-    fill="currentColor" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100%"
+    height="100%"
+    fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <path 
+    <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
@@ -130,14 +143,14 @@ export const InstagramIcon = () => (
 )
 
 export const SlackIcon = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width='100%' 
-    height='100%'
-    fill="currentColor" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100%"
+    height="100%"
+    fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <path 
+    <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
@@ -147,31 +160,31 @@ export const SlackIcon = () => (
 )
 
 export const DiscordIcon = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width='100%' 
-    height='100%'
-    fill="currentColor" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100%"
+    height="100%"
+    fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <path 
+    <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
-      d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"    
+      d="M13.545 2.907a13.227 13.227 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.19 12.19 0 0 0-3.658 0 8.258 8.258 0 0 0-.412-.833.051.051 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.041.041 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032c.001.014.01.028.021.037a13.276 13.276 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019c.308-.42.582-.863.818-1.329a.05.05 0 0 0-.01-.059.051.051 0 0 0-.018-.011 8.875 8.875 0 0 1-1.248-.595.05.05 0 0 1-.02-.066.051.051 0 0 1 .015-.019c.084-.063.168-.129.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.052.052 0 0 1 .053.007c.08.066.164.132.248.195a.051.051 0 0 1-.004.085 8.254 8.254 0 0 1-1.249.594.05.05 0 0 0-.03.03.052.052 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.235 13.235 0 0 0 4.001-2.02.049.049 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.034.034 0 0 0-.02-.019Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"
     />
   </svg>
 )
 
 export const FacebookIcon = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width='100%' 
-    height='100%'
-    fill="currentColor" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100%"
+    height="100%"
+    fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <path 
+    <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"
@@ -181,14 +194,14 @@ export const FacebookIcon = () => (
 )
 
 export const TwitterIcon = () => (
-  <svg 
-    xmlns="http://www.w3.org/2000/svg" 
-    width='100%' 
-    height='100%'
-    fill="currentColor" 
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="100%"
+    height="100%"
+    fill="currentColor"
     viewBox="0 0 16 16"
   >
-    <path 
+    <path
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth="2"

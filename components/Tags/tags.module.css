@@ -1,0 +1,65 @@
+.tagwrapper {
+  display: flex;
+  gap: var(--gap-half);
+  flex-wrap: wrap;
+  margin-top: var(--gap-half);
+  margin-bottom: var(--gap-med);
+}
+/* 
+.taginput {
+  width: 10%;
+} */
+
+.tag {
+  background: var(--teal-100);
+  color: var(--teal-900);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gap-quarter);
+  border-radius: var(--radius-sm);
+  width: max-content;
+  gap: var(--gap-quarter);
+}
+
+.removetag {
+  cursor: pointer;
+  color: var(--rose-900);
+  background-color: var(--teal-100);
+  height: 20px;
+  width: 20px;
+  border-radius: 5px;
+  padding: 0;
+}
+
+.removetag:hover {
+  background-color: var(--teal-200);
+}
+
+.suggestions {
+  position: absolute;
+}
+.suggestions ul {
+  list-style-type: none;
+  box-shadow: var(--shadows);
+  background: var(--card);
+  border-radius: var(--radius);
+  width: 300px;
+}
+.suggestions li {
+  padding: var(--gap-half);
+  margin: 0;
+  cursor: pointer;
+}
+
+.suggestions li mark {
+  text-decoration: underline;
+  background: none;
+  font-weight: 600;
+  color: var(--teal-900);
+  cursor: pointer;
+}
+
+.activesuggestion {
+  color: var(--teal-700);
+  cursor: pointer;
+}

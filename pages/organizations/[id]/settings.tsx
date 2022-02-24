@@ -32,7 +32,7 @@ export default function Settings({ organization }) {
   return (
     <Page title="Settings" tip={null}>
       <Link href={`/organizations/${id}`} passHref>
-        <a className={formstyles.linkwrap}>
+        <a className={styles.link}>
           <LeftChevronIcon />
           Go back to Organization
         </a>

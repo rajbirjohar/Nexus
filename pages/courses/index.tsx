@@ -3,7 +3,7 @@ import { GetStaticProps } from 'next'
 import clientPromise from '@/lib/mongodb'
 import Page from '@/components/Layout/Page'
 import { LottieWrapper } from '@/components/LottieWrapper'
-import CourseCard from '@/components/Courses/CourseCard'
+import CourseCard from '@/components/Courses/Card'
 import NotFound from '@/components/notFound'
 import { GreenTip } from '@/components/Layout/Tips'
 import styles from '@/styles/courses.module.css'
@@ -11,6 +11,7 @@ import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import animationData from '@/lotties/studentonbooks.json'
 import ListMostRecent from '@/components/Reviews/ListMostRecent'
+import { SearchIcon } from '@/components/Icons'
 
 export default function CoursesPage({ courses }) {
   const [searchValue, setSearchValue] = useState('')
@@ -42,7 +43,7 @@ export default function CoursesPage({ courses }) {
           </div>
         </div>
       </div>
-      <div className={formstyles.searchWrapper}>
+      <div className={formstyles.searchwrapper}>
         <input
           autoComplete="off"
           aria-label="Enabled Searchbar"
@@ -51,21 +52,7 @@ export default function CoursesPage({ courses }) {
           placeholder='Search courses ex. "SCOTTY101"'
           className={formstyles.search}
         />
-        <svg className={formstyles.searchIcon}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </svg>
+        <SearchIcon />
       </div>
       {!searchValue.length && (
         <>
@@ -81,11 +68,7 @@ export default function CoursesPage({ courses }) {
       <div className={cardstyles.gridshort}>
         {searchValue.length > 1 &&
           filteredCourses.map((course) => (
-            <CourseCard
-              key={course._id}
-              courseId={course._id}
-              courseName={course.subjectCourse}
-            />
+            <CourseCard key={course._id} courseName={course.subjectCourse} />
           ))}
       </div>
       <h4>Go ahead and search for a course.</h4>

@@ -4,10 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import useSlider from './Slider'
 import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
-import Tiptap from '../Tiptap'
-
-// Max length for review
-const maxLength = 750
+import Tiptap from '../Tiptap/Tiptap'
 
 interface ReviewPost {
   reviewPostId: string
@@ -101,7 +98,9 @@ export default function ReviewEditForm({
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
             <label htmlFor="_reviewPost">
-              <strong>Review:</strong>
+              <strong>
+                Review: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_newReviewPost">
               {(message) => <span className={styles.error}>{message}</span>}
@@ -116,7 +115,9 @@ export default function ReviewEditForm({
           />
           <div className={styles.inputheader}>
             <label htmlFor="_newReviewProfessor">
-              <strong>Professor:</strong>
+              <strong>
+                Professor: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_newReviewProfessor">
               {(message) => <span className={styles.error}>{message}</span>}
@@ -130,7 +131,9 @@ export default function ReviewEditForm({
           />
           <div className={styles.inputheader}>
             <label htmlFor="_newTaken">
-              <strong>Taken:</strong>
+              <strong>
+                Taken: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_newTaken">
               {(message) => <span className={styles.error}>{message}</span>}
@@ -143,7 +146,7 @@ export default function ReviewEditForm({
             placeholder='"Winter 1907"'
           />
           <div className={styles.inputheader}>
-            <label className={styles.checkedWrapper}>
+            <label className={styles.check}>
               <Field autoComplete="off" type="checkbox" name="_newAnonymous" />
               <strong>Anonymous?</strong>
             </label>

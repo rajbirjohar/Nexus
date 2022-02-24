@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import formstyles from '@/styles/form.module.css'
+import styles from '@/styles/layout.module.css'
 import { PlusIcon } from '@/components/Icons'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -9,15 +9,15 @@ const Dropdown = ({ heading, children }) => {
       height: '0',
       transition: {
         when: 'afterChildren',
-        ease: [0.04, 0.62, 0.23, 0.98],
+        // ease: [0.04, 0.62, 0.23, 0.98],
       },
     },
     open: {
-      height: 'auto',
+      height: '100%',
       transition: {
-        when: 'beforeChildren',
-        ease: 'easeInOut',
-        duration: 0.1,
+        // when: 'beforeChildren',
+        // ease: 'easeInOut',
+        // duration: 0.1,
       },
     },
   }
@@ -25,15 +25,15 @@ const Dropdown = ({ heading, children }) => {
   const childrenAnim = {
     closed: {
       opacity: 0,
-      transition: {
-        delay: 0,
-      },
+      // transition: {
+      //   delay: 0,
+      // },
     },
     open: {
       opacity: 1,
-      transition: {
-        delay: 0,
-      },
+      // transition: {
+      //   delay: 0,
+      // },
     },
   }
 
@@ -41,15 +41,15 @@ const Dropdown = ({ heading, children }) => {
     closed: {
       rotate: 0,
       transition: {
-        type: 'tween',
-        duration: 0.05,
+        // type: 'tween',
+        // duration: 0.05,
       },
     },
     open: {
       rotate: 45,
       transition: {
-        type: 'tween',
-        duration: 0.05,
+        // type: 'tween',
+        // duration: 0.05,
       },
     },
   }
@@ -57,7 +57,7 @@ const Dropdown = ({ heading, children }) => {
   return (
     <motion.section>
       <motion.div
-        className={formstyles.heading}
+        className={styles.header}
         key="heading"
         onClick={() => setIsOpen(!isOpen)}
       >
@@ -66,7 +66,7 @@ const Dropdown = ({ heading, children }) => {
           initial="closed"
           variants={buttonAnim}
           animate={isOpen ? 'open' : 'closed'}
-          className={formstyles.revealprimary}
+          className={styles.primary}
         >
           <PlusIcon />
         </motion.button>

@@ -1,8 +1,8 @@
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import ImageDropzone from '../ImageDropzone'
+import ImageDropzone from '../Dropzone/Dropzone'
 import styles from '@/styles/form.module.css'
 import toast from 'react-hot-toast'
-import Tiptap from '../Tiptap'
+import Tiptap from '../Tiptap/Tiptap'
 
 const maxLength = 1000
 const tagLineLength = 250
@@ -127,9 +127,7 @@ export default function OrganizationEditForm({
           <Form onSubmit={handleSubmit}>
             <label htmlFor="_newOrganizationImage">
               <strong>
-                Organization Image:{' '}
-                <span className={styles.subtitle}>(Optional)</span>
-                <br />
+                Organization Image: <br />
                 <span className={styles.subtitle}>
                   For highest quality, use a square photo
                 </span>
@@ -141,7 +139,9 @@ export default function OrganizationEditForm({
             />
             <div className={styles.inputheader}>
               <label htmlFor="_newOrganizationName">
-                <strong>Organization Name:</strong>
+                <strong>
+                  Organization Name: <span>*</span>
+                </strong>
               </label>
               <ErrorMessage name="_newOrganizationName">
                 {(message) => <span className={styles.error}>{message}</span>}
@@ -156,7 +156,9 @@ export default function OrganizationEditForm({
             />
             <div className={styles.inputheader}>
               <label htmlFor="_newOrganizationTagline">
-                <strong>Organization Tagline:</strong>
+                <strong>
+                  Organization Tagline: <span>*</span>
+                </strong>
               </label>
               <ErrorMessage name="_newOrganizationTagline">
                 {(message) => <span className={styles.error}>{message}</span>}
@@ -175,19 +177,14 @@ export default function OrganizationEditForm({
             </span>
             <div className={styles.inputheader}>
               <label htmlFor="_newOrganizationDescription">
-                <strong>Organization Description:</strong>
+                <strong>
+                  Organization Description: <span>*</span>
+                </strong>
               </label>
               <ErrorMessage name="_newOrganizationDescription">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            {/*<Field
-            autoComplete="off"
-            component="textarea"
-            name="_newOrganizationDescription"
-            placeholder="A very cool description"
-            maxLength={maxLength}
-          />*/}
             <Tiptap
               setFieldValue={setFieldValue}
               isSubmitting={isSubmitting}
@@ -195,114 +192,137 @@ export default function OrganizationEditForm({
               // Initially, we set it to the old details in initialValues
               oldOrganizationDescription={values._newOrganizationDescription}
             />
-            <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationWebsite">
-                <strong>Organization Website:
-                  {/* <span className={styles.subtitle}> (Optional)</span> */}
-                </strong>
-              </label>
-              <ErrorMessage name="_newOrganizationWebsite">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newOrganizationWebsite"
-              type="text"
-              placeholder="https://scottysclub.org/"
-              maxLength={50}
-            />
+            <div className={styles.linkwrapper}>
+              <div className={styles.linkinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newOrganizationWebsite">
+                    <strong>
+                      Website:
+                      {/* <span className={styles.subtitle}> (Optional)</span> */}
+                    </strong>
+                  </label>
+                  <ErrorMessage name="_newOrganizationWebsite">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  name="_newOrganizationWebsite"
+                  type="text"
+                  placeholder="https://scottysclub.org/"
+                  maxLength={50}
+                />
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationInstagram">
-                <strong>Organization Instagram:
-                  {/* <span className={styles.subtitle}> (Optional)</span> */}
-                </strong>
-              </label>
-              <ErrorMessage name="_newOrganizationInstagram">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newOrganizationInstagram"
-              type="text"
-              placeholder="https://www.instagram.com/highlandersatscottys/"
-              maxLength={100}
-            />
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newOrganizationInstagram">
+                    <strong>
+                      Instagram:
+                      {/* <span className={styles.subtitle}> (Optional)</span> */}
+                    </strong>
+                  </label>
+                  <ErrorMessage name="_newOrganizationInstagram">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  name="_newOrganizationInstagram"
+                  type="text"
+                  placeholder="https://www.instagram.com/highlandersatscottys/"
+                  maxLength={100}
+                />
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationFacebook">
-                <strong>Organization Facebook:
-                  {/* <span className={styles.subtitle}> (Optional)</span> */}
-                </strong>
-              </label>
-              <ErrorMessage name="_newOrganizationFacebook">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newOrganizationFacebook"
-              type="text"
-              placeholder="https://www.facebook.com/groups/highlandersatscottys/"
-              maxLength={100}
-            />
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newOrganizationFacebook">
+                    <strong>
+                      Facebook:
+                      {/* <span className={styles.subtitle}> (Optional)</span> */}
+                    </strong>
+                  </label>
+                  <ErrorMessage name="_newOrganizationFacebook">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  name="_newOrganizationFacebook"
+                  type="text"
+                  placeholder="https://www.facebook.com/groups/highlandersatscottys/"
+                  maxLength={100}
+                />
+              </div>
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationTwitter">
-                <strong>Organization Twitter:
-                  {/* <span className={styles.subtitle}> (Optional)</span> */}
-                </strong>
-              </label>
-              <ErrorMessage name="_newOrganizationTwitter">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newOrganizationTwitter"
-              type="text"
-              placeholder="https://www.twitter.com/highlandersatscottys/"
-              maxLength={100}
-            />
+              <div className={styles.linkinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newOrganizationTwitter">
+                    <strong>
+                      Twitter:
+                      {/* <span className={styles.subtitle}> (Optional)</span> */}
+                    </strong>
+                  </label>
+                  <ErrorMessage name="_newOrganizationTwitter">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  name="_newOrganizationTwitter"
+                  type="text"
+                  placeholder="https://www.twitter.com/highlandersatscottys/"
+                  maxLength={100}
+                />
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationSlack">
-                <strong>Organization Slack:
-                  {/* <span className={styles.subtitle}> (Optional)</span> */}
-                </strong>
-              </label>
-              <ErrorMessage name="_newOrganizationSlack">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              name="_newOrganizationSlack"
-              type="text"
-              placeholder="https://www.scottysatucr.slack.com"
-              maxLength={100}
-            />
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newOrganizationSlack">
+                    <strong>
+                      Slack:
+                      {/* <span className={styles.subtitle}> (Optional)</span> */}
+                    </strong>
+                  </label>
+                  <ErrorMessage name="_newOrganizationSlack">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  name="_newOrganizationSlack"
+                  type="text"
+                  placeholder="https://www.scottysatucr.slack.com"
+                  maxLength={100}
+                />
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationDiscord">
-                <strong>Organization Discord:
-                  {/* <span className={styles.subtitle}> (Optional)</span> */}
-                </strong>
-              </label>
-              <ErrorMessage name="_newOrganizationDiscord">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_newOrganizationDiscord">
+                    <strong>
+                      Discord:
+                      {/* <span className={styles.subtitle}> (Optional)</span> */}
+                    </strong>
+                  </label>
+                  <ErrorMessage name="_newOrganizationDiscord">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  name="_newOrganizationDiscord"
+                  type="text"
+                  placeholder="https://www.discord.gg/scottysclub/"
+                  maxLength={100}
+                />
+              </div>
             </div>
-            <Field
-              autoComplete="off"
-              name="_newOrganizationDiscord"
-              type="text"
-              placeholder="https://www.discord.gg/scottysclub/"
-              maxLength={100}
-            />
-
             <span className={styles.actions}>
               <button
                 className={styles.secondary}

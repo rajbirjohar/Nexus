@@ -1,9 +1,9 @@
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
-import ErrorFetch from '../Layout/ErrorFetch'
+import ErrorFetch from '../../Layout/ErrorFetch'
 import Comment from './Comment'
 import TimeAgo from 'react-timeago'
-import styles from '@/styles/card.module.css'
+import styles from './comment.module.css'
 
 export default function ListComments({ eventId, organizationId }) {
   const { data, error } = useSWR(`/api/events/comments/${eventId}`, fetcher, {

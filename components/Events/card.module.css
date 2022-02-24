@@ -1,0 +1,61 @@
+.card {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows);
+  transition: transform var(--transition);
+}
+
+.title {
+  color: var(--teal-500);
+  transition: color var(--transition);
+  margin: 0;
+}
+
+.author {
+  margin: 0.5rem 0;
+}
+
+.author,
+.date {
+  color: var(--gray-400);
+}
+
+.card:hover > .title {
+  color: var(--teal-800);
+}
+
+.card:hover {
+  transform: translateY(-0.25rem);
+  cursor: pointer;
+}
+
+.tagwrapper {
+  display: flex;
+  gap: var(--gap-half);
+  flex-wrap: wrap;
+}
+
+.taginput {
+  flex-basis: 1/2;
+}
+
+.tag {
+  background: var(--teal-100);
+  color: var(--teal-900);
+  display: flex;
+  align-items: center;
+  padding: 0 var(--gap-quarter);
+  border-radius: var(--radius-sm);
+  width: max-content;
+  gap: var(--gap-quarter);
+}
+
+.expired {
+  background-color: var(--rose-100);
+  color: var(--rose-800);
+  border-radius: var(--radius-sm);
+  padding: var(--gap-quarter);
+  margin-top: var(--gap-med);
+  width: max-content;
+}

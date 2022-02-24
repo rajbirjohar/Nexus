@@ -4,13 +4,10 @@
   gap: var(--gap-med);
 }
 
-.rounded {
-  border-radius: 50%;
-}
-
 .content {
   display: flex;
   align-items: flex-start;
+  gap: var(--gap-med);
 }
 
 .text {
@@ -24,47 +21,48 @@
   margin: auto;
 }
 
-.organizationHeader {
+.animationWrapper svg {
+  margin: auto;
+}
+
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--gap-med);
 }
 
-.socialHeader {
+.title {
   display: flex;
-  flex-direction: row;
-  margin-bottom: -20px;
-  margin-top: 10px;
+  align-items: center;
+  gap: var(--gap-med);
+}
+
+.socials {
+  display: flex;
+  align-items: center;
+  max-width: max-content;
   background-color: var(--gray-100);
-  width: max-content;
-  border-radius: 15px 15px 15px 15px;
+  padding: 0;
+  border-radius: var(--radius);
+  gap: var(--gap);
 }
 
-.test {
-  background-color: sandybrown;
-  margin-top: 0px;
+/* get rid of a tag bottom padding */
+.social {
+  line-height: 1;
+  padding: var(--gap-half);
 }
 
-.socialItem {
-  transform: scale(0.5);
-  text-align: center;
-  width: 3rem;
+.social svg {
+  min-width: 25px;
+  max-width: 25px;
+  min-height: 25px;
+  max-height: 25px;
 }
 
-.socialItem:hover {
+.social:hover {
   color: var(--teal-800);
-}
-
-.organizationInner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--gap-med);
-}
-
-.organizationHeader h1 {
-  margin: 0;
 }
 
 .memberslist {
@@ -75,32 +73,43 @@
 }
 
 .subtitle {
-  color: var(--gray-500);
+  color: var(--gray-400);
 }
 
-.dangeractions {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap-med);
-}
-
-.danger {
-  border: 2px solid var(--rose-100);
-  border-radius: var(--radius-sm);
-  padding: var(--gap);
-}
 .members {
   list-style: none;
   list-style-type: none;
   margin: 0;
   padding: 0;
+  display: flex;
+  gap: var(--gap-half);
 }
+
+.link {
+  display: flex;
+  align-items: center;
+}
+
+.link svg {
+  min-width: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  max-height: 20px;
+}
+
+.danger {
+  border: 2px solid var(--rose-100);
+  border-radius: var(--radius);
+  padding: 0 var(--gap-med) var(--gap) var(--gap-med);
+  margin: var(--gap) 0;
+}
+
 @media (max-width: 868px) {
   .content {
     flex-direction: column;
     align-items: center;
   }
-  .organizationHeader {
+  .header {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;

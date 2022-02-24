@@ -1,10 +1,10 @@
 import React from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import ImageDropzone from '../ImageDropzone'
+import ImageDropzone from '../Dropzone/Dropzone'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
-import Tiptap from '../Tiptap'
-import Tags from '../Tags'
+import Tiptap from '../Tiptap/Tiptap'
+import Tags from '../Tags/Tags'
 
 interface Event {
   creator: string
@@ -116,8 +116,7 @@ export default function EventForm({
           <div className={styles.inputheader}>
             <label htmlFor="_eventImage">
               <strong>
-                Event Banner:{' '}
-                <span className={styles.subtitle}>(Optional)</span>
+                Event Banner:
                 <br />
                 <span className={styles.subtitle}>
                   For highest quality, use a rectangular photo
@@ -131,7 +130,9 @@ export default function EventForm({
           <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
           <div className={styles.inputheader}>
             <label htmlFor="_eventName">
-              <strong>Event Name:</strong>
+              <strong>
+                Event Name: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_eventName">
               {(message) => <span className={styles.error}>{message}</span>}
@@ -145,21 +146,22 @@ export default function EventForm({
           />
           <div className={styles.inputheader}>
             <label htmlFor="_eventDetails">
-              <strong>Event Details:</strong>
+              <strong>
+                Event Details: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_eventDetails">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tiptap
-            setFieldValue={setFieldValue}
-            name="_eventDetails"
-          />
+          <Tiptap setFieldValue={setFieldValue} name="_eventDetails" />
           <div className={styles.datewrapper}>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
                 <label htmlFor="_eventStartDate">
-                  <strong>Event Start Date:</strong>
+                  <strong>
+                    Event Start Date: <span>*</span>
+                  </strong>
                 </label>
                 <ErrorMessage name="_eventStartDate">
                   {(message) => <span className={styles.error}>{message}</span>}
@@ -174,7 +176,9 @@ export default function EventForm({
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
                 <label htmlFor="_eventEndDate">
-                  <strong>Event End Date:</strong>
+                  <strong>
+                    Event End Date: <span>*</span>
+                  </strong>
                 </label>
                 <ErrorMessage name="_eventEndDate">
                   {(message) => <span className={styles.error}>{message}</span>}
