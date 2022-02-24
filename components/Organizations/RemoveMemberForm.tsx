@@ -75,7 +75,7 @@ export function RemoveMemberAdminForm({
   }
   return (
     <button onClick={handleSubmit} className={formstyles.deletemember}>
-      <TrashIcon />
+      <TrashIcon /> Remove
     </button>
   )
 }

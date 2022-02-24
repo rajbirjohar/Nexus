@@ -35,7 +35,11 @@
 .title {
   display: flex;
   align-items: center;
-  gap: var(--gap-med);
+  gap: var(--gap);
+}
+
+.title h1 {
+  margin: 0;
 }
 
 .socials {
@@ -45,7 +49,6 @@
   background-color: var(--gray-100);
   padding: 0;
   border-radius: var(--radius);
-  gap: var(--gap);
 }
 
 /* get rid of a tag bottom padding */
@@ -65,15 +68,15 @@
   color: var(--teal-800);
 }
 
+.subtitle {
+  color: var(--gray-400);
+}
+
 .memberslist {
   padding: 0;
   display: grid;
   grid-template-rows: repeat(10, min-content);
   grid-auto-flow: column;
-}
-
-.subtitle {
-  color: var(--gray-400);
 }
 
 .members {
@@ -82,6 +85,8 @@
   margin: 0;
   padding: 0;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
   gap: var(--gap-half);
 }
 
@@ -113,5 +118,12 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+    margin-bottom: 0;
+  }
+
+  .title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
   }
 }
