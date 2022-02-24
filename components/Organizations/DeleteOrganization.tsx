@@ -132,7 +132,7 @@ export default function DeleteOrganization({
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={styles.delete}
+                className={styles.deletefull}
               >
                 Delete Organization
               </button>

@@ -4,8 +4,8 @@
 
 import React, { useEffect, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
-import formstyles from '@/styles/form.module.css'
-import { motion, AnimatePresence } from 'framer-motion'
+import styles from './dropzone.module.css'
+import { PhotoIcon } from '../Icons'
 
 export default function ImageDropzone(props) {
   const { setFieldValue, name } = props
@@ -52,10 +52,10 @@ export default function ImageDropzone(props) {
     },
   })
   const thumbs = file.map((file) => (
-    <div className={formstyles.thumb} key={file.name}>
-      <div className={formstyles.thumbInner}>
+    <div className={styles.thumb} key={file.name}>
+      <div className={styles.thumbInner}>
         <button
-          className={formstyles.imagedeleteicon}
+          className={styles.delete}
           onClick={() => {
             setFile([])
             setFieldValue(name, '')
@@ -73,7 +73,7 @@ export default function ImageDropzone(props) {
             />
           </svg>
         </button>
-        <img src={file.preview} className={formstyles.img} alt="Thumbnail" />
+        <img src={file.preview} className={styles.img} alt="Thumbnail" />
       </div>
     </div>
   ))
@@ -82,17 +82,18 @@ export default function ImageDropzone(props) {
     file.forEach((file) => URL.revokeObjectURL(file.preview))
   }, [file])
   return (
-    <div className={formstyles.dropzone}>
+    <div className={styles.dropzone}>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
-        <p className={formstyles.prompt}>
+        <p className={styles.prompt}>
+          <PhotoIcon />
+          <br />
           Drop a cool picture or click to add one <br />
           <i>(.png or .jpeg only please!)</i> <br />
-          <span className={formstyles.error}>{error}</span>
+          <span className={styles.error}>{error}</span>
         </p>
       </div>
-
-      <aside className={formstyles.thumbsContainer}>{thumbs}</aside>
+      <aside className={styles.thumbsContainer}>{thumbs}</aside>
     </div>
   )
 }

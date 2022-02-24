@@ -2,12 +2,9 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import useSlider from './Slider'
-import styles from '@/styles/form.module.css'
+import formstyles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
-import Tiptap from '../Tiptap'
-
-// Max length for review
-const maxLength = 750
+import Tiptap from '../Tiptap/Tiptap'
 
 interface ReviewPost {
   creatorId: string
@@ -24,7 +21,7 @@ interface ReviewPost {
 
 export default function ReviewPostForm({ course, courseId }) {
   // useSlider hook
-  const [slideValue, Slider, setSlide] = useSlider(1, 10, 5)
+  const [slideValue, Slider] = useSlider(1, 10, 5)
   const { data: session } = useSession()
   const initialValues: ReviewPost = {
     creatorId: session.user.id,
@@ -95,22 +92,16 @@ export default function ReviewPostForm({ course, courseId }) {
     >
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
-          <div className={styles.inputheader}>
+          <div className={formstyles.inputheader}>
             <label htmlFor="_reviewPost">
-              <strong>Review:</strong>
+              <strong>
+                Review: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_reviewPost">
-              {(message) => <span className={styles.error}>{message}</span>}
+              {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          {/*<Field
-            autoComplete="off"
-            component="textarea"
-            name="_reviewPost"
-            placeholder='"I love this class!"'
-            rows="3"
-            maxLength={maxLength}
-          /> */}
           <Tiptap
             setFieldValue={setFieldValue}
             isSubmitting={isSubmitting}
@@ -118,12 +109,14 @@ export default function ReviewPostForm({ course, courseId }) {
             // Initially, we set it to the old details in initialValues
             oldEventDetails={values._reviewPost}
           />
-          <div className={styles.inputheader}>
+          <div className={formstyles.inputheader}>
             <label htmlFor="_reviewProfessor">
-              <strong>Professor:</strong>
+              <strong>
+                Professor: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_reviewProfessor">
-              {(message) => <span className={styles.error}>{message}</span>}
+              {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
@@ -132,12 +125,14 @@ export default function ReviewPostForm({ course, courseId }) {
             name="_reviewProfessor"
             placeholder='"Professor Scotty"'
           />
-          <div className={styles.inputheader}>
+          <div className={formstyles.inputheader}>
             <label htmlFor="_taken">
-              <strong>Taken:</strong>
+              <strong>
+                Taken: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_taken">
-              {(message) => <span className={styles.error}>{message}</span>}
+              {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
@@ -146,7 +141,7 @@ export default function ReviewPostForm({ course, courseId }) {
             name="_taken"
             placeholder='"Winter 1907"'
           />
-          <label className={styles.checkedWrapper}>
+          <label className={formstyles.check}>
             <Field autoComplete="off" type="checkbox" name="_anonymous" />
             <strong>Anonymous?</strong>
           </label>
@@ -155,9 +150,9 @@ export default function ReviewPostForm({ course, courseId }) {
             <strong>Difficulty: {values._difficulty}</strong>
           </label>
           <Slider />
-          <span className={styles.actions}>
+          <span className={formstyles.actions}>
             <button
-              className={styles.primary}
+              className={formstyles.primary}
               type="submit"
               disabled={isSubmitting}
             >

@@ -1,9 +1,5 @@
-import cardstyles from '@/styles/card.module.css'
-
-const listItems = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1 },
-}
+import Link from 'next/link'
+import styles from './card.module.css'
 
 export default function RecentReviewPostCard({
   creator,
@@ -20,12 +16,13 @@ export default function RecentReviewPostCard({
   reviewPostId,
 }) {
   return (
-    <div className={cardstyles.reviewcard}>
-      <span className={cardstyles.reviewheader}>
-        <h3 className={cardstyles.coursetitle}>{course}</h3>
-        <h3 className={cardstyles.difficulty}>{difficulty}</h3>
+    <div className={styles.card}>
+      <span className={styles.header}>
+        <h3 className={styles.title}>{course}</h3>
+
+        <h3 className={styles.difficulty}>{difficulty}</h3>
       </span>
-      <div>
+      <div className={styles.review}>
         <strong>Review:</strong> <br />
         <div dangerouslySetInnerHTML={{ __html: `${reviewPost}` }} />
         <p>
@@ -34,10 +31,8 @@ export default function RecentReviewPostCard({
         <p>
           <strong>Taken:</strong> {taken}
         </p>
-        <p className={cardstyles.author}>
-          <strong>Author: </strong>
-          {anonymous === true ? <>Anonymous</> : <>{creator}</>} about{' '}
-          {timestamp}
+        <p className={styles.author}>
+          {anonymous === true ? <>Anonymous</> : <>{creator}</>} {timestamp}{' '}
         </p>
       </div>
     </div>

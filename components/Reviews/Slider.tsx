@@ -15,12 +15,11 @@ const useSlider = (min, max, defaultState) => {
 
   const Slider = (props) => {
     return (
-      <div className={styles.labelWrapper}>
+      <div className={styles.slider}>
         <Field
           autoComplete="off"
           type="range"
           name="_difficulty"
-          className={styles.slider}
           id="_difficulty"
           min={min}
           max={max}
@@ -31,7 +30,7 @@ const useSlider = (min, max, defaultState) => {
           onMouseUp={props['onHandleChange']}
           onTouchEnd={props['onHandleChange']}
         />
-        <div className={styles.labels}>
+        <div className={styles.sliderlabel}>
           <span>1</span>
           <span>10</span>
         </div>

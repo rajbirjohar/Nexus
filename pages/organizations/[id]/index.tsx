@@ -15,7 +15,14 @@ import {
 } from '@/components/Organizations/RemoveMemberForm'
 import Dropdown from '@/components/Layout/Dropdown'
 import Link from 'next/link'
-import { WebsiteIcon, InstagramIcon, FacebookIcon, TwitterIcon, SlackIcon, DiscordIcon } from '@/components/Icons'
+import {
+  WebsiteIcon,
+  InstagramIcon,
+  FacebookIcon,
+  TwitterIcon,
+  SlackIcon,
+  DiscordIcon,
+} from '@/components/Icons'
 import formstyles from '@/styles/form.module.css'
 
 const Organization = ({ organization, superMembers, members }) => {
@@ -50,8 +57,8 @@ const Organization = ({ organization, superMembers, members }) => {
     >
       {organization.map((organization) => (
         <section key={organization._id}>
-          <div className={styles.organizationHeader}>
-            <div className={styles.organizationInner}>
+          <div className={styles.header}>
+            <span className={styles.title}>
               {organization.organizationImageURL && (
                 <Image
                   src={organization.organizationImageURL}
@@ -62,7 +69,7 @@ const Organization = ({ organization, superMembers, members }) => {
                 />
               )}{' '}
               <h1>{organization.organizationName}</h1>
-            </div>
+            </span>
             <div>
               {session && isNotMember && (
                 <AddMemberForm
@@ -88,54 +95,75 @@ const Organization = ({ organization, superMembers, members }) => {
               )}
             </div>
           </div>
-          {}
-          <div className={styles.socialHeader}>
+          <div className={styles.socials}>
             {organization.organizationWebsite && (
-                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationWebsite}>
-                  <svg className={formstyles.webicon}>
-                    <WebsiteIcon />
-                  </svg>
-                </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.social}
+                href={organization.organizationWebsite}
+              >
+                <svg className={formstyles.socialicon}>
+                  <WebsiteIcon />
+                </svg>
+              </a>
             )}
 
             {organization.organizationInstagram && (
-                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationInstagram}>
-                  <svg className={formstyles.webicon}>
-                    <InstagramIcon />
-                  </svg>
-                </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.social}
+                href={organization.organizationInstagram}
+              >
+                <svg className={formstyles.socialicon}>
+                  <InstagramIcon />
+                </svg>
+              </a>
             )}
 
             {organization.organizationFacebook && (
-                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationFacebook}>
-                  <svg className={formstyles.webicon}>
-                    <FacebookIcon />
-                  </svg>
-                </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.social}
+                href={organization.organizationFacebook}
+              >
+                <FacebookIcon />
+              </a>
             )}
 
             {organization.organizationTwitter && (
-                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationTwitter}>
-                  <svg className={formstyles.webicon}>
-                    <TwitterIcon />
-                  </svg>
-                </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.social}
+                href={organization.organizationTwitter}
+              >
+                <TwitterIcon />
+              </a>
             )}
 
             {organization.organizationSlack && (
-                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationSlack}>
-                  <svg className={formstyles.webicon}>
-                    <SlackIcon />
-                  </svg>
-                </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.social}
+                href={organization.organizationSlack}
+              >
+                <SlackIcon />
+              </a>
             )}
 
             {organization.organizationDiscord && (
-                <a target="_blank" rel="noopener noreferrer" className={styles.socialItem} href={organization.organizationDiscord}>
-                  <svg className={formstyles.webicon}>
-                    <DiscordIcon />
-                  </svg>
-                </a>
+              <a
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.social}
+                href={organization.organizationDiscord}
+              >
+                <DiscordIcon />
+              </a>
             )}
           </div>
 
@@ -148,6 +176,7 @@ const Organization = ({ organization, superMembers, members }) => {
               __html: `${organization.organizationDescription}`,
             }}
           />
+          <hr />
           {((session && isAdmin) || (session && isMember)) && (
             <>
               <h2>Admins</h2>
@@ -169,7 +198,9 @@ const Organization = ({ organization, superMembers, members }) => {
                 )}
                 {members.map((member) => (
                   <li className={styles.members} key={member.memberId}>
-                    <strong>{member.member}</strong> / {member.email} /{' '}
+                    <span>
+                      <strong>{member.member}</strong> / {member.email}
+                    </span>
                     <RemoveMemberAdminForm
                       memberId={member.memberId}
                       organizationId={organization._id}

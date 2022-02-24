@@ -1,10 +1,11 @@
 import React from 'react'
 import toast from 'react-hot-toast'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import ImageDropzone from '../ImageDropzone'
-import styles from '@/styles/form.module.css'
-import Tiptap from '../Tiptap'
-import Tags from '../Tags'
+import ImageDropzone from '../Dropzone/Dropzone'
+import formstyles from '@/styles/form.module.css'
+import styles from '@/styles/events.module.css'
+import Tiptap from '../Tiptap/Tiptap'
+import Tags from '../Tags/Tags'
 import { useRouter } from 'next/router'
 
 interface Event {
@@ -121,20 +122,22 @@ export default function EventEditForm({
         <Form onSubmit={handleSubmit}>
           <label htmlFor="_newEventImage">
             <strong>
-              Event Banner: <span className={styles.subtitle}>(Optional)</span>
+              Event Banner:
               <br />
-              <span className={styles.subtitle}>
+              <span className={formstyles.subtitle}>
                 For highest quality, use a rectangular photo
               </span>
             </strong>
           </label>
           <ImageDropzone setFieldValue={setFieldValue} name="_newEventImage" />
-          <div className={styles.inputheader}>
+          <div className={formstyles.inputheader}>
             <label htmlFor="_newEventName">
-              <strong>Event Name:</strong>
+              <strong>
+                Event Name: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_newEventName">
-              {(message) => <span className={styles.error}>{message}</span>}
+              {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
@@ -143,12 +146,14 @@ export default function EventEditForm({
             type="text"
             placeholder="Scotty's Birthday"
           />
-          <div className={styles.inputheader}>
+          <div className={formstyles.inputheader}>
             <label htmlFor="_newEventDetails">
-              <strong>Event Details:</strong>
+              <strong>
+                Event Details: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_newEventDetails">
-              {(message) => <span className={styles.error}>{message}</span>}
+              {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Tiptap
@@ -158,14 +163,18 @@ export default function EventEditForm({
             // Initially, we set it to the old details in initialValues
             oldEventDetails={values._newEventDetails}
           />
-          <div className={styles.datewrapper}>
-            <div className={styles.dateinput}>
-              <div className={styles.inputheader}>
+          <div className={formstyles.datewrapper}>
+            <div className={formstyles.dateinput}>
+              <div className={formstyles.inputheader}>
                 <label htmlFor="_newEventStartDate">
-                  <strong>Event Start Date:</strong>
+                  <strong>
+                    Event Start Date: <span>*</span>
+                  </strong>
                 </label>
                 <ErrorMessage name="_newEventStartDate">
-                  {(message) => <span className={styles.error}>{message}</span>}
+                  {(message) => (
+                    <span className={formstyles.error}>{message}</span>
+                  )}
                 </ErrorMessage>
               </div>
               <Field
@@ -174,13 +183,17 @@ export default function EventEditForm({
                 name="_newEventStartDate"
               />
             </div>
-            <div className={styles.dateinput}>
-              <div className={styles.inputheader}>
+            <div className={formstyles.dateinput}>
+              <div className={formstyles.inputheader}>
                 <label htmlFor="_newEventEndDate">
-                  <strong>Event End Date:</strong>
+                  <strong>
+                    Event End Date: <span>*</span>
+                  </strong>
                 </label>
                 <ErrorMessage name="_newEventEndDate">
-                  {(message) => <span className={styles.error}>{message}</span>}
+                  {(message) => (
+                    <span className={formstyles.error}>{message}</span>
+                  )}
                 </ErrorMessage>
               </div>
               <Field
@@ -190,12 +203,12 @@ export default function EventEditForm({
               />
             </div>
           </div>
-          <div className={styles.inputheader}>
+          <div className={formstyles.inputheader}>
             <label htmlFor="_newEventTags">
               <strong>Tags:</strong>
             </label>
             <ErrorMessage name="_newEventTags">
-              {(message) => <span className={styles.error}>{message}</span>}
+              {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Tags
@@ -205,7 +218,7 @@ export default function EventEditForm({
           />
           <span className={styles.actions}>
             <button
-              className={styles.secondary}
+              className={formstyles.secondary}
               type="submit"
               disabled={isSubmitting}
             >

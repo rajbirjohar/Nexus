@@ -1,11 +1,9 @@
 import { useSession } from 'next-auth/react'
 import React, { useState, useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
-import cardstyles from '@/styles/card.module.css'
-import formstyles from '@/styles/form.module.css'
+import styles from './comment.module.css'
 import CommentEditForm from './CommentEditForm'
-import { AnimatePresence, motion } from 'framer-motion'
-import { EditIcon, TrashIcon } from '../Icons'
+import { EditIcon, TrashIcon } from '../../Icons'
 
 const Comment = ({
   organizationId,
@@ -50,32 +48,12 @@ const Comment = ({
     }
   }
   return (
-    <div className={cardstyles.comment}>
-      <span className={cardstyles.commentheader}>
-        <span className={cardstyles.commentauthorwrapper}>
-          <span className={cardstyles.commentauthor}>{author}</span>{' '}
-          <span className={cardstyles.commentdate}>{date}</span>
-        </span>
+    <div className={styles.comment}>
+      <p className={styles.header}>
+        <span className={styles.author}>{author}</span>{' '}
+        <span className={styles.date}>{date}</span>
+      </p>
 
-        <span className={cardstyles.commentbuttons}>
-          {((session && isAdmin) ||
-            (session && session.user.id === authorId)) && (
-            <button onClick={handleSubmit} className={cardstyles.deleteicon}>
-              <TrashIcon />
-            </button>
-          )}
-          {session && session.user.id === authorId && (
-            <button
-              onClick={() => {
-                setIsEdit(!isEdit)
-              }}
-              className={cardstyles.editicon}
-            >
-              <EditIcon />
-            </button>
-          )}
-        </span>
-      </span>
       {isEdit ? (
         <CommentEditForm
           eventId={eventId}
@@ -87,6 +65,24 @@ const Comment = ({
       ) : (
         <p>{comment}</p>
       )}
+      <div className={styles.actions}>
+        {((session && isAdmin) ||
+          (session && session.user.id === authorId)) && (
+          <button onClick={handleSubmit} className={styles.delete}>
+            <TrashIcon />
+          </button>
+        )}
+        {session && session.user.id === authorId && (
+          <button
+            onClick={() => {
+              setIsEdit(!isEdit)
+            }}
+            className={styles.edit}
+          >
+            <EditIcon />
+          </button>
+        )}
+      </div>
     </div>
   )
 }

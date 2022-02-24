@@ -1,0 +1,71 @@
+.dropzone {
+  border: 2px dashed var(--teal-400);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: border-color var(--transition);
+  background-color: var(--gray-100);
+}
+
+.dropzone:hover {
+  border-color: var(--teal-500);
+}
+
+.prompt {
+  padding: var(--gap-med);
+  color: var(--gray-400);
+  margin: 0;
+  text-align: center;
+}
+
+.prompt svg {
+  max-width: 40px;
+  min-width: 40px;
+  max-height: 40px;
+  min-height: 40px;
+}
+
+.thumbsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.thumb {
+  display: inline-flex;
+
+  max-height: 300px;
+  box-sizing: border-box;
+  padding: var(--gap-med);
+}
+
+.thumbInner {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.img {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  border-radius: var(--radius);
+}
+
+.delete {
+  position: absolute;
+  transform: translate(-7px, -7px);
+  z-index: 5 !important;
+  margin: 0;
+  padding: var(--gap-half);
+  background-color: var(--rose-300);
+  border-radius: var(--radius-round);
+}
+
+.delete:hover {
+  background-color: var(--rose-400);
+}
+
+.error {
+  color: var(--rose-500);
+  font-weight: 600;
+}

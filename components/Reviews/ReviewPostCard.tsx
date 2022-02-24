@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
-import cardstyles from '@/styles/card.module.css'
+import styles from './card.module.css'
 import formstyles from '@/styles/form.module.css'
 import ReviewEditForm from './ReviewEditForm'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -89,26 +89,24 @@ export default function ReviewPostCard({
   }
 
   return (
-    <motion.div layout className={cardstyles.reviewcard}>
-      <motion.div layout="position" className={cardstyles.reviewheader}>
-        <h3 className={cardstyles.coursetitle}>{course}</h3>
-        <h3 className={cardstyles.difficulty}>{difficulty}</h3>
-      </motion.div>
+    <div className={styles.card}>
+      <div className={styles.header}>
+        <h3 className={styles.title}>{course}</h3>
+        <h3 className={styles.difficulty}>{difficulty}</h3>
+      </div>
       <AnimatePresence exitBeforeEnter>
         {isEdit ? (
-          <motion.div layout="position">
-            <ReviewEditForm
-              reviewPostId={reviewPostId}
-              oldReviewPost={reviewPost}
-              oldReviewProfessor={reviewProfessor}
-              oldTaken={taken}
-              oldDifficulty={difficulty}
-              oldAnonymous={anonymous}
-              onHandleChange={setIsEdit}
-            />
-          </motion.div>
+          <ReviewEditForm
+            reviewPostId={reviewPostId}
+            oldReviewPost={reviewPost}
+            oldReviewProfessor={reviewProfessor}
+            oldTaken={taken}
+            oldDifficulty={difficulty}
+            oldAnonymous={anonymous}
+            onHandleChange={setIsEdit}
+          />
         ) : (
-          <motion.div layout="position">
+          <div className={styles.review}>
             <strong>Review:</strong> <br />
             <div dangerouslySetInnerHTML={{ __html: `${reviewPost}` }} />
             <p>
@@ -117,19 +115,18 @@ export default function ReviewPostCard({
             <p>
               <strong>Taken:</strong> {taken}
             </p>
-            <p className={cardstyles.author}>
-              <strong>Author: </strong>
-              {anonymous === true ? <>Anonymous</> : <>{creator}</>} about{' '}
-              {timestamp}
+            <p className={styles.author}>
+              {' '}
+              {anonymous === true ? <>Anonymous</> : <>{creator}</>} {timestamp}
             </p>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
       {session && session.user.id === creatorId && (
-        <motion.span layout="position" className={formstyles.actions}>
+        <div className={formstyles.actions}>
           <button
             onClick={confirmDelete}
-            className={formstyles.deleteicon}
+            className={formstyles.delete}
             ref={wrapperRef}
           >
             <TrashIcon />
@@ -151,12 +148,12 @@ export default function ReviewPostCard({
             onClick={() => {
               setIsEdit(!isEdit)
             }}
-            className={formstyles.editicon}
+            className={formstyles.edit}
           >
             <EditIcon />
           </button>
-        </motion.span>
+        </div>
       )}
-    </motion.div>
+    </div>
   )
 }

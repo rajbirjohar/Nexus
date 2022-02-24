@@ -10,13 +10,7 @@ export default function Footer() {
         <div className={styles.linkwrapper}>
           <Link href="/">
             <a className={styles.logo}>
-              <Image
-                src={logo}
-                alt="Nexus Logo"
-                width={30}
-                height={30}
-                className={styles.navlogo}
-              />
+              <Image src={logo} alt="Nexus Logo" width={30} height={30} />
               <span>Nexus</span>
             </a>
           </Link>

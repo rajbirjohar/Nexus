@@ -8,6 +8,7 @@ import NotFound from '../notFound'
 import ErrorFetch from '../Layout/ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
+import { SearchIcon } from '../Icons'
 
 export default function ListAllEvents() {
   const { data, error } = useSWR('/api/events/eventfetch', Fetcher, {
@@ -20,7 +21,7 @@ export default function ListAllEvents() {
   if (!data) {
     return (
       <>
-        <div className={formstyles.searchWrapper}>
+        <div className={formstyles.searchwrapper}>
           <input
             autoComplete="off"
             aria-label="Disabled Searchbar"
@@ -29,21 +30,8 @@ export default function ListAllEvents() {
             placeholder="Search by name, club, or details"
             className={formstyles.search}
           />
-          <svg className={formstyles.searchIcon}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </svg>
+
+          <SearchIcon />
         </div>
         <Loader />
       </>
@@ -71,7 +59,7 @@ export default function ListAllEvents() {
           <p>No events today!</p>
         </div>
       ) : (
-        <div className={formstyles.searchWrapper}>
+        <div className={formstyles.searchwrapper}>
           <input
             autoComplete="off"
             aria-label="Enabled Searchbar"
@@ -80,21 +68,7 @@ export default function ListAllEvents() {
             placeholder="Search by name, club, or details"
             className={formstyles.search}
           />
-          <svg className={formstyles.searchIcon}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
-          </svg>
+          <SearchIcon />
         </div>
       )}
 

@@ -13,6 +13,7 @@ import signAnimationData from '@/lotties/heart.json'
 import searchAnimationData from '@/lotties/searching.json'
 import rocketAnimationData from '@/lotties/rocket.json'
 import checkAnimationData from '@/lotties/check.json'
+import { RightArrowIcon } from '@/components/Icons'
 
 const HeroCard = ({ animationData, title, children }) => {
   return (
@@ -67,19 +68,7 @@ export default function Home() {
               onClick={() => signIn('google')}
             >
               Sign In with UCR
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
-              </svg>
+              <RightArrowIcon />
             </button>
           )}
         </div>
@@ -139,6 +128,11 @@ export default function Home() {
             students&#39; reviews, Nexus can help students be better preparose
             for future quarters.
           </p>
+          <Link href="/courses" passHref>
+            <a className={styles.link}>
+              Go to courses <RightArrowIcon />
+            </a>
+          </Link>
         </div>
       </section>
 
@@ -157,6 +151,11 @@ export default function Home() {
             changes so no one misses out. Nexus will create the hype for you
             with a single post.
           </p>
+          <Link href="/events" passHref>
+            <a className={styles.link}>
+              Go to events <RightArrowIcon />
+            </a>
+          </Link>
         </div>
         <div className={styles.animationWrapper}>
           <LottieWrapper animationData={partyAnimationData} />
@@ -182,6 +181,11 @@ export default function Home() {
             Organizations can always rely on Nexus to keep their members in
             touch.
           </p>
+          <Link href="/organizations" passHref>
+            <a className={styles.link}>
+              Go to organizations <RightArrowIcon />
+            </a>
+          </Link>
         </div>
       </section>
       <section className={styles.endheroWrapper}>

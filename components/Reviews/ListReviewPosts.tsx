@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Image from 'next/image'
 import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import ReviewPostCard from '@/components/Reviews/ReviewPostCard'
@@ -11,16 +10,6 @@ import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import { LayoutGroup, motion } from 'framer-motion'
 import { SearchIcon } from '../Icons'
-
-const listAnim = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
 
 export default function ListReviewPosts({ courseId }) {
   const { data, error } = useSWR(`/api/reviewposts/${courseId}`, fetcher, {
@@ -48,7 +37,7 @@ export default function ListReviewPosts({ courseId }) {
           <p>Be the first one to write a review!</p>
         </div>
       ) : (
-        <div className={formstyles.searchWrapper}>
+        <div className={formstyles.searchwrapper}>
           <input
             autoComplete="off"
             aria-label="Enabled Searchbar"
@@ -57,9 +46,7 @@ export default function ListReviewPosts({ courseId }) {
             placeholder="Quarter, professor or review"
             className={formstyles.search}
           />
-          <svg className={formstyles.searchIcon}>
-            <SearchIcon />
-          </svg>
+          <SearchIcon />
         </div>
       )}
 

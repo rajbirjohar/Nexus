@@ -1,15 +1,5 @@
 import Link from 'next/link'
-import cardstyles from '@/styles/card.module.css'
-
-const listItems = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      duration: 0.15,
-    },
-  },
-}
+import styles from './card.module.css'
 
 export default function EventCard({
   eventId,
@@ -21,18 +11,18 @@ export default function EventCard({
   eventTags,
 }) {
   // To remove all markdown tags from the details sections
-  let strippedEventDetails = eventDetails.replace(/(<([^>]+)>)/gi, ' ')
+  const strippedEventDetails = eventDetails.replace(/(<([^>]+)>)/gi, ' ')
   return (
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
-      <div id={eventId} className={cardstyles.card}>
+      <div id={eventId} className={styles.card}>
         {new Date(endDate) < new Date() && (
-          <span className={cardstyles.expired}>Expired</span>
+          <span className={styles.expired}>Expired</span>
         )}
-        <h3 className={cardstyles.eventName}>{eventName}</h3>
-        <p className={cardstyles.author}>
+        <h3 className={styles.title}>{eventName}</h3>
+        <p className={styles.author}>
           <strong>By {organizationName}</strong>
         </p>
-        <span className={cardstyles.date}>
+        <span className={styles.date}>
           {new Date(startDate).toLocaleString('en-US', {
             dateStyle: 'short',
             timeStyle: 'short',
@@ -48,9 +38,9 @@ export default function EventCard({
         <p className="clamp-2">{strippedEventDetails}</p>
 
         {eventTags && (
-          <div className={cardstyles.tagwrapper}>
+          <div className={styles.tagwrapper}>
             {eventTags.map((tag) => (
-              <span key={tag.id} className={cardstyles.tag}>
+              <span key={tag.id} className={styles.tag}>
                 {tag.text}
               </span>
             ))}

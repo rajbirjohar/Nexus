@@ -1,18 +1,4 @@
-/* Global form styles */
-.heading {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.heading h2 {
-  transition: color var(--transition);
-}
-
-.heading:hover > h2 {
-  color: var(--teal-500);
-}
+/* global form styles */
 
 .inputheader {
   display: flex;
@@ -20,9 +6,115 @@
   align-items: center;
 }
 
-.subtitle {
-  color: var(--gray-500);
+.inputheader span,
+.error {
+  color: var(--rose-500);
 }
+
+.error {
+  font-weight: 600;
+}
+
+.subtitle,
+.maxlength {
+  color: var(--gray-400) !important;
+}
+
+.primary {
+  background-color: var(--teal-500);
+  color: var(--teal-50);
+}
+
+.primary:hover {
+  background-color: var(--teal-400);
+}
+
+.secondary {
+  background-color: var(--teal-300);
+}
+
+.secondary:hover {
+  background-color: var(--teal-200);
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: var(--gap-half) 0;
+  gap: var(--gap);
+}
+
+.edit,
+.delete {
+  padding: 0.65rem;
+  border-radius: var(--radius-lg);
+  line-height: 1;
+  height: max-content;
+}
+
+.edit {
+  background-color: var(--teal-300);
+  color: var(--teal-900);
+}
+
+.edit:hover {
+  background-color: var(--teal-200);
+}
+
+.delete,
+.deletefull {
+  background-color: var(--rose-300);
+  color: var(--rose-900);
+}
+
+.delete:hover,
+.deletefull:hover {
+  background-color: var(--rose-200);
+}
+
+.deletemember {
+  padding: var(--gap-quarter);
+  background-color: transparent;
+  cursor: pointer;
+  transition: background-color var(--transition);
+  border-radius: var(--radius-sm);
+}
+
+.deletemember:hover {
+  background-color: var(--rose-300);
+}
+
+.deletemember svg {
+  max-width: 15px;
+  max-height: 15px;
+  min-width: 15px;
+  min-height: 15px;
+}
+
+/* search form styles */
+
+.searchwrapper {
+  position: relative;
+  width: 100%;
+}
+
+.search {
+  width: 100%;
+  margin: var(--gap) 0;
+  background-color: var(--gray-100) !important;
+}
+
+.searchwrapper svg {
+  position: absolute;
+  top: 38px;
+  right: 15px;
+  min-width: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  max-height: 20px;
+}
+
+/* event form styles */
 
 .datewrapper {
   display: flex;
@@ -37,306 +129,41 @@
   width: 100%;
 }
 
-.primary {
-  margin: var(--gap-half) 0;
-  background-color: var(--teal-500);
-  color: var(--teal-50);
-  width: max-content;
-}
+/* review form styles */
 
-.secondary {
-  margin: var(--gap-half) 0;
-  background-color: var(--teal-200);
-  color: var(--teal-800);
-  width: max-content;
-}
-
-.primarylogin {
-  margin: var(--gap-half) 0;
-  background-color: var(--teal-500);
-  color: var(--teal-50);
-  width: max-content;
-}
-
-.primarylogin:hover,
-.primary:hover {
-  background-color: var(--teal-600);
-}
-
-.secondary:hover {
-  background-color: var(--teal-300);
-}
-
-.error {
-  color: var(--rose-500);
-  font-weight: 600;
-}
-
-.actions {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  gap: var(--gap);
-}
-
-.commentactions {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  gap: var(--gap-half);
-}
-
-.lucky {
-  background-color: var(--teal-200);
-  color: var(--teal-800);
-  width: max-content;
-}
-
-.lucky:hover {
-  background-color: var(--teal-300);
-}
-
-.editicon,
-.deleteicon {
-  padding: 0.6rem;
-  height: max-content;
-}
-/* So the delete text "Confirm" does not slightly
-make the button taller */
-.deleteicon span {
-  line-height: 1;
-}
-
-.editicon,
-.deleteNotif {
-  border-radius: var(--radius-round);
-}
-
-.deleteicon {
-  border-radius: var(--radius-lg);
-}
-
-.editicon {
-  background-color: var(--teal-200);
-  color: var(--teal-800);
-}
-
-.webicon {
-  display: block;
-  width: 100%;
-  height: 50px;
-}
-
-.deleteNotif {
-  padding: var(--gap-half);
-}
-
-.delete,
-.deleteicon,
-.deleteNotif {
-  color: var(--rose-50);
-  background: var(--rose-500);
-}
-
-.delete:hover,
-.deleteicon:hover,
-.deleteNotif:hover {
-  background-color: var(--rose-600);
-}
-
-.editicon:hover {
-  background-color: var(--teal-300);
-}
-
-.tabs {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-quarter);
-}
-
-.tab {
-  background: transparent;
-  position: relative;
-  padding: var(--gap-half);
-  transition: all var(--transition);
-}
-
-.tab:hover {
-  background-color: var(--gray-100);
-}
-
-.active {
-  background-color: transparent;
-  color: var(--teal-500);
-}
-
-.active.tab:hover {
-  background-color: transparent;
-  color: var(--teal-500);
-  box-shadow: none;
-  cursor: default;
-}
-
-.underline {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--teal-500);
-  border-radius: var(--radius);
-}
-
-.revealheader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-}
-
-.reveal,
-.revealprimary {
-  border-radius: 50%;
-  padding: 0.6rem;
-  transition: all var(--transition);
-  -webkit-tap-highlight-color: transparent;
-}
-
-.revealprimary {
-  background-color: var(--teal-500);
-  color: var(--teal-100);
-}
-
-.revealprimary:hover {
-  background-color: var(--teal-600);
-}
-
-.linkwrap {
-  display: flex;
-  align-items: center;
-  gap: var(--gap-quarter);
-}
-
-.linkwrap svg {
-  min-width: 20px;
-  max-width: 20px;
-  min-height: 20px;
-  max-height: 20px;
-}
-
-.maxlength {
-  color: var(--gray-400);
-  max-width: max-content;
-}
-
-.dropzone {
-  border: 2px dashed var(--teal-400);
-
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: border-color var(--transition);
-  background-color: var(--gray-100);
-}
-.dropzone:hover {
-  border-color: var(--teal-500);
-}
-
-.prompt {
-  padding: var(--gap-med);
-  color: var(--gray-500);
-  margin: 0;
-}
-
-.imagedeleteicon {
-  position: absolute;
-  transform: translate(-7px, -7px);
-  z-index: 5 !important;
-  margin: 0;
-  padding: var(--gap-half);
-  background-color: var(--rose-300);
-  border-radius: var(--radius-round);
-}
-
-.imagedeleteicon:hover {
-  background-color: var(--rose-400);
-}
-
-.thumbsContainer {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-}
-
-.thumb {
-  display: inline-flex;
-
-  max-height: 300px;
-  box-sizing: border-box;
-  padding: var(--gap-med);
-}
-
-.thumbInner {
-  display: flex;
-  min-width: 0;
-  overflow: hidden;
-}
-
-.img {
-  width: auto;
-  max-width: 100%;
-  height: 100%;
-  border-radius: var(--radius);
-}
-
-/* Review form styles */
-.checkedWrapper {
+.check {
   display: flex;
   align-items: center;
   gap: var(--gap-half);
 }
 
-.labelWrapper {
+.slider {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
-.labels {
+.sliderlabel {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  color: var(--gray-500);
+  color: var(--gray-400);
   font-weight: 600;
 }
 
-.searchWrapper {
-  position: relative;
-  width: 100%;
-}
+/* organization form styles */
 
-.search {
-  width: 100%;
-  margin: var(--gap) 0;
-  background-color: var(--gray-100) !important;
-}
-
-.searchIcon {
-  position: absolute;
-  top: 38px;
-  right: 15px;
-  min-width: 20px;
-  max-width: 20px;
-  min-height: 20px;
-  max-height: 20px;
-}
-
-.menubar {
+.linkwrapper {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--gap-quarter);
+  gap: var(--gap);
+}
+
+.linkinput {
+  flex: 1;
+}
+
+.linkinput input {
+  width: 100%;
 }
 
 .dropdown {
@@ -355,10 +182,8 @@ make the button taller */
 }
 
 @media (max-width: 668px) {
-  .commentactions {
-    flex-direction: column;
-  }
-  .datewrapper {
+  .datewrapper,
+  .linkwrapper {
     flex-direction: column;
     gap: 0;
   }

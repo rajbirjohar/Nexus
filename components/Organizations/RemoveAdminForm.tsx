@@ -84,7 +84,7 @@ export default function RemoveAdminForm({ organizationId }) {
               maxLength={20}
             />
             <span className={styles.actions}>
-              <button type="submit" className={styles.delete}>
+              <button type="submit" className={styles.deletefull}>
                 Remove Admin
               </button>
             </span>

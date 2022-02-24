@@ -1,0 +1,44 @@
+.card {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows);
+  transition: transform var(--transition);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--gap-half);
+}
+
+.title {
+  color: var(--teal-500);
+  margin: 0;
+}
+
+.title {
+  transition: color var(--transition);
+}
+
+.author,
+.date {
+  color: var(--gray-400);
+}
+
+.tagline {
+  margin: 0;
+}
+
+.card:hover > .title {
+  color: var(--teal-800);
+}
+
+.card:hover {
+  transform: translateY(-0.25rem);
+  cursor: pointer;
+}
+
+.thumbnail {
+  border-radius: var(--radius-round);
+}

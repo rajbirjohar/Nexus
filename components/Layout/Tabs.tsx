@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from '@/styles/form.module.css'
+import styles from '@/styles/layout.module.css'
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function Tabs({ tabs, layoutId }) {

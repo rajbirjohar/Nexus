@@ -1,7 +1,7 @@
 import React from 'react'
 import toast from 'react-hot-toast'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
-import styles from '@/styles/form.module.css'
+import styles from './comment.module.css'
 import { useSession } from 'next-auth/react'
 
 // Max length for review
@@ -72,7 +72,9 @@ export default function CommentEditForm({
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
             <label htmlFor="_newComment">
-              <strong>Comment:</strong>
+              <strong>
+                Comment: <span>*</span>
+              </strong>
             </label>
             <ErrorMessage name="_newComment">
               {(message) => <span className={styles.error}>{message}</span>}
@@ -85,7 +87,7 @@ export default function CommentEditForm({
             rows="3"
             maxLength={maxLength}
           />
-          <div className={styles.commentactions}>
+          <div className={styles.formactions}>
             <span className={styles.maxlength}>
               {maxLength - values._newComment.length}/{maxLength}
             </span>
@@ -94,7 +96,7 @@ export default function CommentEditForm({
               type="submit"
               disabled={isSubmitting}
             >
-              Edit Comment!
+              Edit Comment
             </button>
           </div>
         </Form>

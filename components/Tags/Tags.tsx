@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { WithContext as ReactTags } from 'react-tag-input'
-import cardstyles from '@/styles/card.module.css'
+import styles from './tags.module.css'
 
 const suggestions = [
   {
@@ -12,8 +12,8 @@ const suggestions = [
     text: 'jobs',
   },
   {
-    id: 'general meeting',
-    text: 'general meeting',
+    id: 'generalmeeting',
+    text: 'generalmeeting',
   },
   {
     id: 'internship',
@@ -85,13 +85,13 @@ export default function Tags(props) {
         autofocus={false}
         classNames={{
           // tags: `${cardstyles.tagwrapper}`,
-          tagInput: `${cardstyles.taginputwrapper}`,
-          tagInputField: `${cardstyles.taginput}`,
-          selected: `${cardstyles.tagwrapper}`,
-          tag: `${cardstyles.tag}`,
-          remove: `${cardstyles.removetag}`,
-          suggestions: `${cardstyles.suggestions}`,
-          activeSuggestion: `${cardstyles.activesuggestion}`,
+          tagInput: `${styles.taginputwrapper}`,
+          tagInputField: `${styles.taginput}`,
+          selected: `${styles.tagwrapper}`,
+          tag: `${styles.tag}`,
+          remove: `${styles.removetag}`,
+          suggestions: `${styles.suggestions}`,
+          activeSuggestion: `${styles.activesuggestion}`,
         }}
       />
     </div>

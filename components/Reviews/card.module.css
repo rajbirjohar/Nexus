@@ -1,0 +1,27 @@
+.card {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.review strong {
+  color: var(--gray-900) !important;
+}
+
+.title,
+.difficulty {
+  font-size: 2em;
+  margin: 0;
+}
+
+.author {
+  font-weight: 600;
+  color: var(--gray-400);
+}
