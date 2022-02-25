@@ -3,7 +3,7 @@ import clientPromise from '@/lib/mongodb'
 import { getSession } from 'next-auth/react'
 const mongodb = require('mongodb')
 
-export default async function fetchComments(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
