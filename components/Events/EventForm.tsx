@@ -13,8 +13,8 @@ interface Event {
   organizationId: string
   _eventName: string
   _eventDetails: string
-  _eventStartDate: string
-  _eventEndDate: string
+  _eventStartDate: Date
+  _eventEndDate: Date
   _eventImage: string
   _eventTags: [{ id: string; text: string }]
 }
@@ -32,8 +32,8 @@ export default function EventForm({
     organizationId: organizationId,
     _eventName: '',
     _eventDetails: '',
-    _eventStartDate: '',
-    _eventEndDate: '',
+    _eventStartDate: new Date(),
+    _eventEndDate: new Date(),
     _eventImage: '',
     _eventTags: [{ id: '', text: '' }],
   }
@@ -102,8 +102,8 @@ export default function EventForm({
             organizationId: organizationId,
             _eventName: '',
             _eventDetails: '',
-            _eventStartDate: '',
-            _eventEndDate: '',
+            _eventStartDate: new Date(),
+            _eventEndDate: new Date(),
             _eventImage: '',
             _eventTags: [{ id: '', text: '' }],
           },
