@@ -14,8 +14,8 @@ export default function RemoveAdminForm({ organizationId }) {
     _email: '',
   }
   const sendData = async (adminData) => {
-    const response = await fetch('/api/organizations/adminremove', {
-      method: 'POST',
+    const response = await fetch('/api/organizations/admins', {
+      method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },

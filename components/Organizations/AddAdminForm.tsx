@@ -15,7 +15,7 @@ export default function AddAdminForm({ organizationId }) {
   }
 
   const sendData = async (adminData) => {
-    const response = await fetch('/api/organizations/adminadd', {
+    const response = await fetch('/api/organizations/admins', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
