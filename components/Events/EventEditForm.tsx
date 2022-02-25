@@ -8,6 +8,7 @@ import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 import { useRouter } from 'next/router'
 import { format, formatISO } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
 
 interface Event {
   eventId: string
@@ -38,11 +39,15 @@ export default function EventEditForm({
     _newEventName: _oldEventName,
     _newEventDetails: _oldEventDetails,
     // Time = :(
-    _newEventStartDate: formatISO(new Date(_oldEventStartDate)).substring(
-      0,
-      16
-    ),
-    _newEventEndDate: formatISO(new Date(_oldEventEndDate)).substring(0, 16),
+    _newEventStartDate: utcToZonedTime(
+      _oldEventStartDate,
+      'America/Los_Angeles'
+    )
+      .toISOString()
+      .substring(0, 16),
+    _newEventEndDate: utcToZonedTime(_oldEventEndDate, 'America/Los_Angeles')
+      .toISOString()
+      .substring(0, 16),
     _newEventImage: null,
     _oldEventImage: _oldEventImage,
     _oldImagePublicId: _oldImagePublicId,

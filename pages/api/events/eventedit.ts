@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '@/lib/mongodb'
 import { getSession } from 'next-auth/react'
+import { zonedTimeToUtc } from 'date-fns-tz'
 const mongodb = require('mongodb')
 
 const cloudinary = require('cloudinary').v2
@@ -55,8 +56,14 @@ export default async function editEvent(
         $set: {
           eventName: _newEventName,
           eventDetails: _newEventDetails,
-          eventStartDate: _newEventStartDate,
-          eventEndDate: _newEventEndDate,
+          eventStartDate: zonedTimeToUtc(
+            _newEventStartDate,
+            'America/Los_Angeles'
+          ),
+          eventEndDate: zonedTimeToUtc(
+            _newEventStartDate,
+            'America/Los_Angeles'
+          ),
           eventTags: _newEventTags,
           eventImageURL: cloudinaryRes.secure_url,
           imagePublicId: cloudinaryRes.public_id,
