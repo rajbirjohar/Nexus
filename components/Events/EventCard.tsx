@@ -1,5 +1,4 @@
 import { format } from 'date-fns'
-import { formatInTimeZone } from 'date-fns-tz'
 import Link from 'next/link'
 import styles from './card.module.css'
 
@@ -15,16 +14,16 @@ export default function EventCard({
   // To remove all markdown tags from the details sections
   const strippedEventDetails = eventDetails.replace(/(<([^>]+)>)/gi, ' ')
   const [startMonth, startDay, startYear, startHour] = [
-    formatInTimeZone(new Date(startDate), 'America/Los_Angeles', 'MMM'),
-    formatInTimeZone(new Date(startDate), 'America/Los_Angeles', 'd'),
-    formatInTimeZone(new Date(startDate), 'America/Los_Angeles', 'yyyy'),
-    formatInTimeZone(new Date(startDate), 'America/Los_Angeles', 'hh:mm aaa'),
+    format(new Date(startDate), 'MMM'),
+    format(new Date(startDate), 'd'),
+    format(new Date(startDate), 'yyyy'),
+    format(new Date(startDate), 'hh:mm aaa'),
   ]
   const [endMonth, endDay, endYear, endHour] = [
-    formatInTimeZone(new Date(endDate), 'America/Los_Angeles', 'MMM'),
-    formatInTimeZone(new Date(endDate), 'America/Los_Angeles', 'd'),
-    formatInTimeZone(new Date(endDate), 'America/Los_Angeles', 'yyyy'),
-    formatInTimeZone(new Date(endDate), 'America/Los_Angeles', 'hh:mm aaa'),
+    format(new Date(endDate), 'MMM'),
+    format(new Date(endDate), 'd'),
+    format(new Date(endDate), 'yyyy'),
+    format(new Date(endDate), 'hh:mm aaa'),
   ]
   return (
     <Link href={`/organizations/${organizationName}/${eventId}`} passHref>

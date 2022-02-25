@@ -61,7 +61,7 @@ export default async function editEvent(
             'America/Los_Angeles'
           ),
           eventEndDate: zonedTimeToUtc(
-            _newEventStartDate,
+            _newEventEndDate,
             'America/Los_Angeles'
           ),
           eventTags: _newEventTags,
