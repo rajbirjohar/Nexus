@@ -53,7 +53,7 @@ export default function EventEditForm({
   }
 
   const sendData = async (newEventData) => {
-    const response = await fetch(`/api/events/eventedit`, {
+    const response = await fetch(`/api/events`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ import cardstyles from '@/styles/card.module.css'
 import { SearchIcon } from '../Icons'
 
 export default function ListAllEvents() {
-  const { data, error } = useSWR('/api/events/eventfetch', Fetcher, {
+  const { data, error } = useSWR('/api/events', Fetcher, {
     refreshInterval: 1000,
   })
   const [searchValue, setSearchValue] = useState('')
