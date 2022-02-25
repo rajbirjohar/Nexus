@@ -27,7 +27,7 @@ export default function CreatorRoleForm({ userId }) {
     const data = await response.json()
     if (response.status === 200) {
       toast.success("You've set your role!")
-      router.replace(router.asPath)
+      Router.push('/organizations')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'

@@ -25,7 +25,7 @@ export default function DeleteOrganization({
   }
 
   const sendData = async (organizationData) => {
-    const res = await fetch('/api/organizations/orgdelete', {
+    const res = await fetch('/api/organizations', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

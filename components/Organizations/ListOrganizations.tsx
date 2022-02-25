@@ -11,7 +11,7 @@ import formstyles from '@/styles/form.module.css'
 import { SearchIcon } from '../Icons'
 
 export default function ListOrganizations() {
-  const { data, error } = useSWR('/api/organizations/orgfetch', fetcher, {
+  const { data, error } = useSWR('/api/organizations', fetcher, {
     refreshInterval: 1000,
   })
   const router = useRouter()

@@ -54,7 +54,7 @@ export default function OrganizationEditForm({
   }
 
   const sendData = async (newOrganizationData) => {
-    const response = await fetch(`/api/organizations/orgedit`, {
+    const response = await fetch(`/api/organizations`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -64,6 +64,10 @@ export default function OrganizationEditForm({
     const data = await response.json()
     if (response.status === 200) {
       toast.success('Your organization has been edited!')
+    } else if (response.status === 422) {
+      toast.error('This name is taken. Please choose a different one.')
+    } else if (response.status === 413) {
+      toast.error('Image is too big or wrong format.')
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
