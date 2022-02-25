@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '@/lib/mongodb'
 const mongodb = require('mongodb')
 
-export default async function fetchComments(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
