@@ -7,8 +7,8 @@ import styles from '@/styles/events.module.css'
 import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 import { useRouter } from 'next/router'
-import { format, formatISO } from 'date-fns'
-import { utcToZonedTime } from 'date-fns-tz'
+import { format, formatISO, parseISO } from 'date-fns'
+import { utcToZonedTime, getTimezoneOffset, zonedTimeToUtc } from 'date-fns-tz'
 
 interface Event {
   eventId: string
@@ -39,13 +39,11 @@ export default function EventEditForm({
     _newEventName: _oldEventName,
     _newEventDetails: _oldEventDetails,
     // Time = :(
-    _newEventStartDate: utcToZonedTime(
-      _oldEventStartDate,
-      'America/Los_Angeles'
-    )
+    _newEventStartDate: zonedTimeToUtc(_oldEventStartDate, 'UTC')
       .toISOString()
       .substring(0, 16),
-    _newEventEndDate: utcToZonedTime(_oldEventEndDate, 'America/Los_Angeles')
+
+    _newEventEndDate: zonedTimeToUtc(_oldEventEndDate, 'UTC')
       .toISOString()
       .substring(0, 16),
     _newEventImage: null,
