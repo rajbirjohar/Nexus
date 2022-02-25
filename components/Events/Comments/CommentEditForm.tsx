@@ -4,7 +4,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import styles from './comment.module.css'
 import { useSession } from 'next-auth/react'
 
-// Max length for review
+// Max length for comment
 const maxLength = 200
 
 interface Comment {
@@ -19,7 +19,6 @@ export default function CommentEditForm({
   oldComment,
   onHandleChange,
   commentId,
-  authorId,
 }) {
   // default values for comment Object
   const { data: session } = useSession()
@@ -31,7 +30,7 @@ export default function CommentEditForm({
   }
 
   const sendData = async (newCommentData) => {
-    const response = await fetch(`/api/events/comments/commentedit`, {
+    const response = await fetch(`/api/events/comments`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

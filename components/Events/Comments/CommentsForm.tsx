@@ -23,7 +23,7 @@ export default function CommentsForm({ eventId }) {
     _comment: '',
   }
   const sendData = async (commentData) => {
-    const response = await fetch('/api/events/comments/commentcreate', {
+    const response = await fetch('/api/events/comments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
