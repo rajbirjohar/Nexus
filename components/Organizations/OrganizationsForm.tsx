@@ -57,7 +57,7 @@ export default function OrganizationsForm() {
       toast.error('This name is taken. Please choose a different one.')
     } else if (response.status === 200) {
       toast.success("You've created your organization!")
-      Router.push('/organizations')
+      Router.reload()
     } else if (response.status === 413) {
       toast.error('Image is too big or wrong format.')
     } else {

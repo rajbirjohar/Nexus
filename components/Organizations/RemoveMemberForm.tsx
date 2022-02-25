@@ -16,7 +16,7 @@ export function RemoveMemberForm({
     sendData(member)
   }
   const sendData = async (memberData) => {
-    const response = await fetch('/api/organizations/memberremove', {
+    const response = await fetch('/api/organizations/members', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export function RemoveMemberForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You left ${organizationName}.`)
-      router.replace(router.asPath)
+      Router.reload()
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'
@@ -66,7 +66,7 @@ export function RemoveMemberAdminForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You removed this member.`)
-      router.replace(router.asPath)
+      Router.reload()
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'
