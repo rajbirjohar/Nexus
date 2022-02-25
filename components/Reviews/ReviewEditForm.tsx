@@ -41,7 +41,7 @@ export default function ReviewEditForm({
   }
 
   const sendData = async (newReviewPostData) => {
-    const response = await fetch(`/api/reviewposts/reviewedit`, {
+    const response = await fetch(`/api/reviewposts`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

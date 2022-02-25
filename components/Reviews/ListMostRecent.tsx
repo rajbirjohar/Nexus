@@ -8,7 +8,7 @@ import Loader from '@/components/Layout/Skeleton'
 import cardstyles from '@/styles/card.module.css'
 
 export default function ListMostRecent() {
-  const { data, error } = useSWR(`/api/reviewposts/mostrecent`, fetcher, {
+  const { data, error } = useSWR(`/api/reviewposts`, fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
@@ -19,11 +19,11 @@ export default function ListMostRecent() {
   }
   return (
     <div>
-      {data.reviewPosts.length === 0 && (
+      {data.posts.length === 0 && (
         <Link href="/courses">Write your first review!</Link>
       )}
       <div className={cardstyles.gridtall}>
-        {data.reviewPosts.map((post) => (
+        {data.posts.map((post) => (
           <RecentReviewPostCard
             key={post._id}
             reviewPostId={post._id}

@@ -71,12 +71,12 @@ export default function ReviewPostCard({
     }
   }
   async function deleteReviewPost() {
-    const response = await fetch(`/api/reviewposts/reviewdelete`, {
+    const response = await fetch(`/api/reviewposts`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ reviewPostData: courseId, reviewPostId }),
+      body: JSON.stringify({ reviewPostData: reviewPostId }),
     })
     await response.json()
     if (response.status === 200) {

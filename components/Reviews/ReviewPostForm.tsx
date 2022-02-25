@@ -37,7 +37,7 @@ export default function ReviewPostForm({ course, courseId }) {
   }
 
   const sendData = async (reviewPostData) => {
-    const response = await fetch(`/api/reviewposts/reviewcreate`, {
+    const response = await fetch(`/api/reviewposts`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
