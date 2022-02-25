@@ -3,14 +3,7 @@ import { getSession } from 'next-auth/react'
 import clientPromise from '@/lib/mongodb'
 const mongodb = require('mongodb')
 
-// fetchEvents()
-// This endpoint will fetch all of our events
-// that that logged in user has submitted
-// from our database and place them into an array
-// where we can display them using the EventCard(),
-// and listAllEvents()
-
-export default async function fetchEvents(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {

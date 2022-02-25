@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Image from 'next/image'
 import useSWR from 'swr'
 import Loader from '../Layout/Skeleton'
 import Fetcher from '@/lib/fetcher'
@@ -11,7 +10,7 @@ import cardstyles from '@/styles/card.module.css'
 import { SearchIcon } from '../Icons'
 
 export default function ListAllEvents() {
-  const { data, error } = useSWR('/api/events/eventfetch', Fetcher, {
+  const { data, error } = useSWR('/api/events', Fetcher, {
     refreshInterval: 1000,
   })
   const [searchValue, setSearchValue] = useState('')

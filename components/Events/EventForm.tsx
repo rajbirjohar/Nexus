@@ -39,7 +39,7 @@ export default function EventForm({
   }
 
   const sendData = async (newEventData) => {
-    const response = await fetch('/api/events/eventcreate', {
+    const response = await fetch('/api/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

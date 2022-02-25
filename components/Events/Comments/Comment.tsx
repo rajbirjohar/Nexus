@@ -5,7 +5,6 @@ import styles from './comment.module.css'
 import CommentEditForm from './CommentEditForm'
 import { EditIcon, TrashIcon } from '../../Icons'
 import Dropdown from '@/components/Layout/Dropdown'
-import useDropdownMenu from 'react-accessible-dropdown-menu-hook'
 
 const Comment = ({
   organizationId,
@@ -35,7 +34,7 @@ const Comment = ({
     sendData(deleteComment)
   }
   const sendData = async (commentData) => {
-    const response = await fetch('/api/events/comments/commentdelete', {
+    const response = await fetch('/api/events/comments', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -86,7 +85,6 @@ const Comment = ({
           oldComment={comment}
           onHandleChange={setIsEdit}
           commentId={commentId}
-          authorId={authorId}
         />
       ) : (
         <p>{comment}</p>

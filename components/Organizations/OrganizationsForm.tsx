@@ -1,14 +1,12 @@
-import React, { useState } from 'react'
-import Router from 'next/router'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 import ImageDropzone from '../Dropzone/Dropzone'
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router'
+import Tiptap from '../Tiptap/Tiptap'
 
 // length of description
-const maxLength = 1000
 const tagLineLength = 250
 
 interface Organization {
@@ -26,9 +24,6 @@ interface Organization {
   _organizationSlack: string
   _organizationDiscord: string
 }
-
-// Component: OrganizationPostForm()
-// Purpose: To take in user inputted data and submit it to the database
 
 export default function OrganizationsForm() {
   const { data: session } = useSession()
@@ -50,7 +45,7 @@ export default function OrganizationsForm() {
   }
 
   const sendData = async (organizationData) => {
-    const response = await fetch('/api/organizations/orgcreate', {
+    const response = await fetch('/api/organizations', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -62,7 +57,7 @@ export default function OrganizationsForm() {
       toast.error('This name is taken. Please choose a different one.')
     } else if (response.status === 200) {
       toast.success("You've created your organization!")
-      router.replace(router.asPath);
+      Router.push('/organizations')
     } else if (response.status === 413) {
       toast.error('Image is too big or wrong format.')
     } else {
@@ -106,7 +101,9 @@ export default function OrganizationsForm() {
               <label htmlFor="_organizationImage">
                 <strong>
                   Profile Thumbnail: <br />
-                  <span className={styles.subtitle}>For highest quality, use a square photo</span>
+                  <span className={styles.subtitle}>
+                    For highest quality, use a square photo
+                  </span>
                 </strong>
               </label>
               <ErrorMessage name="_organizationImage">
@@ -119,7 +116,9 @@ export default function OrganizationsForm() {
             />
             <div className={styles.inputheader}>
               <label htmlFor="_organizationName">
-                <strong>Organization Name:</strong>
+                <strong>
+                  Organization Name: <span>*</span>
+                </strong>
               </label>
               <ErrorMessage name="_organizationName">
                 {(message) => <span className={styles.error}>{message}</span>}
@@ -133,7 +132,9 @@ export default function OrganizationsForm() {
             />
             <div className={styles.inputheader}>
               <label htmlFor="_organizationTagline">
-                <strong>Organization Tagline:</strong>
+                <strong>
+                  Organization Tagline: <span>*</span>
+                </strong>
               </label>
               <ErrorMessage name="_organizationTagline">
                 {(message) => <span className={styles.error}>{message}</span>}
@@ -152,122 +153,124 @@ export default function OrganizationsForm() {
             </span>
             <div className={styles.inputheader}>
               <label htmlFor="_organizationDescription">
-                <strong>Organization Description:</strong>
+                <strong>
+                  Organization Description: <span>*</span>
+                </strong>
               </label>
               <ErrorMessage name="_organizationDescription">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <Field
-              autoComplete="off"
-              component="textarea"
+            <Tiptap
+              setFieldValue={setFieldValue}
+              isSubmitting={isSubmitting}
               name="_organizationDescription"
-              placeholder="A very cool description"
-              maxLength={maxLength}
             />
-            <span className={styles.maxlength}>
-              {maxLength - values._organizationDescription.length}/{maxLength}
-            </span>
-            <div className={styles.inputheader}>
-              <label htmlFor="_organizationWebsite">
-                <strong>Organization Website:
-                  <span className={styles.subtitle}> (Optional)</span>
-                </strong>
-              </label>
-              <ErrorMessage name="_organizationWebsite">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="text"
-              name="_organizationWebsite"
-              placeholder="https://scottysclub.org/"
-            />
-            <div className={styles.inputheader}>
-              <label htmlFor="_organizationInstagram">
-                <strong>Organization Instagram:
-                  <span className={styles.subtitle}> (Optional)</span>
-                </strong>
-              </label>
-              <ErrorMessage name="_organizationInstagram">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="text"
-              name="_organizationInstagram"
-              placeholder="https://www.instagram.com/highlandersatscottys/"
-            />
+            <div className={styles.linkwrapper}>
+              <div className={styles.linkinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_organizationWebsite">
+                    <strong>Website:</strong>
+                  </label>
+                  <ErrorMessage name="_organizationWebsite">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  name="_organizationWebsite"
+                  placeholder="https://scottysclub.org/"
+                />
+                <div className={styles.inputheader}>
+                  <label htmlFor="_organizationInstagram">
+                    <strong>Instagram:</strong>
+                  </label>
+                  <ErrorMessage name="_organizationInstagram">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  name="_organizationInstagram"
+                  placeholder="https://www.instagram.com/highlandersatscottys/"
+                />
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_organizationFacebook">
-                <strong>Organization Facebook:
-                  <span className={styles.subtitle}> (Optional)</span>
-                </strong>
-              </label>
-              <ErrorMessage name="_organizationFacebook">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="text"
-              name="_organizationFacebook"
-              placeholder="https://www.facebook.com/groups/highlandersatscottys/"
-            />
+                <div className={styles.inputheader}>
+                  <label htmlFor="_organizationFacebook">
+                    <strong>Facebook:</strong>
+                  </label>
+                  <ErrorMessage name="_organizationFacebook">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  name="_organizationFacebook"
+                  placeholder="https://www.facebook.com/groups/highlandersatscottys/"
+                />
+              </div>
+              <div className={styles.linkinput}>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_organizationTwitter">
+                    <strong>Twitter:</strong>
+                  </label>
+                  <ErrorMessage name="_organizationTwitter">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  name="_organizationTwitter"
+                  placeholder="https://www.twitter.com/highlandersatscottys/"
+                />
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_organizationTwitter">
-                <strong>Organization Twitter:
-                  <span className={styles.subtitle}> (Optional)</span>
-                </strong>
-              </label>
-              <ErrorMessage name="_organizationTwitter">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="text"
-              name="_organizationTwitter"
-              placeholder="https://www.twitter.com/highlandersatscottys/"
-            />
+                <div className={styles.inputheader}>
+                  <label htmlFor="_organizationSlack">
+                    <strong>Slack:</strong>
+                  </label>
+                  <ErrorMessage name="_organizationSlack">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  name="_organizationSlack"
+                  placeholder="https://www.highlandersatscottys.slack.com"
+                />
 
-            <div className={styles.inputheader}>
-              <label htmlFor="_organizationSlack">
-                <strong>Organization Slack:
-                  <span className={styles.subtitle}> (Optional)</span>
-                </strong>
-              </label>
-              <ErrorMessage name="_organizationSlack">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
+                <div className={styles.inputheader}>
+                  <label htmlFor="_organizationDiscord">
+                    <strong>Discord:</strong>
+                  </label>
+                  <ErrorMessage name="_organizationDiscord">
+                    {(message) => (
+                      <span className={styles.error}>{message}</span>
+                    )}
+                  </ErrorMessage>
+                </div>
+                <Field
+                  autoComplete="off"
+                  type="text"
+                  name="_organizationDiscord"
+                  placeholder="https://www.discord.gg/highlandersatscottys/"
+                />
+              </div>
             </div>
-            <Field
-              autoComplete="off"
-              type="text"
-              name="_organizationSlack"
-              placeholder="https://www.highlandersatscottys.slack.com"
-            />
-
-            <div className={styles.inputheader}>
-              <label htmlFor="_organizationDiscord">
-                <strong>Organization Discord:
-                  <span className={styles.subtitle}> (Optional)</span>
-                </strong>
-              </label>
-              <ErrorMessage name="_organizationDiscord">
-                {(message) => <span className={styles.error}>{message}</span>}
-              </ErrorMessage>
-            </div>
-            <Field
-              autoComplete="off"
-              type="text"
-              name="_organizationDiscord"
-              placeholder="https://www.discord.gg/highlandersatscottys/"
-            />
 
             <span className={styles.actions}>
               <button

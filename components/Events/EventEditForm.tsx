@@ -7,8 +7,7 @@ import styles from '@/styles/events.module.css'
 import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 import { useRouter } from 'next/router'
-import { format, formatISO, parseISO } from 'date-fns'
-import { utcToZonedTime, getTimezoneOffset, zonedTimeToUtc } from 'date-fns-tz'
+import { zonedTimeToUtc } from 'date-fns-tz'
 
 interface Event {
   eventId: string
@@ -53,7 +52,7 @@ export default function EventEditForm({
   }
 
   const sendData = async (newEventData) => {
-    const response = await fetch(`/api/events/eventedit`, {
+    const response = await fetch(`/api/events`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
