@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Image from 'next/image'
 import useSWR from 'swr'
 import Loader from '../Layout/Skeleton'
 import Fetcher from '@/lib/fetcher'

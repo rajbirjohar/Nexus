@@ -7,8 +7,7 @@ import styles from '@/styles/events.module.css'
 import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 import { useRouter } from 'next/router'
-import { format, formatISO, parseISO } from 'date-fns'
-import { utcToZonedTime, getTimezoneOffset, zonedTimeToUtc } from 'date-fns-tz'
+import { zonedTimeToUtc } from 'date-fns-tz'
 
 interface Event {
   eventId: string
