@@ -30,13 +30,14 @@ export default async function handler(
           _oldImagePublicId,
         },
       } = req.body
-      const nameTaken = await db
-        .collection('organizations')
-        .find({ organizationName: _newOrganizationName })
-        .count()
-      if (nameTaken > 0) {
-        res.status(422).json({ error: 'Event already has a name that exists.' })
-      }
+      // Need to figure out a way to allow users to change org name
+      // const nameTaken = await db
+      //   .collection('organizations')
+      //   .find({ organizationName: _newOrganizationName })
+      //   .count()
+      // if (nameTaken > 0) {
+      //   res.status(422).json({ error: 'Event already has a name that exists.' })
+      // }
       let cloudinaryRes = {
         secure_url: _oldOrganizationImage,
         public_id: _oldImagePublicId,

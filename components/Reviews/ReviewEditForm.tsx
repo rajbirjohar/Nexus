@@ -6,47 +6,47 @@ import styles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
 import Tiptap from '../Tiptap/Tiptap'
 
-interface ReviewPost {
-  reviewPostId: string
-  creatorId: string
-  _newReviewPost: string
-  _newReviewProfessor: string
-  _newTaken: string
+interface NewReview {
+  reviewId: string
+  authorId: string
+  _review: string
+  _professor: string
+  _taken: string
   _difficulty: number
-  _newAnonymous: boolean
+  _anonymous: boolean
 }
 
 export default function ReviewEditForm({
-  reviewPostId,
-  oldReviewPost,
-  oldReviewProfessor,
-  oldTaken,
-  oldDifficulty,
-  oldAnonymous,
+  reviewId,
+  review,
+  professor,
+  taken,
+  difficulty,
+  anonymous,
   onHandleChange,
 }) {
   // useSlider hook
-  const [slideValue, Slider, setSlide] = useSlider(1, 10, oldDifficulty)
+  const [slideValue, Slider, setSlide] = useSlider(1, 10, difficulty)
 
-  // default values for reviewPost Object
+  // default values for review Object
   const { data: session } = useSession()
-  const initialValues: ReviewPost = {
-    creatorId: session.user.id,
-    reviewPostId: reviewPostId,
-    _newReviewPost: oldReviewPost,
-    _newReviewProfessor: oldReviewProfessor,
-    _newTaken: oldTaken,
-    _difficulty: oldDifficulty,
-    _newAnonymous: oldAnonymous,
+  const initialValues: NewReview = {
+    authorId: session.user.id,
+    reviewId: reviewId,
+    _review: review,
+    _professor: professor,
+    _taken: taken,
+    _difficulty: anonymous,
+    _anonymous: anonymous,
   }
 
-  const sendData = async (newReviewPostData) => {
-    const response = await fetch(`/api/reviewposts`, {
+  const sendData = async (reviewData) => {
+    const response = await fetch('/api/reviews', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newReviewPostData: newReviewPostData }),
+      body: JSON.stringify({ reviewData: reviewData }),
     })
     const data = await response.json()
     if (response.status === 200) {
@@ -56,34 +56,34 @@ export default function ReviewEditForm({
         'Uh oh. Something happened. Please contact us if this persists.'
       )
     }
-    return data.newReviewPostData
+    return data._reviewData
   }
   return (
     <Formik
       validateOnBlur={false}
       initialValues={initialValues}
-      validate={(values: ReviewPost) => {
-        let errors: FormikErrors<ReviewPost> = {}
-        if (!values._newReviewPost) {
-          errors._newReviewPost = 'Required'
+      validate={(values: NewReview) => {
+        let errors: FormikErrors<NewReview> = {}
+        if (!values._review) {
+          errors._review = 'Required'
         }
-        if (!values._newReviewProfessor) {
-          errors._newReviewProfessor = 'Required'
+        if (!values._professor) {
+          errors._professor = 'Required'
         }
-        if (!values._newTaken) {
-          errors._newTaken = 'Required'
+        if (!values._taken) {
+          errors._taken = 'Required'
         }
         if (
-          values._newReviewPost === oldReviewPost &&
-          values._newReviewProfessor === oldReviewProfessor &&
-          values._newTaken === oldTaken &&
-          values._newAnonymous === oldAnonymous &&
-          values._difficulty === oldDifficulty
+          values._review === review &&
+          values._professor === professor &&
+          values._taken === taken &&
+          values._anonymous === anonymous &&
+          values._difficulty === difficulty
         ) {
-          errors._newReviewPost = 'You made no changes'
-          errors._newReviewProfessor = 'You made no changes'
-          errors._newTaken = 'You made no changes'
-          errors._newAnonymous = 'You made no changes'
+          errors._review = 'You made no changes'
+          errors._professor = 'You made no changes'
+          errors._taken = 'You made no changes'
+          errors._anonymous = 'You made no changes'
           errors._difficulty = 'You made no changes'
         }
         return errors
@@ -97,60 +97,58 @@ export default function ReviewEditForm({
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
-            <label htmlFor="_reviewPost">
+            <label htmlFor="_review">
               <strong>
                 Review: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newReviewPost">
+            <ErrorMessage name="_review">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Tiptap
             setFieldValue={setFieldValue}
-            isSubmitting={isSubmitting}
-            name="_newReviewPost"
-            // Initially, we set it to the old details in initialValues
-            oldReviewPost={values._newReviewPost}
+            name="_review"
+            oldContent={values._review}
           />
           <div className={styles.inputheader}>
-            <label htmlFor="_newReviewProfessor">
+            <label htmlFor="_professor">
               <strong>
                 Professor: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newReviewProfessor">
+            <ErrorMessage name="_professor">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
             type="text"
-            name="_newReviewProfessor"
+            name="_professor"
             placeholder='"Professor Scotty"'
           />
           <div className={styles.inputheader}>
-            <label htmlFor="_newTaken">
+            <label htmlFor="_taken">
               <strong>
                 Taken: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newTaken">
+            <ErrorMessage name="_taken">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
             type="text"
-            name="_newTaken"
+            name="_taken"
             placeholder='"Winter 1907"'
           />
           <div className={styles.inputheader}>
             <label className={styles.check}>
-              <Field autoComplete="off" type="checkbox" name="_newAnonymous" />
+              <Field autoComplete="off" type="checkbox" name="_anonymous" />
               <strong>Anonymous?</strong>
             </label>
-            <ErrorMessage name="_newAnonymous">
+            <ErrorMessage name="_anonymous">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
@@ -158,7 +156,7 @@ export default function ReviewEditForm({
             <label htmlFor="_difficulty">
               <strong>Difficulty: {values._difficulty}</strong>
             </label>
-            <ErrorMessage name="_newTaken">
+            <ErrorMessage name="_taken">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>

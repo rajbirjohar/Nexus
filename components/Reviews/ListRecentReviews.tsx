@@ -1,14 +1,14 @@
 import useSWR from 'swr'
 import Link from 'next/link'
 import fetcher from '@/lib/fetcher'
-import RecentReviewPostCard from '@/components/Reviews/RecentReviewPostCard'
+import RecentReviewCard from '@/components/Reviews/RecentReviewCard'
 import TimeAgo from 'react-timeago'
 import ErrorFetch from '../Layout/ErrorFetch'
 import Loader from '@/components/Layout/Skeleton'
 import cardstyles from '@/styles/card.module.css'
 
-export default function ListMostRecent() {
-  const { data, error } = useSWR(`/api/reviewposts`, fetcher, {
+export default function ListRecentReviews() {
+  const { data, error } = useSWR('/api/reviews', fetcher, {
     refreshInterval: 1000,
   })
   if (error) {
@@ -20,20 +20,16 @@ export default function ListMostRecent() {
   return (
     <div>
       {data.posts.length === 0 && (
-        <Link href="/courses">Write your first review!</Link>
+        <h3>No recent reviews.</h3>
       )}
       <div className={cardstyles.gridtall}>
         {data.posts.map((post) => (
-          <RecentReviewPostCard
+          <RecentReviewCard
             key={post._id}
-            reviewPostId={post._id}
-            creator={post.creator}
-            creatorEmail={post.creatorEmail}
-            creatorId={post.creatorId}
-            courseId={post.courseId}
+            author={post.author}
             course={post.course}
-            reviewPost={post.reviewPost}
-            reviewProfessor={post.reviewProfessor}
+            review={post.review}
+            professor={post.professor}
             taken={post.taken}
             difficulty={post.difficulty}
             anonymous={post.anonymous}

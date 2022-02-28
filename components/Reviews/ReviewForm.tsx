@@ -6,12 +6,11 @@ import formstyles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
 import Tiptap from '../Tiptap/Tiptap'
 
-interface ReviewPost {
-  creatorId: string
-  creator: string
-  creatorEmail: string
-  _reviewPost: string
-  _reviewProfessor: string
+interface Review {
+  authorId: string
+  author: string
+  _review: string
+  _professor: string
   _course: string
   _courseId: string
   _taken: string
@@ -19,16 +18,15 @@ interface ReviewPost {
   _anonymous: boolean
 }
 
-export default function ReviewPostForm({ course, courseId }) {
+export default function ReviewForm({ course, courseId }) {
   // useSlider hook
   const [slideValue, Slider] = useSlider(1, 10, 5)
   const { data: session } = useSession()
-  const initialValues: ReviewPost = {
-    creatorId: session.user.id,
-    creator: session.user.name,
-    creatorEmail: session.user.email,
-    _reviewPost: '',
-    _reviewProfessor: '',
+  const initialValues: Review = {
+    authorId: session.user.id,
+    author: session.user.name,
+    _review: '',
+    _professor: '',
     _course: course,
     _courseId: courseId,
     _taken: '',
@@ -36,13 +34,13 @@ export default function ReviewPostForm({ course, courseId }) {
     _anonymous: true,
   }
 
-  const sendData = async (reviewPostData) => {
-    const response = await fetch(`/api/reviewposts`, {
+  const sendData = async (reviewData) => {
+    const response = await fetch('/api/reviews', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ reviewPostData: reviewPostData }),
+      body: JSON.stringify({ reviewData: reviewData }),
     })
     const data = await response.json()
     if (response.status === 200) {
@@ -52,19 +50,19 @@ export default function ReviewPostForm({ course, courseId }) {
         'Uh oh. Something happened. Please contact us if this persists.'
       )
     }
-    return data.reviewPostData
+    return data.reviews
   }
   return (
     <Formik
       validateOnBlur={false}
       initialValues={initialValues}
-      validate={(values: ReviewPost) => {
-        let errors: FormikErrors<ReviewPost> = {}
-        if (!values._reviewPost) {
-          errors._reviewPost = 'Required'
+      validate={(values: Review) => {
+        let errors: FormikErrors<Review> = {}
+        if (!values._review) {
+          errors._review = 'Required'
         }
-        if (!values._reviewProfessor) {
-          errors._reviewProfessor = 'Required'
+        if (!values._professor) {
+          errors._professor = 'Required'
         }
         if (!values._taken) {
           errors._taken = 'Required'
@@ -75,11 +73,10 @@ export default function ReviewPostForm({ course, courseId }) {
         sendData(values)
         resetForm({
           values: {
-            creatorId: session.user.id,
-            creator: session.user.name,
-            creatorEmail: session.user.email,
-            _reviewPost: '',
-            _reviewProfessor: '',
+            authorId: session.user.id,
+            author: session.user.name,
+            _review: '',
+            _professor: '',
             _course: course,
             _courseId: courseId,
             _taken: '',
@@ -93,36 +90,30 @@ export default function ReviewPostForm({ course, courseId }) {
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className={formstyles.inputheader}>
-            <label htmlFor="_reviewPost">
+            <label htmlFor="_review">
               <strong>
                 Review: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_reviewPost">
+            <ErrorMessage name="_review">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tiptap
-            setFieldValue={setFieldValue}
-            isSubmitting={isSubmitting}
-            name="_reviewPost"
-            // Initially, we set it to the old details in initialValues
-            oldEventDetails={values._reviewPost}
-          />
+          <Tiptap setFieldValue={setFieldValue} name="_review" />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_reviewProfessor">
+            <label htmlFor="_professor">
               <strong>
                 Professor: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_reviewProfessor">
+            <ErrorMessage name="_professor">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
             type="text"
-            name="_reviewProfessor"
+            name="_professor"
             placeholder='"Professor Scotty"'
           />
           <div className={formstyles.inputheader}>

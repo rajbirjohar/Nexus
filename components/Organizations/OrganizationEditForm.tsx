@@ -191,10 +191,8 @@ export default function OrganizationEditForm({
             </div>
             <Tiptap
               setFieldValue={setFieldValue}
-              isSubmitting={isSubmitting}
               name="_newOrganizationDescription"
-              // Initially, we set it to the old details in initialValues
-              oldOrganizationDescription={values._newOrganizationDescription}
+              oldContent={values._newOrganizationDescription}
             />
             <div className={styles.linkwrapper}>
               <div className={styles.linkinput}>

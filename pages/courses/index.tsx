@@ -10,7 +10,7 @@ import styles from '@/styles/courses.module.css'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import animationData from '@/lotties/studentonbooks.json'
-import ListMostRecent from '@/components/Reviews/ListMostRecent'
+import ListRecentReviews from '@/components/Reviews/ListRecentReviews'
 import { SearchIcon } from '@/components/Icons'
 
 export default function CoursesPage({ courses }) {
@@ -57,7 +57,7 @@ export default function CoursesPage({ courses }) {
       {!searchValue.length && (
         <>
           <h4>Check out the newest reviews.</h4>
-          <ListMostRecent />
+          <ListRecentReviews />
         </>
       )}
       {!filteredCourses.length && (

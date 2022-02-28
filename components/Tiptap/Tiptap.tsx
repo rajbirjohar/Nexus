@@ -172,18 +172,9 @@ const MenuBar = ({ editor }) => {
 }
 
 const Tiptap = (props) => {
-  const {
-    setFieldValue,
-    isSubmitting,
-    name,
-    oldEventDetails,
-    oldOrganizationDescription,
-    oldReviewPost,
-  } = props
+  const { setFieldValue, name, oldContent } = props
   let rawHtml =
-    oldEventDetails ||
-    oldOrganizationDescription ||
-    oldReviewPost ||
+    oldContent ||
     `
   <h3>
     Hi there, 
