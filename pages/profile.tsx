@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import Page from '@/components/Layout/Page'
-import ListUserPosts from '@/components/Profile/ListUserPosts'
+import ListReviews from '@/components/Profile/ListReviews'
 import ListUserOrganizations from '@/components/Profile/ListUserOrganizations'
 import SetRoleForm from '@/components/Profile/SetRoleForm'
 import styles from '@/styles/profile.module.css'
@@ -19,6 +19,24 @@ export default function Profile() {
     },
   })
 
+  // const changeData = async () => {
+  //   const response = await fetch('/api/data', {
+  //     method: 'PUT',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   })
+  //   const data = await response.json()
+  //   if (response.status === 200) {
+  //     toast.success('Data has been changed.')
+  //   } else {
+  //     toast.error(
+  //       'Uh oh. Something happened. Please contact us if this persists.'
+  //     )
+  //   }
+  //   return data
+  // }
+
   return (
     <Page title="Profile" tip={null}>
       {session && session.user.role && session.user.role.includes('none') && (
@@ -30,7 +48,7 @@ export default function Profile() {
         <>
           <h1>Hello {session.user.name}</h1>
           <h3>Have an awesome day.</h3>
-
+          {/* <button onClick={() => changeData()}>Change Data</button> */}
           <Tabs
             tabs={[
               {
@@ -41,7 +59,7 @@ export default function Profile() {
               {
                 label: 'Reviews',
                 id: 'reviews',
-                component: <ListUserPosts />,
+                component: <ListReviews />,
               },
             ]}
             layoutId="profile"

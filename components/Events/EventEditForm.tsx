@@ -162,10 +162,8 @@ export default function EventEditForm({
           </div>
           <Tiptap
             setFieldValue={setFieldValue}
-            isSubmitting={isSubmitting}
             name="_newEventDetails"
-            // Initially, we set it to the old details in initialValues
-            oldEventDetails={values._newEventDetails}
+            oldContent={values._newEventDetails}
           />
           <div className={formstyles.datewrapper}>
             <div className={formstyles.dateinput}>

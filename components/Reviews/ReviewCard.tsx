@@ -34,19 +34,17 @@ const deleteText = {
   },
 }
 
-export default function ReviewPostCard({
-  creator,
-  creatorEmail,
-  creatorId,
-  reviewPost,
-  reviewProfessor,
+export default function ReviewCard({
+  author,
+  authorId,
+  review,
+  professor,
   course,
-  courseId,
   taken,
   difficulty,
   timestamp,
   anonymous,
-  reviewPostId,
+  reviewId,
 }) {
   const { data: session } = useSession()
   const [isEdit, setIsEdit] = useState(false)
@@ -65,18 +63,18 @@ export default function ReviewPostCard({
   }
   const confirmDelete = (event) => {
     if (isDelete === true) {
-      deleteReviewPost()
+      deleteReview()
     } else {
       setIsDelete(true)
     }
   }
-  async function deleteReviewPost() {
-    const response = await fetch(`/api/reviewposts`, {
+  async function deleteReview() {
+    const response = await fetch('/api/reviews', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ reviewPostData: reviewPostId }),
+      body: JSON.stringify({ reviewData: reviewId }),
     })
     await response.json()
     if (response.status === 200) {
@@ -97,32 +95,32 @@ export default function ReviewPostCard({
       <AnimatePresence exitBeforeEnter>
         {isEdit ? (
           <ReviewEditForm
-            reviewPostId={reviewPostId}
-            oldReviewPost={reviewPost}
-            oldReviewProfessor={reviewProfessor}
-            oldTaken={taken}
-            oldDifficulty={difficulty}
-            oldAnonymous={anonymous}
+            reviewId={reviewId}
+            review={review}
+            professor={professor}
+            taken={taken}
+            difficulty={difficulty}
+            anonymous={anonymous}
             onHandleChange={setIsEdit}
           />
         ) : (
           <div className={styles.review}>
             <strong>Review:</strong> <br />
-            <div dangerouslySetInnerHTML={{ __html: `${reviewPost}` }} />
+            <div dangerouslySetInnerHTML={{ __html: `${review}` }} />
             <p>
-              <strong>Professor:</strong> {reviewProfessor}
+              <strong>Professor:</strong> {professor}
             </p>
             <p>
               <strong>Taken:</strong> {taken}
             </p>
             <p className={styles.author}>
               {' '}
-              {anonymous === true ? <>Anonymous</> : <>{creator}</>} {timestamp}
+              {anonymous === true ? <>Anonymous</> : <>{author}</>} {timestamp}
             </p>
           </div>
         )}
       </AnimatePresence>
-      {session && session.user.id === creatorId && (
+      {session && session.user.id === authorId && (
         <div className={formstyles.actions}>
           <button
             onClick={confirmDelete}

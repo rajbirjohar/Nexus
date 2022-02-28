@@ -4,8 +4,8 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import Page from '@/components/Layout/Page'
 import clientPromise from '@/lib/mongodb'
-import ReviewPostForm from '@/components/Reviews/ReviewPostForm'
-import ListReviewPosts from '@/components/Reviews/ListReviewPosts'
+import ReviewForm from '@/components/Reviews/ReviewForm'
+import ListReviews from '@/components/Reviews/ListReviews'
 import styles from '@/styles/courses.module.css'
 import { LeftChevronIcon } from '@/components/Icons'
 import Accordion from '@/components/Layout/Accordion'
@@ -50,7 +50,7 @@ const CourseReviews = ({ course, averageRating }) => {
             session.user.role &&
             session.user.role.includes('student') && (
               <Accordion heading={'Write Review'}>
-                <ReviewPostForm
+                <ReviewForm
                   course={course.subjectCourse}
                   courseId={course._id}
                 />
@@ -58,7 +58,7 @@ const CourseReviews = ({ course, averageRating }) => {
             )}
         </>
       ))}
-      <ListReviewPosts courseId={id} />
+      <ListReviews courseId={id} />
     </Page>
   )
 }
@@ -76,7 +76,7 @@ export async function getServerSideProps(context) {
     .find({ subjectCourse: id })
     .toArray()
   const averageRating = await db
-    .collection('reviewPosts')
+    .collection('reviews')
     .aggregate([
       {
         $match: {

@@ -18,7 +18,7 @@ export default async function handler(
   // Fetch most recent review posts
   if (req.method === 'GET') {
     const posts = await db
-      .collection('reviewPosts')
+      .collection('reviews')
       .find({})
       .sort({ createdAt: -1 })
       .limit(3)
@@ -30,28 +30,26 @@ export default async function handler(
   if (req.method === 'POST') {
     if (session) {
       const {
-        reviewPostData: {
-          creatorId,
-          creator,
-          creatorEmail,
+        reviewData: {
+          authorId,
+          author,
           _courseId,
           _course,
-          _reviewPost,
-          _reviewProfessor,
+          _review,
+          _professor,
           _taken,
           _difficulty,
           _anonymous,
         },
       } = req.body
 
-      await db.collection('reviewPosts').insertOne({
-        creatorId: new mongodb.ObjectId(creatorId),
-        creator: creator,
-        creatorEmail: creatorEmail,
+      await db.collection('reviews').insertOne({
+        authorId: new mongodb.ObjectId(authorId),
         courseId: new mongodb.ObjectId(_courseId),
+        author: author,
         course: _course,
-        reviewPost: _reviewPost,
-        reviewProfessor: _reviewProfessor,
+        review: _review,
+        professor: _professor,
         taken: _taken,
         difficulty: parseInt(_difficulty),
         anonymous: _anonymous,
@@ -70,28 +68,28 @@ export default async function handler(
   if (req.method === 'PATCH') {
     if (session) {
       const {
-        newReviewPostData: {
-          reviewPostId,
-          creatorId,
-          _newReviewPost,
-          _newReviewProfessor,
-          _newTaken,
+        reviewData: {
+          reviewId,
+          authorId,
+          _review,
+          _professor,
+          _taken,
           _difficulty,
-          _newAnonymous,
+          _anonymous,
         },
       } = req.body
-      await db.collection('reviewPosts').updateOne(
+      await db.collection('reviews').updateOne(
         {
-          _id: new mongodb.ObjectId(reviewPostId),
-          creatorId: new mongodb.ObjectId(creatorId),
+          _id: new mongodb.ObjectId(reviewId),
+          authorId: new mongodb.ObjectId(authorId),
         },
         {
           $set: {
-            reviewPost: _newReviewPost,
-            reviewProfessor: _newReviewProfessor,
-            taken: _newTaken,
+            review: _review,
+            professor: _professor,
+            taken: _taken,
             difficulty: parseInt(_difficulty),
-            anonymous: _newAnonymous,
+            anonymous: _anonymous,
             createdAt: new Date(),
           },
         }
@@ -107,11 +105,11 @@ export default async function handler(
 
   if (req.method === 'DELETE') {
     if (session) {
-      const { reviewPostData: reviewPostId } = req.body
+      const { reviewData: reviewId } = req.body
       await db
-        .collection('reviewPosts')
-        .deleteOne({ _id: new mongodb.ObjectID(reviewPostId) })
-      return res.status(200).json({});
+        .collection('reviews')
+        .deleteOne({ _id: new mongodb.ObjectID(reviewId) })
+      return res.status(200).json({})
     } else {
       // Not Signed in
       res.status(401).json({

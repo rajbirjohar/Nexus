@@ -15,12 +15,12 @@ const fetchProfilePosts = async (req, res) => {
   const session = await getSession({ req })
   if (session) {
     try {
-      const reviewPosts = await db
-        .collection('reviewPosts')
-        .find({ creatorId: new mongodb.ObjectId(session.user.id) })
+      const reviews = await db
+        .collection('reviews')
+        .find({ authorId: new mongodb.ObjectId(session.user.id) })
         .sort({ course: 1 })
         .toArray()
-      return res.status(200).json({ reviewPosts })
+      return res.status(200).json({ reviews })
     } catch {
       res.status(500)
       res.json({

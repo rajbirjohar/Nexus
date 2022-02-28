@@ -1,19 +1,14 @@
-import Link from 'next/link'
 import styles from './card.module.css'
 
-export default function RecentReviewPostCard({
-  creator,
-  creatorEmail,
-  creatorId,
-  reviewPost,
-  reviewProfessor,
+export default function RecentReviewCard({
+  author,
+  review,
+  professor,
   course,
-  courseId,
   taken,
   difficulty,
   timestamp,
   anonymous,
-  reviewPostId,
 }) {
   return (
     <div className={styles.card}>
@@ -24,15 +19,15 @@ export default function RecentReviewPostCard({
       </span>
       <div className={styles.review}>
         <strong>Review:</strong> <br />
-        <div dangerouslySetInnerHTML={{ __html: `${reviewPost}` }} />
+        <div dangerouslySetInnerHTML={{ __html: `${review}` }} />
         <p>
-          <strong>Professor:</strong> {reviewProfessor}
+          <strong>Professor:</strong> {professor}
         </p>
         <p>
           <strong>Taken:</strong> {taken}
         </p>
         <p className={styles.author}>
-          {anonymous === true ? <>Anonymous</> : <>{creator}</>} {timestamp}{' '}
+          {anonymous === true ? <>Anonymous</> : <>{author}</>} {timestamp}{' '}
         </p>
       </div>
     </div>

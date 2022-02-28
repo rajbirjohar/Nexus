@@ -10,11 +10,11 @@ export default async function handler(
   const {
     query: { id },
   } = req
-  const reviewPosts = await db
-    .collection('reviewPosts')
+  const reviews = await db
+    .collection('reviews')
     .find({ course: id })
     .sort({ createdAt: -1 })
     .toArray()
 
-  res.status(200).json({ reviewPosts })
+  res.status(200).json({ reviews })
 }
