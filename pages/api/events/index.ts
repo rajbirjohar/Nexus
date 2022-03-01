@@ -127,7 +127,6 @@ export default async function handler(
         eventImageURL: cloudinaryRes.secure_url,
         imagePublicId: cloudinaryRes.public_id,
         createdAt: new Date(),
-        comments: [],
       })
       res.status(200).json({ message: 'Success.' })
     } else {

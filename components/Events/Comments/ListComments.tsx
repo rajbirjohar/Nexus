@@ -20,10 +20,10 @@ export default function ListComments({ eventId, organizationId }) {
       {data.comments.length === 0 && <p>Write the first comment!</p>}
       {data.comments.map((comment) => (
         <Comment
-          key={comment.commentId}
+          key={comment._id}
           organizationId={organizationId}
           eventId={eventId}
-          commentId={comment.commentId}
+          commentId={comment._id}
           comment={comment.comment}
           authorId={comment.authorId}
           author={comment.author}
