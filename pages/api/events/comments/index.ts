@@ -15,16 +15,15 @@ export default async function handler(
       const {
         newCommentData: { eventId, _newComment, commentId, authorId },
       } = req.body
-      await db.collection('events').updateOne(
+      await db.collection('comments').updateOne(
         {
-          _id: new mongodb.ObjectId(eventId),
-          'comments.commentId': new mongodb.ObjectId(commentId),
-          'comments.authorId': new mongodb.ObjectId(authorId),
+          _id: new mongodb.ObjectId(commentId),
+          authorId: new mongodb.ObjectId(authorId),
         },
         {
           $set: {
-            'comments.$.comment': _newComment,
-            'comments.$.createdAt': new Date(),
+            comment: _newComment,
+            createdAt: new Date(),
           },
         }
       )
@@ -32,8 +31,7 @@ export default async function handler(
     } else {
       // Not Signed in
       res.status(401).json({
-        error:
-          'Not signed in.',
+        error: 'Not signed in.',
       })
     }
   }
@@ -48,21 +46,14 @@ export default async function handler(
         commentData: { eventId, authorId, author, email, _comment },
       } = req.body
 
-      await db.collection('events').updateOne(
-        { _id: new mongodb.ObjectId(eventId) },
-        {
-          $push: {
-            comments: {
-              commentId: new mongodb.ObjectId(),
-              authorId: new mongodb.ObjectId(authorId),
-              author: author,
-              email: email,
-              createdAt: new Date(),
-              comment: _comment,
-            },
-          },
-        }
-      )
+      await db.collection('comments').insertOne({
+        eventId: eventId,
+        authorId: new mongodb.ObjectId(authorId),
+        author: author,
+        email: email,
+        createdAt: new Date(),
+        comment: _comment,
+      })
       res.status(200).json({ message: 'Success.' })
     } else {
       res.status(401).json({
@@ -76,14 +67,10 @@ export default async function handler(
       const {
         commentData: { commentId, eventId },
       } = req.body
-      await db.collection('events').updateOne(
-        {
-          _id: new mongodb.ObjectId(eventId),
-        },
-        {
-          $pull: { comments: { commentId: new mongodb.ObjectId(commentId) } },
-        }
-      )
+
+      await db
+        .collection('comments')
+        .deleteOne({ _id: new mongodb.ObjectId(commentId) })
       return res.status(200).json({ message: 'Success.' })
     } else {
       // Not Signed in
