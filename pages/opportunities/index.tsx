@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
-import ListAllEvents from '@/components/Events/ListAllEvents'
 import Page from '@/components/Layout/Page'
 import styles from '@/styles/events.module.css'
-import ListUserEvents from '@/components/Events/ListUserEvents'
 import { LottieWrapper } from '@/components/LottieWrapper'
 import { GreenTip } from '@/components/Layout/Tips'
 import animationData from '@/lotties/teamblue.json'
-import Tabs from '@/components/Layout/Tabs'
 import OpportunityForm from '@/components/Events/OpportunityForm'
 import Accordion from '@/components/Layout/Accordion'
 
@@ -20,7 +16,8 @@ export default function OpportunitiesPage() {
       tip={
         <GreenTip header="Your Resume">
           Opportunities posted by professors are a great way to get things on
-          your resume! Don&#39;t be afraid to apply, you might surprise yourself.
+          your resume! Don&#39;t be afraid to apply, you might surprise
+          yourself.
         </GreenTip>
       }
     >
@@ -30,8 +27,8 @@ export default function OpportunitiesPage() {
             <h1>Opportunities</h1>
             <p>
               This is where you&#39;ll be able to see all opportunities posted
-              and offered by professors. Opportunities are sorted by
-              the cut off date and time.
+              and offered by professors. Opportunities are sorted by the cut off
+              date and time.
             </p>
           </div>
           <div className={styles.animationWrapper}>
@@ -45,16 +42,16 @@ export default function OpportunitiesPage() {
         session.user.orgRole &&
         session.user.role.includes('professor') &&
         session.user.orgRole.includes('none') && (
-        <>
-        <Accordion heading="Post Opportunity">
-            <OpportunityForm 
+          <>
+            <Accordion heading="Post Opportunity">
+              <OpportunityForm
                 authorId={session.user.id}
-                authorName={session.user.name}
+                author={session.user.name}
                 email={session.user.email}
-            />
-        </Accordion>
-        </>
-      )}
+              />
+            </Accordion>
+          </>
+        )}
     </Page>
   )
 }
