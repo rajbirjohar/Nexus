@@ -193,7 +193,7 @@ This project has definitely tested our abilities as developers and forced us to 
 
 ### Frontend
 
-I'd say the biggest issue we encountered on the frontend would probably be the animations. The difference between a good app and a great app in my opinion is how it feels in the user's hands. It should feel natural, almost as if it were an extension of their own body. And acheiving that required a great sense of attention to detail and how different objects on the screen interact with each other and the user. This also includes how colors and shadows shift and ensuring that there is no resistance when using the app.
+I'd say the biggest issue we encountered on the frontend would probably be the animations. The difference between a good app and a great app in my opinion is how it feels in the user's hands. It should feel natural, almost as if it were an extension of their own body. And achieving that required a great sense of attention to detail and how different objects on the screen interact with each other and the user. This also includes how colors and shadows shift and ensuring that there is no resistance when using the app.
 
 > &mdash; <cite>Rajbir Johar</cite>
 
@@ -207,11 +207,11 @@ NextJS and Typescript being the bases of our stack for this web app was both exc
 
 ### Backend
 
-This was the first time I realized that maybe not all the stuff taught in my theoretical CS classes was unapplicable. Structuring my backend forced me to think about how data is related to each other in order to reduce the amount of redundancies produced. This in turn helped me with fetching the right data in the fastest way possible to provide to the user.
+This was the first time I realized that maybe not all the stuff taught in my theoretical CS classes was inapplicable. Structuring my backend forced me to think about how data is related to each other in order to reduce the amount of redundancies produced. This in turn helped me with fetching the right data in the fastest way possible to provide to the user.
 
 > &mdash; <cite>Rajbir Johar</cite>
 
-During the development of the Python script something changed with the requests we were submitting and we were no longer receiving any data in the repsonse. Since this was my first experience with this particular library lots of debugging and documentation reading ensued. While it was a relatively simple fix in the end, it took some time to figure out what was wrong and the script had to be rewritten which caused a slight delay in adding all courses to the site.
+During the development of the Python script something changed with the requests we were submitting and we were no longer receiving any data in the response. Since this was my first experience with this particular library lots of debugging and documentation reading ensued. While it was a relatively simple fix in the end, it took some time to figure out what was wrong and the script had to be rewritten which caused a slight delay in adding all courses to the site.
 
 > &mdash; <cite>Isaac Curiel</cite>
 
@@ -221,7 +221,7 @@ Dealing with images always proves to be a challenge, and this time was no except
 
 ### Plan & Design
 
-This is the first time where our group of software engineers took on the task to develop a fullstack web application. Prior to this, most large scale projects we completed had guidance, an objective, and little planning was needed. However, developing Nexus brought on a whole set of new experiences and challenges. When we first started with our idea, we had to decide on the main features we wanted to incorporate into the product. Along with feature planning, we needed to plan sprints and approximate how much time each feature would take. In addition, we removed and added features during development for a multitude of reasons. Sometimes some features were too complex, impacted performance, or became negligable. Thus, constant changes, new ideas, and maintaining the original idea of the project proved extremely challenging.
+This is the first time where our group of software engineers took on the task to develop a fullstack web application. Prior to this, most large scale projects we completed had guidance, an objective, and little planning was needed. However, developing Nexus brought on a whole set of new experiences and challenges. When we first started with our idea, we had to decide on the main features we wanted to incorporate into the product. Along with feature planning, we needed to plan sprints and approximate how much time each feature would take. In addition, we removed and added features during development for a multitude of reasons. Sometimes some features were too complex, impacted performance, or became negligible. Thus, constant changes, new ideas, and maintaining the original idea of the project proved extremely challenging.
 
 > &mdash; <cite>Brian Coffey</cite>
 > 
@@ -229,7 +229,7 @@ In order to contribute to Nexus, you need to be a UCR student or faculty member.
 
 > &mdash; <cite>Robert Rivera</cite>
 
-Inital design mockups and ideas would be scrapped and replaced with implementations that better fit the vision of Nexus. This planning process reinforced the idea of not getting too attached to your own designs. Others may have designs of their own that also accomplish the same goals as yours all while innovating in ways that may have never crossed your mind. 
+Initial design mockups and ideas would be scrapped and replaced with implementations that better fit the vision of Nexus. This planning process reinforced the idea of not getting too attached to your own designs. Others may have designs of their own that also accomplish the same goals as yours all while innovating in ways that may have never crossed your mind. 
 
 > &mdash; <cite>Florian Catalan</cite>
 
