@@ -9,33 +9,37 @@ import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 
 interface Opportunity {
-    creator: any
+    authorId: any
+    authorName: any
     email: string
-    _opportunityName: string
-    _opportunityDetails: string
+    _name: string
+    _details: string
     // _opportunityStartDate: Date
-    _opportunityEndDate: Date
-    _opportunityTags: [{ id: string; text: string }]
+    _endDate: Date
+    _tags: [{ id: string; text: string }]
 }
 
 export default function OpportunityForm({
-    creator,
+    authorId,
+    authorName,
     email,
 }) {
     const { data: session } = useSession()
     const router = useRouter()
     const initialValues: Opportunity = {
-        creator: session.user.id,
+        authorId: session.user.id,
+        authorName: session.user.name,
         email: session.user.email,
-        _opportunityName: '',
-        _opportunityDetails: '',
+        _name: '',
+        _details: '',
         // _opportunityStartDate: new Date(),
-        _opportunityEndDate: new Date(),
-        _opportunityTags: [{ id: '', text: '' }],
+        _endDate: new Date(),
+        _tags: [{ id: '', text: '' }],
     }
 
-    const sendData = async (newOpportunityData) => {
-        const response = await fetch('pages/api/opportunities/index.ts', {
+      const sendData = async (newOpportunityData) => {
+        console.log('start sendData\n')
+        const response = await fetch('/api/opportunities', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -52,6 +56,7 @@ export default function OpportunityForm({
             'Uh oh. Something happened. Please contact us if this persists'
           )
         }
+        console.log('returning newOpportunityData\n')
         return data.newOpportunityData
       }
       return (
@@ -60,46 +65,48 @@ export default function OpportunityForm({
           initialValues={initialValues}
           validate={(values: Opportunity) => {
             let errors: FormikErrors<Opportunity> = {}
-            if (!values._opportunityName) {
-              errors._opportunityName = 'Required'
+            if (!values._name) {
+              errors._name = 'Required'
             }
-            if (!values._opportunityDetails) {
-              errors._opportunityDetails = 'Required'
+            if (!values._details) {
+              errors._details = 'Required'
             }
             // if (!values._opportunityStartDate) {
             //   errors._opportunityStartDate = 'Required'
             // }
-            if (!values._opportunityEndDate) {
-              errors._opportunityEndDate = 'Required'
+            if (!values._endDate) {
+              errors._endDate = 'Required'
             // } else if (
             //   new Date(values._opportunityEndDate) < new Date(values._opportunityStartDate)
             // ) {
             //   errors._opportunityEndDate = 'End date is before start date'
             // 
-            } else if (new Date(values._opportunityEndDate) < new Date()) {
-              errors._opportunityEndDate = 'End date has passed'
+            } else if (new Date(values._endDate) < new Date()) {
+              errors._endDate = 'End date has passed'
             }
-            if (values._opportunityTags.length > 10) {
-              errors._opportunityTags = 'Too many tags'
+            if (values._tags.length > 10) {
+              errors._tags = 'Too many tags'
             } else if (
-              values._opportunityTags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
+              values._tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
                 .length > 0
             ) {
-              errors._opportunityTags = 'Alphanumeric characters only'
+              errors._tags = 'Alphanumeric characters only'
             }
             return errors
           }}
           onSubmit={(values, { setSubmitting, resetForm }) => {
-            sendData(values)
+            // sendData(values)
+            console.log(values)
             resetForm({
               values: {
-                creator: creator,
+                authorId: authorId,
+                authorName: authorName,
                 email: email,
-                _opportunityName: '',
-                _opportunityDetails: '',
+                _name: '',
+                _details: '',
                 // _opportunityStartDate: new Date(),
-                _opportunityEndDate: new Date(),
-                _opportunityTags: [{ id: '', text: '' }],
+                _endDate: new Date(),
+                _tags: [{ id: '', text: '' }],
               },
             })
             setSubmitting(false)
@@ -108,32 +115,32 @@ export default function OpportunityForm({
           {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
             <Form onSubmit={handleSubmit}>
               <div className={styles.inputheader}>
-                <label htmlFor="_opportunityName">
+                <label htmlFor="_name">
                   <strong>
                     Opportunity Name: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_opportunityName">
+                <ErrorMessage name="_name">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
               <Field
                 autoComplete="off"
-                name="_opportunityName"
+                name="_name"
                 type="text"
                 placeholder="Scotty's Internship"
               />
               <div className={styles.inputheader}>
-                <label htmlFor="_opportunityDetails">
+                <label htmlFor="_details">
                   <strong>
                     Opportunity Details: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_opportunityDetails">
+                <ErrorMessage name="_details">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
-              <Tiptap setFieldValue={setFieldValue} name="_opportunityDetails" />
+              <Tiptap setFieldValue={setFieldValue} name="_details" />
               <div className={styles.datewrapper}>
                 {/* <div className={styles.dateinput}>
                   <div className={styles.inputheader}>
@@ -154,34 +161,36 @@ export default function OpportunityForm({
                 </div> */}
                 <div className={styles.dateinput}>
                   <div className={styles.inputheader}>
-                    <label htmlFor="_opportunityEndDate">
+                    <label htmlFor="_endDate">
                       <strong>
                         Application Deadline: <span>*</span>
                       </strong>
                     </label>
-                    <ErrorMessage name="_opportunityEndDate">
+                    <ErrorMessage name="_endDate">
                       {(message) => <span className={styles.error}>{message}</span>}
                     </ErrorMessage>
                   </div>
                   <Field
                     autoComplete="off"
                     type="datetime-local"
-                    name="_opportunityEndDate"
+                    name="_endDate"
                   />
                 </div>
               </div>
+              {/* <span className={styles.error}>{values._endDate}</span> */}
+              {/* <p>{values._endDate} </p> */}
               <div className={styles.inputheader}>
-                <label htmlFor="_opportunityTags">
+                <label htmlFor="_tags">
                   <strong>Tags:</strong>
                 </label>
-                <ErrorMessage name="_opportunityTags">
+                <ErrorMessage name="_tags">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
               <Tags
                 setFieldValue={setFieldValue}
                 isSubmitting={isSubmitting}
-                name="_opportunityTags"
+                name="_tags"
               />
               <span className={styles.actions}>
                 <button

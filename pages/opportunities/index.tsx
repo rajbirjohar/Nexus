@@ -48,7 +48,8 @@ export default function OpportunitiesPage() {
         <>
         <Accordion heading="Post Opportunity">
             <OpportunityForm 
-                creator={session.user.name}
+                authorId={session.user.id}
+                authorName={session.user.name}
                 email={session.user.email}
             />
         </Accordion>
