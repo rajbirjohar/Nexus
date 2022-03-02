@@ -6,6 +6,7 @@ import { GreenTip } from '@/components/Layout/Tips'
 import animationData from '@/lotties/teamblue.json'
 import OpportunityForm from '@/components/Events/OpportunityForm'
 import Accordion from '@/components/Layout/Accordion'
+import ListAllOpportunities from '@/components/Events/ListAllOpportunities'
 
 export default function OpportunitiesPage() {
   const { data: session } = useSession()
@@ -52,6 +53,7 @@ export default function OpportunitiesPage() {
             </Accordion>
           </>
         )}
+        <ListAllOpportunities />
     </Page>
   )
 }

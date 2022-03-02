@@ -59,3 +59,11 @@
   margin-top: var(--gap-med);
   width: max-content;
 }
+
+.opportunitycard {
+  background-color: var(--card);
+  border-radius: var(--radius);
+  padding: var(--gap-med);
+  box-shadow: var(--shadows);
+  transition: transform var(--transition);
+}

@@ -29,6 +29,9 @@ export default function Footer() {
               <Link href="/organizations" passHref>
                 <a>Organizations</a>
               </Link>
+              <Link href="/opportunities" passHref>
+                <a>Opportunities</a>
+              </Link>
             </div>
             <div className={styles.links}>
               <h4>Elsewhere</h4>

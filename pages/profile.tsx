@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 import Page from '@/components/Layout/Page'
 import ListUserPosts from '@/components/Profile/ListUserPosts'
 import ListUserOrganizations from '@/components/Profile/ListUserOrganizations'
+import ListUserOpportunities from '@/components/Events/ListUserOpportunities'
 import SetRoleForm from '@/components/Profile/SetRoleForm'
 import styles from '@/styles/profile.module.css'
 import Tabs from '@/components/Layout/Tabs'
@@ -43,6 +44,11 @@ export default function Profile() {
                 id: 'reviews',
                 component: <ListUserPosts />,
               },
+              {
+                label: 'Opportunities',
+                id: 'opportunities',
+                component: <ListUserOpportunities />,
+              }
             ]}
             layoutId="profile"
           />
