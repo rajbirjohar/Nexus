@@ -57,26 +57,29 @@ const Comment = ({
           <span className={styles.author}>{author}</span>{' '}
           <span className={styles.date}>{date}</span>
         </span>
-        <Dropdown>
-          <>
-            {session && session.user.id === authorId && (
-              <button
-                onClick={() => {
-                  setIsEdit(!isEdit)
-                }}
-                className={styles.edit}
-              >
-                <EditIcon /> Edit
-              </button>
-            )}
-            {((session && isAdmin) ||
-              (session && session.user.id === authorId)) && (
-              <button onClick={handleSubmit} className={styles.delete}>
-                <TrashIcon /> Delete
-              </button>
-            )}
-          </>
-        </Dropdown>
+        {((session && isAdmin) ||
+          (session && session.user.id === authorId)) && (
+          <Dropdown>
+            <>
+              {session && session.user.id === authorId && (
+                <button
+                  onClick={() => {
+                    setIsEdit(!isEdit)
+                  }}
+                  className={styles.edit}
+                >
+                  <EditIcon /> Edit
+                </button>
+              )}
+              {((session && isAdmin) ||
+                (session && session.user.id === authorId)) && (
+                <button onClick={handleSubmit} className={styles.delete}>
+                  <TrashIcon /> Delete
+                </button>
+              )}
+            </>
+          </Dropdown>
+        )}
       </p>
 
       {isEdit ? (
