@@ -27,44 +27,38 @@ export default async function handler(
   if (req.method === 'PATCH') {
     if (session) {
       const {
-        newEventData: {
+        eventData: {
           eventId,
-          _oldImagePublicId,
-          _oldEventImage,
-          _newEventName,
-          _newEventDetails,
-          _newEventStartDate,
-          _newEventEndDate,
-          _newEventImage,
-          _newEventTags,
+          imagePublicId,
+          image,
+          _name,
+          _details,
+          _startDate,
+          _endDate,
+          _newImage,
+          _tags,
         },
       } = req.body
       let cloudinaryRes = {
-        secure_url: _oldEventImage,
-        public_id: _oldImagePublicId,
+        secure_url: image,
+        public_id: imagePublicId,
       }
-      if (_oldEventImage) {
-        await cloudinary.uploader.destroy(_oldImagePublicId)
+      if (image) {
+        await cloudinary.uploader.destroy(imagePublicId)
       }
-      if (_newEventImage) {
-        cloudinaryRes = await cloudinary.uploader.upload(_newEventImage)
+      if (_newImage) {
+        cloudinaryRes = await cloudinary.uploader.upload(_newImage)
       }
       await db.collection('events').updateOne(
         { _id: new mongodb.ObjectId(eventId) },
         {
           $set: {
-            eventName: _newEventName,
-            eventDetails: _newEventDetails,
-            eventStartDate: zonedTimeToUtc(
-              _newEventStartDate,
-              'America/Los_Angeles'
-            ),
-            eventEndDate: zonedTimeToUtc(
-              _newEventEndDate,
-              'America/Los_Angeles'
-            ),
-            eventTags: _newEventTags,
-            eventImageURL: cloudinaryRes.secure_url,
+            name: _name,
+            details: _details,
+            startDate: zonedTimeToUtc(_startDate, 'America/Los_Angeles'),
+            endDate: zonedTimeToUtc(_endDate, 'America/Los_Angeles'),
+            tags: _tags,
+            imageURL: cloudinaryRes.secure_url,
             imagePublicId: cloudinaryRes.public_id,
             createdAt: new Date(),
           },
@@ -83,7 +77,7 @@ export default async function handler(
     const events = await db
       .collection('events')
       .find({
-        eventEndDate: { $gte: new Date() },
+        endDate: { $gte: new Date() },
       })
       .sort({ eventStartDate: 1 })
       .toArray()
@@ -93,17 +87,15 @@ export default async function handler(
   if (req.method === 'POST') {
     if (session) {
       const {
-        newEventData: {
-          eventCreator,
-          email,
-          organizationName,
-          organizationId,
-          _eventName,
-          _eventDetails,
-          _eventStartDate,
-          _eventEndDate,
-          _eventImage,
-          _eventTags,
+        eventData: {
+          orgName,
+          orgId,
+          _name,
+          _details,
+          _startDate,
+          _endDate,
+          _image,
+          _tags,
         },
       } = req.body
       // Since we only need secure_url and public_id, set as null
@@ -111,20 +103,18 @@ export default async function handler(
       // "undefined error"
 
       let cloudinaryRes = { secure_url: null, public_id: null }
-      if (_eventImage) {
-        cloudinaryRes = await cloudinary.uploader.upload(_eventImage)
+      if (_image) {
+        cloudinaryRes = await cloudinary.uploader.upload(_image)
       }
       await db.collection('events').insertOne({
-        eventCreator: eventCreator,
-        email: email,
-        organizationId: new mongodb.ObjectId(organizationId),
-        organizationName: organizationName,
-        eventName: _eventName,
-        eventDetails: _eventDetails,
-        eventStartDate: zonedTimeToUtc(_eventStartDate, 'America/Los_Angeles'),
-        eventEndDate: zonedTimeToUtc(_eventEndDate, 'America/Los_Angeles'),
-        eventTags: _eventTags,
-        eventImageURL: cloudinaryRes.secure_url,
+        orgId: new mongodb.ObjectId(orgId),
+        orgName: orgName,
+        name: _name,
+        details: _details,
+        startDate: zonedTimeToUtc(_startDate, 'America/Los_Angeles'),
+        endDate: zonedTimeToUtc(_endDate, 'America/Los_Angeles'),
+        tags: _tags,
+        imageURL: cloudinaryRes.secure_url,
         imagePublicId: cloudinaryRes.public_id,
         createdAt: new Date(),
       })
@@ -142,7 +132,10 @@ export default async function handler(
       if (imagePublicId) {
         await cloudinary.uploader.destroy(imagePublicId)
       }
-      const result = await db.collection('events').deleteOne({
+      await db.collection('comments').deleteMany({
+        eventId: new mongodb.ObjectId(eventId),
+      })
+      await db.collection('events').deleteOne({
         _id: new mongodb.ObjectId(eventId),
       })
       res.status(200).json({ message: 'Success.' })

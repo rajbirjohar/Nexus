@@ -12,97 +12,112 @@ export default async function transferOwner(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     const {
-      adminData: { organizationId, _email },
+      adminData: { orgId, _email, origCreatorId },
     } = req.body
-    const adminExists = await db
-      .collection('organizations')
+    console.log(req.body)
+
+    const user = await db.collection('users').find({ email: _email }).toArray()
+
+    const creator = await db
+      .collection('relations')
       .find({
-        _id: new mongodb.ObjectId(organizationId),
-        superMembersList: {
-          $elemMatch: { email: _email },
-        },
+        orgId: new mongodb.ObjectId(orgId),
+        userEmail: _email,
+        role: 'creator',
       })
-      .count()
-    const isCreator = await db
-      .collection('organizations')
-      .find(
-        { email: _email },
-        { superMembersList: { $elemMatch: { email: _email } } }
-      )
-      .count()
-
-    const userNotFound = await db
-      .collection('users')
-      .find({ email: _email })
-      .count()
-    const userDetails = await db
-      .collection('users')
-      .find({ email: _email })
       .toArray()
-    const newOrganizer = userDetails.map((details) => details.name).toString()
-    const newOrganizerId = userDetails.map((details) => details._id).toString()
-    // If you are already the owner, do nothing
-    if (isCreator === 1) {
-      res.status(403).json({ error: 'You are already the owner.' })
-      // If user is not found, do nothing
-    } else if (userNotFound === 0) {
-      res.status(404).json({ error: 'User not found or email is incorrect.' })
-      // If user is not an admin, do nothing
-    } else if (adminExists === 0) {
-      res.status(405).json({ error: 'User must be an admin.' })
-      // If user is an admin, then begin transfer
-    } else if (adminExists === 1) {
-      // First, reset old owner and make them an admin
-      await db.collection('users').updateOne(
-        { creatorOfOrg: new mongodb.ObjectId(organizationId) },
-        {
-          $set: {
-            orgRole: 'none',
-            creatorOfOrg: 'none',
-          },
-          $push: {
-            adminOfOrg: new mongodb.ObjectId(organizationId),
-          },
-        }
-      )
-      // Next, update the new owner and upgrade them from admin to owner
-      await db.collection('users').updateOne(
-        { email: _email },
-        {
-          $set: {
-            creatorOfOrg: new mongodb.ObjectId(organizationId),
-            orgRole: 'Admin',
-          },
-          $pull: {
-            adminOfOrg: new mongodb.ObjectId(organizationId),
-          },
-        }
-      )
-      // Then, update the organization
-      await db.collection('organizations').updateOne(
-        {
-          _id: new mongodb.ObjectId(organizationId),
-        },
-        {
-          $set: {
-            organizerId: new mongodb.ObjectId(newOrganizerId),
-            organizer: newOrganizer,
-            email: _email,
-          },
-        },
-        {
-          $addToSet: {
-            superMembersList: {
-              adminId: new mongodb.ObjectId(newOrganizerId),
-              admin: newOrganizer,
-              email: _email,
-            },
-          },
-        }
-      )
 
-      res.status(200).json({})
+    const admin = await db
+      .collection('relations')
+      .find({
+        orgId: new mongodb.ObjectId(orgId),
+        userEmail: _email,
+        role: 'admin',
+      })
+      .toArray()
+
+    console.log(user)
+    console.log(creator)
+    console.log(admin)
+
+    // If user is not found, do nothing
+    if (user.length < 1) {
+      return res.status(404).json({ error: 'User does not exist.' })
     }
+    // If creator, do nothing
+    if (creator.length === 1) {
+      return res.status(403).json({ error: 'Already owner.' })
+    }
+    // If no admin found, do nothing
+    if (admin < 1) {
+      return res.status(405).json({ error: 'User is not an admin.' })
+    }
+    // First pull creator roll
+    await db.collection('users').updateOne(
+      {
+        _id: new mongodb.ObjectId(origCreatorId),
+      },
+      {
+        $pull: { roles: 'creator' },
+      }
+    )
+
+    // Insert role into new creator
+    await db.collection('users').updateOne(
+      {
+        email: _email,
+      },
+      // Only if they have the precreator role
+      { $pull: { roles: 'precreator' } }
+    )
+    await db.collection('users').updateOne(
+      {
+        email: _email,
+      },
+      { $push: { roles: 'creator' } }
+    )
+
+    // Update org
+    await db.collection('organizations').updateOne(
+      {
+        _id: new mongodb.ObjectId(orgId),
+        creatorId: new mongodb.ObjectId(origCreatorId),
+      },
+      {
+        $set: {
+          creatorId: new mongodb.ObjectId(
+            user.map((user) => user._id).toString()
+          ),
+          creatorFirstName:
+            user.map((user) => user.name).toString() ||
+            user.map((user) => user.firstname).toString(),
+          creatorLastName: user.map((user) => user.lastname).toString(),
+          email: _email,
+        },
+      }
+    )
+
+    // Update relation
+    await db.collection('relations').updateOne(
+      {
+        orgId: new mongodb.ObjectId(orgId),
+        userEmail: _email,
+      },
+      {
+        $set: {
+          role: 'creator',
+        },
+      }
+    )
+
+    // Delete previous relation
+    await db.collection('relations').deleteOne({
+      orgId: new mongodb.ObjectId(orgId),
+      userId: new mongodb.ObjectId(origCreatorId),
+      role: 'creator',
+    })
+
+    return res.status(200).json({ message: 'Success.' })
   } else {
     // Not Signed in
     res.status(401).json({

@@ -18,28 +18,20 @@ export default async function auth(req, res) {
         clientId: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         profile(profile: {
-          sub
-          name
-          email
-          picture
-          role
-          orgRole
-          creatorOfOrg
-          adminOfOrg
-          memberOfOrg
-          notifications
+          sub: string
+          given_name: string
+          family_name: string
+          email: string
+          picture: string
+          roles: any[]
         }) {
           return {
             id: profile.sub,
-            name: profile.name,
+            firstname: profile.given_name,
+            lastname: profile.family_name,
             email: profile.email,
             image: profile.picture,
-            role: 'none',
-            orgRole: 'none',
-            creatorOfOrg: 'none',
-            adminOfOrg: [],
-            memberOfOrg: [],
-            notifications: [],
+            roles: [],
           }
         },
       }),
@@ -54,13 +46,10 @@ export default async function auth(req, res) {
     callbacks: {
       async session({ session, user }) {
         // Send properties to the client, like an access_token from a provider.
+        session.user.firstname = String(user.firstname)
+        session.user.lastname = String(user.lastname)
         session.user.id = user.id
-        session.user.role = user.role
-        session.user.orgRole = user.orgRole
-        session.user.creatorOfOrg = user.creatorOfOrg
-        session.user.adminOfOrg = user.adminOfOrg
-        session.user.memberOfOrg = user.memberOfOrg
-        session.user.notifications = user.notifications
+        session.user.roles = user.roles
         return session
       },
     },

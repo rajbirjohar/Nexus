@@ -17,17 +17,17 @@ export default function ListEventsPerOrg({ organizationId }) {
   }
   return (
     <div className={cardstyles.grid}>
-      {data.events.length === 0 && <p>No events today!</p>}
-      {data.events.map((newEvent) => (
+      {!data.events.length && <p>No events today!</p>}
+      {data.events.map((event) => (
         <EventCard
-          key={newEvent._id}
-          organizationName={newEvent.organizationName}
-          eventName={newEvent.eventName}
-          eventDetails={newEvent.eventDetails}
-          eventId={newEvent._id}
-          startDate={newEvent.eventStartDate}
-          endDate={newEvent.eventEndDate}
-          eventTags={newEvent.eventTags}
+          key={event._id}
+          orgName={event.orgName}
+          name={event.name}
+          details={event.details}
+          eventId={event._id}
+          startDate={event.startDate}
+          endDate={event.endDate}
+          tags={event.tags}
         />
       ))}
     </div>

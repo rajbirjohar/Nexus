@@ -3,30 +3,23 @@ import styles from './card.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function OrganizationCard({
-  organizationName,
-  organizationTagline,
-  organizationId,
-  organizationImage,
-}) {
+export default function OrganizationCard({ name, tagline, image }) {
   return (
-    <Link href={`/organizations/${organizationName}`} passHref>
+    <Link href={`/organizations/${name}`} passHref>
       <div className={styles.card}>
         <div className={styles.header}>
-          {organizationImage && (
+          {image && (
             <Image
-              src={organizationImage}
+              src={image}
               width={50}
               height={50}
               className={styles.thumbnail}
               alt="Thumbnail"
             />
           )}
-          <h3 className={styles.title}>{organizationName}</h3>
+          <h3 className={styles.title}>{name}</h3>
         </div>
-        <h4 className={`${styles.tagline} ${'clamp-2'}`}>
-          {organizationTagline}
-        </h4>
+        <h4 className={`${styles.tagline} ${'clamp-2'}`}>{tagline}</h4>
       </div>
     </Link>
   )

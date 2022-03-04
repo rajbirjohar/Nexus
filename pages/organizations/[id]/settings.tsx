@@ -1,5 +1,5 @@
 import Page from '@/components/Layout/Page'
-import { useSession } from 'next-auth/react'
+import { getSession, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import toast from 'react-hot-toast'
 import clientPromise from '@/lib/mongodb'
@@ -8,14 +8,15 @@ import TransferOwnerForm from '@/components/Organizations/TransferOwnerForm'
 import RemoveAdminForm from '@/components/Organizations/RemoveAdminForm'
 import OrganizationEditForm from '@/components/Organizations/OrganizationEditForm'
 import styles from '@/styles/organizations.module.css'
-import formstyles from '@/styles/form.module.css'
 import { LeftChevronIcon } from '@/components/Icons'
 import Link from 'next/link'
+import { useEffect } from 'react'
+const mongodb = require('mongodb')
 
-export default function Settings({ organization }) {
+export default function Settings({ organization, creator }) {
   const router = useRouter()
   const { id } = router.query
-  const { data: session, status } = useSession({
+  const { data: session } = useSession({
     required: true,
     onUnauthenticated() {
       router.push('/')
@@ -23,11 +24,17 @@ export default function Settings({ organization }) {
       // User is not authenticated
     },
   })
-  const orgId = organization.map((organization) => organization._id).toString()
+
   const isCreator =
     session &&
-    session.user.creatorOfOrg &&
-    session.user.creatorOfOrg.includes(orgId)
+    creator.map((creator) => creator.userId).toString() === session.user.id
+
+  useEffect(() => {
+    if (session && !isCreator) {
+      router.push('/')
+      toast.error('Unauthorized.')
+    }
+  }, [])
 
   return (
     <Page title="Settings" tip={null}>
@@ -47,32 +54,33 @@ export default function Settings({ organization }) {
           {organization.map((organization) => (
             <section key={organization._id} className={styles.dangeractions}>
               <OrganizationEditForm
-                organizationId={organization._id}
-                _oldOrganizationName={organization.organizationName}
-                _oldOrganizationTagline={organization.organizationTagline}
-                _oldOrganizationDescription={
-                  organization.organizationDescription
-                }
-                _oldOrganizationInstagram={organization.organizationInstagram}
-                _oldOrganizationFacebook={organization.organizationFacebook}
-                _oldOrganizationTwitter={organization.organizationTwitter}
-                _oldOrganizationSlack={organization.organizationSlack}
-                _oldOrganizationDiscord={organization.organizationDiscord}
-                _oldOrganizationWebsite={organization.organizationWebsite}
-                _oldOrganizationImage={organization.organizationImageURL}
-                _oldImagePublicId={organization.imagePublicId}
+                orgId={organization._id}
+                name={organization.name}
+                tagline={organization.tagline}
+                details={organization.details}
+                instagram={organization.instagram}
+                facebook={organization.facebook}
+                twitter={organization.twitter}
+                slack={organization.slack}
+                discord={organization.discord}
+                site={organization.site}
+                image={organization.imageURL}
+                imagePublicId={organization.imagePublicId}
               />
 
               <div className={styles.danger}>
-                <RemoveAdminForm organizationId={organization._id} />
+                <RemoveAdminForm orgId={organization._id} />
               </div>
               <div className={styles.danger}>
-                <TransferOwnerForm organizationId={organization._id} />
+                <TransferOwnerForm
+                  orgId={organization._id}
+                  origCreatorId={session.user.id}
+                />
               </div>
               <div className={styles.danger}>
                 <DeleteOrganization
-                  organizationId={organization._id}
-                  organizationName={organization.organizationName}
+                  orgId={organization._id}
+                  name={organization.name}
                   imagePublicId={organization.imagePublicId}
                 />
               </div>
@@ -88,16 +96,21 @@ export default function Settings({ organization }) {
 
 export async function getServerSideProps(context) {
   const { id } = context.query
+  const session = getSession()
   const db = (await clientPromise).db(process.env.MONGODB_DB)
   const organization = await db
     .collection('organizations')
-    .find({ organizationName: id })
+    .find({ name: id })
     .toArray()
 
-  const exists = await db
-    .collection('organizations')
-    .countDocuments({ organizationName: id })
-  if (exists < 1) {
+  const orgId = organization.map((organization) => organization._id).toString()
+
+  const creator = await db
+    .collection('relations')
+    .find({ orgId: new mongodb.ObjectId(orgId), role: 'creator' })
+    .toArray()
+
+  if (organization.length < 1) {
     return {
       notFound: true,
     }
@@ -106,6 +119,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       organization: JSON.parse(JSON.stringify(organization)),
+      creator: JSON.parse(JSON.stringify(creator)),
     },
   }
 }

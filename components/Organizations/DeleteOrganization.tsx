@@ -5,32 +5,32 @@ import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
 interface Organization {
-  organizationId: string
+  orgId: string
   _organization: string
   _confirmOrganization: string
   imagePublicId: string
 }
 
 export default function DeleteOrganization({
-  organizationId,
-  organizationName,
+  orgId,
+  name,
   imagePublicId,
 }) {
   const router = useRouter()
   const initialValues: Organization = {
-    organizationId: organizationId,
+    orgId: orgId,
     _organization: '',
     _confirmOrganization: '',
     imagePublicId: imagePublicId,
   }
 
-  const sendData = async (organizationData) => {
+  const sendData = async (orgData) => {
     const res = await fetch('/api/organizations', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ organizationData: organizationData }),
+      body: JSON.stringify({ orgData: orgData }),
     })
     await res.json()
     if (res.status === 200) {
@@ -59,7 +59,7 @@ export default function DeleteOrganization({
         </strong>
       </p>
       <p>
-        Please enter <strong>&#34;{organizationName}&#34;</strong> to delete
+        Please enter <strong>&#34;{name}&#34;</strong> to delete
         this organization.
       </p>
       <Formik
@@ -69,12 +69,12 @@ export default function DeleteOrganization({
           let errors: FormikErrors<Organization> = {}
           if (!values._organization) {
             errors._organization = 'Required'
-          } else if (values._organization !== organizationName) {
+          } else if (values._organization !== name) {
             errors._organization = 'Incorrect Organization name'
           }
           if (!values._confirmOrganization) {
             errors._confirmOrganization = 'Required'
-          } else if (values._confirmOrganization !== organizationName) {
+          } else if (values._confirmOrganization !== name) {
             errors._confirmOrganization = 'Incorrect Organization name'
           }
           if (values._organization !== values._confirmOrganization) {
@@ -87,7 +87,7 @@ export default function DeleteOrganization({
           sendData(values)
           resetForm({
             values: {
-              organizationId: organizationId,
+              orgId: orgId,
               _organization: '',
               _confirmOrganization: '',
               imagePublicId: '',

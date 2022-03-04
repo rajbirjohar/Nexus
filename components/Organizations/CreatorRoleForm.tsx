@@ -1,33 +1,34 @@
 import React from 'react'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
-import { useRouter } from 'next/router'
 
 interface Agreement {
   userId: string
-  _orgRole: string
+  _role: string
+  _agreement: string
 }
 
 export default function CreatorRoleForm({ userId }) {
   const router = useRouter()
   const initialValues: Agreement = {
     userId: userId,
-    _orgRole: '',
+    _role: 'precreator',
+    _agreement: ''
   }
-  const sendData = async (orgRoleData) => {
-    const response = await fetch('/api/users/setcreatorrole', {
+  const sendData = async (roleData) => {
+    const response = await fetch('/api/users/setrole', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ orgRoleData: orgRoleData }),
+      body: JSON.stringify({ roleData: roleData }),
     })
-    const data = await response.json()
+    await response.json()
     if (response.status === 200) {
       toast.success("You've set your role!")
-      Router.reload()
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -71,7 +72,7 @@ export default function CreatorRoleForm({ userId }) {
         information.
       </p>
       <p>
-        Please enter <strong>&#34;Admin&#34;</strong> if you understand the
+        Please enter <strong>&#34;I Love UCR&#34;</strong> if you understand the
         rules and limitations of each role and would like to proceed creating
         your own organization.
       </p>
@@ -80,10 +81,10 @@ export default function CreatorRoleForm({ userId }) {
         initialValues={initialValues}
         validate={(values: Agreement) => {
           let errors: FormikErrors<Agreement> = {}
-          if (!values._orgRole) {
-            errors._orgRole = 'Required'
-          } else if (values._orgRole !== 'Admin') {
-            errors._orgRole = 'Wrong answer'
+          if (!values._agreement) {
+            errors._agreement = 'Required'
+          } else if (values._agreement !== 'I Love UCR') {
+            errors._agreement = 'Wrong answer'
           }
           return errors
         }}
@@ -95,17 +96,17 @@ export default function CreatorRoleForm({ userId }) {
         {({ values, handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
-              <label htmlFor="_comment">
-                <strong>Role:</strong>
+              <label htmlFor="_agreement">
+                <strong>Confirm:</strong>
               </label>
-              <ErrorMessage name="_orgRole">
+              <ErrorMessage name="_agreement">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="text"
-              name="_orgRole"
+              name="_agreement"
               placeholder="Show your interest!"
               maxLength={10}
             />

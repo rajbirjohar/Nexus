@@ -8,23 +8,15 @@ declare module 'next-auth' {
     user: {
       id: string
       name: string
+      firstname: string
+      lastname: string
       email: string
       image: string
       /** The user's role. */
-      role: string
-      orgRole: string
-      creatorOfOrg: string
-      adminOfOrg: Array
-      memberOfOrg: Array
-      notifications: Array
+      roles: Array
     }
   }
   interface User {
-    role: string
-    orgRole: string
-    creatorOfOrg: string
-    adminOfOrg: Array
-    memberOfOrg: Array
-    notifications: Array
+    roles: Array
   }
 }

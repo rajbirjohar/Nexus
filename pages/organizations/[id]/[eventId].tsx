@@ -42,14 +42,13 @@ const deleteText = {
   },
 }
 
-export default function Event({ event }) {
+export default function Event({ event, creator, admins }) {
   const { data: session } = useSession()
   const router = useRouter()
   const { eventId } = router.query
-  const orgId = event.map((event) => event.organizationId).toString()
 
-  const start = event.map((event) => event.eventStartDate)
-  const end = event.map((event) => event.eventEndDate)
+  const start = event.map((event) => event.startDate)
+  const end = event.map((event) => event.endDate)
 
   const [startMonth, startDay, startYear, startHour] = [
     new Date(start).toLocaleString('en-US', { month: 'short' }),
@@ -74,14 +73,12 @@ export default function Event({ event }) {
 
   const isCreator =
     session &&
-    session.user.creatorOfOrg &&
-    session.user.creatorOfOrg.includes(orgId)
+    creator.map((creator) => creator.userId).toString() === session.user.id
 
   const isAdmin =
-    isCreator ||
+    (session && isCreator) ||
     (session &&
-      session.user.adminOfOrg &&
-      session.user.adminOfOrg.includes(orgId))
+      admins.map((admin) => admin.userId).toString() === session.user.id)
 
   const [isDelete, setIsDelete] = useState(false)
 
@@ -110,9 +107,9 @@ export default function Event({ event }) {
     }
   }
 
-  const organizationName = event.map((event) => event.organizationName)
   async function deleteEvent({ eventId, imagePublicId }) {
-    const response = await fetch(`/api/events/eventdelete`, {
+    const orgName = event.map((event) => event.orgName)
+    const response = await fetch(`/api/events`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -121,7 +118,7 @@ export default function Event({ event }) {
     })
     await response.json()
     if (response.status === 200) {
-      router.push(`/organizations/${organizationName}`)
+      router.push(`/organizations/${orgName}`)
       toast.success('Deleted event.')
     } else {
       toast.error(
@@ -129,45 +126,43 @@ export default function Event({ event }) {
       )
     }
   }
+
   return (
-    <Page title={`${event.map((event) => event.eventName)}`} tip={null}>
+    <Page title={`${event.map((event) => event.name)}`} tip={null}>
       {event.map((event) => (
         <section key={event._id} className={styles.hero}>
           {isEdit ? (
             <EventEditForm
               eventId={eventId}
-              _oldEventName={event.eventName}
-              _oldEventDetails={event.eventDetails}
-              _oldEventStartDate={event.eventStartDate}
-              _oldEventEndDate={event.eventEndDate}
-              _oldEventImage={event.eventImageURL}
-              _oldImagePublicId={event.imagePublicId}
-              _oldEventTags={event.eventTags}
+              name={event.name}
+              details={event.details}
+              startDate={event.startDate}
+              endDate={event.endDate}
+              image={event.imageURL}
+              imagePublicId={event.imagePublicId}
+              tags={event.tags}
               onHandleChange={setIsEdit}
             />
           ) : (
             <div>
-              {event?.eventImageURL && (
+              {event?.imageURL && (
                 <div className={styles.banner}>
                   <Image
-                    src={event.eventImageURL}
+                    src={event.imageURL}
                     layout="fill"
                     objectFit="cover"
                     alt="Banner"
                   />
                 </div>
               )}
-              {new Date(event.eventEndDate) < new Date() && (
+              {new Date(event.endDate) < new Date() && (
                 <p className={styles.expired}>This event has expired.</p>
               )}
-              <h1 className={styles.title}>{event.eventName}</h1>
+              <h1 className={styles.title}>{event.name}</h1>
               <h3 className={styles.author}>
                 By{' '}
-                <Link
-                  href={`/organizations/${event.organizationName}`}
-                  passHref
-                >
-                  <a>{event.organizationName}</a>
+                <Link href={`/organizations/${event.orgName}`} passHref>
+                  <a>{event.orgName}</a>
                 </Link>
               </h3>
               <time className={styles.date}>
@@ -197,12 +192,12 @@ export default function Event({ event }) {
                 // I don't know how to feel about using this
                 // but apparently it is the most recommended way
                 // of displaying raw html
-                dangerouslySetInnerHTML={{ __html: `${event.eventDetails}` }}
+                dangerouslySetInnerHTML={{ __html: `${event.details}` }}
               />
-              {event.eventTags && (
+              {event.tags && (
                 <div className={styles.tagwrapper}>
-                  {event.eventTags.map((tag) => (
-                    <Link key={tag.id} href={`/events/tags/${tag.id}`}>
+                  {event.tags.map((tag) => (
+                    <Link key={tag.id} href={`/events/tags/${tag.id}`} passHref>
                       <span className={styles.tag}>{tag.text}</span>
                     </Link>
                   ))}
@@ -210,7 +205,6 @@ export default function Event({ event }) {
               )}
             </div>
           )}
-
           {session && isAdmin && (
             <div className={styles.actions}>
               <button
@@ -245,32 +239,40 @@ export default function Event({ event }) {
           )}
 
           {session ? (
-            <CommentsForm eventId={event._id} />
+            <CommentsForm eventId={event._id} orgId={event.orgId} />
           ) : (
             <p className={styles.subtitle}>Sign in to comment.</p>
           )}
-          <ListComments
-            eventId={event._id}
-            organizationId={event.organizationId}
-          />
+          <ListComments eventId={event._id} isAdmin={isAdmin} />
         </section>
       ))}
     </Page>
   )
 }
 
-// We are using getServerSideProps instead of an endpoint fetched
-// with SWR. This allows us to prefetch our data with what is returned
-// from the database (a list of all of our courses) mainly because
-// this data does not change often so we don't have to revalidate it
-// But the dynamic pages that are following it are updated frequently
 export async function getServerSideProps(context) {
   const { eventId } = context.query
+
   const db = (await clientPromise).db(process.env.MONGODB_DB)
+
   const event = await db
     .collection('events')
     .find({ _id: new mongodb.ObjectId(eventId) })
     .toArray()
+
+  // Org that owns the event
+  const orgId = event.map((event) => event.orgId).toString()
+
+  const admins = await db
+    .collection('relations')
+    .find({ orgId: new mongodb.ObjectId(orgId), role: 'admin' })
+    .toArray()
+
+  const creator = await db
+    .collection('relations')
+    .find({ orgId: new mongodb.ObjectId(orgId), role: 'creator' })
+    .toArray()
+
   const exists = await db
     .collection('events')
     .countDocuments({ _id: new mongodb.ObjectId(eventId) })
@@ -283,6 +285,8 @@ export async function getServerSideProps(context) {
   return {
     props: {
       event: JSON.parse(JSON.stringify(event)),
+      creator: JSON.parse(JSON.stringify(creator)),
+      admins: JSON.parse(JSON.stringify(admins)),
     },
   }
 }

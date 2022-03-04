@@ -4,18 +4,18 @@ import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
 interface Admin {
-  organizationId: string
+  orgId: string
   _email: string
 }
 
-export default function RemoveAdminForm({ organizationId }) {
+export default function RemoveAdminForm({ orgId }) {
   const initialValues: Admin = {
-    organizationId: organizationId,
+    orgId: orgId,
     _email: '',
   }
   const sendData = async (adminData) => {
     const response = await fetch('/api/organizations/admins', {
-      method: 'PATCH',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -59,7 +59,7 @@ export default function RemoveAdminForm({ organizationId }) {
           sendData(values)
           resetForm({
             values: {
-              organizationId: organizationId,
+              orgId: orgId,
               _email: '',
             },
           })

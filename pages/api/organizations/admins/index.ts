@@ -21,193 +21,113 @@ export default async function handler(
   if (req.method === 'POST') {
     if (session) {
       const {
-        adminData: { organizationId, _email },
+        adminData: { orgId, _email },
       } = req.body
-      const adminExistsAsMember = await db
-        .collection('organizations')
-        .find({
-          _id: new mongodb.ObjectId(organizationId),
-          membersList: {
-            $elemMatch: { email: _email },
-          },
-        })
-        .count()
-      const adminExists = await db
-        .collection('organizations')
-        .find({
-          _id: new mongodb.ObjectId(organizationId),
-          superMembersList: {
-            $elemMatch: { email: _email },
-          },
-        })
-        .count()
-      const userNotFound = await db
+
+      const user = await db
         .collection('users')
         .find({ email: _email })
+        .toArray()
+
+      const creatorOrAdmin = await db
+        .collection('relations')
+        .find({
+          orgId: new mongodb.ObjectId(orgId),
+          role: { $in: ['creator', 'admin'] },
+          userEmail: _email,
+        })
         .count()
-      if (adminExists > 0) {
-        res
-          .status(403)
-          .json({ message: 'Admin already exists in organization.' })
-      } else if (userNotFound === 0) {
-        res.status(404).json({ error: 'User does not exist.' })
-      } else if (adminExistsAsMember > 0) {
-        const userDetails = await db
-          .collection('users')
-          .aggregate([
-            {
-              $match: { email: _email },
-            },
-            {
-              $project: {
-                adminId: '$_id',
-                admin: '$name',
-                email: '$email',
-                _id: 0,
-              },
-            },
-          ])
-          .toArray()
-        await db.collection('users').updateOne(
-          {
-            email: _email,
-          },
-          {
-            $pull: {
-              memberOfOrg: new mongodb.ObjectId(organizationId),
-            },
-            $push: {
-              adminOfOrg: new mongodb.ObjectId(organizationId),
-            },
-          }
-        )
-        await db.collection('organizations').updateOne(
-          { _id: new mongodb.ObjectId(organizationId) },
-          {
-            $pull: {
-              membersList: { email: _email },
-            },
-            $addToSet: {
-              // We use userDetails[0] because mongodb returns
-              // the document as an object within an array via
-              // the .toArray() function. We don't want the array
-              // format though so we instead find the 0th index
-              // since there will only ever be one item within
-              // the returned array since emails are unique
-              superMembersList: userDetails[0],
-            },
-          }
-        )
-        res.status(201).json({ message: 'Member upgraded to Admin.' })
-      } else {
-        const userDetails = await db
-          .collection('users')
-          .aggregate([
-            {
-              $match: { email: _email },
-            },
-            {
-              $project: {
-                adminId: '$_id',
-                admin: '$name',
-                email: '$email',
-                _id: 0,
-              },
-            },
-          ])
-          .toArray()
-        await db.collection('users').updateOne(
-          {
-            email: _email,
-          },
-          {
-            $push: {
-              adminOfOrg: new mongodb.ObjectId(organizationId),
-            },
-          }
-        )
-        await db.collection('organizations').updateOne(
-          { _id: new mongodb.ObjectId(organizationId) },
-          {
-            $addToSet: {
-              // We use userDetails[0] because mongodb returns
-              // the document as an object within an array via
-              // the .toArray() function. We don't want the array
-              // format though so we instead find the 0th index
-              // since there will only ever be one item within
-              // the returned array since emails are unique
-              superMembersList: userDetails[0],
-            },
-          }
-        )
-        res.status(200).json({ message: 'Successfully added admin.' })
+
+      // First check if user exists
+      // Then, check if they are a creator or admin, if so, break
+      // Then, check if they are a member, if so, update
+      // If not, insert
+      if (user.length < 1) {
+        return res.status(404).json({ error: 'User does not exist.' })
       }
+      if (creatorOrAdmin === 1) {
+        return res.status(403).json({ error: 'User is already an admin.' })
+      }
+
+      await db.collection('relations').updateOne(
+        {
+          orgId: new mongodb.ObjectId(orgId),
+          userEmail: _email,
+        },
+        {
+          $set: {
+            userId: new mongodb.ObjectId(
+              user.map((user) => user._id).toString()
+            ),
+            userFirstName:
+              user.map((user) => user.name).toString() ||
+              user.map((user) => user.firstname).toString(),
+            userLastName: user.map((user) => user.lastname).toString(),
+            userEmail: _email,
+            orgId: new mongodb.ObjectId(orgId),
+            role: 'admin',
+          },
+        },
+        { upsert: true }
+      )
+      return res.status(200).json({ message: 'Successfully added admin.' })
     } else {
       // Not Signed in
-      res.status(401).json({
+      return res.status(401).json({
         error:
           'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
       })
     }
   }
 
-  if (req.method === 'PATCH') {
+  if (req.method === 'DELETE') {
     if (session) {
       const {
-        adminData: { organizationId, _email },
+        adminData: { orgId, _email },
       } = req.body
-      const isCreator = await db
-        .collection('organizations')
+
+      const user = await db.collection('users').find({ email: _email }).count()
+
+      const admin = await db
+        .collection('relations')
         .find({
-          _id: new mongodb.ObjectId(organizationId),
-          email: _email,
-          superMembersList: {
-            $elemMatch: { email: _email },
-          },
+          orgId: new mongodb.ObjectId(orgId),
+          role: 'admin',
+          userEmail: _email,
         })
         .count()
-      const adminExists = await db
-        .collection('organizations')
+
+      const creator = await db
+        .collection('relations')
         .find({
-          _id: new mongodb.ObjectId(organizationId),
-          superMembersList: {
-            $elemMatch: { email: _email },
-          },
+          orgId: new mongodb.ObjectId(orgId),
+          role: 'creator',
+          userEmail: _email,
         })
         .count()
-      if (isCreator > 0) {
-        res.status(403).json({
-          message: 'You cannot remove yourself until you transfer ownership.',
-        })
-      } else if (adminExists === 0) {
-        res.status(404).json({ message: 'This Admin does not exist.' })
-      } else {
-        await db.collection('users').updateOne(
-          {
-            email: _email,
-          },
-          {
-            $pull: {
-              adminOfOrg: new mongodb.ObjectId(organizationId),
-            },
-          }
-        )
-        await db.collection('organizations').updateOne(
-          { _id: new mongodb.ObjectId(organizationId) },
-          {
-            $pull: {
-              superMembersList: { email: _email },
-            },
-          }
-        )
-        res.status(200).json({ message: 'Successfully removed member.' })
+
+      if (user < 1) {
+        return res.status(404).json({ error: 'User does not exist.' })
       }
-    } else {
-      // Not Signed in
-      res.status(401).json({
-        error:
-          'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
+      if (creator === 1) {
+        return res.status(403).json({ error: 'Cannot remove owner.' })
+      }
+      if (admin < 1) {
+        return res.status(404).json({ error: 'User is not an admin.' })
+      }
+
+      await db.collection('relations').deleteOne({
+        orgId: new mongodb.ObjectId(orgId),
+        userEmail: _email,
+        role: 'admin',
       })
+      return res.status(200).json({ message: 'Successfully added admin.' })
     }
+  } else {
+    // Not Signed in
+    return res.status(401).json({
+      error:
+        'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
+    })
   }
 }

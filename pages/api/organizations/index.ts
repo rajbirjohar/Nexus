@@ -14,59 +14,52 @@ export default async function handler(
   if (req.method === 'PATCH') {
     if (session) {
       const {
-        newOrganizationData: {
-          organizationId,
-          _newOrganizationName,
-          _newOrganizationTagline,
-          _newOrganizationDescription,
-          _newOrganizationWebsite,
-          _newOrganizationInstagram,
-          _newOrganizationFacebook,
-          _newOrganizationTwitter,
-          _newOrganizationSlack,
-          _newOrganizationDiscord,
-          _newOrganizationImage,
-          _oldOrganizationImage,
-          _oldImagePublicId,
+        orgData: {
+          orgId,
+          _name,
+          _tagline,
+          _details,
+          _site,
+          _instagram,
+          _facebook,
+          _twitter,
+          _slack,
+          _discord,
+          _newImage,
+          image,
+          imagePublicId,
         },
       } = req.body
-      // Need to figure out a way to allow users to change org name
-      // const nameTaken = await db
-      //   .collection('organizations')
-      //   .find({ organizationName: _newOrganizationName })
-      //   .count()
-      // if (nameTaken > 0) {
-      //   res.status(422).json({ error: 'Event already has a name that exists.' })
-      // }
       let cloudinaryRes = {
-        secure_url: _oldOrganizationImage,
-        public_id: _oldImagePublicId,
+        secure_url: image,
+        public_id: imagePublicId,
       }
-      if (_oldOrganizationImage) {
-        const image = await cloudinary.uploader.destroy(_oldImagePublicId)
+      if (image) {
+        await cloudinary.uploader.destroy(imagePublicId)
       }
-      if (_newOrganizationImage) {
-        cloudinaryRes = await cloudinary.uploader.upload(_newOrganizationImage)
+      if (_newImage) {
+        cloudinaryRes = await cloudinary.uploader.upload(_newImage)
       }
 
       await db.collection('organizations').updateOne(
-        { _id: new mongodb.ObjectId(organizationId) },
+        { _id: new mongodb.ObjectId(orgId) },
         {
           $set: {
-            organizationName: _newOrganizationName,
-            organizationTagline: _newOrganizationTagline,
-            organizationDescription: _newOrganizationDescription,
-            organizationWebsite: _newOrganizationWebsite,
-            organizationInstagram: _newOrganizationInstagram,
-            organizationFacebook: _newOrganizationFacebook,
-            organizationTwitter: _newOrganizationTwitter,
-            organizationSlack: _newOrganizationSlack,
-            organizationDiscord: _newOrganizationDiscord,
-            organizationImageURL: cloudinaryRes.secure_url,
+            name: _name,
+            tagline: _tagline,
+            details: _details,
+            site: _site,
+            instagram: _instagram,
+            facebook: _facebook,
+            twitter: _twitter,
+            slack: _slack,
+            discord: _discord,
+            imageURL: cloudinaryRes.secure_url,
             imagePublicId: cloudinaryRes.public_id,
           },
         }
       )
+
       res.status(200).json({ message: 'Successfully edited organization.' })
     } else {
       res.status(401).json({
@@ -88,67 +81,76 @@ export default async function handler(
   if (req.method === 'POST') {
     if (session) {
       const {
-        organizationData: {
-          organizerId,
-          organizer,
+        orgData: {
+          creatorId,
+          creatorFirstName,
+          creatorLastName,
           email,
-          _organizationName,
-          _organizationTagline,
-          _organizationDescription,
-          _organizationImage,
-          _organizationWebsite,
-          _organizationInstagram,
-          _organizationFacebook,
-          _organizationTwitter,
-          _organizationSlack,
-          _organizationDiscord,
+          _name,
+          _tagline,
+          _details,
+          _image,
+          _site,
+          _instagram,
+          _facebook,
+          _twitter,
+          _slack,
+          _discord,
         },
       } = req.body
-      const cloudinaryRes = await cloudinary.uploader.upload(
-        _organizationImage,
-        {
-          width: 512,
-          height: 512,
-          radius: 'max',
-          crop: 'fill',
-        }
-      )
+      const cloudinaryRes = await cloudinary.uploader.upload(_image, {
+        width: 512,
+        height: 512,
+        radius: 'max',
+        crop: 'fill',
+      })
       const nameTaken = await db
         .collection('organizations')
-        .find({ organizationName: _organizationName })
+        .find({ name: _name })
         .count()
       if (nameTaken > 0) {
-        res.status(422).json({ error: 'Event already has a name that exists.' })
+        res
+          .status(422)
+          .json({ error: 'Organization already has a name that exists.' })
       } else {
-        const organization = await db.collection('organizations').insertOne({
-          organizerId: new mongodb.ObjectId(organizerId),
-          organizer: organizer,
+        const org = await db.collection('organizations').insertOne({
+          creatorId: new mongodb.ObjectId(creatorId),
+          creatorFirstName: creatorFirstName,
+          creatorLastName: creatorLastName,
           email: email,
-          organizationName: _organizationName,
-          organizationTagline: _organizationTagline,
-          organizationDescription: _organizationDescription,
-          organizationWebsite: _organizationWebsite,
-          organizationInstagram: _organizationInstagram,
-          organizationFacebook: _organizationFacebook,
-          organizationTwitter: _organizationTwitter,
-          organizationSlack: _organizationSlack,
-          organizationDiscord: _organizationDiscord,
-          superMembersList: [
-            {
-              adminId: new mongodb.ObjectId(organizerId),
-              admin: organizer,
-              email: email,
-            },
-          ],
-          membersList: [],
-          organizationImageURL: cloudinaryRes.secure_url,
+          name: _name,
+          tagline: _tagline,
+          details: _details,
+          site: _site,
+          instagram: _instagram,
+          facebook: _facebook,
+          twitter: _twitter,
+          slack: _slack,
+          discord: _discord,
+          imageURL: cloudinaryRes.secure_url,
           imagePublicId: cloudinaryRes.public_id,
         })
+
+        await db.collection('relations').insertOne({
+          userId: new mongodb.ObjectId(session.user.id),
+          userFirstName: session.user.name || session.user.firstname,
+          userLastName: session.user.lastname,
+          userEmail: session.user.email,
+          orgId: new mongodb.ObjectId(org.insertedId),
+          role: 'creator',
+        })
+
         await db.collection('users').updateOne(
           {
             _id: new mongodb.ObjectId(session.user.id),
           },
-          { $set: { creatorOfOrg: organization.insertedId } }
+          { $pull: { roles: 'precreator' } }
+        )
+        await db.collection('users').updateOne(
+          {
+            _id: new mongodb.ObjectId(session.user.id),
+          },
+          { $push: { roles: 'creator' } }
         )
         res.status(200).json({ message: 'Success.' })
       }
@@ -164,48 +166,41 @@ export default async function handler(
     if (session) {
       try {
         const {
-          organizationData: { organizationId, imagePublicId },
+          orgData: { orgId, imagePublicId },
         } = req.body
         if (imagePublicId) {
-          const image = await cloudinary.uploader.destroy(imagePublicId)
+          await cloudinary.uploader.destroy(imagePublicId)
         }
         // First reset the creator's role so they can make a new org
         await db
           .collection('users')
           .updateOne(
             { _id: new mongodb.ObjectId(session.user.id) },
-            { $set: { orgRole: 'none', creatorOfOrg: 'none' } }
+            { $pull: { roles: 'creator' } }
           )
-        // Remove the orgId from all admins and members
-        await db.collection('users').updateMany(
-          {},
-          {
-            $pull: {
-              adminOfOrg: new mongodb.ObjectId(organizationId),
-              memberOfOrg: new mongodb.ObjectId(organizationId),
-            },
-          }
-        )
+        // Remove relations from all admins and members
+        await db.collection('relations').deleteMany({
+          orgId: new mongodb.ObjectId(orgId),
+        })
         // Delete all events associated with this org
         await db
           .collection('events')
-          .deleteMany({ organizationId: new mongodb.ObjectId(organizationId) })
+          .deleteMany({ orgId: new mongodb.ObjectId(orgId) })
         // Delete the org itself
         const result = await db
           .collection('organizations')
-          .deleteOne({ _id: new mongodb.ObjectId(organizationId) })
-        res.status(200).json(result.deletedCount)
+          .deleteOne({ _id: new mongodb.ObjectId(orgId) })
+        res.status(200).json({ message: 'Success' })
       } catch {
         res.status(500)
         res.json({
-          error: 'Unable to delete entry or accessing sensitive routes.',
+          error: 'Unable to delete.',
         })
       }
     } else {
       // Not Signed in
       res.status(401).json({
-        error:
-          'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
+        error: 'Not signed in.',
       })
     }
   }

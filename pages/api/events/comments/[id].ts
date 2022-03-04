@@ -14,7 +14,7 @@ export default async function handler(
 
   const comments = await db
     .collection('comments')
-    .find({ eventId: id })
+    .find({ eventId: new mongodb.ObjectId(id) })
     .sort({ createdAt: -1 })
     .toArray()
   return res.status(200).json({ comments })

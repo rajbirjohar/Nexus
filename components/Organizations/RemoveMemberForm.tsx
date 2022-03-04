@@ -4,20 +4,16 @@ import formstyles from '@/styles/form.module.css'
 import { useRouter } from 'next/router'
 import { TrashIcon } from '../Icons'
 
-export function RemoveMemberForm({
-  memberId,
-  organizationId,
-  organizationName,
-}) {
-  const member = { memberId, organizationName, organizationId }
+export function RemoveMemberForm({ userId, orgId, org }) {
   const router = useRouter()
+  const member = { userId, orgId }
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)
   }
   const sendData = async (memberData) => {
     const response = await fetch('/api/organizations/members', {
-      method: 'PATCH',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -25,8 +21,8 @@ export function RemoveMemberForm({
     })
     await response.json
     if (response.status === 200) {
-      toast.success(`You left ${organizationName}.`)
-      Router.reload()
+      toast.success(`You left ${org}.`)
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'
@@ -36,7 +32,7 @@ export function RemoveMemberForm({
   return (
     <form onSubmit={handleSubmit}>
       <span className={formstyles.actions}>
-        <button type="submit">Leave {organizationName}</button>
+        <button type="submit">Leave {org}</button>
       </span>
     </form>
   )
@@ -44,20 +40,16 @@ export function RemoveMemberForm({
 
 // I'm too lazy to create conditional renders
 // Literally the same code as above except for how the delete buttons are displayed
-export function RemoveMemberAdminForm({
-  memberId,
-  organizationId,
-  organizationName,
-}) {
-  const member = { memberId, organizationName, organizationId }
+export function RemoveMemberAdminForm({ userId, orgId, name }) {
+  const member = { userId, name, orgId }
   const router = useRouter()
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)
   }
   const sendData = async (memberData) => {
-    const response = await fetch('/api/organizations/memberremove', {
-      method: 'PATCH',
+    const response = await fetch('/api/organizations/members', {
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -66,7 +58,7 @@ export function RemoveMemberAdminForm({
     await response.json
     if (response.status === 200) {
       toast.success(`You removed this member.`)
-      Router.reload()
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'

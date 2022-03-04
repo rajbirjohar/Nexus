@@ -2,10 +2,9 @@ import useSWR from 'swr'
 import fetcher from '@/lib/fetcher'
 import ErrorFetch from '../../Layout/ErrorFetch'
 import Comment from './Comment'
-import TimeAgo from 'react-timeago'
 import styles from './comment.module.css'
 
-export default function ListComments({ eventId, organizationId }) {
+export default function ListComments({ eventId, isAdmin }) {
   const { data, error } = useSWR(`/api/events/comments/${eventId}`, fetcher, {
     refreshInterval: 1000,
   })
@@ -21,13 +20,13 @@ export default function ListComments({ eventId, organizationId }) {
       {data.comments.map((comment) => (
         <Comment
           key={comment._id}
-          organizationId={organizationId}
           eventId={eventId}
           commentId={comment._id}
           comment={comment.comment}
           authorId={comment.authorId}
           author={comment.author}
-          date={<TimeAgo date={comment.createdAt} />}
+          isAdmin={isAdmin}
+          date={comment.createdAt}
         />
       ))}
     </div>

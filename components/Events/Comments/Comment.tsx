@@ -5,28 +5,19 @@ import styles from './comment.module.css'
 import CommentEditForm from './CommentEditForm'
 import { EditIcon, TrashIcon } from '../../Icons'
 import Dropdown from '@/components/Layout/Dropdown'
+import { format } from 'date-fns'
 
 const Comment = ({
-  organizationId,
   eventId,
   commentId,
   comment,
   authorId,
   author,
   date,
+  isAdmin,
 }) => {
   const { data: session } = useSession()
   const [isEdit, setIsEdit] = useState(false)
-
-  const isCreator =
-    session &&
-    session.user.creatorOfOrg &&
-    session.user.creatorOfOrg.includes(organizationId)
-  const isAdmin =
-    isCreator ||
-    (session &&
-      session.user.adminOfOrg &&
-      session.user.adminOfOrg.includes(organizationId))
 
   const deleteComment = { commentId, eventId }
   const handleSubmit = (event) => {
@@ -55,7 +46,9 @@ const Comment = ({
       <p className={styles.header}>
         <span>
           <span className={styles.author}>{author}</span>{' '}
-          <span className={styles.date}>{date}</span>
+          <time className={styles.date}>
+            {format(new Date(date), "'at' h:mm bbb")}
+          </time>
         </span>
         {((session && isAdmin) ||
           (session && session.user.id === authorId)) && (
@@ -85,7 +78,7 @@ const Comment = ({
       {isEdit ? (
         <CommentEditForm
           eventId={eventId}
-          oldComment={comment}
+          comment={comment}
           onHandleChange={setIsEdit}
           commentId={commentId}
         />

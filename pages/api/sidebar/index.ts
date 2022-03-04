@@ -13,7 +13,7 @@ export default async function handler(
       .aggregate([
         {
           $match: {
-            eventEndDate: { $gte: new Date() },
+            endDate: { $gte: new Date() },
           },
         },
         {

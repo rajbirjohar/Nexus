@@ -11,45 +11,27 @@ export default async function handler(
   const db = isConnected.db(process.env.MONGODB_DB)
   const session = await getSession({ req })
   if (session) {
-    const joinedOrganizations = await db
-      .collection('users')
-      .aggregate([
-        {
-          $match: { _id: new mongodb.ObjectId(session.user.id) },
-        },
-        {
-          $project: {
-            joinedOrgs: {
-              $setUnion: ['$adminOfOrg', '$memberOfOrg', ['$creatorOfOrg']],
-            },
-          },
-        },
-        {
-          $unwind: '$joinedOrgs',
-        },
-        {
-          $project: {
-            organizationId: '$joinedOrgs',
-          },
-        },
-      ])
+    const relations = await db
+      .collection('relations')
+      .find({ userId: new mongodb.ObjectId(session.user.id) })
       .toArray()
-    const flattenedArray = joinedOrganizations.map(
-      (org) => new mongodb.ObjectId(org.organizationId)
+
+    const relationsFlat = relations.map(
+      (relation) => new mongodb.ObjectId(relation.orgId)
     )
+
     const events = await db
       .collection('events')
       .find({
-        organizationId: { $in: flattenedArray },
-        eventEndDate: { $gte: new Date() },
+        orgId: { $in: relationsFlat },
+        endDate: { $gte: new Date() },
       })
       .toArray()
 
     return res.status(200).json({ events })
   } else {
     res.status(401).json({
-      error:
-        'Not signed in. Why are you trying to access sensitive information or attack my site? :(',
+      error: 'Not signed in.',
     })
   }
 }
