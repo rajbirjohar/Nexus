@@ -8,6 +8,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const session = await getSession({ req })
+  const { id } = req.query
   const isConnected = await clientPromise
   const db = isConnected.db(process.env.MONGO_DB)
   if (req.method === 'PATCH') {
@@ -38,7 +39,19 @@ export default async function handler(
   }
 
   if (req.method === 'GET') {
-    res.status(200).json({})
+    const comments = await db
+      .collection('comments')
+      .find({
+        eventId: new mongodb.ObjectId(id),
+        // Pagination
+        ...(req.query.before && {
+          createdAt: { $lt: new Date(req.query.before.toString()) },
+        }),
+      })
+      .sort({ createdAt: -1 })
+      .limit(parseInt(req.query.limit.toString(), 10))
+      .toArray()
+    return res.status(200).json({ comments })
   }
 
   if (req.method === 'POST') {
@@ -46,7 +59,6 @@ export default async function handler(
       const {
         commentData: { eventId, authorId, orgId, author, email, _comment },
       } = req.body
-
       await db.collection('comments').insertOne({
         eventId: new mongodb.ObjectId(eventId),
         authorId: new mongodb.ObjectId(authorId),

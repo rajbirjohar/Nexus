@@ -239,7 +239,13 @@ export default function Event({ event, creator, admins }) {
           )}
 
           {session ? (
-            <CommentsForm eventId={event._id} orgId={event.orgId} />
+            <CommentsForm
+              eventId={event._id}
+              orgId={event.orgId}
+              author={session.user.firstname || session.user.name}
+              authorId={session.user.id}
+              email={session.user.email}
+            />
           ) : (
             <p className={styles.subtitle}>Sign in to comment.</p>
           )}

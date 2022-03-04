@@ -30,7 +30,7 @@ export default function CommentEditForm({
   }
 
   const sendData = async (commentData) => {
-    const response = await fetch(`/api/events/comments`, {
+    const response = await fetch(`/api/events/${eventId}/comments`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',

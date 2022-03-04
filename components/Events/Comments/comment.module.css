@@ -94,3 +94,14 @@
 .secondary:hover {
   background-color: var(--teal-200);
 }
+
+.end {
+  font-weight: 600;
+  color: var(--gray-400);
+  text-align: center;
+}
+
+.load {
+  display: flex;
+  justify-content: center;
+}
