@@ -36,16 +36,12 @@ export async function getServerSideProps(context) {
   const eventByTag = await db
     .collection('events')
     .find({
-      eventTags: { id: id, text: id },
+      tags: { id: id, text: id },
     })
     .sort({ eventStartDate: -1 })
     .toArray()
 
-  const exists = await db
-    .collection('events')
-    .countDocuments({ eventTags: { id: id, text: id } })
-
-  if (exists < 1) {
+  if (eventByTag.length < 1) {
     return {
       notFound: true,
     }

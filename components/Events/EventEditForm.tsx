@@ -16,6 +16,7 @@ interface Event {
   _startDate: string
   _endDate: string
   _newImage: string | null
+  _commentlock: boolean
   _tags: [{ id: string; text: string }]
   image: string
   imagePublicId: string
@@ -29,6 +30,7 @@ export default function EventEditForm({
   endDate,
   image,
   imagePublicId,
+  commentlock,
   tags,
   onHandleChange,
 }) {
@@ -41,6 +43,7 @@ export default function EventEditForm({
     _startDate: zonedTimeToUtc(startDate, 'UTC').toISOString().substring(0, 16),
     _endDate: zonedTimeToUtc(endDate, 'UTC').toISOString().substring(0, 16),
     _newImage: null,
+    _commentlock: commentlock,
     _tags: tags,
     image: image,
     imagePublicId: imagePublicId,
@@ -193,6 +196,10 @@ export default function EventEditForm({
               <Field autoComplete="off" type="datetime-local" name="_endDate" />
             </div>
           </div>
+          <label className={formstyles.check}>
+            <Field autoComplete="off" type="checkbox" name="_commentlock" />
+            <strong>Lock Comments?</strong>
+          </label>
           <div className={formstyles.inputheader}>
             <label htmlFor="tags">
               <strong>Tags:</strong>

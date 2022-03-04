@@ -36,6 +36,7 @@ export default async function handler(
           _startDate,
           _endDate,
           _newImage,
+          _commentlock,
           _tags,
         },
       } = req.body
@@ -57,6 +58,7 @@ export default async function handler(
             details: _details,
             startDate: zonedTimeToUtc(_startDate, 'America/Los_Angeles'),
             endDate: zonedTimeToUtc(_endDate, 'America/Los_Angeles'),
+            commentlock: _commentlock,
             tags: _tags,
             imageURL: cloudinaryRes.secure_url,
             imagePublicId: cloudinaryRes.public_id,
@@ -95,6 +97,7 @@ export default async function handler(
           _startDate,
           _endDate,
           _image,
+          _commentlock,
           _tags,
         },
       } = req.body
@@ -113,6 +116,7 @@ export default async function handler(
         details: _details,
         startDate: zonedTimeToUtc(_startDate, 'America/Los_Angeles'),
         endDate: zonedTimeToUtc(_endDate, 'America/Los_Angeles'),
+        commentlock: _commentlock,
         tags: _tags,
         imageURL: cloudinaryRes.secure_url,
         imagePublicId: cloudinaryRes.public_id,

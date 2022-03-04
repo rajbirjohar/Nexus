@@ -140,6 +140,7 @@ export default function Event({ event, creator, admins }) {
               endDate={event.endDate}
               image={event.imageURL}
               imagePublicId={event.imagePublicId}
+              commentlock={event.commentlock}
               tags={event.tags}
               onHandleChange={setIsEdit}
             />
@@ -239,13 +240,19 @@ export default function Event({ event, creator, admins }) {
           )}
 
           {session ? (
-            <CommentsForm
-              eventId={event._id}
-              orgId={event.orgId}
-              author={session.user.firstname || session.user.name}
-              authorId={session.user.id}
-              email={session.user.email}
-            />
+            <>
+              {!event.commentlock ? (
+                <CommentsForm
+                  eventId={event._id}
+                  orgId={event.orgId}
+                  author={session.user.firstname || session.user.name}
+                  authorId={session.user.id}
+                  email={session.user.email}
+                />
+              ) : (
+                <p className={styles.subtitle}>Comments are locked.</p>
+              )}
+            </>
           ) : (
             <p className={styles.subtitle}>Sign in to comment.</p>
           )}
