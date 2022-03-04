@@ -79,7 +79,9 @@ const Comment = ({
         <CommentEditForm
           eventId={eventId}
           comment={comment}
-          onHandleChange={setIsEdit}
+          authorId={authorId}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
           commentId={commentId}
         />
       ) : (

@@ -16,16 +16,17 @@ export default async function handler(
       const {
         orgData: {
           orgId,
-          _name,
-          _tagline,
-          _details,
-          _site,
-          _instagram,
-          _facebook,
-          _twitter,
-          _slack,
-          _discord,
-          _newImage,
+          // Don't allow editing org names for now
+          // name,
+          tagline,
+          details,
+          site,
+          instagram,
+          facebook,
+          twitter,
+          slack,
+          discord,
+          newImage,
           image,
           imagePublicId,
         },
@@ -37,23 +38,23 @@ export default async function handler(
       if (image) {
         await cloudinary.uploader.destroy(imagePublicId)
       }
-      if (_newImage) {
-        cloudinaryRes = await cloudinary.uploader.upload(_newImage)
+      if (newImage) {
+        cloudinaryRes = await cloudinary.uploader.upload(newImage)
       }
 
       await db.collection('organizations').updateOne(
         { _id: new mongodb.ObjectId(orgId) },
         {
           $set: {
-            name: _name,
-            tagline: _tagline,
-            details: _details,
-            site: _site,
-            instagram: _instagram,
-            facebook: _facebook,
-            twitter: _twitter,
-            slack: _slack,
-            discord: _discord,
+            // name: name,
+            tagline: tagline,
+            details: details,
+            site: site,
+            instagram: instagram,
+            facebook: facebook,
+            twitter: twitter,
+            slack: slack,
+            discord: discord,
             imageURL: cloudinaryRes.secure_url,
             imagePublicId: cloudinaryRes.public_id,
           },
@@ -86,19 +87,19 @@ export default async function handler(
           creatorFirstName,
           creatorLastName,
           email,
-          _name,
-          _tagline,
-          _details,
-          _image,
-          _site,
-          _instagram,
-          _facebook,
-          _twitter,
-          _slack,
-          _discord,
+          name,
+          tagline,
+          details,
+          image,
+          site,
+          instagram,
+          facebook,
+          twitter,
+          slack,
+          discord,
         },
       } = req.body
-      const cloudinaryRes = await cloudinary.uploader.upload(_image, {
+      const cloudinaryRes = await cloudinary.uploader.upload(image, {
         width: 512,
         height: 512,
         radius: 'max',
@@ -106,7 +107,7 @@ export default async function handler(
       })
       const nameTaken = await db
         .collection('organizations')
-        .find({ name: _name })
+        .find({ name: name })
         .count()
       if (nameTaken > 0) {
         res
@@ -118,24 +119,24 @@ export default async function handler(
           creatorFirstName: creatorFirstName,
           creatorLastName: creatorLastName,
           email: email,
-          name: _name,
-          tagline: _tagline,
-          details: _details,
-          site: _site,
-          instagram: _instagram,
-          facebook: _facebook,
-          twitter: _twitter,
-          slack: _slack,
-          discord: _discord,
+          name: name,
+          tagline: tagline,
+          details: details,
+          site: site,
+          instagram: instagram,
+          facebook: facebook,
+          twitter: twitter,
+          slack: slack,
+          discord: discord,
           imageURL: cloudinaryRes.secure_url,
           imagePublicId: cloudinaryRes.public_id,
         })
 
         await db.collection('relations').insertOne({
           userId: new mongodb.ObjectId(session.user.id),
-          userFirstName: session.user.name || session.user.firstname,
-          userLastName: session.user.lastname,
-          userEmail: session.user.email,
+          firstname: session.user.name || session.user.firstname,
+          lastname: session.user.lastname,
+          email: session.user.email,
           orgId: new mongodb.ObjectId(org.insertedId),
           role: 'creator',
         })
@@ -186,6 +187,12 @@ export default async function handler(
         await db
           .collection('events')
           .deleteMany({ orgId: new mongodb.ObjectId(orgId) })
+          
+        // Delete all comments associated with events associated with this org
+        await db
+          .collection('comments')
+          .deleteMany({ orgId: new mongodb.ObjectId(orgId) })
+
         // Delete the org itself
         const result = await db
           .collection('organizations')

@@ -17,9 +17,9 @@ export default async function handler(
           orgId,
           org,
           userId,
-          userFirstName,
-          userLastName,
-          userEmail,
+          firstname,
+          lastname,
+          email,
           role,
         },
       } = req.body
@@ -39,9 +39,9 @@ export default async function handler(
       } else {
         await db.collection('relations').insertOne({
           userId: new mongodb.ObjectId(userId),
-          userFirstName: userFirstName,
-          userLastName: userLastName,
-          userEmail: userEmail,
+          firstname: firstname,
+          lastname: lastname,
+          email: email,
           orgId: new mongodb.ObjectId(orgId),
           org: org,
           role: role,
@@ -60,12 +60,12 @@ export default async function handler(
   if (req.method === 'DELETE') {
     if (session) {
       const {
-        memberData: { userId, orgId },
+        memberData: { userId, orgId, role },
       } = req.body
       await db.collection('relations').deleteOne({
         orgId: new mongodb.ObjectId(orgId),
         userId: new mongodb.ObjectId(userId),
-        role: 'member',
+        role: role,
       })
       res.status(200).json({ message: 'Success.' })
     } else {

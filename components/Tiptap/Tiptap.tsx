@@ -176,11 +176,8 @@ const Tiptap = (props) => {
   let rawHtml =
     oldContent ||
     `
-  <h3>
-    Hi there, 
-  </h3>
    <p>
-   What do you want to share with the world today?
+   What do <i>you</i> want to share with the <b>whole wide world</b> today?
    </p>
 `
 
@@ -197,15 +194,23 @@ const Tiptap = (props) => {
       editor.on('update', ({ editor }) => {
         // set the new field value so we don't have to double click in order for
         // isSubmitting prop to record the new value
-        rawHtml = editor.getHTML()
-        setFieldValue(name, rawHtml)
+        setFieldValue(name, editor.getHTML())
       })
     }
+    // Supress warning for setFieldValue and name
+    /* eslint-disable */
   }, [editor])
 
   if (!editor) {
     return null
   }
+
+  editor.on('focus', ({ editor }) => {
+    // If not editing, clear the placeholder text
+    if (!oldContent) {
+      editor.commands.clearContent()
+    }
+  })
 
   return (
     <div>

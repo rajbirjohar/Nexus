@@ -9,32 +9,32 @@ import { AnimatePresence, motion } from 'framer-motion'
 import toast from 'react-hot-toast'
 import OpportunityEditForm from './OpportunityEditForm'
 
-    const deleteTextWrapper = {
-        closed: {
-        width: '0',
-        transition: {
-            when: 'afterChildren',
-        },
-        },
-        open: {
-        width: 'auto',
-        },
-    }
-  
-  const deleteText = {
-    closed: {
-      opacity: 0,
-      transition: {
-        duration: 0.15,
-      },
+const deleteTextWrapper = {
+  closed: {
+    width: '0',
+    transition: {
+      when: 'afterChildren',
     },
-    open: {
-      opacity: 1,
-      transition: {
-        delay: 0.15,
-      },
+  },
+  open: {
+    width: 'auto',
+  },
+}
+
+const deleteText = {
+  closed: {
+    opacity: 0,
+    transition: {
+      duration: 0.15,
     },
-  }
+  },
+  open: {
+    opacity: 1,
+    transition: {
+      delay: 0.15,
+    },
+  },
+}
 
 export default function OpportunityCard({
   authorId,
@@ -56,7 +56,10 @@ export default function OpportunityCard({
     }
   }, [])
   const handleClickOutside = (opportunity) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(opportunity.target)) {
+    if (
+      wrapperRef.current &&
+      !wrapperRef.current.contains(opportunity.target)
+    ) {
       setIsDelete(false)
     }
   }
@@ -94,135 +97,78 @@ export default function OpportunityCard({
   ]
   return (
     <div id={authorId} className={styles.opportunitycard}>
-        {isEdit ? (
-            <OpportunityEditForm
-                authorId={authorId}
-                author={author}
-                email={email}
-                _oldName={name}
-                _oldDetails={details}
-                _oldEndDate={endDate}
-                _oldTags={tags}
-                onHandleChange={setIsEdit}
-            />
-        ) : (
-            <div>
-                <span className={styles.header}>
-                    <h3 className={styles.title}>{name}</h3>
-                    <p className={styles.author}>
-                    <strong>By {author} {'- '} {email} </strong>
-                    </p>
-                </span>
-                
-                <time className={styles.date}>
-                {'Application Due:'} {endMonth} {endDay} {endHour}
-                </time>
+      {isEdit ? (
+        <OpportunityEditForm
+          authorId={authorId}
+          author={author}
+          email={email}
+          _oldName={name}
+          _oldDetails={details}
+          _oldEndDate={endDate}
+          _oldTags={tags}
+          onHandleChange={setIsEdit}
+        />
+      ) : (
+        <div>
+          <span className={styles.header}>
+            <h3 className={styles.title}>{name}</h3>
+            <p className={styles.author}>
+              <strong>
+                By {author} {'- '} {email}{' '}
+              </strong>
+            </p>
+          </span>
 
-                <div dangerouslySetInnerHTML={{ __html: `${details}` }} />
+          <time className={styles.date}>
+            {'Application Due:'} {endMonth} {endDay} {endHour}
+          </time>
 
-            {tags && (
+          <div dangerouslySetInnerHTML={{ __html: `${details}` }} />
+
+          {tags && (
             <div className={styles.tagwrapper}>
-                {tags.map((tag) => (
+              {tags.map((tag) => (
                 <span key={tag.id} className={styles.tag}>
-                    {tag.text}
+                  {tag.text}
                 </span>
-                ))}
+              ))}
             </div>
-            )}
+          )}
 
-
-            {session && session.user.id === authorId && (
-                <div className={formstyles.actions}>
-                    <button
-                        onClick={confirmDelete}
-                        className={formstyles.delete}
-                        ref={wrapperRef}
+          {session && session.user.id === authorId && (
+            <div className={formstyles.actions}>
+              <button
+                onClick={confirmDelete}
+                className={formstyles.delete}
+                ref={wrapperRef}
+              >
+                <TrashIcon />
+                <AnimatePresence exitBeforeEnter>
+                  {isDelete && (
+                    <motion.span
+                      variants={deleteTextWrapper}
+                      animate={isDelete ? 'open' : 'closed'}
+                      initial="closed"
+                      exit="closed"
                     >
-                        <TrashIcon />
-                        <AnimatePresence exitBeforeEnter>
-                        {isDelete && (
-                            <motion.span
-                            variants={deleteTextWrapper}
-                            animate={isDelete ? 'open' : 'closed'}
-                            initial="closed"
-                            exit="closed"
-                            >
-                            <motion.span variants={deleteText}>Confirm</motion.span>
-                            </motion.span>
-                        )}
-                        </AnimatePresence>
-                    </button>
+                      <motion.span variants={deleteText}>Confirm</motion.span>
+                    </motion.span>
+                  )}
+                </AnimatePresence>
+              </button>
 
-                    <button
-                        onClick={() => {
-                        setIsEdit(!isEdit)
-                        }}
-                        className={formstyles.edit}
-                    >
-                        <EditIcon />
-                    </button>
-                </div>
-            )}
+              <button
+                onClick={() => {
+                  setIsEdit(!isEdit)
+                }}
+                className={formstyles.edit}
+              >
+                <EditIcon />
+              </button>
+            </div>
+          )}
         </div>
-        )}
+      )}
     </div>
-        // <div id={authorId} className={styles.opportunitycard}>
-        //     <span className={styles.header}>
-        //         <h3 className={styles.title}>{name}</h3>
-        //         <p className={styles.author}>
-        //         <strong>By {author} {'- '} {email} </strong>
-        //         </p>
-        //     </span>
-            
-        //     <time className={styles.date}>
-        //     {'Application Due:'} {endMonth} {endDay} {endHour}
-        //     </time>
-
-        //     <p className="clamp-2">{strippedOpportunityDetails}</p>
-
-        //     {tags && (
-        //     <div className={styles.tagwrapper}>
-        //         {tags.map((tag) => (
-        //         <span key={tag.id} className={styles.tag}>
-        //             {tag.text}
-        //         </span>
-        //         ))}
-        //     </div>
-        //     )}
-
-
-        //     {session && session.user.id === authorId && (
-        //         <div className={formstyles.actions}>
-        //         <button
-        //             onClick={confirmDelete}
-        //             className={formstyles.delete}
-        //             ref={wrapperRef}
-        //         >
-        //             <TrashIcon />
-        //             <AnimatePresence exitBeforeEnter>
-        //             {isDelete && (
-        //                 <motion.span
-        //                 variants={deleteTextWrapper}
-        //                 animate={isDelete ? 'open' : 'closed'}
-        //                 initial="closed"
-        //                 exit="closed"
-        //                 >
-        //                 <motion.span variants={deleteText}>Confirm</motion.span>
-        //                 </motion.span>
-        //             )}
-        //             </AnimatePresence>
-        //         </button>
-
-        //         <button
-        //             onClick={() => {
-        //             setIsEdit(!isEdit)
-        //             }}
-        //             className={formstyles.edit}
-        //         >
-        //             <EditIcon />
-        //         </button>
-        //         </div>
-        //     )}
-        // </div>
-    )
+  )
 }

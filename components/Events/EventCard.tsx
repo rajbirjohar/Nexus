@@ -4,13 +4,13 @@ import styles from './card.module.css'
 
 export default function EventCard({
   eventId,
-  orgName,
+  org,
   name,
   details,
   startDate,
   endDate,
   tags,
-}) {
+}: OrgEvent) {
   // To remove all markdown tags from the details sections
   const strippedEventDetails = details.replace(/(<([^>]+)>)/gi, ' ')
   const [startMonth, startDay, startYear, startHour] = [
@@ -27,13 +27,13 @@ export default function EventCard({
   ]
   return (
     <Link href={`/organizations/${name}/${eventId}`} passHref>
-      <div id={eventId} className={styles.card}>
+      <div className={styles.card}>
         {new Date(endDate) < new Date() && (
           <span className={styles.expired}>Expired</span>
         )}
         <h3 className={styles.title}>{name}</h3>
         <p className={styles.author}>
-          <strong>By {orgName}</strong>
+          <strong>By {org}</strong>
         </p>
         <time className={styles.date}>
           {/* Always display start month day and time */}

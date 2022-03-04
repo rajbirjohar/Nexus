@@ -9,17 +9,13 @@ import Tags from '../Tags/Tags'
 import { useRouter } from 'next/router'
 import { zonedTimeToUtc } from 'date-fns-tz'
 
-interface Event {
-  eventId: string
-  _name: string
-  _details: string
-  _startDate: string
-  _endDate: string
-  _newImage: string | null
-  _commentlock: boolean
-  _tags: [{ id: string; text: string }]
-  image: string
-  imagePublicId: string
+interface Edit {
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>
+  isEdit: boolean
+}
+
+interface NewImage {
+  newImage: string
 }
 
 export default function EventEditForm({
@@ -32,19 +28,20 @@ export default function EventEditForm({
   imagePublicId,
   commentlock,
   tags,
-  onHandleChange,
-}) {
+  setIsEdit,
+  isEdit,
+}: OrgEvent & Edit) {
   const router = useRouter()
-  const initialValues: Event = {
+  const initialValues: OrgEvent & NewImage = {
     eventId: eventId,
-    _name: name,
-    _details: details,
-    // Time = :(
-    _startDate: zonedTimeToUtc(startDate, 'UTC').toISOString().substring(0, 16),
-    _endDate: zonedTimeToUtc(endDate, 'UTC').toISOString().substring(0, 16),
-    _newImage: null,
-    _commentlock: commentlock,
-    _tags: tags,
+    name: name,
+    details: details,
+    // Need to convert so it displays properly in the input
+    startDate: zonedTimeToUtc(startDate, 'UTC').toISOString().substring(0, 16),
+    endDate: zonedTimeToUtc(endDate, 'UTC').toISOString().substring(0, 16),
+    newImage: null,
+    commentlock: commentlock,
+    tags: tags,
     image: image,
     imagePublicId: imagePublicId,
   }
@@ -72,54 +69,54 @@ export default function EventEditForm({
     <Formik
       validateOnBlur={false}
       initialValues={initialValues}
-      validate={(values: Event) => {
-        let errors: FormikErrors<Event> = {}
-        if (!values._name) {
-          errors._name = 'Required'
+      validate={(values: OrgEvent) => {
+        let errors: FormikErrors<OrgEvent> = {}
+        if (!values.name) {
+          errors.name = 'Required'
         }
-        if (!values._details) {
-          errors._details = 'Required'
+        if (!values.details) {
+          errors.details = 'Required'
         }
-        if (!values._startDate) {
-          errors._startDate = 'Required'
+        if (!values.startDate) {
+          errors.startDate = 'Required'
         }
-        if (!values._endDate) {
-          errors._endDate = 'Required'
-        } else if (new Date(values._endDate) < new Date(values._startDate)) {
-          errors._endDate = 'End date is before start date'
-        } else if (new Date(values._endDate) < new Date()) {
-          errors._endDate = 'End date has passed'
+        if (!values.endDate) {
+          errors.endDate = 'Required'
+        } else if (new Date(values.endDate) < new Date(values.startDate)) {
+          errors.endDate = 'End date is before start date'
+        } else if (new Date(values.endDate) < new Date()) {
+          errors.endDate = 'End date has passed'
         }
         if (
-          values._name === name &&
-          values._details === details &&
-          values._startDate === startDate &&
-          values._endDate === endDate
+          values.name === name &&
+          values.details === details &&
+          values.startDate === startDate &&
+          values.endDate === endDate
         ) {
-          errors._name = 'You made no changes'
-          errors._details = 'You made no changes'
-          errors._startDate = 'You made no changes'
-          errors._endDate = 'You made no changes'
+          errors.name = 'You made no changes'
+          errors.details = 'You made no changes'
+          errors.startDate = 'You made no changes'
+          errors.endDate = 'You made no changes'
         }
-        if (values._tags.length > 10) {
-          errors._tags = 'Too many tags'
+        if (values.tags.length > 10) {
+          errors.tags = 'Too many tags'
         } else if (
-          values._tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
-            .length > 0
+          values.tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text)).length >
+          0
         ) {
-          errors._tags = 'Alphanumeric characters only'
+          errors.tags = 'Alphanumeric characters only'
         }
         return errors
       }}
       onSubmit={(values, { setSubmitting }) => {
         sendData(values)
-        !onHandleChange()
+        setIsEdit(!isEdit)
         setSubmitting(false)
       }}
     >
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
-          <label htmlFor="_newImage">
+          <label htmlFor="newImage">
             <strong>
               Event Banner:
               <br />
@@ -128,47 +125,47 @@ export default function EventEditForm({
               </span>
             </strong>
           </label>
-          <ImageDropzone setFieldValue={setFieldValue} name="_newImage" />
+          <ImageDropzone setFieldValue={setFieldValue} name="newImage" />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_name">
+            <label htmlFor="name">
               <strong>
                 Event Name: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_name">
+            <ErrorMessage name="name">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
-            name="_name"
+            name="name"
             type="text"
             placeholder="Scotty's Birthday"
           />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_details">
+            <label htmlFor="details">
               <strong>
                 Event Details: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_details">
+            <ErrorMessage name="details">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Tiptap
             setFieldValue={setFieldValue}
-            name="_details"
-            oldContent={values._details}
+            name="details"
+            oldContent={values.details}
           />
           <div className={formstyles.datewrapper}>
             <div className={formstyles.dateinput}>
               <div className={formstyles.inputheader}>
-                <label htmlFor="_startDate">
+                <label htmlFor="startDate">
                   <strong>
                     Event Start Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_startDate">
+                <ErrorMessage name="startDate">
                   {(message) => (
                     <span className={formstyles.error}>{message}</span>
                   )}
@@ -177,27 +174,27 @@ export default function EventEditForm({
               <Field
                 autoComplete="off"
                 type="datetime-local"
-                name="_startDate"
+                name="startDate"
               />
             </div>
             <div className={formstyles.dateinput}>
               <div className={formstyles.inputheader}>
-                <label htmlFor="_endDate">
+                <label htmlFor="endDate">
                   <strong>
                     Event End Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_endDate">
+                <ErrorMessage name="endDate">
                   {(message) => (
                     <span className={formstyles.error}>{message}</span>
                   )}
                 </ErrorMessage>
               </div>
-              <Field autoComplete="off" type="datetime-local" name="_endDate" />
+              <Field autoComplete="off" type="datetime-local" name="endDate" />
             </div>
           </div>
           <label className={formstyles.check}>
-            <Field autoComplete="off" type="checkbox" name="_commentlock" />
+            <Field autoComplete="off" type="checkbox" name="commentlock" />
             <strong>Lock Comments?</strong>
           </label>
           <div className={formstyles.inputheader}>
@@ -208,7 +205,7 @@ export default function EventEditForm({
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tags setFieldValue={setFieldValue} name="_tags" oldTags={tags} />
+          <Tags setFieldValue={setFieldValue} name="tags" oldTags={tags} />
           <span className={styles.actions}>
             <button
               className={formstyles.secondary}

@@ -1,4 +1,3 @@
-import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import useSlider from './Slider'
@@ -6,35 +5,22 @@ import formstyles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
 import Tiptap from '../Tiptap/Tiptap'
 
-interface Review {
-  authorId: string
-  author: string
-  _review: string
-  _professor: string
-  _course: string
-  _courseId: string
-  _taken: string
-  _difficulty: number
-  _anonymous: boolean
-}
-
-export default function ReviewForm({ course, courseId }) {
-  // useSlider hook
+export default function ReviewForm({ course, courseId }: Course) {
   const [slideValue, Slider] = useSlider(1, 10, 5)
   const { data: session } = useSession()
   const initialValues: Review = {
     authorId: session.user.id,
     author: session.user.firstname || session.user.name,
-    _review: '',
-    _professor: '',
-    _course: course,
-    _courseId: courseId,
-    _taken: '',
-    _difficulty: slideValue,
-    _anonymous: true,
+    review: '',
+    professor: '',
+    course: course,
+    courseId: courseId,
+    taken: '',
+    difficulty: slideValue,
+    anonymous: true,
   }
 
-  const sendData = async (reviewData) => {
+  const sendData = async (reviewData: Review) => {
     const response = await fetch('/api/reviews', {
       method: 'POST',
       headers: {
@@ -58,14 +44,14 @@ export default function ReviewForm({ course, courseId }) {
       initialValues={initialValues}
       validate={(values: Review) => {
         let errors: FormikErrors<Review> = {}
-        if (!values._review) {
-          errors._review = 'Required'
+        if (!values.review) {
+          errors.review = 'Required'
         }
-        if (!values._professor) {
-          errors._professor = 'Required'
+        if (!values.professor) {
+          errors.professor = 'Required'
         }
-        if (!values._taken) {
-          errors._taken = 'Required'
+        if (!values.taken) {
+          errors.taken = 'Required'
         }
         return errors
       }}
@@ -75,13 +61,13 @@ export default function ReviewForm({ course, courseId }) {
           values: {
             authorId: session.user.id,
             author: session.user.firstname || session.user.name,
-            _review: '',
-            _professor: '',
-            _course: course,
-            _courseId: courseId,
-            _taken: '',
-            _difficulty: slideValue,
-            _anonymous: true,
+            review: '',
+            professor: '',
+            course: course,
+            courseId: courseId,
+            taken: '',
+            difficulty: slideValue,
+            anonymous: true,
           },
         })
         setSubmitting(false)
@@ -90,55 +76,55 @@ export default function ReviewForm({ course, courseId }) {
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className={formstyles.inputheader}>
-            <label htmlFor="_review">
+            <label htmlFor="review">
               <strong>
                 Review: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_review">
+            <ErrorMessage name="review">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tiptap setFieldValue={setFieldValue} name="_review" />
+          <Tiptap setFieldValue={setFieldValue} name="review" />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_professor">
+            <label htmlFor="professor">
               <strong>
                 Professor: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_professor">
+            <ErrorMessage name="professor">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
             type="text"
-            name="_professor"
+            name="professor"
             placeholder='"Professor Scotty"'
           />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_taken">
+            <label htmlFor="taken">
               <strong>
                 Taken: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_taken">
+            <ErrorMessage name="taken">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
             type="text"
-            name="_taken"
+            name="taken"
             placeholder='"Winter 1907"'
           />
           <label className={formstyles.check}>
-            <Field autoComplete="off" type="checkbox" name="_anonymous" />
+            <Field autoComplete="off" type="checkbox" name="anonymous" />
             <strong>Anonymous?</strong>
           </label>
-          <label htmlFor="_difficulty">
+          <label htmlFor="difficulty">
             <br />
-            <strong>Difficulty: {values._difficulty}</strong>
+            <strong>Difficulty: {values.difficulty}</strong>
           </label>
           <Slider />
           <span className={formstyles.actions}>

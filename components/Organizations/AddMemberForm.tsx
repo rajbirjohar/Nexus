@@ -3,23 +3,30 @@ import toast from 'react-hot-toast'
 import formstyles from '@/styles/form.module.css'
 import { useSession } from 'next-auth/react'
 
-export default function AddMemberForm({ orgId, org }) {
-  const { data: session } = useSession()
+export default function AddMemberForm({
+  orgId,
+  org,
+  userId,
+  firstname,
+  lastname,
+  email,
+  role,
+}: Relation) {
   const router = useRouter()
-  const member = {
+  const member: Relation = {
     orgId: orgId,
     org: org,
-    userId: session.user.id,
-    userFirstName: session.user.firstname || session.user.name,
-    userLastName: session.user.lastname,
-    userEmail: session.user.email,
-    role: 'member',
+    userId: userId,
+    firstname: firstname,
+    lastname: lastname,
+    email: email,
+    role: role,
   }
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)
   }
-  const sendData = async (memberData) => {
+  const sendData = async (memberData: Relation) => {
     const response = await fetch('/api/organizations/members', {
       method: 'POST',
       headers: {

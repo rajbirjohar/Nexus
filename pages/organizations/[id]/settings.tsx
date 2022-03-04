@@ -34,6 +34,8 @@ export default function Settings({ organization, creator }) {
       router.push('/')
       toast.error('Unauthorized.')
     }
+    // Run only once
+    /* eslint-disable */
   }, [])
 
   return (
@@ -75,6 +77,7 @@ export default function Settings({ organization, creator }) {
                 <TransferOwnerForm
                   orgId={organization._id}
                   origCreatorId={session.user.id}
+                  role="creator"
                 />
               </div>
               <div className={styles.danger}>

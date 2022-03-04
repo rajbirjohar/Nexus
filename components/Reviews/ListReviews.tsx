@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ReviewCard from '@/components/Reviews/ReviewCard'
 import NotFound from '../notFound'
-import TimeAgo from 'react-timeago'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import { SearchIcon } from '../Icons'
@@ -18,7 +17,7 @@ export default function ListReviews({ courseId }) {
     : []
 
   const filteredReviews = Object(reviews).filter(
-    (review) =>
+    (review: Review) =>
       review.professor.toLowerCase().includes(searchValue.toLowerCase()) ||
       review.review.toLowerCase().includes(searchValue.toLowerCase()) ||
       review.taken.toLowerCase().includes(searchValue.toLowerCase())
@@ -47,19 +46,19 @@ export default function ListReviews({ courseId }) {
         <NotFound placeholder="review" />
       )}
       <div className={cardstyles.gridtall}>
-        {filteredReviews.map((post) => (
+        {filteredReviews.map((review) => (
           <ReviewCard
-            key={post._id}
-            reviewId={post._id}
-            authorId={post.authorId}
-            author={post.author}
-            course={post.course}
-            review={post.review}
-            professor={post.professor}
-            taken={post.taken}
-            difficulty={post.difficulty}
-            anonymous={post.anonymous}
-            timestamp={<TimeAgo date={post.createdAt} />}
+            key={review._id}
+            reviewId={review._id}
+            authorId={review.authorId}
+            author={review.author}
+            course={review.course}
+            review={review.review}
+            professor={review.professor}
+            taken={review.taken}
+            difficulty={review.difficulty}
+            anonymous={review.anonymous}
+            timestamp={review.createdAt}
           />
         ))}
         {isReachingEnd ? (
@@ -74,43 +73,4 @@ export default function ListReviews({ courseId }) {
       </div>
     </section>
   )
-  // const { data, error } = useSWR(`/api/reviews/${courseId}`, fetcher, {
-  //   refreshInterval: 1000,
-  // })
-  // const [searchValue, setSearchValue] = useState('')
-  // if (error) {
-  //   return <ErrorFetch placeholder="reviews" />
-  // }
-  // if (!data) {
-  //   return <Loader />
-  // }
-  // const filteredReviews = Object(data.reviews).filter(
-  //   (review) =>
-  //     review.professor.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //     review.review.toLowerCase().includes(searchValue.toLowerCase()) ||
-  //     review.taken.toLowerCase().includes(searchValue.toLowerCase())
-  // )
-  // return (
-  //   <div>
-  // {data.reviews.length === 0 ? (
-  //   <div className={formstyles.notFound}>
-  //     <p>Be the first one to write a review!</p>
-  //   </div>
-  // ) : (
-  // <div className={formstyles.searchwrapper}>
-  //   <input
-  //     autoComplete="off"
-  //     aria-label="Enabled Searchbar"
-  //     type="text"
-  //     onChange={(e) => setSearchValue(e.target.value)}
-  //     placeholder="Quarter, professor or review"
-  //     className={formstyles.search}
-  //   />
-  //   <SearchIcon />
-  // </div>
-  // )}
-
-  // {!filteredReviews.length && data.reviews.length !== 0 && (
-  //   <NotFound placeholder="review" />
-  // )}
 }

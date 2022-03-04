@@ -1,21 +1,20 @@
 import React from 'react'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
 interface Agreement {
   userId: string
-  _role: string
-  _agreement: string
+  role: string
+  agreement: string
 }
 
 export default function CreatorRoleForm({ userId }) {
-  const router = useRouter()
   const initialValues: Agreement = {
     userId: userId,
-    _role: 'precreator',
-    _agreement: ''
+    role: 'precreator',
+    agreement: '',
   }
   const sendData = async (roleData) => {
     const response = await fetch('/api/users/setrole', {
@@ -28,7 +27,7 @@ export default function CreatorRoleForm({ userId }) {
     await response.json()
     if (response.status === 200) {
       toast.success("You've set your role!")
-      router.replace(router.asPath)
+      Router.reload()
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
@@ -81,10 +80,10 @@ export default function CreatorRoleForm({ userId }) {
         initialValues={initialValues}
         validate={(values: Agreement) => {
           let errors: FormikErrors<Agreement> = {}
-          if (!values._agreement) {
-            errors._agreement = 'Required'
-          } else if (values._agreement !== 'I Love UCR') {
-            errors._agreement = 'Wrong answer'
+          if (!values.agreement) {
+            errors.agreement = 'Required'
+          } else if (values.agreement !== 'I Love UCR') {
+            errors.agreement = 'Wrong answer'
           }
           return errors
         }}
@@ -93,20 +92,20 @@ export default function CreatorRoleForm({ userId }) {
           setSubmitting(false)
         }}
       >
-        {({ values, handleSubmit, isSubmitting }) => (
+        {({ handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
-              <label htmlFor="_agreement">
+              <label htmlFor="agreement">
                 <strong>Confirm:</strong>
               </label>
-              <ErrorMessage name="_agreement">
+              <ErrorMessage name="agreement">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="text"
-              name="_agreement"
+              name="agreement"
               placeholder="Show your interest!"
               maxLength={10}
             />

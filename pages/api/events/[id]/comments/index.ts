@@ -14,7 +14,7 @@ export default async function handler(
   if (req.method === 'PATCH') {
     if (session) {
       const {
-        commentData: { eventId, _comment, commentId, authorId },
+        commentData: { eventId, comment, commentId, authorId },
       } = req.body
       await db.collection('comments').updateOne(
         {
@@ -24,7 +24,7 @@ export default async function handler(
         },
         {
           $set: {
-            comment: _comment,
+            comment: comment,
             createdAt: new Date(),
           },
         }
@@ -57,7 +57,7 @@ export default async function handler(
   if (req.method === 'POST') {
     if (session) {
       const {
-        commentData: { eventId, authorId, orgId, author, email, _comment },
+        commentData: { eventId, authorId, orgId, author, email, comment },
       } = req.body
       await db.collection('comments').insertOne({
         eventId: new mongodb.ObjectId(eventId),
@@ -66,7 +66,7 @@ export default async function handler(
         author: author,
         email: email,
         createdAt: new Date(),
-        comment: _comment,
+        comment: comment,
       })
       res.status(200).json({ message: 'Success.' })
     } else {

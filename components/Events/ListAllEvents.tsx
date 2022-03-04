@@ -76,7 +76,7 @@ export default function ListAllEvents() {
         {filteredEvents.map((event) => (
           <EventCard
             key={event._id}
-            orgName={event.orgName}
+            org={event.org}
             name={event.name}
             details={event.details}
             eventId={event._id}

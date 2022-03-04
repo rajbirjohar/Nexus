@@ -10,8 +10,7 @@
   display: flex;
   align-items: center;
   box-shadow: none;
-  transition: height 250ms ease-in-out, box-shadow 250ms ease-in-out,
-    background-color 250ms ease-in-out;
+  transition: height 250ms ease-in-out, box-shadow 250ms ease-in-out;
 }
 
 .mobilenav {

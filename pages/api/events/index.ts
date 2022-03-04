@@ -31,13 +31,13 @@ export default async function handler(
           eventId,
           imagePublicId,
           image,
-          _name,
-          _details,
-          _startDate,
-          _endDate,
-          _newImage,
-          _commentlock,
-          _tags,
+          name,
+          details,
+          startDate,
+          endDate,
+          newImage,
+          commentlock,
+          tags,
         },
       } = req.body
       let cloudinaryRes = {
@@ -47,19 +47,19 @@ export default async function handler(
       if (image) {
         await cloudinary.uploader.destroy(imagePublicId)
       }
-      if (_newImage) {
-        cloudinaryRes = await cloudinary.uploader.upload(_newImage)
+      if (newImage) {
+        cloudinaryRes = await cloudinary.uploader.upload(newImage)
       }
       await db.collection('events').updateOne(
         { _id: new mongodb.ObjectId(eventId) },
         {
           $set: {
-            name: _name,
-            details: _details,
-            startDate: zonedTimeToUtc(_startDate, 'America/Los_Angeles'),
-            endDate: zonedTimeToUtc(_endDate, 'America/Los_Angeles'),
-            commentlock: _commentlock,
-            tags: _tags,
+            name: name,
+            details: details,
+            startDate: zonedTimeToUtc(startDate, 'America/Los_Angeles'),
+            endDate: zonedTimeToUtc(endDate, 'America/Los_Angeles'),
+            commentlock: commentlock,
+            tags: tags,
             imageURL: cloudinaryRes.secure_url,
             imagePublicId: cloudinaryRes.public_id,
             createdAt: new Date(),
@@ -90,15 +90,15 @@ export default async function handler(
     if (session) {
       const {
         eventData: {
-          orgName,
+          org,
           orgId,
-          _name,
-          _details,
-          _startDate,
-          _endDate,
-          _image,
-          _commentlock,
-          _tags,
+          name,
+          details,
+          startDate,
+          endDate,
+          image,
+          commentlock,
+          tags,
         },
       } = req.body
       // Since we only need secure_url and public_id, set as null
@@ -106,18 +106,18 @@ export default async function handler(
       // "undefined error"
 
       let cloudinaryRes = { secure_url: null, public_id: null }
-      if (_image) {
-        cloudinaryRes = await cloudinary.uploader.upload(_image)
+      if (image) {
+        cloudinaryRes = await cloudinary.uploader.upload(image)
       }
       await db.collection('events').insertOne({
         orgId: new mongodb.ObjectId(orgId),
-        orgName: orgName,
-        name: _name,
-        details: _details,
-        startDate: zonedTimeToUtc(_startDate, 'America/Los_Angeles'),
-        endDate: zonedTimeToUtc(_endDate, 'America/Los_Angeles'),
-        commentlock: _commentlock,
-        tags: _tags,
+        org: org,
+        name: name,
+        details: details,
+        startDate: zonedTimeToUtc(startDate, 'America/Los_Angeles'),
+        endDate: zonedTimeToUtc(endDate, 'America/Los_Angeles'),
+        commentlock: commentlock,
+        tags: tags,
         imageURL: cloudinaryRes.secure_url,
         imagePublicId: cloudinaryRes.public_id,
         createdAt: new Date(),

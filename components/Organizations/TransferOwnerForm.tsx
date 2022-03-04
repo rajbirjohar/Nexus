@@ -1,23 +1,23 @@
-import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
-interface NewOwner {
-  orgId: string
+interface Agreement {
   origCreatorId: string
-  _email: string
-  _confirmEmail: string
+  confirmEmail?: string
 }
 
-export default function TransferOwnerForm({ orgId, origCreatorId }) {
-  const initialValues: NewOwner = {
+export default function TransferOwnerForm({
+  orgId,
+  origCreatorId,
+}: Relation & Agreement) {
+  const initialValues: Relation & Agreement = {
     orgId: orgId,
     origCreatorId: origCreatorId,
-    _email: '',
-    _confirmEmail: '',
+    email: '',
+    confirmEmail: '',
   }
-  const sendData = async (adminData) => {
+  const sendData = async (adminData: Relation & Agreement) => {
     const response = await fetch('/api/organizations/transferowner', {
       method: 'POST',
       headers: {
@@ -51,21 +51,21 @@ export default function TransferOwnerForm({ orgId, origCreatorId }) {
       <Formik
         validateOnBlur={false}
         initialValues={initialValues}
-        validate={(values: NewOwner) => {
-          let errors: FormikErrors<NewOwner> = {}
-          if (!values._email) {
-            errors._email = 'Required'
-          } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values._email)) {
-            errors._email = 'Wrong email format'
+        validate={(values: Relation & Agreement) => {
+          let errors: FormikErrors<Relation & Agreement> = {}
+          if (!values.email) {
+            errors.email = 'Required'
+          } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values.email)) {
+            errors.email = 'Wrong email format'
           }
-          if (!values._confirmEmail) {
-            errors._confirmEmail = 'Required'
-          } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values._confirmEmail)) {
-            errors._confirmEmail = 'Wrong email format'
+          if (!values.confirmEmail) {
+            errors.confirmEmail = 'Required'
+          } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values.confirmEmail)) {
+            errors.confirmEmail = 'Wrong email format'
           }
-          if (values._email !== values._confirmEmail) {
-            errors._email = 'Emails do not match'
-            errors._confirmEmail = 'Emails do not match'
+          if (values.email !== values.confirmEmail) {
+            errors.email = 'Emails do not match'
+            errors.confirmEmail = 'Emails do not match'
           }
           return errors
         }}
@@ -75,8 +75,8 @@ export default function TransferOwnerForm({ orgId, origCreatorId }) {
             values: {
               orgId: orgId,
               origCreatorId: origCreatorId,
-              _email: '',
-              _confirmEmail: '',
+              email: '',
+              confirmEmail: '',
             },
           })
           setSubmitting(false)
@@ -85,32 +85,32 @@ export default function TransferOwnerForm({ orgId, origCreatorId }) {
         {({ values, handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
-              <label htmlFor="_email">
+              <label htmlFor="email">
                 <strong>Email:</strong>
               </label>
-              <ErrorMessage name="_email">
+              <ErrorMessage name="email">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="email"
-              name="_email"
+              name="email"
               placeholder="scotty001@ucr.edu"
               maxLength={20}
             />
             <div className={styles.inputheader}>
-              <label htmlFor="_confirmEmail">
+              <label htmlFor="confirmEmail">
                 <strong>Confirm Email:</strong>
               </label>
-              <ErrorMessage name="_confirmEmail">
+              <ErrorMessage name="confirmEmail">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="email"
-              name="_confirmEmail"
+              name="confirmEmail"
               placeholder="scotty001@ucr.edu"
               maxLength={20}
             />

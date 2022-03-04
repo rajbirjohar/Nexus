@@ -9,6 +9,7 @@
       "@/lib/*": ["lib/*"],
       "@/util/*": ["util/*"],
       "@/styles/*": ["styles/*"],
+      "@/hooks/*": ["hooks/*"],
       "@/lotties/*": ["lotties/*"]
     },
     "target": "es5",

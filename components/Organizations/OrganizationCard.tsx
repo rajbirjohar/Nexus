@@ -3,7 +3,11 @@ import styles from './card.module.css'
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function OrganizationCard({ name, tagline, image }) {
+export default function OrganizationCard({
+  name,
+  tagline,
+  image,
+}: Organization) {
   return (
     <Link href={`/organizations/${name}`} passHref>
       <div className={styles.card}>

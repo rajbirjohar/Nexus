@@ -21,20 +21,17 @@ export default async function handler(
   if (req.method === 'POST') {
     if (session) {
       const {
-        adminData: { orgId, _email },
+        adminData: { orgId, email },
       } = req.body
 
-      const user = await db
-        .collection('users')
-        .find({ email: _email })
-        .toArray()
+      const user = await db.collection('users').find({ email: email }).toArray()
 
       const creatorOrAdmin = await db
         .collection('relations')
         .find({
           orgId: new mongodb.ObjectId(orgId),
           role: { $in: ['creator', 'admin'] },
-          userEmail: _email,
+          email: email,
         })
         .count()
 
@@ -52,18 +49,18 @@ export default async function handler(
       await db.collection('relations').updateOne(
         {
           orgId: new mongodb.ObjectId(orgId),
-          userEmail: _email,
+          email: email,
         },
         {
           $set: {
             userId: new mongodb.ObjectId(
               user.map((user) => user._id).toString()
             ),
-            userFirstName:
+            firstname:
               user.map((user) => user.name).toString() ||
               user.map((user) => user.firstname).toString(),
-            userLastName: user.map((user) => user.lastname).toString(),
-            userEmail: _email,
+            lastname: user.map((user) => user.lastname).toString(),
+            email: email,
             orgId: new mongodb.ObjectId(orgId),
             role: 'admin',
           },
@@ -83,17 +80,17 @@ export default async function handler(
   if (req.method === 'DELETE') {
     if (session) {
       const {
-        adminData: { orgId, _email },
+        adminData: { orgId, email },
       } = req.body
 
-      const user = await db.collection('users').find({ email: _email }).count()
+      const user = await db.collection('users').find({ email: email }).count()
 
       const admin = await db
         .collection('relations')
         .find({
           orgId: new mongodb.ObjectId(orgId),
           role: 'admin',
-          userEmail: _email,
+          email: email,
         })
         .count()
 
@@ -102,7 +99,7 @@ export default async function handler(
         .find({
           orgId: new mongodb.ObjectId(orgId),
           role: 'creator',
-          userEmail: _email,
+          email: email,
         })
         .count()
 
@@ -118,10 +115,10 @@ export default async function handler(
 
       await db.collection('relations').deleteOne({
         orgId: new mongodb.ObjectId(orgId),
-        userEmail: _email,
+        email: email,
         role: 'admin',
       })
-      return res.status(200).json({ message: 'Successfully added admin.' })
+      return res.status(200).json({ message: 'Success.' })
     }
   } else {
     // Not Signed in

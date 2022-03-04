@@ -101,13 +101,13 @@ export default function Event({ event, creator, admins }) {
 
   const confirmDelete = (eventId, imagePublicId) => {
     if (isDelete === true) {
-      deleteEvent({ eventId, imagePublicId })
+      deleteEvent(eventId, imagePublicId)
     } else {
       setIsDelete(true)
     }
   }
 
-  async function deleteEvent({ eventId, imagePublicId }) {
+  async function deleteEvent(eventId, imagePublicId) {
     const orgName = event.map((event) => event.orgName)
     const response = await fetch(`/api/events`, {
       method: 'DELETE',
@@ -142,7 +142,8 @@ export default function Event({ event, creator, admins }) {
               imagePublicId={event.imagePublicId}
               commentlock={event.commentlock}
               tags={event.tags}
-              onHandleChange={setIsEdit}
+              setIsEdit={setIsEdit}
+              isEdit={isEdit}
             />
           ) : (
             <div>

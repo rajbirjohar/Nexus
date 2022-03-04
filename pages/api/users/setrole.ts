@@ -12,13 +12,13 @@ export default async function handler(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     const {
-      roleData: { userId, _role },
+      roleData: { userId, role },
     } = req.body
     await db
       .collection('users')
       .updateOne(
         { _id: new mongodb.ObjectId(userId) },
-        { $push: { roles: _role } }
+        { $push: { roles: role } }
       )
     res.status(200).json({ message: 'Success.' })
   } else {

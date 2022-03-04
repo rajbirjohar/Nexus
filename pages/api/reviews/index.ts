@@ -33,26 +33,26 @@ export default async function handler(
         reviewData: {
           authorId,
           author,
-          _courseId,
-          _course,
-          _review,
-          _professor,
-          _taken,
-          _difficulty,
-          _anonymous,
+          courseId,
+          course,
+          review,
+          professor,
+          taken,
+          difficulty,
+          anonymous,
         },
       } = req.body
 
       await db.collection('reviews').insertOne({
         authorId: new mongodb.ObjectId(authorId),
-        courseId: new mongodb.ObjectId(_courseId),
+        courseId: new mongodb.ObjectId(courseId),
         author: author,
-        course: _course,
-        review: _review,
-        professor: _professor,
-        taken: _taken,
-        difficulty: parseInt(_difficulty),
-        anonymous: _anonymous,
+        course: course,
+        review: review,
+        professor: professor,
+        taken: taken,
+        difficulty: parseInt(difficulty),
+        anonymous: anonymous,
         createdAt: new Date(),
       })
 
@@ -71,13 +71,14 @@ export default async function handler(
         reviewData: {
           reviewId,
           authorId,
-          _review,
-          _professor,
-          _taken,
-          _difficulty,
-          _anonymous,
+          review,
+          professor,
+          taken,
+          difficulty,
+          anonymous,
         },
       } = req.body
+
       await db.collection('reviews').updateOne(
         {
           _id: new mongodb.ObjectId(reviewId),
@@ -85,11 +86,11 @@ export default async function handler(
         },
         {
           $set: {
-            review: _review,
-            professor: _professor,
-            taken: _taken,
-            difficulty: parseInt(_difficulty),
-            anonymous: _anonymous,
+            review: review,
+            professor: professor,
+            taken: taken,
+            difficulty: parseInt(difficulty),
+            anonymous: anonymous,
             createdAt: new Date(),
           },
         }

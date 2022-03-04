@@ -16,7 +16,7 @@ export default function TagsPage({ eventByTag }) {
         {eventByTag.map((event) => (
           <EventCard
             key={event._id}
-            orgName={event.orgName}
+            org={event.org}
             name={event.name}
             details={event.details}
             eventId={event._id}

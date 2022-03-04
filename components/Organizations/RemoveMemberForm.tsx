@@ -1,12 +1,11 @@
-import Router from 'next/router'
 import toast from 'react-hot-toast'
 import formstyles from '@/styles/form.module.css'
 import { useRouter } from 'next/router'
 import { TrashIcon } from '../Icons'
 
-export function RemoveMemberForm({ userId, orgId, org }) {
+export function RemoveMemberForm({ userId, orgId, org, role }: Relation) {
   const router = useRouter()
-  const member = { userId, orgId }
+  const member = { userId, orgId, role }
   const handleSubmit = (event) => {
     event.preventDefault()
     sendData(member)
@@ -40,8 +39,8 @@ export function RemoveMemberForm({ userId, orgId, org }) {
 
 // I'm too lazy to create conditional renders
 // Literally the same code as above except for how the delete buttons are displayed
-export function RemoveMemberAdminForm({ userId, orgId, name }) {
-  const member = { userId, name, orgId }
+export function RemoveMemberAdminForm({ userId, orgId, org, role }: Relation) {
+  const member = { userId, org, orgId, role }
   const router = useRouter()
   const handleSubmit = (event) => {
     event.preventDefault()

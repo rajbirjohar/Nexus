@@ -6,32 +6,20 @@ import styles from '@/styles/form.module.css'
 import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 
-interface Event {
-  orgName: string
-  orgId: string
-  _name: string
-  _details: string
-  _startDate: Date
-  _endDate: Date
-  _image: string
-  _commentlock: boolean
-  _tags: [{ id: string; text: string }]
-}
-
-export default function EventForm({ orgName, orgId }) {
-  const initialValues: Event = {
-    orgName: orgName,
+export default function EventForm({ org, orgId }: OrgEvent) {
+  const initialValues: OrgEvent = {
+    org: org,
     orgId: orgId,
-    _name: '',
-    _details: '',
-    _startDate: new Date(),
-    _endDate: new Date(),
-    _image: '',
-    _commentlock: false,
-    _tags: [{ id: '', text: '' }],
+    name: '',
+    details: '',
+    startDate: new Date(),
+    endDate: new Date(),
+    image: '',
+    commentlock: false,
+    tags: [{ id: '', text: '' }],
   }
 
-  const sendData = async (eventData) => {
+  const sendData = async (eventData: OrgEvent) => {
     const response = await fetch('/api/events', {
       method: 'POST',
       headers: {
@@ -55,31 +43,31 @@ export default function EventForm({ orgName, orgId }) {
     <Formik
       validateOnBlur={false}
       initialValues={initialValues}
-      validate={(values: Event) => {
-        let errors: FormikErrors<Event> = {}
-        if (!values._name) {
-          errors._name = 'Required'
+      validate={(values: OrgEvent) => {
+        let errors: FormikErrors<OrgEvent> = {}
+        if (!values.name) {
+          errors.name = 'Required'
         }
-        if (!values._details) {
-          errors._details = 'Required'
+        if (!values.details) {
+          errors.details = 'Required'
         }
-        if (!values._startDate) {
-          errors._startDate = 'Required'
+        if (!values.startDate) {
+          errors.startDate = 'Required'
         }
-        if (!values._endDate) {
-          errors._endDate = 'Required'
-        } else if (new Date(values._endDate) < new Date(values._startDate)) {
-          errors._endDate = 'End date is before start date'
-        } else if (new Date(values._endDate) < new Date()) {
-          errors._endDate = 'End date has passed'
+        if (!values.endDate) {
+          errors.endDate = 'Required'
+        } else if (new Date(values.endDate) < new Date(values.startDate)) {
+          errors.endDate = 'End date is before start date'
+        } else if (new Date(values.endDate) < new Date()) {
+          errors.endDate = 'End date has passed'
         }
-        if (values._tags.length > 10) {
-          errors._tags = 'Too many tags'
+        if (values.tags.length > 10) {
+          errors.tags = 'Too many tags'
         } else if (
-          values._tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
-            .length > 0
+          values.tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text)).length >
+          0
         ) {
-          errors._tags = 'Alphanumeric characters only'
+          errors.tags = 'Alphanumeric characters only'
         }
         return errors
       }}
@@ -87,15 +75,15 @@ export default function EventForm({ orgName, orgId }) {
         sendData(values)
         resetForm({
           values: {
-            orgName: orgName,
+            org: org,
             orgId: orgId,
-            _name: '',
-            _details: '',
-            _startDate: new Date(),
-            _endDate: new Date(),
-            _image: '',
-            _commentlock: false,
-            _tags: [{ id: '', text: '' }],
+            name: '',
+            details: '',
+            startDate: new Date(),
+            endDate: new Date(),
+            image: '',
+            commentlock: false,
+            tags: [{ id: '', text: '' }],
           },
         })
         setSubmitting(false)
@@ -104,7 +92,7 @@ export default function EventForm({ orgName, orgId }) {
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
-            <label htmlFor="_eventImage">
+            <label htmlFor="eventImage">
               <strong>
                 Event Banner:
                 <br />
@@ -113,83 +101,83 @@ export default function EventForm({ orgName, orgId }) {
                 </span>
               </strong>
             </label>
-            <ErrorMessage name="_eventImage">
+            <ErrorMessage name="eventImage">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
+          <ImageDropzone setFieldValue={setFieldValue} name="eventImage" />
           <div className={styles.inputheader}>
-            <label htmlFor="_name">
+            <label htmlFor="name">
               <strong>
                 Event Name: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_name">
+            <ErrorMessage name="name">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
-            name="_name"
+            name="name"
             type="text"
             placeholder="Scotty's Birthday"
           />
           <div className={styles.inputheader}>
-            <label htmlFor="_details">
+            <label htmlFor="details">
               <strong>
                 Event Details: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_details">
+            <ErrorMessage name="details">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tiptap setFieldValue={setFieldValue} name="_details" />
+          <Tiptap setFieldValue={setFieldValue} name="details" />
           <div className={styles.datewrapper}>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
-                <label htmlFor="_startDate">
+                <label htmlFor="startDate">
                   <strong>
                     Event Start Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_startDate">
+                <ErrorMessage name="startDate">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
               <Field
                 autoComplete="off"
                 type="datetime-local"
-                name="_startDate"
+                name="startDate"
               />
             </div>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
-                <label htmlFor="_endDate">
+                <label htmlFor="endDate">
                   <strong>
                     Event End Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_endDate">
+                <ErrorMessage name="endDate">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
-              <Field autoComplete="off" type="datetime-local" name="_endDate" />
+              <Field autoComplete="off" type="datetime-local" name="endDate" />
             </div>
           </div>
           <label className={styles.check}>
-            <Field autoComplete="off" type="checkbox" name="_commentlock" />
+            <Field autoComplete="off" type="checkbox" name="commentlock" />
             <strong>Lock Comments?</strong>
           </label>
           <div className={styles.inputheader}>
-            <label htmlFor="_tags">
+            <label htmlFor="tags">
               <strong>Tags:</strong>
             </label>
-            <ErrorMessage name="_tags">
+            <ErrorMessage name="tags">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tags setFieldValue={setFieldValue} name="_tags" />
+          <Tags setFieldValue={setFieldValue} name="tags" />
           <span className={styles.actions}>
             <button
               className={styles.primary}

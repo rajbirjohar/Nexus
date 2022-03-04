@@ -2,18 +2,12 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
-interface Relation {
-  orgId: string
-  org: string
-  _email: string
-  role: string
-}
 
-export default function AddAdminForm({ orgId, org }) {
+export default function AddAdminForm({ orgId, org }: Relation) {
   const initialValues: Relation = {
     orgId: orgId,
     org: org,
-    _email: '',
+    email: '',
     role: 'admin',
   }
 
@@ -48,10 +42,10 @@ export default function AddAdminForm({ orgId, org }) {
       initialValues={initialValues}
       validate={(values: Relation) => {
         let errors: FormikErrors<Relation> = {}
-        if (!values._email) {
-          errors._email = 'Required'
-        } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values._email)) {
-          errors._email = 'Wrong email format'
+        if (!values.email) {
+          errors.email = 'Required'
+        } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values.email)) {
+          errors.email = 'Wrong email format'
         }
         return errors
       }}
@@ -61,7 +55,7 @@ export default function AddAdminForm({ orgId, org }) {
           values: {
             orgId: orgId,
             org: org,
-            _email: '',
+            email: '',
             role: 'admin',
           },
         })
@@ -71,17 +65,17 @@ export default function AddAdminForm({ orgId, org }) {
       {({ values, handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
-            <label htmlFor="_email">
+            <label htmlFor="email">
               <strong>Email:</strong>
             </label>
-            <ErrorMessage name="_email">
+            <ErrorMessage name="email">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
             type="email"
-            name="_email"
+            name="email"
             placeholder="scotty001@ucr.edu"
             maxLength={20}
           />
