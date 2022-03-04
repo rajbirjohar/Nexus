@@ -14,6 +14,7 @@ interface Event {
   _startDate: Date
   _endDate: Date
   _image: string
+  _commentlock: boolean
   _tags: [{ id: string; text: string }]
 }
 
@@ -26,6 +27,7 @@ export default function EventForm({ orgName, orgId }) {
     _startDate: new Date(),
     _endDate: new Date(),
     _image: '',
+    _commentlock: false,
     _tags: [{ id: '', text: '' }],
   }
 
@@ -92,6 +94,7 @@ export default function EventForm({ orgName, orgId }) {
             _startDate: new Date(),
             _endDate: new Date(),
             _image: '',
+            _commentlock: false,
             _tags: [{ id: '', text: '' }],
           },
         })
@@ -174,6 +177,10 @@ export default function EventForm({ orgName, orgId }) {
               <Field autoComplete="off" type="datetime-local" name="_endDate" />
             </div>
           </div>
+          <label className={styles.check}>
+            <Field autoComplete="off" type="checkbox" name="_commentlock" />
+            <strong>Lock Comments?</strong>
+          </label>
           <div className={styles.inputheader}>
             <label htmlFor="_tags">
               <strong>Tags:</strong>
