@@ -14,7 +14,6 @@ export default async function transferOwner(
     const {
       adminData: { orgId, _email, origCreatorId },
     } = req.body
-    console.log(req.body)
 
     const user = await db.collection('users').find({ email: _email }).toArray()
 
@@ -35,10 +34,6 @@ export default async function transferOwner(
         role: 'admin',
       })
       .toArray()
-
-    console.log(user)
-    console.log(creator)
-    console.log(admin)
 
     // If user is not found, do nothing
     if (user.length < 1) {

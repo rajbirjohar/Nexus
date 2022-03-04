@@ -15,7 +15,7 @@ export default function OrganizationsForm() {
   const { data: session } = useSession()
   const initialValues: Organization = {
     creatorId: session.user.id,
-    creatorFirstName: session.user.name || session.user.firstname,
+    creatorFirstName: session.user.firstname || session.user.name,
     creatorLastName: session.user.lastname,
     email: session.user.email,
     _name: '',
