@@ -12,8 +12,14 @@ export default async function handler(
   } = req
   const reviews = await db
     .collection('reviews')
-    .find({ course: id })
+    .find({
+      course: id,
+      ...(req.query.before && {
+        createdAt: { $lt: new Date(req.query.before.toString()) },
+      }),
+    })
     .sort({ createdAt: -1 })
+    .limit(parseInt(req.query.limit.toString(), 10))
     .toArray()
 
   res.status(200).json({ reviews })

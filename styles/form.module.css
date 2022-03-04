@@ -106,12 +106,13 @@
 
 .searchwrapper svg {
   position: absolute;
-  top: 38px;
+  top: 34px;
   right: 15px;
   min-width: 20px;
   max-width: 20px;
   min-height: 20px;
   max-height: 20px;
+  color: var(--gray-400);
 }
 
 /* event form styles */
@@ -164,6 +165,19 @@
 
 .linkinput input {
   width: 100%;
+}
+
+/* pagination styles */
+
+.end {
+  font-weight: 600;
+  color: var(--gray-400);
+  text-align: center;
+}
+
+.load {
+  display: flex;
+  justify-content: center;
 }
 
 .dropdown {
