@@ -14,18 +14,24 @@ interface Comment {
   _comment: string
 }
 
-export default function CommentsForm({ eventId, orgId }) {
+export default function CommentsForm({
+  eventId,
+  orgId,
+  author,
+  authorId,
+  email,
+}) {
   const { data: session } = useSession()
   const initialValues: Comment = {
     eventId: eventId,
     orgId: orgId,
-    authorId: session.user.id,
-    author: session.user.name || session.user.firstname,
-    email: session.user.email,
+    authorId: authorId,
+    author: author,
+    email: email,
     _comment: '',
   }
   const sendData = async (commentData) => {
-    const response = await fetch('/api/events/comments', {
+    const response = await fetch(`/api/events/${eventId}/comments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -59,9 +65,9 @@ export default function CommentsForm({ eventId, orgId }) {
           values: {
             eventId: eventId,
             orgId: orgId,
-            authorId: session.user.id,
-            author: session.user.name,
-            email: session.user.email,
+            authorId: authorId,
+            author: author,
+            email: email,
             _comment: '',
           },
         })

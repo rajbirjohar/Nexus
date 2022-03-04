@@ -25,7 +25,7 @@ const Comment = ({
     sendData(deleteComment)
   }
   const sendData = async (commentData) => {
-    const response = await fetch('/api/events/comments', {
+    const response = await fetch(`/api/events/${eventId}/comments`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',

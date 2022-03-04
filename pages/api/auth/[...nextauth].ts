@@ -19,6 +19,7 @@ export default async function auth(req, res) {
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         profile(profile: {
           sub: string
+          name: string
           given_name: string
           family_name: string
           email: string
@@ -27,6 +28,7 @@ export default async function auth(req, res) {
         }) {
           return {
             id: profile.sub,
+            name: profile.name,
             firstname: profile.given_name,
             lastname: profile.family_name,
             email: profile.email,
