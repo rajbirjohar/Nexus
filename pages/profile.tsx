@@ -48,7 +48,7 @@ export default function Profile() {
       {status === 'loading' && <h1>Loading</h1>}
       {session && (
         <>
-          <h1>Hello {session.user.name || session.user.firstname}</h1>
+          <h1>Hello {session.user.firstname || session.user.name}</h1>
           <h3>Have an awesome day.</h3>
           {/* <button onClick={() => changeData()}>Change Data</button> */}
           <Tabs

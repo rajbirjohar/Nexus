@@ -10,7 +10,7 @@ export default function AddMemberForm({ orgId, org }) {
     orgId: orgId,
     org: org,
     userId: session.user.id,
-    userFirstName: session.user.name || session.user.firstname,
+    userFirstName: session.user.firstname || session.user.name,
     userLastName: session.user.lastname,
     userEmail: session.user.email,
     role: 'member',
