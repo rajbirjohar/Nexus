@@ -73,6 +73,11 @@ export default function Organization({
                 <AddMemberForm
                   orgId={organization._id}
                   org={organization.name}
+                  userId={session.user.id}
+                  firstname={session.user.firstname || session.user.name}
+                  lastname={session.user.lastname}
+                  email={session.user.email}
+                  role="member"
                 />
               )}
               {session && !isCreator && !isAdmin && isMember && (
@@ -80,6 +85,7 @@ export default function Organization({
                   userId={session.user.id}
                   orgId={organization._id}
                   org={organization.name}
+                  role="member"
                 />
               )}
               {session && isCreator && (
@@ -183,17 +189,17 @@ export default function Organization({
                   <li className={styles.members} key={creator._id}>
                     <span>
                       <strong>
-                        {creator.userFirstName} {creator.userLastName}{' '}
+                        {creator.firstname} {creator.lastname}{' '}
                       </strong>{' '}
-                      <br /> {creator.userEmail}
+                      <br /> {creator.email}
                     </span>
                   </li>
                 ))}
                 {admins.map((admin) => (
                   <li className={styles.members} key={admin._id}>
                     <span>
-                      <strong>{admin.userFirstName} </strong> <br />{' '}
-                      {admin.userEmail}
+                      <strong>{admin.firstname} </strong> <br />{' '}
+                      {admin.email}
                     </span>
                   </li>
                 ))}
@@ -209,14 +215,15 @@ export default function Organization({
                   {members.map((member) => (
                     <li className={styles.members} key={member.userId}>
                       <span>
-                        <strong>{member.userFirstName}</strong> <br />{' '}
-                        {member.userEmail}
+                        <strong>{member.firstname}</strong> <br />{' '}
+                        {member.email}
                       </span>
                       <Dropdown>
                         <RemoveMemberAdminForm
                           userId={member.userId}
                           orgId={organization._id}
-                          name={organization.name}
+                          org={organization.name}
+                          role="member"
                         />
                       </Dropdown>
                     </li>
@@ -224,10 +231,7 @@ export default function Organization({
                 </ul>
               </Accordion>
               <Accordion heading="Create Event">
-                <EventForm
-                  orgName={organization.name}
-                  orgId={organization._id}
-                />
+                <EventForm org={organization.name} orgId={organization._id} />
               </Accordion>
               <Accordion heading="Add Admin">
                 <AddAdminForm

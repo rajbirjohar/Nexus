@@ -12,16 +12,15 @@ export default async function transferOwner(
   const db = isConnected.db(process.env.MONGODB_DB)
   if (session) {
     const {
-      adminData: { orgId, _email, origCreatorId },
+      adminData: { orgId, email, origCreatorId },
     } = req.body
 
-    const user = await db.collection('users').find({ email: _email }).toArray()
+    const user = await db.collection('users').find({ email: email }).toArray()
 
     const creator = await db
       .collection('relations')
       .find({
-        orgId: new mongodb.ObjectId(orgId),
-        userEmail: _email,
+        email: email,
         role: 'creator',
       })
       .toArray()
@@ -30,7 +29,7 @@ export default async function transferOwner(
       .collection('relations')
       .find({
         orgId: new mongodb.ObjectId(orgId),
-        userEmail: _email,
+        email: email,
         role: 'admin',
       })
       .toArray()
@@ -60,14 +59,14 @@ export default async function transferOwner(
     // Insert role into new creator
     await db.collection('users').updateOne(
       {
-        email: _email,
+        email: email,
       },
       // Only if they have the precreator role
       { $pull: { roles: 'precreator' } }
     )
     await db.collection('users').updateOne(
       {
-        email: _email,
+        email: email,
       },
       { $push: { roles: 'creator' } }
     )
@@ -87,7 +86,7 @@ export default async function transferOwner(
             user.map((user) => user.name).toString() ||
             user.map((user) => user.firstname).toString(),
           creatorLastName: user.map((user) => user.lastname).toString(),
-          email: _email,
+          email: email,
         },
       }
     )
@@ -96,7 +95,7 @@ export default async function transferOwner(
     await db.collection('relations').updateOne(
       {
         orgId: new mongodb.ObjectId(orgId),
-        userEmail: _email,
+        email: email,
       },
       {
         $set: {

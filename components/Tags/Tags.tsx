@@ -44,6 +44,8 @@ export default function Tags(props) {
   // as many tags as they want
   useEffect(() => {
     setFieldValue(name, tags)
+    // Supress warning for setFieldValue and name
+    /* eslint-disable */
   }, [setTags, tags])
 
   const handleDelete = (i) => {

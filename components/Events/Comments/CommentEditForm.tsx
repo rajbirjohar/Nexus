@@ -5,27 +5,25 @@ import styles from './comment.module.css'
 import { useSession } from 'next-auth/react'
 
 // Max length for comment
-const maxLength = 200
+const maxLength = 280
 
-interface Comment {
-  eventId: string
-  authorId: string
-  _comment: string
-  commentId: string
+interface Edit {
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>
+  isEdit: boolean
 }
 
 export default function CommentEditForm({
   eventId,
   comment,
-  onHandleChange,
+  authorId,
+  setIsEdit,
+  isEdit,
   commentId,
-}) {
-  // default values for comment Object
-  const { data: session } = useSession()
-  const initialValues: Comment = {
-    authorId: session.user.id,
+}: EventComment & Edit) {
+  const initialValues: EventComment = {
+    authorId: authorId,
     eventId: eventId,
-    _comment: comment,
+    comment: comment,
     commentId: commentId,
   }
 
@@ -51,51 +49,51 @@ export default function CommentEditForm({
     <Formik
       validateOnBlur={false}
       initialValues={initialValues}
-      validate={(values: Comment) => {
-        let errors: FormikErrors<Comment> = {}
-        if (!values._comment) {
-          errors._comment = 'Required'
+      validate={(values: EventComment) => {
+        let errors: FormikErrors<EventComment> = {}
+        if (!values.comment) {
+          errors.comment = 'Required'
         }
-        if (values._comment === comment) {
-          errors._comment = 'You made no changes'
+        if (values.comment === comment) {
+          errors.comment = 'You made no changes'
         }
         return errors
       }}
       onSubmit={(values, { setSubmitting }) => {
         sendData(values)
-        !onHandleChange()
+        setIsEdit(!isEdit)
         setSubmitting(false)
       }}
     >
       {({ values, handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
-            <label htmlFor="_newComment">
+            <label htmlFor="comment">
               <strong>
                 Comment: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newComment">
+            <ErrorMessage name="_comment">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
-            name="_comment"
+            name="comment"
             placeholder='"Show your interest!"'
             rows="3"
             maxLength={maxLength}
           />
           <div className={styles.formactions}>
             <span className={styles.maxlength}>
-              {maxLength - values._comment.length}/{maxLength}
+              {maxLength - values.comment.length}/{maxLength}
             </span>
             <button
               className={styles.secondary}
               type="submit"
               disabled={isSubmitting}
             >
-              Edit Comment
+              Edit
             </button>
           </div>
         </Form>

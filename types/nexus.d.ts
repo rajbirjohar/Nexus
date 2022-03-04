@@ -1,25 +1,74 @@
-export interface Organization {
+declare interface Review {
+  authorId?: string
+  author?: string
+  reviewId?: string
+  review: string
+  professor: string
+  course?: string
+  courseId?: string
+  taken: string
+  difficulty: number
+  anonymous: boolean
+  timestamp?: Date
+}
+
+declare interface Organization {
+  orgId?: string
   creatorId?: string
   creatorFirstName?: string
   creatorLastName?: string
   email?: string
-  _name?: string
-  _tagline?: string
-  _details?: string
-  _image?: string
-  _site?: string
-  _instagram?: string
-  _facebook?: string
-  _twitter?: string
-  _slack?: string
-  _discord?: string
+  name?: string
+  tagline?: string
+  details?: string
+  image?: string
+  imagePublicId?: string
+  site?: string
+  instagram?: string
+  facebook?: string
+  twitter?: string
+  slack?: string
+  discord?: string
 }
 
-export interface Event {}
+declare interface OrgEvent {
+  eventId?: string | string[]
+  orgId?: string
+  org?: string
+  name?: string
+  details?: string
+  startDate?: Date | string
+  endDate?: Date | string
+  tags?: Array
+  image?: string
+  imagePublicId?: string
+  commentlock?: boolean
+  createdAt?: Date
+}
 
-export interface Relation {
-  orgId: string
-  org: string
-  _email: string
-  role: string
+declare interface EventComment {
+  commentId?: string
+  eventId: string
+  authorId: string
+  orgId?: string
+  author?: string
+  email?: string
+  createdAt?: string
+  comment?: string
+}
+
+declare interface Relation {
+  relationId?: string
+  userId?: string
+  orgId?: string
+  org?: string
+  firstname?: string
+  lastname?: string
+  email?: string
+  role?: string
+}
+
+declare interface Course {
+  courseId: string
+  course: string
 }

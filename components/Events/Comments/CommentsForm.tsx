@@ -5,32 +5,22 @@ import styles from './comment.module.css'
 
 const maxLength = 200
 
-interface Comment {
-  eventId: string
-  orgId: string
-  authorId: string
-  author: string
-  email: string
-  _comment: string
-}
-
 export default function CommentsForm({
   eventId,
   orgId,
   author,
   authorId,
   email,
-}) {
-  const { data: session } = useSession()
-  const initialValues: Comment = {
+}: EventComment) {
+  const initialValues: EventComment = {
     eventId: eventId,
     orgId: orgId,
     authorId: authorId,
     author: author,
     email: email,
-    _comment: '',
+    comment: '',
   }
-  const sendData = async (commentData) => {
+  const sendData = async (commentData: EventComment) => {
     const response = await fetch(`/api/events/${eventId}/comments`, {
       method: 'POST',
       headers: {
@@ -52,10 +42,10 @@ export default function CommentsForm({
     <Formik
       validateOnBlur={false}
       initialValues={initialValues}
-      validate={(values: Comment) => {
-        let errors: FormikErrors<Comment> = {}
-        if (!values._comment) {
-          errors._comment = 'Required'
+      validate={(values: EventComment) => {
+        let errors: FormikErrors<EventComment> = {}
+        if (!values.comment) {
+          errors.comment = 'Required'
         }
         return errors
       }}
@@ -68,7 +58,7 @@ export default function CommentsForm({
             authorId: authorId,
             author: author,
             email: email,
-            _comment: '',
+            comment: '',
           },
         })
         setSubmitting(false)
@@ -77,32 +67,32 @@ export default function CommentsForm({
       {({ values, handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
-            <label htmlFor="_comment">
+            <label htmlFor="comment">
               <strong>
                 Comment: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_comment">
+            <ErrorMessage name="comment">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
             type="text"
-            name="_comment"
+            name="comment"
             placeholder="Show your interest!"
             maxLength={maxLength}
           />
           <div className={styles.formactions}>
             <span className={styles.maxlength}>
-              {maxLength - values._comment.length}/{maxLength}
+              {maxLength - values.comment.length}/{maxLength}
             </span>
             <button
               className={styles.primary}
               type="submit"
               disabled={isSubmitting}
             >
-              Post Comment!
+              Comment!
             </button>
           </div>
         </Form>

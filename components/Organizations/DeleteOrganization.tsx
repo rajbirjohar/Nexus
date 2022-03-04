@@ -4,23 +4,16 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
-interface Organization {
-  orgId: string
-  _organization: string
-  _confirmOrganization: string
-  imagePublicId: string
+interface Agreement {
+  confirmOrg: string
 }
 
-export default function DeleteOrganization({
-  orgId,
-  name,
-  imagePublicId,
-}) {
+export default function DeleteOrganization({ orgId, name, imagePublicId }: Organization) {
   const router = useRouter()
-  const initialValues: Organization = {
+  const initialValues: Organization & Agreement = {
     orgId: orgId,
-    _organization: '',
-    _confirmOrganization: '',
+    name: '',
+    confirmOrg: '',
     imagePublicId: imagePublicId,
   }
 
@@ -59,27 +52,27 @@ export default function DeleteOrganization({
         </strong>
       </p>
       <p>
-        Please enter <strong>&#34;{name}&#34;</strong> to delete
-        this organization.
+        Please enter <strong>&#34;{name}&#34;</strong> to delete this
+        organization.
       </p>
       <Formik
         validateOnBlur={false}
         initialValues={initialValues}
-        validate={(values: Organization) => {
-          let errors: FormikErrors<Organization> = {}
-          if (!values._organization) {
-            errors._organization = 'Required'
-          } else if (values._organization !== name) {
-            errors._organization = 'Incorrect Organization name'
+        validate={(values: Organization & Agreement) => {
+          let errors: FormikErrors<Organization & Agreement> = {}
+          if (!values.name) {
+            errors.name = 'Required'
+          } else if (values.name !== name) {
+            errors.name = 'Incorrect Organization name'
           }
-          if (!values._confirmOrganization) {
-            errors._confirmOrganization = 'Required'
-          } else if (values._confirmOrganization !== name) {
-            errors._confirmOrganization = 'Incorrect Organization name'
+          if (!values.confirmOrg) {
+            errors.confirmOrg = 'Required'
+          } else if (values.confirmOrg !== name) {
+            errors.confirmOrg = 'Incorrect Organization name'
           }
-          if (values._organization !== values._confirmOrganization) {
-            errors._organization = 'Organizations do not match'
-            errors._confirmOrganization = 'Organizations do not match'
+          if (values.name !== values.confirmOrg) {
+            errors.name = 'Organizations do not match'
+            errors.confirmOrg = 'Organizations do not match'
           }
           return errors
         }}
@@ -88,8 +81,8 @@ export default function DeleteOrganization({
           resetForm({
             values: {
               orgId: orgId,
-              _organization: '',
-              _confirmOrganization: '',
+              name: '',
+              confirmOrg: '',
               imagePublicId: '',
             },
           })
@@ -102,29 +95,29 @@ export default function DeleteOrganization({
               <label htmlFor="_email">
                 <strong>Organization:</strong>
               </label>
-              <ErrorMessage name="_organization">
+              <ErrorMessage name="name">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="text"
-              name="_organization"
+              name="name"
               placeholder="Organization Name"
               maxLength={20}
             />
             <div className={styles.inputheader}>
-              <label htmlFor="_confirmOrganization">
+              <label htmlFor="confirmOrg">
                 <strong>Confirm Organization:</strong>
               </label>
-              <ErrorMessage name="_confirmOrganization">
+              <ErrorMessage name="confirmOrg">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="text"
-              name="_confirmOrganization"
+              name="confirmOrg"
               placeholder="Organization Name"
               maxLength={20}
             />

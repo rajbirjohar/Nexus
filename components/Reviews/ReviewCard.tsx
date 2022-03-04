@@ -6,6 +6,7 @@ import formstyles from '@/styles/form.module.css'
 import ReviewEditForm from './ReviewEditForm'
 import { AnimatePresence, motion } from 'framer-motion'
 import { EditIcon, TrashIcon } from '../Icons'
+import { format } from 'date-fns'
 
 const deleteTextWrapper = {
   closed: {
@@ -45,7 +46,7 @@ export default function ReviewCard({
   timestamp,
   anonymous,
   reviewId,
-}) {
+}: Review) {
   const { data: session } = useSession()
   const [isEdit, setIsEdit] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
@@ -101,7 +102,8 @@ export default function ReviewCard({
             taken={taken}
             difficulty={difficulty}
             anonymous={anonymous}
-            onHandleChange={setIsEdit}
+            setIsEdit={setIsEdit}
+            isEdit={isEdit}
           />
         ) : (
           <div className={styles.review}>
@@ -115,7 +117,8 @@ export default function ReviewCard({
             </p>
             <p className={styles.author}>
               {' '}
-              {anonymous === true ? <>Anonymous</> : <>{author}</>} {timestamp}
+              {anonymous === true ? <>Anonymous</> : <>{author}</>}{' '}
+              {format(new Date(timestamp), "'at' h:mm bbb")}{' '}
             </p>
           </div>
         )}

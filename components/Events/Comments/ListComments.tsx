@@ -28,10 +28,7 @@ export default function ListComments({ eventId, isAdmin }) {
         <p className={styles.end}>You&#39;ve reached the end 🎉</p>
       ) : (
         <span className={styles.load}>
-          <button
-            disabled={isLoadingMore}
-            onClick={() => setSize(size + 1)}
-          >
+          <button disabled={isLoadingMore} onClick={() => setSize(size + 1)}>
             Load more
           </button>
         </span>

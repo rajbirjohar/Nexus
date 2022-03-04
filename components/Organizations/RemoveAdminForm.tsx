@@ -1,19 +1,13 @@
-import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
-interface Admin {
-  orgId: string
-  _email: string
-}
-
-export default function RemoveAdminForm({ orgId }) {
-  const initialValues: Admin = {
+export default function RemoveAdminForm({ orgId }: Relation) {
+  const initialValues: Relation = {
     orgId: orgId,
-    _email: '',
+    email: '',
   }
-  const sendData = async (adminData) => {
+  const sendData = async (adminData: Relation) => {
     const response = await fetch('/api/organizations/admins', {
       method: 'DELETE',
       headers: {
@@ -46,12 +40,12 @@ export default function RemoveAdminForm({ orgId }) {
       <Formik
         validateOnBlur={false}
         initialValues={initialValues}
-        validate={(values: Admin) => {
-          let errors: FormikErrors<Admin> = {}
-          if (!values._email) {
-            errors._email = 'Required'
-          } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values._email)) {
-            errors._email = 'Wrong email format'
+        validate={(values: Relation) => {
+          let errors: FormikErrors<Relation> = {}
+          if (!values.email) {
+            errors.email = 'Required'
+          } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values.email)) {
+            errors.email = 'Wrong email format'
           }
           return errors
         }}
@@ -60,31 +54,35 @@ export default function RemoveAdminForm({ orgId }) {
           resetForm({
             values: {
               orgId: orgId,
-              _email: '',
+              email: '',
             },
           })
           setSubmitting(false)
         }}
       >
-        {({ values, handleSubmit, isSubmitting }) => (
+        {({ handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
-              <label htmlFor="_email">
+              <label htmlFor="email">
                 <strong>Email:</strong>
               </label>
-              <ErrorMessage name="_email">
+              <ErrorMessage name="email">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="email"
-              name="_email"
+              name="email"
               placeholder="scotty001@ucr.edu"
               maxLength={20}
             />
             <span className={styles.actions}>
-              <button type="submit" className={styles.deletefull}>
+              <button
+                type="submit"
+                className={styles.deletefull}
+                disabled={isSubmitting}
+              >
                 Remove Admin
               </button>
             </span>

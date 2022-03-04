@@ -3,31 +3,29 @@ import { useSession } from 'next-auth/react'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 import ImageDropzone from '../Dropzone/Dropzone'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 import Tiptap from '../Tiptap/Tiptap'
-import { Organization } from 'types/nexus'
 
 // length of description
-const tagLineLength = 250
+const tagLineLength = 280
 
 export default function OrganizationsForm() {
-  const router = useRouter()
   const { data: session } = useSession()
   const initialValues: Organization = {
     creatorId: session.user.id,
     creatorFirstName: session.user.firstname || session.user.name,
     creatorLastName: session.user.lastname,
     email: session.user.email,
-    _name: '',
-    _tagline: '',
-    _details: '',
-    _image: '',
-    _site: '',
-    _instagram: '',
-    _facebook: '',
-    _twitter: '',
-    _slack: '',
-    _discord: '',
+    name: '',
+    tagline: '',
+    details: '',
+    image: '',
+    site: '',
+    instagram: '',
+    facebook: '',
+    twitter: '',
+    slack: '',
+    discord: '',
   }
 
   const sendData = async (orgData) => {
@@ -43,7 +41,8 @@ export default function OrganizationsForm() {
       toast.error('This name is taken. Please choose a different one.')
     } else if (response.status === 200) {
       toast.success("You've created your organization!")
-      router.replace(router.asPath)
+      // Instead of replace because I think it's due the way we are fetching
+     Router.reload()
     } else if (response.status === 413) {
       toast.error('Image is too big or wrong format.')
     } else {
@@ -62,17 +61,17 @@ export default function OrganizationsForm() {
         initialValues={initialValues}
         validate={(values: Organization) => {
           let errors: FormikErrors<Organization> = {}
-          if (!values._name) {
-            errors._name = 'Required'
+          if (!values.name) {
+            errors.name = 'Required'
           }
-          if (!values._tagline) {
-            errors._tagline = 'Required'
+          if (!values.tagline) {
+            errors.tagline = 'Required'
           }
-          if (!values._details) {
-            errors._details = 'Required'
+          if (!values.details) {
+            errors.details = 'Required'
           }
-          if (!values._image) {
-            errors._image = 'Required'
+          if (!values.image) {
+            errors.image = 'Required'
           }
           return errors
         }}
@@ -84,7 +83,7 @@ export default function OrganizationsForm() {
         {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
-              <label htmlFor="_image">
+              <label htmlFor="image">
                 <strong>
                   Profile Thumbnail: <br />
                   <span className={styles.subtitle}>
@@ -92,65 +91,65 @@ export default function OrganizationsForm() {
                   </span>
                 </strong>
               </label>
-              <ErrorMessage name="_image">
+              <ErrorMessage name="image">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <ImageDropzone setFieldValue={setFieldValue} name="_image" />
+            <ImageDropzone setFieldValue={setFieldValue} name="image" />
             <div className={styles.inputheader}>
-              <label htmlFor="_name">
+              <label htmlFor="name">
                 <strong>
                   Name: <span>*</span>
                 </strong>
               </label>
-              <ErrorMessage name="_name">
+              <ErrorMessage name="name">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="text"
-              name="_name"
+              name="name"
               placeholder="Scotty's Club"
             />
             <div className={styles.inputheader}>
-              <label htmlFor="_tagline">
+              <label htmlFor="tagline">
                 <strong>
                   Tagline: <span>*</span>
                 </strong>
               </label>
-              <ErrorMessage name="_tagline">
+              <ErrorMessage name="tagline">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
               type="text"
-              name="_tagline"
+              name="tagline"
               placeholder="A memorable tagline"
               maxLength={tagLineLength}
             />
             <span className={styles.maxlength}>
-              {tagLineLength - values._tagline.length}/{tagLineLength}
+              {tagLineLength - values.tagline.length}/{tagLineLength}
             </span>
             <div className={styles.inputheader}>
-              <label htmlFor="_details">
+              <label htmlFor="details">
                 <strong>
                   Details: <span>*</span>
                 </strong>
               </label>
-              <ErrorMessage name="_details">
+              <ErrorMessage name="details">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <Tiptap setFieldValue={setFieldValue} name="_details" />
+            <Tiptap setFieldValue={setFieldValue} name="details" />
             <div className={styles.linkwrapper}>
               <div className={styles.linkinput}>
                 <div className={styles.inputheader}>
-                  <label htmlFor="_site">
+                  <label htmlFor="site">
                     <strong>Website:</strong>
                   </label>
-                  <ErrorMessage name="_site">
+                  <ErrorMessage name="site">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -159,14 +158,14 @@ export default function OrganizationsForm() {
                 <Field
                   autoComplete="off"
                   type="text"
-                  name="_site"
+                  name="site"
                   placeholder="https://scottysclub.org/"
                 />
                 <div className={styles.inputheader}>
-                  <label htmlFor="_instagram">
+                  <label htmlFor="instagram">
                     <strong>Instagram:</strong>
                   </label>
-                  <ErrorMessage name="_instagram">
+                  <ErrorMessage name="instagram">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -175,15 +174,15 @@ export default function OrganizationsForm() {
                 <Field
                   autoComplete="off"
                   type="text"
-                  name="_instagram"
+                  name="instagram"
                   placeholder="https://www.instagram.com/highlandersatscottys/"
                 />
 
                 <div className={styles.inputheader}>
-                  <label htmlFor="_facebook">
+                  <label htmlFor="facebook">
                     <strong>Facebook:</strong>
                   </label>
-                  <ErrorMessage name="_facebook">
+                  <ErrorMessage name="facebook">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -192,16 +191,16 @@ export default function OrganizationsForm() {
                 <Field
                   autoComplete="off"
                   type="text"
-                  name="_facebook"
+                  name="facebook"
                   placeholder="https://www.facebook.com/groups/highlandersatscottys/"
                 />
               </div>
               <div className={styles.linkinput}>
                 <div className={styles.inputheader}>
-                  <label htmlFor="_twitter">
+                  <label htmlFor="twitter">
                     <strong>Twitter:</strong>
                   </label>
-                  <ErrorMessage name="_twitter">
+                  <ErrorMessage name="twitter">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -210,15 +209,15 @@ export default function OrganizationsForm() {
                 <Field
                   autoComplete="off"
                   type="text"
-                  name="_twitter"
+                  name="twitter"
                   placeholder="https://www.twitter.com/highlandersatscottys/"
                 />
 
                 <div className={styles.inputheader}>
-                  <label htmlFor="_slack">
+                  <label htmlFor="slack">
                     <strong>Slack:</strong>
                   </label>
-                  <ErrorMessage name="_slack">
+                  <ErrorMessage name="slack">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -227,15 +226,15 @@ export default function OrganizationsForm() {
                 <Field
                   autoComplete="off"
                   type="text"
-                  name="_slack"
+                  name="slack"
                   placeholder="https://www.highlandersatscottys.slack.com"
                 />
 
                 <div className={styles.inputheader}>
-                  <label htmlFor="_discord">
+                  <label htmlFor="discord">
                     <strong>Discord:</strong>
                   </label>
-                  <ErrorMessage name="_discord">
+                  <ErrorMessage name="discord">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -244,7 +243,7 @@ export default function OrganizationsForm() {
                 <Field
                   autoComplete="off"
                   type="text"
-                  name="_discord"
+                  name="discord"
                   placeholder="https://www.discord.gg/highlandersatscottys/"
                 />
               </div>
@@ -256,7 +255,7 @@ export default function OrganizationsForm() {
                 type="submit"
                 disabled={isSubmitting}
               >
-                Create {!values._name ? 'Organization' : values._name}!
+                Create {!values.name ? 'Organization' : values.name}!
               </button>
             </span>
           </Form>

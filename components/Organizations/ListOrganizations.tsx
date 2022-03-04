@@ -37,15 +37,11 @@ export default function ListOrganizations() {
       </>
     )
   }
-  const filteredOrgs = Object(data.organizations).filter((organization) =>
-    organization.name
-      .toLowerCase()
-      .includes(searchValue.toLowerCase())
+  const filteredOrgs = Object(data.organizations).filter((org) =>
+    org.name.toLowerCase().includes(searchValue.toLowerCase())
   )
 
-  const allOrgNames = data.organizations.map(
-    (organization) => organization.name
-  )
+  const allOrgNames = data.organizations.map((org) => org.name)
   // Fun little function that randomly selects
   // an organization from all available orgs
   // (kinda like Google's "Im feeling lucky" button)
@@ -96,12 +92,12 @@ export default function ListOrganizations() {
         <NotFound placeholder="organization" />
       )}
       <div className={cardstyles.grid}>
-        {filteredOrgs.map((organization) => (
+        {filteredOrgs.map((org) => (
           <OrganizationCard
-            key={organization._id}
-            name={organization.name}
-            tagline={organization.tagline}
-            image={organization.imageURL}
+            key={org._id}
+            name={org.name}
+            tagline={org.tagline}
+            image={org.imageURL}
           />
         ))}
       </div>

@@ -2,7 +2,6 @@ import useSWR from 'swr'
 import Link from 'next/link'
 import fetcher from '@/lib/fetcher'
 import ReviewCard from '@/components/Reviews/ReviewCard'
-import TimeAgo from 'react-timeago'
 import ErrorFetch from '../Layout/ErrorFetch'
 import Loader from '@/components/Layout/Skeleton'
 import cardstyles from '@/styles/card.module.css'
@@ -35,7 +34,7 @@ export default function ListReviews() {
             taken={post.taken}
             difficulty={post.difficulty}
             anonymous={post.anonymous}
-            timestamp={<TimeAgo date={post.createdAt} />}
+            timestamp={post.createdAt}
           />
         ))}
       </div>

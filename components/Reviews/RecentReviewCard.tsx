@@ -1,3 +1,4 @@
+import { format } from 'date-fns'
 import styles from './card.module.css'
 
 export default function RecentReviewCard({
@@ -9,7 +10,7 @@ export default function RecentReviewCard({
   difficulty,
   timestamp,
   anonymous,
-}) {
+}: Review) {
   return (
     <div className={styles.card}>
       <span className={styles.header}>
@@ -27,7 +28,8 @@ export default function RecentReviewCard({
           <strong>Taken:</strong> {taken}
         </p>
         <p className={styles.author}>
-          {anonymous === true ? <>Anonymous</> : <>{author}</>} {timestamp}{' '}
+          {anonymous === true ? <>Anonymous</> : <>{author}</>}{' '}
+          {format(new Date(timestamp), "'at' h:mm bbb")}{' '}
         </p>
       </div>
     </div>
