@@ -16,13 +16,13 @@ export default function TagsPage({ eventByTag }) {
         {eventByTag.map((event) => (
           <EventCard
             key={event._id}
-            organizationName={event.organizationName}
-            eventName={event.eventName}
-            eventDetails={event.eventDetails}
+            orgName={event.orgName}
+            name={event.name}
+            details={event.details}
             eventId={event._id}
-            startDate={event.eventStartDate}
-            endDate={event.eventEndDate}
-            eventTags={event.eventTags}
+            startDate={event.startDate}
+            endDate={event.endDate}
+            tags={event.tags}
           />
         ))}
       </div>

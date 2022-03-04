@@ -7,18 +7,20 @@ const maxLength = 200
 
 interface Comment {
   eventId: string
+  orgId: string
   authorId: string
   author: string
   email: string
   _comment: string
 }
 
-export default function CommentsForm({ eventId }) {
+export default function CommentsForm({ eventId, orgId }) {
   const { data: session } = useSession()
   const initialValues: Comment = {
     eventId: eventId,
+    orgId: orgId,
     authorId: session.user.id,
-    author: session.user.name,
+    author: session.user.name || session.user.firstname,
     email: session.user.email,
     _comment: '',
   }
@@ -56,6 +58,7 @@ export default function CommentsForm({ eventId }) {
         resetForm({
           values: {
             eventId: eventId,
+            orgId: orgId,
             authorId: session.user.id,
             author: session.user.name,
             email: session.user.email,

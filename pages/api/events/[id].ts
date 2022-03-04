@@ -2,14 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import clientPromise from '@/lib/mongodb'
 const mongodb = require('mongodb')
 
-// fetchProfilePosts()
-// This endpoint will fetch all of our reviews
-// that that logged in user has submitted
-// from our database and place them into an array
-// where we can display them using the reviewPostCard(),
-// and listReviewPosts()
-
-export default async function fetchEvents(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -20,8 +13,8 @@ export default async function fetchEvents(
   const db = isConnected.db(process.env.MONGODB_DB)
   const events = await db
     .collection('events')
-    .find({ organizationId: new mongodb.ObjectId(id) })
-    .sort({ eventStartDate: -1 })
+    .find({ orgId: new mongodb.ObjectId(id) })
+    .sort({ startDate: -1 })
     .toArray()
   return res.status(200).json({ events })
 }

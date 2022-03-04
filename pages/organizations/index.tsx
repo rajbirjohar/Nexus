@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import Head from 'next/head'
 import Page from '@/components/Layout/Page'
 import { useSession } from 'next-auth/react'
 import { LottieWrapper } from '@/components/LottieWrapper'
@@ -41,10 +40,9 @@ export default function OrganizationsPage() {
         </div>
       </div>
       {session &&
-        session.user.role &&
-        session.user.orgRole &&
-        session.user.role.includes('student' || 'professor') &&
-        session.user.orgRole.includes('none') && (
+        session.user.roles &&
+        session.user.roles.includes('student' || 'professor') &&
+        !session.user.roles.includes('creator') && (
           <>
             <span className={formstyles.actions}>
               <button
@@ -61,14 +59,11 @@ export default function OrganizationsPage() {
             )}
           </>
         )}
-      {session &&
-        session.user.orgRole &&
-        session.user.orgRole.includes('Admin') &&
-        session.user.creatorOfOrg.includes('none') && (
-          <>
-            <OrganizationsForm />
-          </>
-        )}
+      {session && session.user.roles && session.user.roles.includes('precreator') && (
+        <>
+          <OrganizationsForm />
+        </>
+      )}
       <ListOrganizations />
     </Page>
   )

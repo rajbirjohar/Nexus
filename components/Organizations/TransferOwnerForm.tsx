@@ -4,14 +4,16 @@ import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
 interface NewOwner {
-  organizationId: string
+  orgId: string
+  origCreatorId: string
   _email: string
   _confirmEmail: string
 }
 
-export default function TransferOwnerForm({ organizationId }) {
+export default function TransferOwnerForm({ orgId, origCreatorId }) {
   const initialValues: NewOwner = {
-    organizationId: organizationId,
+    orgId: orgId,
+    origCreatorId: origCreatorId,
     _email: '',
     _confirmEmail: '',
   }
@@ -71,7 +73,8 @@ export default function TransferOwnerForm({ organizationId }) {
           sendData(values)
           resetForm({
             values: {
-              organizationId: organizationId,
+              orgId: orgId,
+              origCreatorId: origCreatorId,
               _email: '',
               _confirmEmail: '',
             },

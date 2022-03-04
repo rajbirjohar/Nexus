@@ -7,44 +7,35 @@ import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 
 interface Event {
-  creator: string
-  email: string
-  organizationName: string
-  organizationId: string
-  _eventName: string
-  _eventDetails: string
-  _eventStartDate: Date
-  _eventEndDate: Date
-  _eventImage: string
-  _eventTags: [{ id: string; text: string }]
+  orgName: string
+  orgId: string
+  _name: string
+  _details: string
+  _startDate: Date
+  _endDate: Date
+  _image: string
+  _tags: [{ id: string; text: string }]
 }
 
-export default function EventForm({
-  creator,
-  email,
-  organizationName,
-  organizationId,
-}) {
+export default function EventForm({ orgName, orgId }) {
   const initialValues: Event = {
-    creator: creator,
-    email: email,
-    organizationName: organizationName,
-    organizationId: organizationId,
-    _eventName: '',
-    _eventDetails: '',
-    _eventStartDate: new Date(),
-    _eventEndDate: new Date(),
-    _eventImage: '',
-    _eventTags: [{ id: '', text: '' }],
+    orgName: orgName,
+    orgId: orgId,
+    _name: '',
+    _details: '',
+    _startDate: new Date(),
+    _endDate: new Date(),
+    _image: '',
+    _tags: [{ id: '', text: '' }],
   }
 
-  const sendData = async (newEventData) => {
+  const sendData = async (eventData) => {
     const response = await fetch('/api/events', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newEventData: newEventData }),
+      body: JSON.stringify({ eventData: eventData }),
     })
     const data = await response.json()
     if (response.status === 200) {
@@ -56,7 +47,7 @@ export default function EventForm({
         'Uh oh. Something happened. Please contact us if this persists'
       )
     }
-    return data.newEventData
+    return data.eventData
   }
   return (
     <Formik
@@ -64,31 +55,29 @@ export default function EventForm({
       initialValues={initialValues}
       validate={(values: Event) => {
         let errors: FormikErrors<Event> = {}
-        if (!values._eventName) {
-          errors._eventName = 'Required'
+        if (!values._name) {
+          errors._name = 'Required'
         }
-        if (!values._eventDetails) {
-          errors._eventDetails = 'Required'
+        if (!values._details) {
+          errors._details = 'Required'
         }
-        if (!values._eventStartDate) {
-          errors._eventStartDate = 'Required'
+        if (!values._startDate) {
+          errors._startDate = 'Required'
         }
-        if (!values._eventEndDate) {
-          errors._eventEndDate = 'Required'
+        if (!values._endDate) {
+          errors._endDate = 'Required'
+        } else if (new Date(values._endDate) < new Date(values._startDate)) {
+          errors._endDate = 'End date is before start date'
+        } else if (new Date(values._endDate) < new Date()) {
+          errors._endDate = 'End date has passed'
+        }
+        if (values._tags.length > 10) {
+          errors._tags = 'Too many tags'
         } else if (
-          new Date(values._eventEndDate) < new Date(values._eventStartDate)
-        ) {
-          errors._eventEndDate = 'End date is before start date'
-        } else if (new Date(values._eventEndDate) < new Date()) {
-          errors._eventEndDate = 'End date has passed'
-        }
-        if (values._eventTags.length > 10) {
-          errors._eventTags = 'Too many tags'
-        } else if (
-          values._eventTags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
+          values._tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
             .length > 0
         ) {
-          errors._eventTags = 'Alphanumeric characters only'
+          errors._tags = 'Alphanumeric characters only'
         }
         return errors
       }}
@@ -96,16 +85,14 @@ export default function EventForm({
         sendData(values)
         resetForm({
           values: {
-            creator: creator,
-            email: email,
-            organizationName: organizationName,
-            organizationId: organizationId,
-            _eventName: '',
-            _eventDetails: '',
-            _eventStartDate: new Date(),
-            _eventEndDate: new Date(),
-            _eventImage: '',
-            _eventTags: [{ id: '', text: '' }],
+            orgName: orgName,
+            orgId: orgId,
+            _name: '',
+            _details: '',
+            _startDate: new Date(),
+            _endDate: new Date(),
+            _image: '',
+            _tags: [{ id: '', text: '' }],
           },
         })
         setSubmitting(false)
@@ -129,81 +116,73 @@ export default function EventForm({
           </div>
           <ImageDropzone setFieldValue={setFieldValue} name="_eventImage" />
           <div className={styles.inputheader}>
-            <label htmlFor="_eventName">
+            <label htmlFor="_name">
               <strong>
                 Event Name: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_eventName">
+            <ErrorMessage name="_name">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
-            name="_eventName"
+            name="_name"
             type="text"
             placeholder="Scotty's Birthday"
           />
           <div className={styles.inputheader}>
-            <label htmlFor="_eventDetails">
+            <label htmlFor="_details">
               <strong>
                 Event Details: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_eventDetails">
+            <ErrorMessage name="_details">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tiptap setFieldValue={setFieldValue} name="_eventDetails" />
+          <Tiptap setFieldValue={setFieldValue} name="_details" />
           <div className={styles.datewrapper}>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
-                <label htmlFor="_eventStartDate">
+                <label htmlFor="_startDate">
                   <strong>
                     Event Start Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_eventStartDate">
+                <ErrorMessage name="_startDate">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
               <Field
                 autoComplete="off"
                 type="datetime-local"
-                name="_eventStartDate"
+                name="_startDate"
               />
             </div>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
-                <label htmlFor="_eventEndDate">
+                <label htmlFor="_endDate">
                   <strong>
                     Event End Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_eventEndDate">
+                <ErrorMessage name="_endDate">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
-              <Field
-                autoComplete="off"
-                type="datetime-local"
-                name="_eventEndDate"
-              />
+              <Field autoComplete="off" type="datetime-local" name="_endDate" />
             </div>
           </div>
           <div className={styles.inputheader}>
-            <label htmlFor="_eventTags">
+            <label htmlFor="_tags">
               <strong>Tags:</strong>
             </label>
-            <ErrorMessage name="_eventTags">
+            <ErrorMessage name="_tags">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tags
-            setFieldValue={setFieldValue}
-            isSubmitting={isSubmitting}
-            name="_eventTags"
-          />
+          <Tags setFieldValue={setFieldValue} name="_tags" />
           <span className={styles.actions}>
             <button
               className={styles.primary}

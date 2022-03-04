@@ -39,10 +39,8 @@ export default function OpportunitiesPage() {
       </div>
 
       {session &&
-        session.user.role &&
-        session.user.orgRole &&
-        session.user.role.includes('professor') &&
-        session.user.orgRole.includes('none') && (
+        session.user.roles &&
+        session.user.roles.includes('professor') && (
           <>
             <Accordion heading="Post Opportunity">
               <OpportunityForm
@@ -53,7 +51,7 @@ export default function OpportunitiesPage() {
             </Accordion>
           </>
         )}
-        <ListAllOpportunities />
+      <ListAllOpportunities />
     </Page>
   )
 }

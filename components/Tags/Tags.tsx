@@ -33,9 +33,9 @@ const KeyCodes = {
 const delimiters = [KeyCodes.enter]
 
 export default function Tags(props) {
-  const { setFieldValue, name, oldEventTags } = props
+  const { setFieldValue, name, oldTags } = props
   // default value should be existing tags if they exist, otherwise, empty array
-  const [tags, setTags] = useState(oldEventTags ? oldEventTags : [])
+  const [tags, setTags] = useState(oldTags ? oldTags : [])
 
   // Update the values.count on Formik every time setTags
   // or tags change because useState does not update until

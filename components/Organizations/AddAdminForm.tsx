@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
 import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from '@/styles/form.module.css'
 
-interface Admin {
-  organizationId: string
+interface Relation {
+  orgId: string
+  org: string
   _email: string
+  role: string
 }
 
-export default function AddAdminForm({ organizationId }) {
-  const initialValues: Admin = {
-    organizationId: organizationId,
+export default function AddAdminForm({ orgId, org }) {
+  const initialValues: Relation = {
+    orgId: orgId,
+    org: org,
     _email: '',
+    role: 'admin',
   }
 
   const sendData = async (adminData) => {
@@ -26,7 +29,7 @@ export default function AddAdminForm({ organizationId }) {
     if (response.status === 404) {
       toast.error('User does not exist or email is wrong. Please try again.')
     } else if (response.status === 403) {
-      toast.error('User is already an admin.')
+      toast.error('User is already an admin or owner.')
     } else if (response.status === 201) {
       toast.success('Member has been updated to Admin!')
     } else if (response.status === 200) {
@@ -43,8 +46,8 @@ export default function AddAdminForm({ organizationId }) {
     <Formik
       validateOnBlur={false}
       initialValues={initialValues}
-      validate={(values: Admin) => {
-        let errors: FormikErrors<Admin> = {}
+      validate={(values: Relation) => {
+        let errors: FormikErrors<Relation> = {}
         if (!values._email) {
           errors._email = 'Required'
         } else if (!/^[A-Z0-9._%+-]+@ucr.edu$/i.test(values._email)) {
@@ -56,8 +59,10 @@ export default function AddAdminForm({ organizationId }) {
         sendData(values)
         resetForm({
           values: {
-            organizationId: organizationId,
+            orgId: orgId,
+            org: org,
             _email: '',
+            role: 'admin',
           },
         })
         setSubmitting(false)

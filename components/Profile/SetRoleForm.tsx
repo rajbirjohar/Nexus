@@ -15,13 +15,13 @@ export default function SetRoleForm({ userId }) {
     _role: '',
   }
   const router = useRouter()
-  const sendData = async (userRoleData) => {
+  const sendData = async (roleData) => {
     const response = await fetch('/api/users/setrole', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userRoleData: userRoleData }),
+      body: JSON.stringify({ roleData: roleData }),
     })
     const data = await response.json()
 

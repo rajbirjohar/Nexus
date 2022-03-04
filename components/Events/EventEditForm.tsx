@@ -11,53 +11,48 @@ import { zonedTimeToUtc } from 'date-fns-tz'
 
 interface Event {
   eventId: string
-  _newEventName: string
-  _newEventDetails: string
-  _newEventStartDate: string
-  _newEventEndDate: string
-  _newEventImage: string | null
-  _oldEventImage: string
-  _oldImagePublicId: string
-  _newEventTags: [{ id: string; text: string }]
+  _name: string
+  _details: string
+  _startDate: string
+  _endDate: string
+  _newImage: string | null
+  _tags: [{ id: string; text: string }]
+  image: string
+  imagePublicId: string
 }
 
 export default function EventEditForm({
   eventId,
-  _oldEventName,
-  _oldEventDetails,
-  _oldEventStartDate,
-  _oldEventEndDate,
-  _oldEventImage,
-  _oldImagePublicId,
-  _oldEventTags,
+  name,
+  details,
+  startDate,
+  endDate,
+  image,
+  imagePublicId,
+  tags,
   onHandleChange,
 }) {
   const router = useRouter()
   const initialValues: Event = {
     eventId: eventId,
-    _newEventName: _oldEventName,
-    _newEventDetails: _oldEventDetails,
+    _name: name,
+    _details: details,
     // Time = :(
-    _newEventStartDate: zonedTimeToUtc(_oldEventStartDate, 'UTC')
-      .toISOString()
-      .substring(0, 16),
-
-    _newEventEndDate: zonedTimeToUtc(_oldEventEndDate, 'UTC')
-      .toISOString()
-      .substring(0, 16),
-    _newEventImage: null,
-    _oldEventImage: _oldEventImage,
-    _oldImagePublicId: _oldImagePublicId,
-    _newEventTags: _oldEventTags,
+    _startDate: zonedTimeToUtc(startDate, 'UTC').toISOString().substring(0, 16),
+    _endDate: zonedTimeToUtc(endDate, 'UTC').toISOString().substring(0, 16),
+    _newImage: null,
+    _tags: tags,
+    image: image,
+    imagePublicId: imagePublicId,
   }
 
-  const sendData = async (newEventData) => {
+  const sendData = async (eventData) => {
     const response = await fetch(`/api/events`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newEventData: newEventData }),
+      body: JSON.stringify({ eventData: eventData }),
     })
     const data = await response.json()
     if (response.status === 200) {
@@ -76,43 +71,40 @@ export default function EventEditForm({
       initialValues={initialValues}
       validate={(values: Event) => {
         let errors: FormikErrors<Event> = {}
-        if (!values._newEventName) {
-          errors._newEventName = 'Required'
+        if (!values._name) {
+          errors._name = 'Required'
         }
-        if (!values._newEventDetails) {
-          errors._newEventDetails = 'Required'
+        if (!values._details) {
+          errors._details = 'Required'
         }
-        if (!values._newEventStartDate) {
-          errors._newEventStartDate = 'Required'
+        if (!values._startDate) {
+          errors._startDate = 'Required'
         }
-        if (!values._newEventEndDate) {
-          errors._newEventEndDate = 'Required'
-        } else if (
-          new Date(values._newEventEndDate) <
-          new Date(values._newEventStartDate)
-        ) {
-          errors._newEventEndDate = 'End date is before start date'
-        } else if (new Date(values._newEventEndDate) < new Date()) {
-          errors._newEventEndDate = 'End date has passed'
+        if (!values._endDate) {
+          errors._endDate = 'Required'
+        } else if (new Date(values._endDate) < new Date(values._startDate)) {
+          errors._endDate = 'End date is before start date'
+        } else if (new Date(values._endDate) < new Date()) {
+          errors._endDate = 'End date has passed'
         }
         if (
-          values._newEventName === _oldEventName &&
-          values._newEventDetails === _oldEventDetails &&
-          values._newEventStartDate === _oldEventStartDate &&
-          values._newEventEndDate === _oldEventEndDate
+          values._name === name &&
+          values._details === details &&
+          values._startDate === startDate &&
+          values._endDate === endDate
         ) {
-          errors._newEventName = 'You made no changes'
-          errors._newEventDetails = 'You made no changes'
-          errors._newEventStartDate = 'You made no changes'
-          errors._newEventEndDate = 'You made no changes'
+          errors._name = 'You made no changes'
+          errors._details = 'You made no changes'
+          errors._startDate = 'You made no changes'
+          errors._endDate = 'You made no changes'
         }
-        if (values._newEventTags.length > 10) {
-          errors._newEventTags = 'Too many tags'
+        if (values._tags.length > 10) {
+          errors._tags = 'Too many tags'
         } else if (
-          values._newEventTags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
+          values._tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
             .length > 0
         ) {
-          errors._newEventTags = 'Alphanumeric characters only'
+          errors._tags = 'Alphanumeric characters only'
         }
         return errors
       }}
@@ -124,7 +116,7 @@ export default function EventEditForm({
     >
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
-          <label htmlFor="_newEventImage">
+          <label htmlFor="_newImage">
             <strong>
               Event Banner:
               <br />
@@ -133,47 +125,47 @@ export default function EventEditForm({
               </span>
             </strong>
           </label>
-          <ImageDropzone setFieldValue={setFieldValue} name="_newEventImage" />
+          <ImageDropzone setFieldValue={setFieldValue} name="_newImage" />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_newEventName">
+            <label htmlFor="_name">
               <strong>
                 Event Name: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newEventName">
+            <ErrorMessage name="_name">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
-            name="_newEventName"
+            name="_name"
             type="text"
             placeholder="Scotty's Birthday"
           />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_newEventDetails">
+            <label htmlFor="_details">
               <strong>
                 Event Details: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newEventDetails">
+            <ErrorMessage name="_details">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Tiptap
             setFieldValue={setFieldValue}
-            name="_newEventDetails"
-            oldContent={values._newEventDetails}
+            name="_details"
+            oldContent={values._details}
           />
           <div className={formstyles.datewrapper}>
             <div className={formstyles.dateinput}>
               <div className={formstyles.inputheader}>
-                <label htmlFor="_newEventStartDate">
+                <label htmlFor="_startDate">
                   <strong>
                     Event Start Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_newEventStartDate">
+                <ErrorMessage name="_startDate">
                   {(message) => (
                     <span className={formstyles.error}>{message}</span>
                   )}
@@ -182,42 +174,34 @@ export default function EventEditForm({
               <Field
                 autoComplete="off"
                 type="datetime-local"
-                name="_newEventStartDate"
+                name="_startDate"
               />
             </div>
             <div className={formstyles.dateinput}>
               <div className={formstyles.inputheader}>
-                <label htmlFor="_newEventEndDate">
+                <label htmlFor="_endDate">
                   <strong>
                     Event End Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_newEventEndDate">
+                <ErrorMessage name="_endDate">
                   {(message) => (
                     <span className={formstyles.error}>{message}</span>
                   )}
                 </ErrorMessage>
               </div>
-              <Field
-                autoComplete="off"
-                type="datetime-local"
-                name="_newEventEndDate"
-              />
+              <Field autoComplete="off" type="datetime-local" name="_endDate" />
             </div>
           </div>
           <div className={formstyles.inputheader}>
-            <label htmlFor="_newEventTags">
+            <label htmlFor="tags">
               <strong>Tags:</strong>
             </label>
-            <ErrorMessage name="_newEventTags">
+            <ErrorMessage name="tags">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tags
-            setFieldValue={setFieldValue}
-            name="_newEventTags"
-            oldEventTags={_oldEventTags}
-          />
+          <Tags setFieldValue={setFieldValue} name="_tags" oldTags={tags} />
           <span className={styles.actions}>
             <button
               className={formstyles.secondary}

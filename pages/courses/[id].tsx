@@ -36,19 +36,19 @@ const CourseReviews = ({ course, averageRating }) => {
 
           <h4>{course.courseTitle}</h4>
           {!session && <p>Please sign in to write a review.</p>}
-          {session && session.user.role && session.user.role.includes('none') && (
+          {session && session.user.roles && session.user.roles.includes('none') && (
             <Link href="/profile" passHref>
               <a>Please verify if you are a student.</a>
             </Link>
           )}
           {session &&
-            session.user.role &&
-            session.user.role.includes('professor') && (
+            session.user.roles &&
+            session.user.roles.includes('professor') && (
               <p>Professors cannot post reviews.</p>
             )}
           {session &&
-            session.user.role &&
-            session.user.role.includes('student') && (
+            session.user.roles &&
+            session.user.roles.includes('student') && (
               <Accordion heading={'Write Review'}>
                 <ReviewForm
                   course={course.subjectCourse}

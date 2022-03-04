@@ -10,13 +10,13 @@ const maxLength = 200
 interface Comment {
   eventId: string
   authorId: string
-  _newComment: string
+  _comment: string
   commentId: string
 }
 
 export default function CommentEditForm({
   eventId,
-  oldComment,
+  comment,
   onHandleChange,
   commentId,
 }) {
@@ -25,17 +25,17 @@ export default function CommentEditForm({
   const initialValues: Comment = {
     authorId: session.user.id,
     eventId: eventId,
-    _newComment: oldComment,
+    _comment: comment,
     commentId: commentId,
   }
 
-  const sendData = async (newCommentData) => {
+  const sendData = async (commentData) => {
     const response = await fetch(`/api/events/comments`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newCommentData: newCommentData }),
+      body: JSON.stringify({ commentData: commentData }),
     })
     const data = await response.json()
     if (response.status === 200) {
@@ -45,7 +45,7 @@ export default function CommentEditForm({
         'Uh oh. Something happened. Please contact us if this persists.'
       )
     }
-    return data.newCommentData
+    return data.commentData
   }
   return (
     <Formik
@@ -53,11 +53,11 @@ export default function CommentEditForm({
       initialValues={initialValues}
       validate={(values: Comment) => {
         let errors: FormikErrors<Comment> = {}
-        if (!values._newComment) {
-          errors._newComment = 'Required'
+        if (!values._comment) {
+          errors._comment = 'Required'
         }
-        if (values._newComment === oldComment) {
-          errors._newComment = 'You made no changes'
+        if (values._comment === comment) {
+          errors._comment = 'You made no changes'
         }
         return errors
       }}
@@ -81,14 +81,14 @@ export default function CommentEditForm({
           </div>
           <Field
             autoComplete="off"
-            name="_newComment"
+            name="_comment"
             placeholder='"Show your interest!"'
             rows="3"
             maxLength={maxLength}
           />
           <div className={styles.formactions}>
             <span className={styles.maxlength}>
-              {maxLength - values._newComment.length}/{maxLength}
+              {maxLength - values._comment.length}/{maxLength}
             </span>
             <button
               className={styles.secondary}

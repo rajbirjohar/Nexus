@@ -39,15 +39,13 @@ export default function ListAllEvents() {
 
   const filteredEvents = Object(data.events).filter(
     (event) =>
-      event.eventName.toLowerCase().includes(searchValue.toLowerCase()) ||
-      event.organizationName
-        .toLowerCase()
-        .includes(searchValue.toLowerCase()) ||
-      event.eventDetails.toLowerCase().includes(searchValue.toLowerCase()) ||
+      event.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+      event.orgName.toLowerCase().includes(searchValue.toLowerCase()) ||
+      event.details.toLowerCase().includes(searchValue.toLowerCase()) ||
       // Can only search one tag at a time for now
       // Uses .some() because we want to return a truth OR false
       // If we used a second filter, it would always return true
-      event.eventTags.some((tag) =>
+      event.tags.some((tag) =>
         tag.text.toLowerCase().includes(searchValue.toLowerCase())
       )
   )
@@ -75,16 +73,16 @@ export default function ListAllEvents() {
         <NotFound placeholder="event" />
       )}
       <div className={cardstyles.grid}>
-        {filteredEvents.map((newEvent) => (
+        {filteredEvents.map((event) => (
           <EventCard
-            key={newEvent._id}
-            organizationName={newEvent.organizationName}
-            eventName={newEvent.eventName}
-            eventDetails={newEvent.eventDetails}
-            eventId={newEvent._id}
-            startDate={newEvent.eventStartDate}
-            endDate={newEvent.eventEndDate}
-            eventTags={newEvent.eventTags}
+            key={event._id}
+            orgName={event.orgName}
+            name={event.name}
+            details={event.details}
+            eventId={event._id}
+            startDate={event.startDate}
+            endDate={event.endDate}
+            tags={event.tags}
           />
         ))}
       </div>

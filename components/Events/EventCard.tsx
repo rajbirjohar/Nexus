@@ -4,15 +4,15 @@ import styles from './card.module.css'
 
 export default function EventCard({
   eventId,
-  organizationName,
-  eventName,
-  eventDetails,
+  orgName,
+  name,
+  details,
   startDate,
   endDate,
-  eventTags,
+  tags,
 }) {
   // To remove all markdown tags from the details sections
-  const strippedEventDetails = eventDetails.replace(/(<([^>]+)>)/gi, ' ')
+  const strippedEventDetails = details.replace(/(<([^>]+)>)/gi, ' ')
   const [startMonth, startDay, startYear, startHour] = [
     format(new Date(startDate), 'MMM'),
     format(new Date(startDate), 'd'),
@@ -26,14 +26,14 @@ export default function EventCard({
     format(new Date(endDate), 'hh:mm aaa'),
   ]
   return (
-    <Link href={`/organizations/${organizationName}/${eventId}`} passHref>
+    <Link href={`/organizations/${name}/${eventId}`} passHref>
       <div id={eventId} className={styles.card}>
         {new Date(endDate) < new Date() && (
           <span className={styles.expired}>Expired</span>
         )}
-        <h3 className={styles.title}>{eventName}</h3>
+        <h3 className={styles.title}>{name}</h3>
         <p className={styles.author}>
-          <strong>By {organizationName}</strong>
+          <strong>By {orgName}</strong>
         </p>
         <time className={styles.date}>
           {/* Always display start month day and time */}
@@ -54,9 +54,9 @@ export default function EventCard({
         </time>
         <p className="clamp-2">{strippedEventDetails}</p>
 
-        {eventTags && (
+        {tags && (
           <div className={styles.tagwrapper}>
-            {eventTags.map((tag) => (
+            {tags.map((tag) => (
               <span key={tag.id} className={styles.tag}>
                 {tag.text}
               </span>

@@ -38,13 +38,13 @@ export default function ListOrganizations() {
     )
   }
   const filteredOrgs = Object(data.organizations).filter((organization) =>
-    organization.organizationName
+    organization.name
       .toLowerCase()
       .includes(searchValue.toLowerCase())
   )
 
   const allOrgNames = data.organizations.map(
-    (organization) => organization.organizationName
+    (organization) => organization.name
   )
   // Fun little function that randomly selects
   // an organization from all available orgs
@@ -99,10 +99,9 @@ export default function ListOrganizations() {
         {filteredOrgs.map((organization) => (
           <OrganizationCard
             key={organization._id}
-            organizationId={organization._id}
-            organizationName={organization.organizationName}
-            organizationTagline={organization.organizationTagline}
-            organizationImage={organization.organizationImageURL}
+            name={organization.name}
+            tagline={organization.tagline}
+            image={organization.imageURL}
           />
         ))}
       </div>

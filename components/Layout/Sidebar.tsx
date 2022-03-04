@@ -26,13 +26,13 @@ export default function Sidebar() {
       {data.discover.map((discover) => (
         <li className={styles.side} key={discover._id}>
           <Link
-            href={`/organizations/${discover.organizationName}/${discover._id}`}
+            href={`/organizations/${discover.orgName}/${discover._id}`}
             passHref
           >
-            <h4 className={styles.sidetitle}>{discover.eventName}</h4>
+            <h4 className={styles.sidetitle}>{discover.name}</h4>
           </Link>
           <p className={`${styles.sidedetails} ${'clamp-2'}`}>
-            {discover.eventDetails.replace(/(<([^>]+)>)/gi, ' ')}
+            {discover.details.replace(/(<([^>]+)>)/gi, ' ')}
           </p>
         </li>
       ))}

@@ -1,69 +1,80 @@
-import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
+import { useState, useEffect } from 'react'
+import {
+  Formik,
+  Form,
+  Field,
+  ErrorMessage,
+  FormikErrors,
+  connect,
+} from 'formik'
 import ImageDropzone from '../Dropzone/Dropzone'
 import styles from '@/styles/form.module.css'
 import toast from 'react-hot-toast'
 import Tiptap from '../Tiptap/Tiptap'
+import { useRouter } from 'next/router'
 
-const maxLength = 1000
 const tagLineLength = 250
 
 interface Organization {
-  organizationId: string
-  _newOrganizationName: string
-  _newOrganizationTagline: string
-  _newOrganizationDescription: string
-  _newOrganizationWebsite: string
-  _newOrganizationInstagram: string
-  _newOrganizationFacebook: string
-  _newOrganizationTwitter: string
-  _newOrganizationSlack: string
-  _newOrganizationDiscord: string
-  _newOrganizationImage: string | null
-  _oldOrganizationImage: string
-  _oldImagePublicId: string
+  orgId: string
+  _name: string
+  _tagline: string
+  _details: string
+  _site: string
+  _instagram: string
+  _facebook: string
+  _twitter: string
+  _slack: string
+  _discord: string
+  _newImage: string | null
+  image: string
+  imagePublicId: string
 }
 
 export default function OrganizationEditForm({
-  organizationId,
-  _oldOrganizationName,
-  _oldOrganizationTagline,
-  _oldOrganizationDescription,
-  _oldOrganizationWebsite,
-  _oldOrganizationInstagram,
-  _oldOrganizationFacebook,
-  _oldOrganizationTwitter,
-  _oldOrganizationSlack,
-  _oldOrganizationDiscord,
-  _oldOrganizationImage,
-  _oldImagePublicId,
+  orgId,
+  name,
+  tagline,
+  details,
+  site,
+  instagram,
+  facebook,
+  twitter,
+  slack,
+  discord,
+  image,
+  imagePublicId,
 }) {
+  const router = useRouter()
   const initialValues: Organization = {
-    organizationId: organizationId,
-    _newOrganizationName: _oldOrganizationName,
-    _newOrganizationTagline: _oldOrganizationTagline,
-    _newOrganizationDescription: _oldOrganizationDescription,
-    _newOrganizationWebsite: _oldOrganizationWebsite,
-    _newOrganizationInstagram: _oldOrganizationInstagram,
-    _newOrganizationFacebook: _oldOrganizationFacebook,
-    _newOrganizationTwitter: _oldOrganizationTwitter,
-    _newOrganizationSlack: _oldOrganizationSlack,
-    _newOrganizationDiscord: _oldOrganizationDiscord,
-    _newOrganizationImage: null,
-    _oldOrganizationImage: _oldOrganizationImage,
-    _oldImagePublicId: _oldImagePublicId,
+    orgId: orgId,
+    _name: name,
+    _tagline: tagline,
+    _details: details,
+    _site: site,
+    _instagram: instagram,
+    _facebook: facebook,
+    _twitter: twitter,
+    _slack: slack,
+    _discord: discord,
+    _newImage: null,
+    image: image,
+    imagePublicId: imagePublicId,
   }
+  const [param, setParams] = useState(name)
 
-  const sendData = async (newOrganizationData) => {
+  const sendData = async (orgData) => {
     const response = await fetch(`/api/organizations`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newOrganizationData: newOrganizationData }),
+      body: JSON.stringify({ orgData: orgData }),
     })
     const data = await response.json()
     if (response.status === 200) {
       toast.success('Your organization has been edited!')
+      router.push(`/organizations/${param}/settings`)
     } else if (response.status === 422) {
       toast.error('This name is taken. Please choose a different one.')
     } else if (response.status === 413) {
@@ -87,49 +98,47 @@ export default function OrganizationEditForm({
         initialValues={initialValues}
         validate={(values: Organization) => {
           let errors: FormikErrors<Organization> = {}
-          if (!values._newOrganizationName) {
-            errors._newOrganizationName = 'Required'
+          if (!values._name) {
+            errors._name = 'Required'
           }
-          if (!values._newOrganizationTagline) {
-            errors._newOrganizationTagline = 'Required'
+          if (!values._tagline) {
+            errors._tagline = 'Required'
           }
-          if (!values._newOrganizationDescription) {
-            errors._newOrganizationDescription = 'Required'
+          if (!values._details) {
+            errors._details = 'Required'
           }
           if (
-            values._newOrganizationName === _oldOrganizationName &&
-            values._newOrganizationTagline === _oldOrganizationTagline &&
-            values._newOrganizationDescription ===
-              _oldOrganizationDescription &&
-            values._newOrganizationWebsite === _oldOrganizationWebsite &&
-            values._newOrganizationInstagram === _oldOrganizationInstagram &&
-            values._newOrganizationFacebook === _oldOrganizationFacebook &&
-            values._newOrganizationTwitter === _oldOrganizationTwitter &&
-            values._newOrganizationSlack === _oldOrganizationSlack &&
-            values._newOrganizationDiscord === _oldOrganizationDiscord &&
-            !values._newOrganizationImage
+            values._name === name &&
+            values._tagline === tagline &&
+            values._details === details &&
+            values._site === site &&
+            values._instagram === instagram &&
+            values._facebook === facebook &&
+            values._twitter === twitter &&
+            values._slack === slack &&
+            values._discord === discord &&
+            !values._newImage
           ) {
-            errors._newOrganizationName = 'You made no changes'
-            errors._newOrganizationTagline = 'You made no changes'
-            errors._newOrganizationDescription = 'You made no changes'
-            errors._newOrganizationWebsite = 'You made no changes'
-            errors._newOrganizationInstagram = 'You made no changes'
-            errors._newOrganizationFacebook = 'You made no changes'
-            errors._newOrganizationTwitter = 'You made no changes'
-            errors._newOrganizationSlack = 'You made no changes'
-            errors._newOrganizationDiscord = 'You made no changes'
+            errors._name = 'You made no changes'
+            errors._tagline = 'You made no changes'
+            errors._details = 'You made no changes'
+            errors._site = 'You made no changes'
+            errors._instagram = 'You made no changes'
+            errors._facebook = 'You made no changes'
+            errors._twitter = 'You made no changes'
+            errors._slack = 'You made no changes'
+            errors._discord = 'You made no changes'
           }
           return errors
         }}
         onSubmit={(values, { setSubmitting }) => {
           sendData(values)
-          //console.log(values)
           setSubmitting(false)
         }}
       >
         {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
           <Form onSubmit={handleSubmit}>
-            <label htmlFor="_newOrganizationImage">
+            <label htmlFor="_newImage">
               <strong>
                 Organization Image: <br />
                 <span className={styles.subtitle}>
@@ -137,73 +146,69 @@ export default function OrganizationEditForm({
                 </span>
               </strong>
             </label>
-            <ImageDropzone
-              setFieldValue={setFieldValue}
-              name="_newOrganizationImage"
-            />
+            <ImageDropzone setFieldValue={setFieldValue} name="_newImage" />
             <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationName">
+              <label htmlFor="_name">
                 <strong>
                   Organization Name: <span>*</span>
                 </strong>
               </label>
-              <ErrorMessage name="_newOrganizationName">
+              <ErrorMessage name="_name">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
-              name="_newOrganizationName"
+              name="_name"
               type="text"
               placeholder="Scotty's Club"
               maxLength={50}
             />
             <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationTagline">
+              <label htmlFor="_tagline">
                 <strong>
                   Organization Tagline: <span>*</span>
                 </strong>
               </label>
-              <ErrorMessage name="_newOrganizationTagline">
+              <ErrorMessage name="_tagline">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Field
               autoComplete="off"
-              name="_newOrganizationTagline"
+              name="_tagline"
               type="text"
               placeholder="A memorable tagline"
               maxLength={tagLineLength}
             />
             <span className={styles.maxlength}>
-              {tagLineLength - values._newOrganizationTagline.length}/
-              {tagLineLength}
+              {tagLineLength - values._tagline.length}/{tagLineLength}
             </span>
             <div className={styles.inputheader}>
-              <label htmlFor="_newOrganizationDescription">
+              <label htmlFor="_details">
                 <strong>
                   Organization Description: <span>*</span>
                 </strong>
               </label>
-              <ErrorMessage name="_newOrganizationDescription">
+              <ErrorMessage name="_details">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
             <Tiptap
               setFieldValue={setFieldValue}
-              name="_newOrganizationDescription"
-              oldContent={values._newOrganizationDescription}
+              name="_details"
+              oldContent={values._details}
             />
             <div className={styles.linkwrapper}>
               <div className={styles.linkinput}>
                 <div className={styles.inputheader}>
-                  <label htmlFor="_newOrganizationWebsite">
+                  <label htmlFor="site">
                     <strong>
                       Website:
                       {/* <span className={styles.subtitle}> (Optional)</span> */}
                     </strong>
                   </label>
-                  <ErrorMessage name="_newOrganizationWebsite">
+                  <ErrorMessage name="site">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -211,20 +216,20 @@ export default function OrganizationEditForm({
                 </div>
                 <Field
                   autoComplete="off"
-                  name="_newOrganizationWebsite"
+                  name="site"
                   type="text"
                   placeholder="https://scottysclub.org/"
                   maxLength={50}
                 />
 
                 <div className={styles.inputheader}>
-                  <label htmlFor="_newOrganizationInstagram">
+                  <label htmlFor="instagram">
                     <strong>
                       Instagram:
                       {/* <span className={styles.subtitle}> (Optional)</span> */}
                     </strong>
                   </label>
-                  <ErrorMessage name="_newOrganizationInstagram">
+                  <ErrorMessage name="instagram">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -232,20 +237,20 @@ export default function OrganizationEditForm({
                 </div>
                 <Field
                   autoComplete="off"
-                  name="_newOrganizationInstagram"
+                  name="instagram"
                   type="text"
                   placeholder="https://www.instagram.com/highlandersatscottys/"
                   maxLength={100}
                 />
 
                 <div className={styles.inputheader}>
-                  <label htmlFor="_newOrganizationFacebook">
+                  <label htmlFor="facebook">
                     <strong>
                       Facebook:
                       {/* <span className={styles.subtitle}> (Optional)</span> */}
                     </strong>
                   </label>
-                  <ErrorMessage name="_newOrganizationFacebook">
+                  <ErrorMessage name="facebook">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -253,7 +258,7 @@ export default function OrganizationEditForm({
                 </div>
                 <Field
                   autoComplete="off"
-                  name="_newOrganizationFacebook"
+                  name="facebook"
                   type="text"
                   placeholder="https://www.facebook.com/groups/highlandersatscottys/"
                   maxLength={100}
@@ -262,13 +267,13 @@ export default function OrganizationEditForm({
 
               <div className={styles.linkinput}>
                 <div className={styles.inputheader}>
-                  <label htmlFor="_newOrganizationTwitter">
+                  <label htmlFor="_twitter">
                     <strong>
                       Twitter:
                       {/* <span className={styles.subtitle}> (Optional)</span> */}
                     </strong>
                   </label>
-                  <ErrorMessage name="_newOrganizationTwitter">
+                  <ErrorMessage name="_twitter">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -276,20 +281,20 @@ export default function OrganizationEditForm({
                 </div>
                 <Field
                   autoComplete="off"
-                  name="_newOrganizationTwitter"
+                  name="_twitter"
                   type="text"
                   placeholder="https://www.twitter.com/highlandersatscottys/"
                   maxLength={100}
                 />
 
                 <div className={styles.inputheader}>
-                  <label htmlFor="_newOrganizationSlack">
+                  <label htmlFor="_slack">
                     <strong>
                       Slack:
                       {/* <span className={styles.subtitle}> (Optional)</span> */}
                     </strong>
                   </label>
-                  <ErrorMessage name="_newOrganizationSlack">
+                  <ErrorMessage name="_slack">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -297,20 +302,20 @@ export default function OrganizationEditForm({
                 </div>
                 <Field
                   autoComplete="off"
-                  name="_newOrganizationSlack"
+                  name="_slack"
                   type="text"
                   placeholder="https://www.scottysatucr.slack.com"
                   maxLength={100}
                 />
 
                 <div className={styles.inputheader}>
-                  <label htmlFor="_newOrganizationDiscord">
+                  <label htmlFor="_discord">
                     <strong>
                       Discord:
                       {/* <span className={styles.subtitle}> (Optional)</span> */}
                     </strong>
                   </label>
-                  <ErrorMessage name="_newOrganizationDiscord">
+                  <ErrorMessage name="_discord">
                     {(message) => (
                       <span className={styles.error}>{message}</span>
                     )}
@@ -318,7 +323,7 @@ export default function OrganizationEditForm({
                 </div>
                 <Field
                   autoComplete="off"
-                  name="_newOrganizationDiscord"
+                  name="_discord"
                   type="text"
                   placeholder="https://www.discord.gg/scottysclub/"
                   maxLength={100}
@@ -331,11 +336,7 @@ export default function OrganizationEditForm({
                 type="submit"
                 disabled={isSubmitting}
               >
-                Edit{' '}
-                {!values._newOrganizationName
-                  ? 'Organization'
-                  : values._newOrganizationName}
-                !
+                Edit {!values._name ? 'Organization' : values._name}!
               </button>
             </span>
           </Form>
