@@ -45,6 +45,7 @@
 - [x] Images Banners
 - [x] Org Profiles
 - [x] User Profiles
+- [x] Pagination
 - [x] Search
 - [x] Dark Mode
 - [x] Roles
@@ -180,6 +181,8 @@ If you want to learn more about MongoDB, visit the following pages:
     - Makes our landing page special with animated images.
 - react-dropzone
     - Allows users to submit images.
+- date-fns
+    - Allows us to use the timestone (correctly).
 
 ### Python Script
 
