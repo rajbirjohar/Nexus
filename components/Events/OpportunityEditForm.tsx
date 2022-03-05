@@ -33,7 +33,7 @@ export default function OpportunityEditForm({
     email: email,
     name: name,
     details: details,
-    endDate: zonedTimeToUtc(endDate, 'UTC'),
+    endDate: zonedTimeToUtc(endDate, 'UTC').toISOString().substring(0,16),
     tags: tags,
   }
 
@@ -44,7 +44,7 @@ export default function OpportunityEditForm({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newOpportunityData: opId, authorId }),
+      body: JSON.stringify({ newOpportunityData: newOpportunityData }),
     })
     const data = await response.json()
     if (response.status === 200) {
