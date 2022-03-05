@@ -1,19 +1,14 @@
 import fetcher from '@/lib/fetcher'
 import useSWRInfinite from 'swr/infinite'
 
-export function useReviewPages({
-  review = '',
-  courseId = '',
-  limit = 10,
-} = {}) {
+export function useEventsPages({ route = '', event = '', limit = 10 } = {}) {
   const { data, error, size, ...props } = useSWRInfinite(
     (index, previousPageData) => {
-      // reached the end
-      if (previousPageData && previousPageData.reviews.length === 0) return null
+      if (previousPageData && previousPageData.type.length === 0) return null
 
       const searchParams = new URLSearchParams()
       searchParams.set('limit', limit.toString())
-      searchParams.set('review', review.toString())
+      searchParams.set('event', event.toString())
 
       if (index !== 0) {
         // using oldest posts createdAt date as cursor
@@ -21,16 +16,14 @@ export function useReviewPages({
         // before (hence the .getTime()) the last post's createdAt
         const before = new Date(
           new Date(
-            previousPageData.reviews[
-              previousPageData.reviews.length - 1
-            ].createdAt
+            previousPageData.events[previousPageData.events.length - 1].endDate
           ).getTime()
         )
 
         searchParams.set('before', before.toJSON())
       }
 
-      return `/api/reviews/${courseId}?${searchParams.toString()}`
+      return `${route}?${searchParams.toString()}`
     },
     fetcher,
     {
@@ -44,7 +37,7 @@ export function useReviewPages({
     (size > 0 && data && typeof data[size - 1] === 'undefined')
   const isEmpty = data?.[0]?.length === 0
   const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.reviews?.length < limit)
+    isEmpty || (data && data[data.length - 1]?.events?.length < limit)
 
   return {
     data,
