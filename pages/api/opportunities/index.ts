@@ -33,24 +33,26 @@ export default async function handler(
     if (session) {
       const {
         opportunityData: {
+          opId,
           authorId,
           author,
           email,
-          _name,
-          _details,
-          _endDate,
-          _tags,
+          name,
+          details,
+          endDate,
+          tags,
         },
       } = req.body
 
       await db.collection('opportunities').insertOne({
+        opId: opId,
         authorId: authorId,
         author: author,
         email: email,
-        name: _name,
-        details: _details,
-        endDate: zonedTimeToUtc(_endDate, 'America/Los_Angeles'),
-        tags: _tags,
+        name: name,
+        details: details,
+        endDate: zonedTimeToUtc(endDate, 'America/Los_Angeles'),
+        tags: tags,
         createdAt: new Date(),
       })
 
@@ -67,28 +69,25 @@ export default async function handler(
     if (session) {
       const {
         newOpportunityData: {
+          opId,
           authorId,
-          author,
-          email,
-          _newName,
-          _newDetails,
-          _newEndDate,
-          _newTags,
+          name,
+          details,
+          endDate,
+          tags,
         },
       } = req.body
       await db.collection('opportunities').updateOne(
         {
-          _id
+          _id: new mongodb.ObjectId(opId),
+          authorId: new mongodb.ObjectId(authorId),
         },
         {
           $set: {
-            authorId: authorId,
-            author: author,
-            email: email,
-            name: _newName,
-            details: _newDetails,
-            endDate: zonedTimeToUtc(_newEndDate, 'America/Los_Angeles'),
-            tags: _newTags,
+            name: name,
+            details: details,
+            endDate: zonedTimeToUtc(endDate, 'America/Los_Angeles'),
+            tags: tags,
             createdAt: new Date(),
           },
         }

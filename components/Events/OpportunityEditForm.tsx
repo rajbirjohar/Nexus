@@ -8,35 +8,31 @@ import Tags from '../Tags/Tags'
 import { useRouter } from 'next/router'
 import { zonedTimeToUtc } from 'date-fns-tz'
 
-interface Opportunity {
-    authorId: string
-    author: string
-    email: string
-    _newName: string
-    _newDetails: string
-    _newEndDate: Date
-    _newTags: [{ id: string; text: string }]
-  }
+interface Edit {
+  setIsEdit: React.Dispatch<React.SetStateAction<boolean>>
+  isEdit: boolean
+}
 
 export default function OpportunityEditForm({
   authorId,
   author,
   email,
-  _oldName,
-  _oldDetails,
-  _oldEndDate,
-  _oldTags,
-  onHandleChange,
-}) {
+  name,
+  details,
+  endDate,
+  tags,
+  setIsEdit,
+  isEdit,
+}: Opportunity & Edit) {
   const router = useRouter()
   const initialValues: Opportunity = {
     authorId: authorId,
     author: author,
     email: email,
-    _newName: _oldName,
-    _newDetails: _oldDetails,
-    _newEndDate: zonedTimeToUtc(_oldEndDate, 'UTC'),
-    _newTags: _oldTags,
+    name: name,
+    details: details,
+    endDate: zonedTimeToUtc(endDate, 'UTC'),
+    tags: tags,
   }
 
   const sendData = async (newOpportunityData) => {
@@ -66,88 +62,88 @@ export default function OpportunityEditForm({
       initialValues={initialValues}
       validate={(values: Opportunity) => {
         let errors: FormikErrors<Opportunity> = {}
-        if (!values._newName) {
-          errors._newName = 'Required'
+        if (!values.name) {
+          errors.name = 'Required'
         }
-        if (!values._newDetails) {
-          errors._newDetails = 'Required'
+        if (!values.details) {
+          errors.details = 'Required'
         }
-        if (!values._newEndDate) {
-          errors._newEndDate = 'Required'
+        if (!values.endDate) {
+          errors.endDate = 'Required'
         } 
-        else if (new Date(values._newEndDate) < new Date()) {
-          errors._newEndDate = 'End date has passed'
+        else if (new Date(values.endDate) < new Date()) {
+          errors.endDate = 'End date has passed'
         }
         if (
-          values._newName === _oldName &&
-          values._newDetails === _oldDetails &&
-          values._newEndDate === _oldEndDate
+          values.name === name &&
+          values.details === details &&
+          values.endDate === endDate
         ) {
-          errors._newName = 'You made no changes'
-          errors._newDetails = 'You made no changes'
-          errors._newEndDate = 'You made no changes'
+          errors.name = 'You made no changes'
+          errors.details = 'You made no changes'
+          errors.endDate = 'You made no changes'
         }
-        if (values._newTags.length > 10) {
-          errors._newTags = 'Too many tags'
+        if (values.tags.length > 10) {
+          errors.tags = 'Too many tags'
         } else if (
-          values._newTags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
+          values.tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
             .length > 0
         ) {
-          errors._newTags = 'Alphanumeric characters only'
+          errors.tags = 'Alphanumeric characters only'
         }
         return errors
       }}
       onSubmit={(values, { setSubmitting }) => {
         sendData(values)
-        !onHandleChange()
+        setIsEdit(!isEdit)
         setSubmitting(false)
       }}
     >
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className={formstyles.inputheader}>
-            <label htmlFor="_newName">
+            <label htmlFor="name">
               <strong>
                 Opportunity Name: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newName">
+            <ErrorMessage name="name">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
-            name="_newName"
+            name="name"
             type="text"
             placeholder="Scotty's Internship"
             maxLength={100}
           />
           <div className={formstyles.inputheader}>
-            <label htmlFor="_newDetails">
+            <label htmlFor="details">
               <strong>
                 Opportunity Details: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_newDetails">
+            <ErrorMessage name="details">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Tiptap
             setFieldValue={setFieldValue}
             isSubmitting={isSubmitting}
-            name="_newDetails"
+            name="details"
             // Initially, we set it to the old details in initialValues
-            oldContent={_oldDetails}
+            oldContent={details}
           />
           <div className={formstyles.datewrapper}>
             <div className={formstyles.dateinput}>
               <div className={formstyles.inputheader}>
-                <label htmlFor="_newEndDate">
+                <label htmlFor="endDate">
                   <strong>
                     Event End Date: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_newEndDate">
+                <ErrorMessage name="endDate">
                   {(message) => (
                     <span className={formstyles.error}>{message}</span>
                   )}
@@ -156,22 +152,22 @@ export default function OpportunityEditForm({
               <Field
                 autoComplete="off"
                 type="datetime-local"
-                name="_newEndDate"
+                name="endDate"
               />
             </div>
           </div>
           <div className={formstyles.inputheader}>
-            <label htmlFor="_newTags">
+            <label htmlFor="tags">
               <strong>Tags:</strong>
             </label>
-            <ErrorMessage name="_newTags">
+            <ErrorMessage name="tags">
               {(message) => <span className={formstyles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Tags
             setFieldValue={setFieldValue}
-            name="_newTags"
-            oldTags={_oldTags}
+            name="tags"
+            oldTags={tags}
           />
           <span className={styles.actions}>
             <button
