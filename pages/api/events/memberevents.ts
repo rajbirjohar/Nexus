@@ -11,6 +11,8 @@ export default async function handler(
   const db = isConnected.db(process.env.MONGODB_DB)
   const session = await getSession({ req })
   if (session) {
+    const query = req.query.event.toString().toLowerCase()
+
     const relations = await db
       .collection('relations')
       .find({ userId: new mongodb.ObjectId(session.user.id) })
@@ -23,6 +25,23 @@ export default async function handler(
     const events = await db
       .collection('events')
       .find({
+        // Search results
+        ...(req.query.event
+          ? {
+              $or: [
+                { name: { $regex: `${query}`, $options: 'i' } },
+                { details: { $regex: `${query}`, $options: 'i' } },
+                { org: { $regex: `${query}`, $options: 'i' } },
+                // Search through array of tags text fields only
+                { 'tags.text': { $regex: `${query}`, $options: 'i' } },
+              ],
+            }
+          : {
+              // Or first 10 results
+              ...(req.query.before && {
+                createdAt: {},
+              }),
+            }),
         orgId: { $in: relationsFlat },
         endDate: { $gte: new Date() },
       })

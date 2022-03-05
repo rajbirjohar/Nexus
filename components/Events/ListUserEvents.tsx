@@ -1,72 +1,47 @@
 import React, { useState } from 'react'
-import useSWR from 'swr'
 import Loader from '../Layout/Skeleton'
-import Fetcher from '@/lib/fetcher'
 import EventCard from './EventCard'
-import NotFound from '../notFound'
 import ErrorFetch from '../Layout/ErrorFetch'
 import formstyles from '@/styles/form.module.css'
 import cardstyles from '@/styles/card.module.css'
 import { SearchIcon } from '../Icons'
+import { useEventsPages } from '@/hooks/useEventsPage'
+import { DebounceInput } from 'react-debounce-input'
 
 export default function ListUserEvents() {
-  const { data, error } = useSWR('/api/events/memberevents', Fetcher, {
-    refreshInterval: 1000,
-  })
-  const [searchValue, setSearchValue] = useState('')
+  const [search, setSearch] = useState('')
+  const { data, error, size, setSize, isLoadingMore, isReachingEnd } =
+    useEventsPages({
+      route: '/api/events/memberevents',
+      event: search,
+    })
+
+  const events = data
+    ? data.reduce((acc, val) => [...acc, ...val.events], [])
+    : []
+
   if (error) {
     return <ErrorFetch placeholder="events" />
   }
-  if (!data) {
-    return (
-      <>
-        <div className={formstyles.searchwrapper}>
-          <input
-            autoComplete="off"
-            aria-label="Disabled Searchbar"
-            type="text"
-            disabled
-            placeholder="Search by name, club, or details"
-            className={formstyles.search}
-          />
-          <SearchIcon />
-        </div>
-        <Loader />
-      </>
-    )
-  }
-  const filteredEvents = Object(data.events).filter(
-    (event) =>
-      event.name.toLowerCase().includes(searchValue.toLowerCase()) ||
-      event.orgName.toLowerCase().includes(searchValue.toLowerCase()) ||
-      event.details.toLowerCase().includes(searchValue.toLowerCase())
-  )
+
   return (
-    <div>
-      {data.events.length === 0 ? (
-        <div className={formstyles.notFound}>
-          <p>No events today!</p>
-        </div>
-      ) : (
-        <div className={formstyles.searchwrapper}>
-          <input
-            autoComplete="off"
-            aria-label="Enabled Searchbar"
-            type="text"
-            onChange={(e) => setSearchValue(e.target.value)}
-            placeholder="Search by name, club, or details"
-            className={formstyles.search}
-          />
-          <SearchIcon />
-        </div>
-      )}
-
-      {!filteredEvents.length && data.events.length !== 0 && (
-        <NotFound placeholder="event" />
-      )}
-
+    <section>
+      <div className={formstyles.searchwrapper}>
+        {/* So we don't blow up our db connections */}
+        <DebounceInput
+          minLength={2}
+          debounceTimeout={300}
+          autoComplete="off"
+          aria-label="Enabled Searchbar"
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search by club, details, or tags"
+          className={formstyles.search}
+        />
+        <SearchIcon />
+      </div>
       <div className={cardstyles.grid}>
-        {filteredEvents.map((event) => (
+        {events.map((event) => (
           <EventCard
             key={event._id}
             org={event.org}
@@ -79,6 +54,17 @@ export default function ListUserEvents() {
           />
         ))}
       </div>
-    </div>
+      {isLoadingMore ? (
+        <Loader />
+      ) : isReachingEnd ? (
+        <p className={formstyles.end}>You&#39;ve reached the end 🎉</p>
+      ) : (
+        <span className={formstyles.load}>
+          <button disabled={isLoadingMore} onClick={() => setSize(size + 1)}>
+            Load more
+          </button>
+        </span>
+      )}
+    </section>
   )
 }
