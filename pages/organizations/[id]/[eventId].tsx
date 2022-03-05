@@ -163,8 +163,8 @@ export default function Event({ event, creator, admins }) {
               <h1 className={styles.title}>{event.name}</h1>
               <h3 className={styles.author}>
                 By{' '}
-                <Link href={`/organizations/${event.orgName}`} passHref>
-                  <a>{event.orgName}</a>
+                <Link href={`/organizations/${event.org}`} passHref>
+                  <a>{event.org}</a>
                 </Link>
               </h3>
               <time className={styles.date}>
