@@ -70,10 +70,30 @@ export default async function handler(
   }
 
   if (req.method === 'GET') {
+    const query = req.query.org.toString().toLowerCase()
+
+    // await db.collection('organizations').createIndex({
+    //   name: 'text',
+    //   details: 'text',
+    // })
+
     const organizations = await db
       .collection('organizations')
-      .find({})
-      .sort({ organizationName: 1 })
+      .find({
+        // To support search
+        ...(req.query.org
+          ? {
+              name: { $regex: `${query}` },
+              // $text: { $search: `${query}` },
+            }
+          : {
+              ...(req.query.before && {
+                name: { $gte: req.query.before.toString() },
+              }),
+            }),
+      })
+      .sort({ name: 1 })
+      .limit(parseInt(req.query.limit.toString(), 10))
       .toArray()
 
     res.status(200).json({ organizations })
@@ -187,7 +207,7 @@ export default async function handler(
         await db
           .collection('events')
           .deleteMany({ orgId: new mongodb.ObjectId(orgId) })
-          
+
         // Delete all comments associated with events associated with this org
         await db
           .collection('comments')
