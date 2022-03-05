@@ -18,14 +18,13 @@ export default async function handler(
       .collection('users')
       .updateOne(
         { _id: new mongodb.ObjectId(userId) },
-        { $push: { roles: role } }
+        { $addToSet: { roles: role } }
       )
     res.status(200).json({ message: 'Success.' })
   } else {
     // Not Signed in
     res.status(401).json({
-      error:
-        'Not signed in.',
+      error: 'Not signed in.',
     })
   }
 }
