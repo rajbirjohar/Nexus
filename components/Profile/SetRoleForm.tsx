@@ -27,7 +27,7 @@ export default function SetRoleForm({ userId }) {
 
     if (response.status === 200) {
       toast.success("You've set your role!")
-      router.replace(router.asPath);
+      router.reload();
     } else {
       toast.error(
         'Uh oh. Something happened. Please contact us if this persists.'
