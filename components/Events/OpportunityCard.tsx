@@ -77,7 +77,7 @@ export default function OpportunityCard({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newOpportunityData: name }),
+      body: JSON.stringify({ newOpportunityData: opId, authorId }),
     })
     await response.json()
     if (response.status === 200) {

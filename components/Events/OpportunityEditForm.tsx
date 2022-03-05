@@ -14,6 +14,7 @@ interface Edit {
 }
 
 export default function OpportunityEditForm({
+  opId,
   authorId,
   author,
   email,
@@ -26,6 +27,7 @@ export default function OpportunityEditForm({
 }: Opportunity & Edit) {
   const router = useRouter()
   const initialValues: Opportunity = {
+    opId: opId,
     authorId: authorId,
     author: author,
     email: email,
@@ -42,7 +44,7 @@ export default function OpportunityEditForm({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newOpportunityData: newOpportunityData }),
+      body: JSON.stringify({ newOpportunityData: opId, authorId }),
     })
     const data = await response.json()
     if (response.status === 200) {
