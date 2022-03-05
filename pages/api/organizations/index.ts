@@ -83,7 +83,12 @@ export default async function handler(
         // To support search
         ...(req.query.org
           ? {
-              name: { $regex: `${query}` },
+              $or: [
+                // This solution is okay for now but would probably need to migrate it if it gets too big
+                { name: { $regex: `${query}`, $options: 'i' } },
+                { details: { $regex: `${query}`, $options: 'i' } },
+              ],
+              // name: { $regex: `${query}`, $options: 'i' },
               // $text: { $search: `${query}` },
             }
           : {
