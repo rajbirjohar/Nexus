@@ -51,7 +51,44 @@ export default function Profile() {
           <h1>Hello {session.user.firstname || session.user.name}</h1>
           <h3>Have an awesome day.</h3>
           {/* <button onClick={() => changeData()}>Change Data</button> */}
-          <Tabs
+
+          {session.user.roles.includes('professor') && (
+            <Tabs
+              tabs={[
+                {
+                  label: 'Organizations',
+                  id: 'organizations',
+                  component: <ListUserOrganizations />,
+                },
+                {
+                  label: 'Opportunities',
+                  id: 'opportunities',
+                  component: <ListUserOpportunities />,
+                }
+              ]}
+              layoutId="profile"
+            />
+          )}
+
+          {session.user.roles.includes('student') && (
+            <Tabs
+              tabs={[
+                {
+                  label: 'Organizations',
+                  id: 'organizations',
+                  component: <ListUserOrganizations />,
+                },
+                {
+                  label: 'Reviews',
+                  id: 'reviews',
+                  component: <ListReviews />,
+                }
+              ]}
+              layoutId="profile"
+            />
+          )}
+          
+          {/* <Tabs
             tabs={[
               {
                 label: 'Organizations',
@@ -70,7 +107,7 @@ export default function Profile() {
               }
             ]}
             layoutId="profile"
-          />
+          /> */}
         </>
       )}
     </Page>
