@@ -30,7 +30,7 @@ export default function ListOrganizations() {
           aria-label="Enabled Searchbar"
           type="text"
           onChange={(e) => setSearch(e.target.value)}
-          placeholder='Search FULL names ex. "Nexus"'
+          placeholder='Search club names ex. "Nexus"'
           className={formstyles.search}
         />
         <SearchIcon />
