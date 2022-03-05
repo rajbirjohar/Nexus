@@ -6,13 +6,13 @@ import { useRouter } from 'next/router';
 
 interface Role {
   userId: string
-  _role: string
+  role: string
 }
 
 export default function SetRoleForm({ userId }) {
   const initialValues: Role = {
     userId: userId,
-    _role: '',
+    role: '',
   }
   const router = useRouter()
   const sendData = async (roleData) => {
@@ -49,13 +49,13 @@ export default function SetRoleForm({ userId }) {
         initialValues={initialValues}
         validate={(values: Role) => {
           let errors: FormikErrors<Role> = {}
-          if (!values._role) {
-            errors._role = 'Required'
+          if (!values.role) {
+            errors.role = 'Required'
           } else if (
-            values._role !== 'student' &&
-            values._role !== 'professor'
+            values.role !== 'student' &&
+            values.role !== 'professor'
           ) {
-            errors._role = 'Incorrect answer'
+            errors.role = 'Incorrect answer'
           }
           return errors
         }}
@@ -67,14 +67,14 @@ export default function SetRoleForm({ userId }) {
         {({ values, handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
-              <label htmlFor="_comment">
+              <label htmlFor="role">
                 <strong>Role:</strong>
               </label>
-              <ErrorMessage name="_role">
+              <ErrorMessage name="role">
                 {(message) => <span className={styles.error}>{message}</span>}
               </ErrorMessage>
             </div>
-            <Field as="select" name="_role" className={styles.dropdown}>
+            <Field as="select" name="role" className={styles.dropdown}>
               <option value="none">Select a role</option>
               <option value="student">Student</option>
               <option value="professor">Professor</option>
