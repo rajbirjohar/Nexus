@@ -73,7 +73,7 @@ export default function CommentEditForm({
                 Comment: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_comment">
+            <ErrorMessage name="comment">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
