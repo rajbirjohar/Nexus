@@ -92,7 +92,7 @@ export default function DeleteOrganization({ orgId, name, imagePublicId }: Organ
         {({ values, handleSubmit, isSubmitting }) => (
           <Form onSubmit={handleSubmit}>
             <div className={styles.inputheader}>
-              <label htmlFor="_email">
+              <label htmlFor="email">
                 <strong>Organization:</strong>
               </label>
               <ErrorMessage name="name">

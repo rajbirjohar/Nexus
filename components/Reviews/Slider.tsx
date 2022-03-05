@@ -19,8 +19,8 @@ const useSlider = (min, max, defaultState) => {
         <Field
           autoComplete="off"
           type="range"
-          name="_difficulty"
-          id="_difficulty"
+          name="difficulty"
+          id="difficulty"
           min={min}
           max={max}
           step={1}
