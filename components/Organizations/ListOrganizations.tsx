@@ -1,98 +1,42 @@
 import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import useSWR from 'swr'
-import fetcher from '@/lib/fetcher'
 import OrganizationCard from '@/components/Organizations/OrganizationCard'
 import Loader from '@/components/Layout/Skeleton'
-import NotFound from '../notFound'
 import ErrorFetch from '../Layout/ErrorFetch'
 import cardstyles from '@/styles/card.module.css'
 import formstyles from '@/styles/form.module.css'
 import { SearchIcon } from '../Icons'
+import { useOrgPages } from '@/hooks/useOrgPages'
 
 export default function ListOrganizations() {
-  const { data, error } = useSWR('/api/organizations', fetcher, {
-    refreshInterval: 1000,
-  })
-  const router = useRouter()
-  const [searchValue, setSearchValue] = useState('')
+  const [search, setSearch] = useState('')
+  const { data, error, size, setSize, isLoadingMore, isReachingEnd } =
+    useOrgPages({
+      org: search,
+    })
+
+  const organizations = data
+    ? data.reduce((acc, val) => [...acc, ...val.organizations], [])
+    : []
+
   if (error) {
     return <ErrorFetch placeholder="organizations" />
   }
-  if (!data) {
-    return (
-      <>
-        <div className={formstyles.searchwrapper}>
-          <input
-            autoComplete="off"
-            aria-label="Disabled Searchbar"
-            type="text"
-            disabled
-            placeholder='Search clubs ex. "Nexus"'
-            className={formstyles.search}
-          />
-          <SearchIcon />
-        </div>
-        <Loader />
-      </>
-    )
-  }
-  const filteredOrgs = Object(data.organizations).filter((org) =>
-    org.name.toLowerCase().includes(searchValue.toLowerCase())
-  )
-
-  const allOrgNames = data.organizations.map((org) => org.name)
-  // Fun little function that randomly selects
-  // an organization from all available orgs
-  // (kinda like Google's "Im feeling lucky" button)
-  // Thanks Tricia <3 for the idea
-  // This implementation ensures that there
-  // will be no repeated names selected
-  function imFeelingLucky(array) {
-    let copyOfArray = array.slice(0)
-    return function () {
-      if (copyOfArray.length < 1) {
-        copyOfArray = array.slice(0)
-      }
-      const index = Math.floor(Math.random() * copyOfArray.length)
-      const orgName = copyOfArray[index]
-      copyOfArray.splice(index, 1)
-      router.push(`/organizations/${orgName}`)
-    }
-  }
 
   return (
-    <div>
-      {data.organizations.length === 0 ? (
-        <p>Create the first organization!</p>
-      ) : (
-        <>
-          <span className={formstyles.actions}>
-            <button
-              className={formstyles.lucky}
-              onClick={imFeelingLucky(allOrgNames)}
-            >
-              I&#39;m feeling lucky
-            </button>
-          </span>
-          <div className={formstyles.searchwrapper}>
-            <input
-              autoComplete="off"
-              aria-label="Enabled Searchbar"
-              type="text"
-              onChange={(e) => setSearchValue(e.target.value)}
-              placeholder='Search clubs ex. "Nexus"'
-              className={formstyles.search}
-            />
-            <SearchIcon />
-          </div>
-        </>
-      )}
-      {!filteredOrgs.length && data.organizations.length !== 0 && (
-        <NotFound placeholder="organization" />
-      )}
+    <section>
+      <div className={formstyles.searchwrapper}>
+        <input
+          autoComplete="off"
+          aria-label="Enabled Searchbar"
+          type="text"
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder='Search FULL names ex. "Nexus"'
+          className={formstyles.search}
+        />
+        <SearchIcon />
+      </div>
       <div className={cardstyles.grid}>
-        {filteredOrgs.map((org) => (
+        {organizations.map((org) => (
           <OrganizationCard
             key={org._id}
             name={org.name}
@@ -101,6 +45,17 @@ export default function ListOrganizations() {
           />
         ))}
       </div>
-    </div>
+      {isLoadingMore ? (
+        <Loader />
+      ) : isReachingEnd ? (
+        <p className={formstyles.end}>You&#39;ve reached the end 🎉</p>
+      ) : (
+        <span className={formstyles.load}>
+          <button disabled={isLoadingMore} onClick={() => setSize(size + 1)}>
+            Load more
+          </button>
+        </span>
+      )}
+    </section>
   )
 }
