@@ -13,15 +13,7 @@ export default async function handler(
   if (req.method === 'POST') {
     if (session) {
       const {
-        memberData: {
-          orgId,
-          org,
-          userId,
-          firstname,
-          lastname,
-          email,
-          role,
-        },
+        memberData: { orgId, org, userId, firstname, lastname, email, role },
       } = req.body
 
       const memberExists = await db
@@ -29,9 +21,21 @@ export default async function handler(
         .find({
           orgId: new mongodb.ObjectId(orgId),
           userId: new mongodb.ObjectId(userId),
+          role: 'member',
         })
         .count()
 
+      const admin = await db
+        .find({
+          orgId: new mongodb.ObjectId(orgId),
+          userId: new mongodb.ObjectId(userId),
+          role: 'admin',
+        })
+        .count()
+
+      if (admin > 0) {
+        res.status(405).json({ error: 'Already an Admin.' })
+      }
       if (memberExists > 0) {
         res
           .status(403)

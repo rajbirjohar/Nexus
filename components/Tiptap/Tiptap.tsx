@@ -205,18 +205,11 @@ const Tiptap = (props) => {
     return null
   }
 
-  editor.on('focus', ({ editor }) => {
-    // If not editing, clear the placeholder text
-    if (!oldContent) {
-      editor.commands.clearContent()
-    }
-  })
-
   return (
     <div>
       <MenuBar editor={editor} />
       <div className={styles.editor}>
-        <EditorContent editor={editor} name={name} />
+        <EditorContent editor={editor} name={name} placeholder="Test" />
       </div>
       <span className={styles.maxlength}>
         {editor.storage.characterCount.characters()}/{limit}

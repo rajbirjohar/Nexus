@@ -38,6 +38,9 @@ export default function AddMemberForm({
     if (response.status === 200) {
       toast.success(`You joined ${org}!`)
       router.replace(router.asPath)
+    } else if (response.status === 405) {
+      toast.error('You are an admin of this org.')
+      router.replace(router.asPath)
     } else {
       toast.error(
         'Uh oh, something went wrong. If this persists, please let us know.'

@@ -73,12 +73,12 @@ export default function Event({ event, creator, admins }) {
 
   const isCreator =
     session &&
-    creator.map((creator) => creator.userId).toString() === session.user.id
+    creator.map((creator) => creator.userId).includes(session.user.id)
 
   const isAdmin =
     (session && isCreator) ||
     (session &&
-      admins.map((admin) => admin.userId).toString() === session.user.id)
+      admins.map((admin) => admin.userId).includes(session.user.id))
 
   const [isDelete, setIsDelete] = useState(false)
 
