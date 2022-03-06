@@ -8,17 +8,6 @@ import styles from '@/styles/form.module.css'
 import Tiptap from '../Tiptap/Tiptap'
 import Tags from '../Tags/Tags'
 
-interface Opportunity {
-  authorId: string
-  author: string
-  email: string
-  _name: string
-  _details: string
-  // _opportunityStartDate: Date
-  _endDate: Date
-  _tags: [{ id: string; text: string }]
-}
-
 export default function OpportunityForm({ authorId, author, email }) {
   const { data: session } = useSession()
   const router = useRouter()
@@ -26,11 +15,11 @@ export default function OpportunityForm({ authorId, author, email }) {
     authorId: session.user.id,
     author: session.user.name,
     email: session.user.email,
-    _name: '',
-    _details: '',
+    name: '',
+    details: '',
     // _opportunityStartDate: new Date(),
-    _endDate: new Date(),
-    _tags: [{ id: '', text: '' }],
+    endDate: new Date(),
+    tags: [{ id: '', text: '' }],
   }
 
   const sendData = async (opportunityData) => {
@@ -57,38 +46,39 @@ export default function OpportunityForm({ authorId, author, email }) {
       initialValues={initialValues}
       validate={(values: Opportunity) => {
         let errors: FormikErrors<Opportunity> = {}
-        if (!values._name) {
-          errors._name = 'Required'
+        if (!values.name) {
+          errors.name = 'Required'
         }
-        if (!values._details) {
-          errors._details = 'Required'
+        if (!values.details) {
+          errors.details = 'Required'
         }
-        if (!values._endDate) {
-          errors._endDate = 'Required'
-        } else if (new Date(values._endDate) < new Date()) {
-          errors._endDate = 'End date has passed'
+        if (!values.endDate) {
+          errors.endDate = 'Required'
+        } else if (new Date(values.endDate) < new Date()) {
+          errors.endDate = 'End date has passed'
         }
-        if (values._tags.length > 10) {
-          errors._tags = 'Too many tags'
+        if (values.tags.length > 10) {
+          errors.tags = 'Too many tags'
         } else if (
-          values._tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
+          values.tags.filter((tags) => !/^[a-z0-9]+$/i.test(tags.text))
             .length > 0
         ) {
-          errors._tags = 'Alphanumeric characters only'
+          errors.tags = 'Alphanumeric characters only'
         }
         return errors
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         sendData(values)
+        //console.log(values)
         resetForm({
           values: {
             authorId: authorId,
             author: author,
             email: email,
-            _name: '',
-            _details: '',
-            _endDate: new Date(),
-            _tags: [{ id: '', text: '' }],
+            name: '',
+            details: '',
+            endDate: new Date(),
+            tags: [{ id: '', text: '' }],
           },
         })
         setSubmitting(false)
@@ -97,56 +87,56 @@ export default function OpportunityForm({ authorId, author, email }) {
       {({ values, handleSubmit, isSubmitting, setFieldValue }) => (
         <Form onSubmit={handleSubmit}>
           <div className={styles.inputheader}>
-            <label htmlFor="_name">
+            <label htmlFor="name">
               <strong>
                 Opportunity Name: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_name">
+            <ErrorMessage name="name">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
           <Field
             autoComplete="off"
-            name="_name"
+            name="name"
             type="text"
             placeholder="Scotty's Internship"
           />
           <div className={styles.inputheader}>
-            <label htmlFor="_details">
+            <label htmlFor="details">
               <strong>
                 Opportunity Details: <span>*</span>
               </strong>
             </label>
-            <ErrorMessage name="_details">
+            <ErrorMessage name="details">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tiptap setFieldValue={setFieldValue} name="_details" />
+          <Tiptap setFieldValue={setFieldValue} name="details" />
           <div className={styles.datewrapper}>
             <div className={styles.dateinput}>
               <div className={styles.inputheader}>
-                <label htmlFor="_endDate">
+                <label htmlFor="endDate">
                   <strong>
                     Application Deadline: <span>*</span>
                   </strong>
                 </label>
-                <ErrorMessage name="_endDate">
+                <ErrorMessage name="endDate">
                   {(message) => <span className={styles.error}>{message}</span>}
                 </ErrorMessage>
               </div>
-              <Field autoComplete="off" type="datetime-local" name="_endDate" />
+              <Field autoComplete="off" type="datetime-local" name="endDate" />
             </div>
           </div>
           <div className={styles.inputheader}>
-            <label htmlFor="_tags">
+            <label htmlFor="tags">
               <strong>Tags:</strong>
             </label>
-            <ErrorMessage name="_tags">
+            <ErrorMessage name="tags">
               {(message) => <span className={styles.error}>{message}</span>}
             </ErrorMessage>
           </div>
-          <Tags setFieldValue={setFieldValue} name="_tags" />
+          <Tags setFieldValue={setFieldValue} name="tags" />
           <span className={styles.actions}>
             <button
               className={styles.primary}

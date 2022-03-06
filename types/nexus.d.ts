@@ -12,6 +12,17 @@ declare interface Review {
   timestamp?: Date
 }
 
+declare interface Opportunity {
+  opId?: string
+  authorId?: string
+  author?: string
+  email?: string
+  name?: string
+  details?: string
+  endDate?: Date | string
+  tags?: Array
+}
+
 declare interface Organization {
   orgId?: string
   creatorId?: string
