@@ -26,6 +26,7 @@ export default async function handler(
         .count()
 
       const admin = await db
+        .collection('relations')
         .find({
           orgId: new mongodb.ObjectId(orgId),
           userId: new mongodb.ObjectId(userId),
