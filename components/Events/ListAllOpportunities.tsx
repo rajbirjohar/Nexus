@@ -75,6 +75,7 @@ export default function ListAllOpportunities() {
                 {filteredOpportunities.map((newOpportunity) => (
                     <OpportunityCard
                     key={newOpportunity._id}
+                    opId={newOpportunity._id}
                     authorId={newOpportunity.authorId}
                     author={newOpportunity.author}
                     email={newOpportunity.email}

@@ -37,6 +37,7 @@ const deleteText = {
 }
 
 export default function OpportunityCard({
+  opId,
   authorId,
   author,
   email,
@@ -44,7 +45,7 @@ export default function OpportunityCard({
   details,
   endDate,
   tags,
-}) {
+} : Opportunity) {
   const { data: session } = useSession()
   const [isEdit, setIsEdit] = useState(false)
   const [isDelete, setIsDelete] = useState(false)
@@ -76,7 +77,7 @@ export default function OpportunityCard({
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ newOpportunityData: name }),
+      body: JSON.stringify({ newOpportunityData: opId, authorId }),
     })
     await response.json()
     if (response.status === 200) {
@@ -100,13 +101,15 @@ export default function OpportunityCard({
       {isEdit ? (
         <OpportunityEditForm
           authorId={authorId}
+          opId={opId}
           author={author}
           email={email}
-          _oldName={name}
-          _oldDetails={details}
-          _oldEndDate={endDate}
-          _oldTags={tags}
-          onHandleChange={setIsEdit}
+          name={name}
+          details={details}
+          endDate={endDate}
+          tags={tags}
+          setIsEdit={setIsEdit}
+          isEdit={isEdit}
         />
       ) : (
         <div>

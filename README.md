@@ -45,6 +45,7 @@
 - [x] Images Banners
 - [x] Org Profiles
 - [x] User Profiles
+- [x] Pagination
 - [x] Search
 - [x] Dark Mode
 - [x] Roles
@@ -104,8 +105,8 @@ Hello, I'm Robert! I'm a 4th year Computer Science major at UCR. If you are inte
 1. Clone or fork this project on your local machine.
 2. Ensure you have [Node](https://nodejs.org/en/) and [Yarn](https://yarnpkg.com/) installed.
 3. Within the root directory, run `yarn` or `yarn install` to install all required packages needed for this project.
-4. Then run `yarn run dev` to start your local server at `http://localhost:3000` and enter this address in your favorite browswer.
-5. From here, you can edit and poke around and watch your changes hot update.
+4. Then run `yarn run dev` to start your local server at `http://localhost:3000` and enter this address in your favorite browser.
+5. From here, you can edit, poke around, and watch your changes live update.
 
 ⚠️ **Important: In order to achieve full functionality, you will need to configure your environment variables as explained below.**
 
@@ -180,6 +181,8 @@ If you want to learn more about MongoDB, visit the following pages:
     - Makes our landing page special with animated images.
 - react-dropzone
     - Allows users to submit images.
+- date-fns
+    - Allows us to use the timestone (correctly).
 
 ### Python Script
 
@@ -221,7 +224,7 @@ Dealing with images always proves to be a challenge, and this time was no except
 
 ### Plan & Design
 
-This is the first time where our group of software engineers took on the task to develop a fullstack web application. Prior to this, most large scale projects we completed had guidance, an objective, and little planning was needed. However, developing Nexus brought on a whole set of new experiences and challenges. When we first started with our idea, we had to decide on the main features we wanted to incorporate into the product. Along with feature planning, we needed to plan sprints and approximate how much time each feature would take. In addition, we removed and added features during development for a multitude of reasons. Sometimes some features were too complex, impacted performance, or became negligible. Thus, constant changes, new ideas, and maintaining the original idea of the project proved extremely challenging.
+This is the first time where our group of software engineers took on the task to develop a full stack web application. Prior to this, most large scale projects we completed had guidance, an objective, and little planning was needed. However, developing Nexus brought on a whole set of new experiences and challenges. When we first started with our idea, we had to decide on the main features we wanted to incorporate into the product. Along with feature planning, we needed to plan sprints and approximate how much time each feature would take. In addition, we removed and added features during development for a multitude of reasons. Sometimes some features were too complex, impacted performance, or became negligible. Thus, constant changes, new ideas, and maintaining the original idea of the project proved extremely challenging.
 
 > &mdash; <cite>Brian Coffey</cite>
 > 
@@ -276,7 +279,7 @@ Overall System Diagram
 
 ### Landing Page
 
-Our design language leans towards a simple yet tasteful color scheme and layout to create an unparalleled user experience. We want to be able to provide as much information as possible while being digestable for the user. Along with our purple brand, we offer a dark mode for those who enjoy browsing at night giving the user options and control over their experience.
+Our design language leans towards a simple yet tasteful color scheme and layout to create an unparalleled user experience. We want to be able to provide as much information as possible while being digestible for the user. Along with our purple brand, we offer a dark mode for those who enjoy browsing at night giving the user options and control over their experience.
 
 <p align="center">
 <img src="/documentation/images/LandingDark.png" alt="image of Nexus' landing page">
@@ -342,7 +345,7 @@ When creating a new organization users must first apply to be an "Organizer" fro
 
 ### New Event Sequence Diagram 
 
-Once a user has succesfully created an organization, they are able to create events for it by navigating to its respective page. They are greeted by a form where they can enter details about the event. The event is created and written to the database where it is then displayed on both the `/events` and organization's page.
+Once a user has successfully created an organization, they are able to create events for it by navigating to its respective page. They are greeted by a form where they can enter details about the event. The event is created and written to the database where it is then displayed on both the `/events` and organization's page.
 
 <p align="center">
 <img src="/documentation/images/New_Event_Sequence_Diagram.jpg" alt="image of new event sequence diagram">
@@ -361,7 +364,7 @@ After the initial sign up, the user is prompted to request a role before they ar
 
 ### Searching for Course Sequence Diagram 
 
-At the top of the `/courses` page there is a search bar allowing users to filter courses based on a provided search string. When first visiting the `/courses` page a request is sent to the database for a list of all courses. These courses are then returned and then displayed as cards on the page. As the user types in the search bar the page is dynamically displays all courses matching the search query.
+At the top of the `/courses` page there is a search bar allowing users to filter courses based on a provided search string. When first visiting the `/courses` page a request is sent to the database for a list of all courses. These courses are then returned and then displayed as cards on the page. As the user types in the search bar the page dynamically displays all courses matching the search query.
 
 <p align="center">
 <img src="/documentation/images/Searching_for_Course_Sequence_Diagram.jpg" alt="image of searching for course sequence diagram">
