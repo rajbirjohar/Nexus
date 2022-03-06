@@ -36,17 +36,17 @@ export default function Organization({
 
   const isCreator =
     session &&
-    creator.map((creator) => creator.userId).toString() === session.user.id
+    creator.map((creator) => creator.userId).includes(session.user.id)
 
   const isAdmin =
     session &&
     admins.length > 0 &&
-    admins.map((admin) => admin.userId).toString() === session.user.id
+    admins.map((admin) => admin.userId).includes(session.user.id)
 
   const isMember =
     session &&
     members.length > 0 &&
-    members[0].userId.toString() === session.user.id
+    members[0].userId.toString().includes(session.user.id)
 
   return (
     <Page
