@@ -27,7 +27,7 @@ export default function Settings({ organization, creator }) {
 
   const isCreator =
     session &&
-    creator.map((creator) => creator.userId).toString() === session.user.id
+    creator.map((creator) => creator.userId).includes(session.user.id)
 
   useEffect(() => {
     if (session && !isCreator) {
