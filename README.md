@@ -30,26 +30,39 @@
 <img alt="Next JS" src="https://img.shields.io/badge/nextjs-%23000000.svg?&style=for-the-badge&logo=next.js&logoColor=white"/> <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"/> <img alt="Typescript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"/> <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/> <img alt="ESLint" src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white" /> <img alt="Prettier" src="https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E"/> <img alt="Stack Overflow" src="https://img.shields.io/badge/Stack_Overflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white"/>
 
 ### Features
-
-- [x] Static Site Generation
-- [x] Server Side Rendering
-- [x] Serverless APIs
-- [x] Dynamic Data Fetching
-- [x] Instant Routing
-- [x] Protected Routing
-- [x] Dynamic Routing
-- [x] Authentication
-- [x] Review Posts
-- [x] Event Posts
-- [x] Rich Text Editor
-- [x] Images Banners
-- [x] Org Profiles
-- [x] User Profiles
-- [x] Pagination
-- [x] Search
-- [x] Dark Mode
-- [x] Roles
-- [x] Sort
+- [x] authentication
+- [x] static site generation
+- [x] server side rendering
+- [x] serverless apis
+- [x] static data fetching
+- [x] dynamic, protected, instant routing
+- [x] user profiles
+- [x] orgs search, post, edit,  read, delete
+- [x] courses search, post, edit, read, delete
+- [x] events search, post, edit,  read, delete
+- [x] comments post, edit,  read, delete
+- [x] dark mode
+- [x] updated color scheme and layout
+- [x] rich text editor
+- [x] organization management
+- [x] notification system
+- [x] opportunities
+- [x] pagination
+- [x] roles collection
+- [x] role permissions
+- [x] add/remove admins
+- [x] add/remove members
+- [x] transfer ownership
+- [x] discover sidebar
+- [x] join/edit organizations
+- [x] latest reviews
+- [x] logo
+- [x] image database
+- [x] organization profile images
+- [x] organization social icons/links
+- [x] banner images for events
+- [x] university course database
+- [x] types
 
 ### About
 
