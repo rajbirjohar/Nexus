@@ -26,11 +26,7 @@ export default function ListEventsPerOrg({ organizationId }) {
 
   return (
     <section>
-      {!events.length ? (
-        <p>No events today!</p>
-      ) : (
-        <>
-        <div className={formstyles.searchwrapper}>
+      <div className={formstyles.searchwrapper}>
         {/* So we don't blow up our db connections */}
         <DebounceInput
           minLength={2}
@@ -69,9 +65,6 @@ export default function ListEventsPerOrg({ organizationId }) {
           </button>
         </span>
       )}
-        </>
-      )}
-      
     </section>
   )
 }

@@ -46,7 +46,7 @@ export default function Organization({
   const isMember =
     session &&
     members.length > 0 &&
-    members[0].userId.toString().includes(session.user.id)
+    members.map((member) => member.userId).includes(session.user.id)
 
   return (
     <Page
@@ -58,13 +58,15 @@ export default function Organization({
           <div className={styles.header}>
             <span className={styles.title}>
               {organization.imageURL && (
-                <Image
-                  src={organization.imageURL}
-                  width={75}
-                  height={75}
-                  className={styles.rounded}
-                  alt="Thumbnail"
-                />
+                <div className={styles.thumbnail}>
+                  <Image
+                    src={organization.imageURL}
+                    width={75}
+                    height={75}
+                    className={styles.thumbnail}
+                    alt="Thumbnail"
+                  />
+                </div>
               )}{' '}
               <h1>{organization.name}</h1>
             </span>
@@ -198,8 +200,7 @@ export default function Organization({
                 {admins.map((admin) => (
                   <li className={styles.members} key={admin._id}>
                     <span>
-                      <strong>{admin.firstname} </strong> <br />{' '}
-                      {admin.email}
+                      <strong>{admin.firstname} {admin.lastname} </strong> <br /> {admin.email}
                     </span>
                   </li>
                 ))}

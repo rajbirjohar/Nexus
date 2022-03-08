@@ -10,6 +10,10 @@
   margin-bottom: 0;
 }
 
+.content {
+  padding-bottom: 0.5rem;
+}
+
 .header {
   display: flex;
   align-items: center;

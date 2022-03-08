@@ -13,15 +13,17 @@ export default function OrganizationCard({
       <div className={styles.card}>
         <div className={styles.header}>
           {image && (
-            <Image
-              src={image}
-              width={50}
-              height={50}
-              className={styles.thumbnail}
-              alt="Thumbnail"
-            />
+            <div className={styles.thumbnail}>
+              <Image
+                src={image}
+                width={50}
+                height={50}
+                className={styles.thumbnail}
+                alt="Thumbnail"
+              />
+            </div>
           )}
-          <h3 className={styles.title}>{name}</h3>
+          <h3 className={`${styles.title} ${'clamp'}`}>{name}</h3>
         </div>
         <h4 className={`${styles.tagline} ${'clamp-2'}`}>{tagline}</h4>
       </div>
