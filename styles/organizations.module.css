@@ -39,7 +39,7 @@
 }
 
 .title h1 {
-  margin: 0;
+  margin: 0.5rem 0;
 }
 
 .socials {
@@ -107,6 +107,14 @@
   border-radius: var(--radius);
   padding: 0 var(--gap-med) var(--gap) var(--gap-med);
   margin: var(--gap) 0;
+}
+
+.thumbnail {
+  min-width: 75px;
+  max-width: 75px;
+  min-height: 75px;
+  max-height: 75px;
+  border-radius: 50%;
 }
 
 @media (max-width: 868px) {

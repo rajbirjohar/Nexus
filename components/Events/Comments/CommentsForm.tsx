@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage, FormikErrors } from 'formik'
 import toast from 'react-hot-toast'
 import styles from './comment.module.css'
 
-const maxLength = 200
+const maxLength = 280
 
 export default function CommentsForm({
   eventId,

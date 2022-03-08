@@ -85,7 +85,7 @@ const Comment = ({
           commentId={commentId}
         />
       ) : (
-        <p>{comment}</p>
+        <p className={styles.content}>{comment}</p>
       )}
     </div>
   )

@@ -42,7 +42,7 @@ export default function OrganizationsForm() {
     } else if (response.status === 200) {
       toast.success("You've created your organization!")
       // Instead of replace because I think it's due the way we are fetching
-     Router.reload()
+      Router.reload()
     } else if (response.status === 413) {
       toast.error('Image is too big or wrong format.')
     } else {
@@ -63,6 +63,8 @@ export default function OrganizationsForm() {
           let errors: FormikErrors<Organization> = {}
           if (!values.name) {
             errors.name = 'Required'
+          } else if (!/^[A-Z0-9 ]*$/i.test(values.name)) {
+            errors.name = 'Alphanumeric and spaces only'
           }
           if (!values.tagline) {
             errors.tagline = 'Required'
@@ -99,7 +101,10 @@ export default function OrganizationsForm() {
             <div className={styles.inputheader}>
               <label htmlFor="name">
                 <strong>
-                  Name: <span>*</span>
+                  Name: <span>*</span> <br />
+                  <span className={styles.subtitle}>
+                    Note, you will not be able to change this later
+                  </span>
                 </strong>
               </label>
               <ErrorMessage name="name">
