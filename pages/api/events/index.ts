@@ -95,13 +95,15 @@ export default async function handler(
           : {
               // Or first 10 results
               ...(req.query.before && {
-                createdAt: {},
+                // Grab all events after oldest post's startDate
+                startDate: { $gt: new Date(req.query.before.toString()) },
               }),
             }),
 
         // All events that haven't expired
         endDate: { $gte: new Date() },
       })
+      .limit(parseInt(req.query.limit.toString(), 10))
       .sort({ startDate: 1 })
       .toArray()
     return res.status(200).json({ events })

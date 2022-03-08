@@ -4,19 +4,19 @@ import useSWRInfinite from 'swr/infinite'
 export function useEventsPages({ route = '', event = '', limit = 10 } = {}) {
   const { data, error, size, ...props } = useSWRInfinite(
     (index, previousPageData) => {
-      if (previousPageData && previousPageData.type.length === 0) return null
+      if (previousPageData && previousPageData.events.length === 0) return null
 
       const searchParams = new URLSearchParams()
       searchParams.set('limit', limit.toString())
       searchParams.set('event', event.toString())
 
       if (index !== 0) {
-        // using oldest posts createdAt date as cursor
+        // using oldest posts startDate date as cursor
         // We want to fetch posts which has a date that is
-        // before (hence the .getTime()) the last post's createdAt
+        // after (hence the .getTime()) the last post's startDate
         const before = new Date(
           new Date(
-            previousPageData.events[previousPageData.events.length - 1].endDate
+            previousPageData.events[previousPageData.events.length - 1].startDate
           ).getTime()
         )
 

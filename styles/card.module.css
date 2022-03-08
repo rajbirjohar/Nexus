@@ -3,18 +3,21 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: var(--gap-med);
+  margin-bottom: var(--gap);
 }
 
 .gridtall {
   display: flex;
   flex-direction: column;
   gap: var(--gap-med);
+  margin-bottom: var(--gap);
 }
 
 .gridshort {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--gap-med);
+  margin-bottom: var(--gap);
 }
 
 .greencard {
