@@ -129,6 +129,12 @@ export default function MobileHeader() {
                 setIsOpen={setIsOpen}
                 isOpen={isOpen}
               />
+              <NavLink
+                title="Opportunities"
+                path="/opportunities"
+                setIsOpen={setIsOpen}
+                isOpen={isOpen}
+              />
               {session ? (
                 <>
                   <NavLink

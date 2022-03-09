@@ -1,6 +1,7 @@
 import Comment from './Comment'
 import styles from './comment.module.css'
 import { useCommentPages } from 'hooks/useCommentPages'
+import Loader from '@/components/Layout/Skeleton'
 
 export default function ListComments({ eventId, isAdmin }) {
   const { data, size, setSize, isLoadingMore, isReachingEnd } = useCommentPages(
@@ -24,7 +25,9 @@ export default function ListComments({ eventId, isAdmin }) {
           date={comment.createdAt}
         />
       ))}
-      {isReachingEnd ? (
+      {isLoadingMore ? (
+        <Loader />
+      ): isReachingEnd ? (
         <p className={styles.end}>You&#39;ve reached the end 🎉</p>
       ) : (
         <span className={styles.load}>
