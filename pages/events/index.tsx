@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import ListAllEvents from '@/components/Events/ListAllEvents'
-import ListAllOpportunities from '@/components/Events/ListAllOpportunities'
 import Page from '@/components/Layout/Page'
 import styles from '@/styles/events.module.css'
 import ListUserEvents from '@/components/Events/ListUserEvents'
@@ -52,11 +51,6 @@ export default function EventsPage() {
               label: 'Member Events',
               id: 'memberevents',
               component: <ListUserEvents />,
-            },
-            {
-              label: 'Opportunities',
-              id: 'opportunities',
-              component: <ListAllOpportunities />,
             },
           ]}
           layoutId="events"

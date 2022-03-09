@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import Link from 'next/link'
-import styles from './card.module.css'
+import styles from 'components/Events/card.module.css'
 import { useSession } from 'next-auth/react'
 import React, { useState, useEffect, useRef } from 'react'
 import { EditIcon, TrashIcon } from '../Icons'
