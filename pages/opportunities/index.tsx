@@ -3,7 +3,7 @@ import Page from '@/components/Layout/Page'
 import styles from '@/styles/events.module.css'
 import { LottieWrapper } from '@/components/LottieWrapper'
 import { GreenTip } from '@/components/Layout/Tips'
-import animationData from '@/lotties/teamblue.json'
+import animationData from '@/lotties/professor.json'
 import OpportunityForm from '@/components/Opportunities/OpportunityForm'
 import Accordion from '@/components/Layout/Accordion'
 import ListAllOpportunities from '@/components/Opportunities/ListAllOpportunities'
@@ -28,7 +28,7 @@ export default function OpportunitiesPage() {
             <h1>Opportunities</h1>
             <p>
               This is where you&#39;ll be able to see all opportunities posted
-              and offered by professors. Opportunities are sorted by the cut off
+              and offered by professors. Opportunities are sorted by the application deadline
               date and time.
             </p>
           </div>
