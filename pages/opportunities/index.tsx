@@ -4,9 +4,9 @@ import styles from '@/styles/events.module.css'
 import { LottieWrapper } from '@/components/LottieWrapper'
 import { GreenTip } from '@/components/Layout/Tips'
 import animationData from '@/lotties/teamblue.json'
-import OpportunityForm from '@/components/Events/OpportunityForm'
+import OpportunityForm from '@/components/Opportunities/OpportunityForm'
 import Accordion from '@/components/Layout/Accordion'
-import ListAllOpportunities from '@/components/Events/ListAllOpportunities'
+import ListAllOpportunities from '@/components/Opportunities/ListAllOpportunities'
 
 export default function OpportunitiesPage() {
   const { data: session } = useSession()
