@@ -26,7 +26,7 @@ export default function EventCard({
     format(new Date(endDate), 'hh:mm aaa'),
   ]
   return (
-    <Link href={`/organizations/${name}/${eventId}`} passHref>
+    <Link href={`/organizations/${org}/${eventId}`} passHref>
       <div className={styles.card}>
         {new Date(endDate) < new Date() && (
           <span className={styles.expired}>Expired</span>
