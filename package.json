@@ -10,6 +10,7 @@
     "@next-auth/mongodb-adapter": "^0.0.2-next.281",
     "@radix-ui/react-icons": "^1.0.3",
     "@tiptap/extension-character-count": "^2.0.0-beta.24",
+    "@tiptap/extension-placeholder": "^2.0.0-beta.48",
     "@tiptap/extension-underline": "^2.0.0-beta.22",
     "@tiptap/react": "^2.0.0-beta.107",
     "@tiptap/starter-kit": "^2.0.0-beta.180",
