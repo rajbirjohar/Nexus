@@ -18,5 +18,6 @@
 .title {
   color: var(--teal-500);
   transition: color var(--transition);
+  font-size: 1.2rem;
   margin: 0;
 }
