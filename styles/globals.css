@@ -311,6 +311,11 @@ textarea:focus,
   outline: none !important;
   border: 2px solid var(--teal-300);
 }
+/* 
+p.is-empty:first-child::before {
+ 
+} */
+
 
 .is-active:hover {
   background-color: var(--teal-900);

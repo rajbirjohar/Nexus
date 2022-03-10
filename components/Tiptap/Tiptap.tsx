@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
+import Placeholder from '@tiptap/extension-placeholder'
 import styles from './tiptap.module.css'
 import CharacterCount from '@tiptap/extension-character-count'
 import {
@@ -173,19 +174,28 @@ const MenuBar = ({ editor }) => {
 
 const Tiptap = (props) => {
   const { setFieldValue, name, oldContent } = props
-  let rawHtml =
-    oldContent ||
-    `
-   <p>
-   What do <i>you</i> want to share with the <b>whole wide world</b> today?
-   </p>
-`
 
   const editor = useEditor({
-    extensions: [StarterKit, CharacterCount.configure({ limit }), Underline],
-    content: rawHtml,
-  })
+    extensions: [
+      StarterKit,
+      CharacterCount.configure({ limit }),
+      Underline,
+      Placeholder.configure({
+        // Use a placeholder:
+        placeholder: 'What do you want to share with the whole wide world today?',
+        emptyEditorClass: `${styles.isEmpty}`,
+        // Use different placeholders depending on the node type:
+        // placeholder: ({ node }) => {
+        //   if (node.type.name === 'heading') {
+        //     return 'What’s the title?'
+        //   }
 
+        //   return 'Can you add some further context?'
+        // },
+      }),
+    ],
+    content: oldContent || '',
+  })
   // Cannot update a component while rendering another component without a useEffect
   useEffect(() => {
     // editor will be null for a split second on render
@@ -209,7 +219,7 @@ const Tiptap = (props) => {
     <div>
       <MenuBar editor={editor} />
       <div className={styles.editor}>
-        <EditorContent editor={editor} name={name} placeholder="Test" />
+        <EditorContent editor={editor} name={name} />
       </div>
       <span className={styles.maxlength}>
         {editor.storage.characterCount.characters()}/{limit}
