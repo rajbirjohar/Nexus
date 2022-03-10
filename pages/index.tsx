@@ -13,6 +13,7 @@ import signAnimationData from '@/lotties/heart.json'
 import searchAnimationData from '@/lotties/searching.json'
 import rocketAnimationData from '@/lotties/rocket.json'
 import checkAnimationData from '@/lotties/check.json'
+import professorAnimationData from '@/lotties/professor.json'
 import { RightArrowIcon } from '@/components/Icons'
 
 const HeroCard = ({ animationData, title, children }) => {
@@ -188,6 +189,34 @@ export default function Home() {
           </Link>
         </div>
       </section>
+      
+      <section className={styles.heroreverse}>
+        <div className={styles.content}>
+          <h3 className={styles.sectiontitle}>Opportunities</h3>
+          <h2>Gain Experience</h2>
+          <p>
+            Learn about jobs, internships, and other opportunities on and off 
+            campus. There are hundreds of opportunities available to students 
+            provided by the campus, professors, and corporations that will 
+            get you ready for your career. 
+          </p>
+          <h2>Learn About Careers</h2>
+          <p>
+            Discover career paths that you never knew about. Exploring careers 
+            now may prepare you for a job once you graduate and help
+            you achieve your dream life.
+          </p>
+          <Link href="/opportunities" passHref>
+            <a className={styles.link}>
+              Go to opportunities <RightArrowIcon />
+            </a>
+          </Link>
+        </div>
+        <div className={styles.animationWrapper}>
+          <LottieWrapper animationData={professorAnimationData} />
+        </div>
+      </section>
+      
       <section className={styles.endheroWrapper}>
         <div className={`${styles.endhero} ${styles.centered}`}>
           <div className={styles.content}>
