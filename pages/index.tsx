@@ -190,7 +190,7 @@ export default function Home() {
         </div>
       </section>
       
-      <section className={styles.heroreverse}>
+      <section className={styles.heroreverselast}>
         <div className={styles.content}>
           <h3 className={styles.sectiontitle}>Opportunities</h3>
           <h2>Gain Experience</h2>

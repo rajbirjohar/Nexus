@@ -10,7 +10,7 @@
 
 .isEmpty:first-child::before {
   /* For some reason need to hard code it in CSS */
-  content: 'What do you want to share with the world today?';
+  content: '"What do you want to share with the world today?"';
   font-weight: 400;
   float: left;
   color: var(--gray-400);
