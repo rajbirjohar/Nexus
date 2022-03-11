@@ -26,7 +26,7 @@ export default function Header() {
 
   return (
     <>
-      {size.width > 668 ? (
+      {size.width > 826 ? (
         <nav
           className={
             scroll ? `${styles.nav} ${styles.shadow}` : `${styles.nav}`
