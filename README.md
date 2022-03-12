@@ -1,7 +1,7 @@
 # Nexus
 
 <p align="center">
-<img src="/documentation/images/NexusLanding.png" alt="cover page for Nexus project">
+<img src="/documentation/images/Banner.png" alt="cover page for Nexus project">
 </p>
 &nbsp;
 
@@ -30,39 +30,39 @@
 <img alt="Next JS" src="https://img.shields.io/badge/nextjs-%23000000.svg?&style=for-the-badge&logo=next.js&logoColor=white"/> <img alt="Vercel" src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white"/> <img alt="Typescript" src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white"/> <img alt="HTML5" src="https://img.shields.io/badge/html5-%23E34F26.svg?&style=for-the-badge&logo=html5&logoColor=white"/> <img alt="CSS3" src="https://img.shields.io/badge/css3-%231572B6.svg?&style=for-the-badge&logo=css3&logoColor=white"/> <img alt="ESLint" src="https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white" /> <img alt="Prettier" src="https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E"/> <img alt="Stack Overflow" src="https://img.shields.io/badge/Stack_Overflow-FE7A16?style=for-the-badge&logo=stack-overflow&logoColor=white"/>
 
 ### Features
-- [x] authentication
-- [x] static site generation
-- [x] server side rendering
-- [x] serverless apis
-- [x] static data fetching
-- [x] dynamic, protected, instant routing
-- [x] user profiles
-- [x] orgs search, post, edit,  read, delete
-- [x] courses search, post, edit, read, delete
-- [x] events search, post, edit,  read, delete
-- [x] comments post, edit,  read, delete
-- [x] dark mode
-- [x] updated color scheme and layout
-- [x] rich text editor
-- [x] organization management
-- [x] notification system
-- [x] opportunities
-- [x] pagination
-- [x] roles collection
-- [x] role permissions
-- [x] add/remove admins
-- [x] add/remove members
-- [x] transfer ownership
-- [x] discover sidebar
-- [x] join/edit organizations
-- [x] latest reviews
-- [x] logo
-- [x] image database
-- [x] organization profile images
-- [x] organization social icons/links
-- [x] banner images for events
-- [x] university course database
-- [x] types
+- [x] Authentication
+- [x] Static site generation
+- [x] Server side rendering
+- [x] Serverless apis
+- [x] Static data fetching
+- [x] Dynamic, protected, instant routing
+- [x] User profiles
+- [x] Orgs search, post, edit,  read, delete
+- [x] Courses search, post, edit, read, delete
+- [x] Events search, post, edit,  read, delete
+- [x] Comments post, edit,  read, delete
+- [x] Dark mode
+- [x] Updated color scheme and layout
+- [x] Rich text editor
+- [x] Organization management
+- [x] Notification system
+- [x] Opportunities
+- [x] Pagination
+- [x] Roles collection
+- [x] Role permissions
+- [x] Add/remove admins
+- [x] Add/remove members
+- [x] Transfer ownership
+- [x] Discover sidebar
+- [x] Join/edit organizations
+- [x] Latest reviews
+- [x] Logo
+- [x] Image database
+- [x] Organization profile images
+- [x] Organization social icons/links
+- [x] Banner images for events
+- [x] University course database
+- [x] Types
 
 ### About
 
@@ -295,7 +295,7 @@ Overall System Diagram
 Our design language leans towards a simple yet tasteful color scheme and layout to create an unparalleled user experience. We want to be able to provide as much information as possible while being digestible for the user. Along with our purple brand, we offer a dark mode for those who enjoy browsing at night giving the user options and control over their experience.
 
 <p align="center">
-<img src="/documentation/images/LandingDark.png" alt="image of Nexus' landing page">
+<img src="/documentation/images/LandingLight.png" alt="image of Nexus' landing page">
 </p>
 &nbsp;
 
@@ -321,10 +321,20 @@ Our Events page features upcoming events from organizations registered with Nexu
 
 ### Organization Page 
 
-Our Organization page features organizations registered with Nexus. Upcoming functionality that will be implemented includes allowing users to become members of organizations and enroll in event notifications.
+Our Organization page features organizations registered with Nexus. Functionality includes allowing users to become members of organizations.
 
 <p align="center">
 <img src="/documentation/images/OrganizationsDark.png" alt="image of Nexus' organization page">
+&nbsp;
+</p>
+&nbsp;
+
+### Opportunities Page 
+
+Our Opportunities page features opportunities posted by UCR professors. Users can see what professors are offering and apply to anything that piques their interest.
+
+<p align="center">
+<img src="/documentation/images/OpportunitiesLight.png" alt="image of Nexus' organization page">
 &nbsp;
 </p>
 &nbsp;
