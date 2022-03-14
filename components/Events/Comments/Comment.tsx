@@ -1,5 +1,5 @@
 import { useSession } from 'next-auth/react'
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import styles from './comment.module.css'
 import CommentEditForm from './CommentEditForm'

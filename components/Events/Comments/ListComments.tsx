@@ -1,7 +1,7 @@
 import Comment from './Comment'
 import styles from './comment.module.css'
 import { useCommentPages } from 'hooks/useCommentPages'
-import Loader from '@/components/Layout/Skeleton'
+import Loader from './Loader'
 
 export default function ListComments({ eventId, isAdmin }) {
   const { data, size, setSize, isLoadingMore, isReachingEnd } = useCommentPages(

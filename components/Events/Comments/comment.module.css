@@ -109,3 +109,28 @@
   display: flex;
   justify-content: center;
 }
+
+.skeleton {
+  display: block;
+}
+
+.dummyauthor {
+  display: flex;
+  align-items: center;
+}
+
+.dummytitle,
+.dummydescription {
+  height: 25px;
+  animation: pulse 2s infinite;
+  margin: 0.05 0 !important;
+  border-radius: var(--radius-sm);
+  background-color: var(--gray-200);
+}
+
+.dummytitle {
+  width: 25%;
+}
+.dummydescription {
+  width: 75%;
+}
