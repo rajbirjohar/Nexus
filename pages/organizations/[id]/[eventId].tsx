@@ -246,7 +246,7 @@ export default function Event({ event, creator, admins }) {
                 <CommentsForm
                   eventId={event._id}
                   orgId={event.orgId}
-                  author={session.user.firstname || session.user.name}
+                  author={session.user.firstname}
                   authorId={session.user.id}
                   email={session.user.email}
                 />

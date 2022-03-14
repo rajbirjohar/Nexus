@@ -76,7 +76,7 @@ export default function Organization({
                   orgId={organization._id}
                   org={organization.name}
                   userId={session.user.id}
-                  firstname={session.user.firstname || session.user.name}
+                  firstname={session.user.firstname}
                   lastname={session.user.lastname}
                   email={session.user.email}
                   role="member"

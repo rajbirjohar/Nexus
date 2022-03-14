@@ -10,7 +10,7 @@ export default function ReviewForm({ course, courseId }: Course) {
   const { data: session } = useSession()
   const initialValues: Review = {
     authorId: session.user.id,
-    author: session.user.firstname || session.user.name,
+    author: session.user.firstname,
     review: '',
     professor: '',
     course: course,
@@ -60,7 +60,7 @@ export default function ReviewForm({ course, courseId }: Course) {
         resetForm({
           values: {
             authorId: session.user.id,
-            author: session.user.firstname || session.user.name,
+            author: session.user.firstname,
             review: '',
             professor: '',
             course: course,
