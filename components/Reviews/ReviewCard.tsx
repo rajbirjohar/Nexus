@@ -109,16 +109,21 @@ export default function ReviewCard({
           <div className={styles.review}>
             <strong>Review:</strong> <br />
             <div dangerouslySetInnerHTML={{ __html: `${review}` }} />
-            <p>
-              <strong>Professor:</strong> {professor}
-            </p>
-            <p>
-              <strong>Taken:</strong> {taken}
-            </p>
+            {professor && (
+              <p>
+                <strong>Professor:</strong> {professor}
+              </p>
+            )}
+            {taken && (
+              <p>
+                <strong>Taken:</strong> {taken}
+              </p>
+            )}
             <p className={styles.author}>
               {' '}
-              {anonymous === true ? <>Anonymous</> : <>{author}</>}{' '}
-              {format(new Date(timestamp), "'at' h:mm bbb")}{' '}
+              {anonymous === true ? <>Anonymous</> : <>{author}</>}
+              <br />
+              {format(new Date(timestamp), 'MM/dd/yyyy h:mm bbb')}{' '}
             </p>
           </div>
         )}
