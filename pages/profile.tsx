@@ -20,6 +20,7 @@ export default function Profile() {
     },
   })
 
+  // Incredibly Dangerous
   // const changeData = async () => {
   //   const response = await fetch('/api/data', {
   //     method: 'PUT',
